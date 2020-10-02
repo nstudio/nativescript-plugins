@@ -1,0 +1,36 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:ui="@nstudio/filterable-listpicker">
+    <Page.actionBar>
+        <ActionBar title="filterable-listpicker" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <GridLayout>
+        <ScrollView class="h-full">
+          <StackLayout class="text-center">
+            <Button text="Open a Fancy Picker" tap="{{ showFancyPicker }}" class="btn btn-primary"/>
+            <Button text="Open a Simple Picker" tap="{{ showPicker }}" class="btn btn-primary"/>
+            <Button text="Open Autocomplete Picker" tap="{{ showAutocompletePicker }}" class="btn btn-primary"/>
+            <Label text="You chose:" visibility="{{ selection ? 'visible' : 'collapse' }}" />
+            <StackLayout visibility="{{ selection && selection.title ? 'visible' : 'collapse' }}" >
+              <Image src="{{ selection.image }}" width="300" visibility="{{ selection.image ? 'visible' : 'collapse' }}" />
+              <Label text="{{ selection.title }}" />
+              <Label color="gray" text="{{ selection.description }}" visibility="{{ selection.description ? 'visible' : 'collapse' }}" />
+            </StackLayout>
+            <Label text="{{ selection }}" visibility="{{ selection && !selection.title ? 'visible' : 'collapse' }}" />
+          </StackLayout>
+        </ScrollView>
+        <ui:FilterableListpicker 
+          focusOnShow="false" 
+          id="myfilter" 
+          headingTitle="Make a selection."
+          blur="dark" 
+          dimmerColor="rgba(76,196,211,0.7)" 
+          listHeight="300"  
+          hintText="Type to filter..." 
+          source="{{items}}" 
+          canceled="{{cancelFilterableList}}" 
+          itemTapped="{{itemTapped}}" 
+          enableSearch="{{ true }}"
+        />        
+
+    </GridLayout>
+</Page>
