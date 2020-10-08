@@ -6,11 +6,12 @@
 	"dependencies": {
 		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
 		"@nativescript/core": "file:../../node_modules/@nativescript/core",
-		"@nstudio/filterable-listpicker": "file:../../packages/filterable-listpicker"
+		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
+		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer"
 	},
 	"devDependencies": {
 		"@nativescript/android": "~7.0.0",
-		"@nativescript/ios": "7.0.0",
+		"@nativescript/ios": "7.0.1",
 		"@nativescript/webpack": "3.0.0",
 		"typescript": "file:../../node_modules/typescript"
 	}

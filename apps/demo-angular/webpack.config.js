@@ -104,6 +104,7 @@ module.exports = env => {
   const copyTargets = [
     { from: 'assets/**', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
     { from: 'fonts/**', noErrorOnMissing: true, globOptions: { dot: false, ...copyIgnore } },
+    { from: '../../../tools/assets/videos', to: 'videos' },
   ];
 
   if (!production) {

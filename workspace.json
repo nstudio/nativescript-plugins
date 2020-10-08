@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run filterable-listpicker:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all"],
 						"parallel": false
 					}
 				},
@@ -87,26 +87,26 @@
 				}
 			}
 		},
-		"filterable-listpicker": {
-			"root": "packages/filterable-listpicker",
-			"sourceRoot": "packages/filterable-listpicker",
+		"nativescript-filterable-listpicker": {
+			"root": "packages/nativescript-filterable-listpicker",
+			"sourceRoot": "packages/nativescript-filterable-listpicker",
 			"projectType": "library",
 			"schematics": {},
 			"architect": {
 				"build": {
 					"builder": "@nrwl/node:package",
 					"options": {
-						"outputPath": "dist/packages/filterable-listpicker",
-						"tsConfig": "packages/filterable-listpicker/tsconfig.json",
-						"packageJson": "packages/filterable-listpicker/package.json",
-						"main": "packages/filterable-listpicker/index.ts",
+						"outputPath": "dist/packages/nativescript-filterable-listpicker",
+						"tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
+						"packageJson": "packages/nativescript-filterable-listpicker/package.json",
+						"main": "packages/nativescript-filterable-listpicker/index.ts",
 						"assets": [
-							"packages/filterable-listpicker/*.md",
-							"packages/filterable-listpicker/index.d.ts",
+							"packages/nativescript-filterable-listpicker/*.md",
+							"packages/nativescript-filterable-listpicker/index.d.ts",
 							"LICENSE",
 							{
 								"glob": "**/*",
-								"input": "packages/filterable-listpicker/platforms/",
+								"input": "packages/nativescript-filterable-listpicker/platforms/",
 								"output": "./platforms/"
 							}
 						]
@@ -116,7 +116,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run filterable-listpicker:build", "node tools/scripts/build-finish.ts filterable-listpicker"],
+						"commands": ["nx run nativescript-filterable-listpicker:build", "node tools/scripts/build-finish.ts nativescript-filterable-listpicker"],
 						"parallel": false
 					}
 				},
@@ -124,7 +124,52 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages filterable-listpicker"],
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-exoplayer": {
+			"root": "packages/nativescript-exoplayer",
+			"sourceRoot": "packages/nativescript-exoplayer",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-exoplayer",
+						"tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
+						"packageJson": "packages/nativescript-exoplayer/package.json",
+						"main": "packages/nativescript-exoplayer/index.ts",
+						"assets": [
+							"packages/nativescript-exoplayer/*.md",
+              "packages/nativescript-exoplayer/index.d.ts",
+              "packages/nativescript-exoplayer/subtitle-source/index.d.ts",
+              "packages/nativescript-exoplayer/video-source/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-exoplayer/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-exoplayer:build", "node tools/scripts/build-finish.ts nativescript-exoplayer"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"],
 						"parallel": false
 					}
 				}

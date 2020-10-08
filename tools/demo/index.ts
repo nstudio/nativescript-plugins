@@ -1,2 +1,3 @@
 export * from './utils';
-export * from './filterable-listpicker';
+export * from './nativescript-filterable-listpicker';
+export * from './nativescript-exoplayer';

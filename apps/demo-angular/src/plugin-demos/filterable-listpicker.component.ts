@@ -2,8 +2,8 @@ import { Component, NgZone } from '@angular/core';
 import { DemoSharedFilterableListpicker } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Http } from '@nativescript/core';
-import { FilterableListpicker } from '@nstudio/filterable-listpicker';
-registerElement("FilterableListpicker", () => require("@nstudio/filterable-listpicker").FilterableListpicker);
+import { FilterableListpicker } from '@nstudio/nativescript-filterable-listpicker';
+registerElement("FilterableListpicker", () => FilterableListpicker);
 let API_KEY = "__YOUR_GOOGLE_API_KEY__";
 let placesApiUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json'
 let placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/json'

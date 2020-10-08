@@ -9,5 +9,8 @@ export class HomeComponent {
 		{
 			name: 'filterable-listpicker',
 		},
+		{
+			name: 'nativescript-exoplayer',
+		},
 	];
 }

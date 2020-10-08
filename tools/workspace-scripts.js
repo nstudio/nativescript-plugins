@@ -63,11 +63,18 @@ module.exports = {
 		// packages
 		// build output is always in dist/packages
 		'@nstudio': {
-			// @nstudio/filterable-listpicker
-			'filterable-listpicker': {
+			// @nstudio/nativescript-filterable-listpicker
+			'nativescript-filterable-listpicker': {
 				build: {
-					script: 'nx run filterable-listpicker:build.all',
-					description: '@nstudio/filterable-listpicker: Build',
+					script: 'nx run nativescript-filterable-listpicker:build.all',
+					description: '@nstudio/nativescript-filterable-listpicker: Build',
+				},
+			},
+			// @nstudio/nativescript-exoplayer
+			'nativescript-exoplayer': {
+				build: {
+					script: 'nx run nativescript-exoplayer:build.all',
+					description: '@nstudio/nativescript-exoplayer: Build',
 				},
 			},
 			'build-all': {
@@ -80,9 +87,13 @@ module.exports = {
 			description: '_____________  Focus (VS Code supported)  _____________',
 		},
 		focus: {
-			'filterable-listpicker': {
-				script: 'nx run filterable-listpicker:focus',
-				description: 'Focus on @nstudio/filterable-listpicker',
+			'nativescript-filterable-listpicker': {
+				script: 'nx run nativescript-filterable-listpicker:focus',
+				description: 'Focus on @nstudio/nativescript-filterable-listpicker',
+			},
+			'nativescript-exoplayer': {
+				script: 'nx run nativescript-exoplayer:focus',
+				description: 'Focus on @nstudio/nativescript-exoplayer',
 			},
 			reset: {
 				script: 'nx run all:focus',
