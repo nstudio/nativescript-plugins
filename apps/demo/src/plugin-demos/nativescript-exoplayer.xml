@@ -4,7 +4,7 @@
         </ActionBar>
     </Page.actionBar>
     <StackLayout class="p-20">
-      <ScrollView>
+      <ScrollView class="h-full">
         <StackLayout>
           <StackLayout orientation="horizontal">
             <Button text="Switch Video" width="43%" tap="{{ changeVideoSource }}" />

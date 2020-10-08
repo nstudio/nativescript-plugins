@@ -3,7 +3,7 @@ package technology.master.exoplayer;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.TransferListener;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

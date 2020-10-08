@@ -78,7 +78,8 @@ function onImgSrcPropertyChanged(view, oldValue, newValue) {
 export const enum VideoFill {
     default = "default",
     aspect = "aspect",
-    aspectFill = "aspectFill"
+    aspectFill = "aspectFill",
+    fill = "fill"
 }
 
 export class Video extends View {
@@ -109,6 +110,7 @@ export class Video extends View {
     public muted: boolean = false;
     public fill: VideoFill = VideoFill.default;
     public detectChapters: boolean = false;
+    public backgroundAudio: boolean = false;
 
     public encryptionKey: string = null;
     public encryptionIV: string = null;
