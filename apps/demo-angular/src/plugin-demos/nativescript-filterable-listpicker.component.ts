@@ -11,7 +11,7 @@ let placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/js
 
 @Component({
 	selector: 'demo-filterable-listpicker',
-	templateUrl: 'filterable-listpicker.component.html',
+	templateUrl: 'nativescript-filterable-listpicker.component.html',
 })
 export class FilterableListpickerComponent {
 	demoShared: DemoSharedFilterableListpicker;

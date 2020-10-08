@@ -172,16 +172,18 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 
 	private trackVideoCurrentPosition(): number {
 		let trackInterval = <any>Utils.setInterval(() => {
-			let x, y;
-			if (this.completed) {
-				x = '';
-				y = '';
-			} else {
-				x = this._videoPlayer.getCurrentTime();
-				y = this._videoPlayer.getDuration();
-			}
-			this.set('currentTime', x);
-			this.set('videoDuration', y);
+      let x, y;
+      if (this._videoPlayer) {
+        if (this.completed) {
+          x = '';
+          y = '';
+        } else {
+          x = this._videoPlayer.getCurrentTime();
+          y = this._videoPlayer.getDuration();
+        }
+        this.set('currentTime', x);
+        this.set('videoDuration', y);
+      }
 		}, 200);
 		return trackInterval;
 	}

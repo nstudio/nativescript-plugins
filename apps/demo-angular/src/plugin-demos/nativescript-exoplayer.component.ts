@@ -1,7 +1,9 @@
 import { Component, NgZone } from '@angular/core';
 import { DemoSharedNativescriptExoplayer } from '@demo/shared';
+import { registerElement } from '@nativescript/angular';
 import { Page } from '@nativescript/core';
-import {} from '@nstudio/nativescript-exoplayer';
+import { Video } from '@nstudio/nativescript-exoplayer';
+registerElement('ExoPlayer', () => Video);
 
 @Component({
 	selector: 'demo-nativescript-exoplayer',

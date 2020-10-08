@@ -75,7 +75,7 @@ function onImgSrcPropertyChanged(view, oldValue, newValue) {
 /**
  * Video aspect/fill handling
  */
-export const enum VideoFill {
+export enum VideoFill {
     default = "default",
     aspect = "aspect",
     aspectFill = "aspectFill",
