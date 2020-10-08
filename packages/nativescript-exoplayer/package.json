@@ -1,21 +1,21 @@
 {
-	"name": "@nstudio/nativescript-exoplayer",
-	"version": "5.0.0",
-	"description": "NativeScript plugin that uses the ExoPlayer video player on Android and AVPlayerViewController on iOS to play local and remote videos.",
-	"main": "index",
-	"typings": "index.d.ts",
-	"nativescript": {
-		"platforms": {
-			"ios": "6.0.0",
-			"android": "6.0.0"
-		}
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/nstudio/nativescript-plugins.git"
-	},
-	"keywords": [
-		"NativeScript",
+  "name": "@nstudio/nativescript-exoplayer",
+  "version": "5.0.1",
+  "description": "NativeScript plugin that uses the ExoPlayer video player on Android and AVPlayerViewController on iOS to play local and remote videos.",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "ios": "6.0.0",
+      "android": "6.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nstudio/nativescript-plugins.git"
+  },
+  "keywords": [
+    "NativeScript",
     "Android",
     "iOS",
     "TypeScript",
@@ -76,11 +76,11 @@
     "email": "nathan@master-technology.com",
     "url": "https://github.com/nathanaela"
   },
-	"bugs": {
-		"url": "https://github.com/nstudio/nativescript-plugins/issues"
-	},
-	"license": "Apache-2.0",
-	"homepage": "https://github.com/nstudio/nativescript-plugins",
-	"readmeFilename": "README.md",
-	"bootstrapper": "@nativescript/plugin-seed"
+  "bugs": {
+    "url": "https://github.com/nstudio/nativescript-plugins/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/nstudio/nativescript-plugins",
+  "readmeFilename": "README.md",
+  "bootstrapper": "@nativescript/plugin-seed"
 }
