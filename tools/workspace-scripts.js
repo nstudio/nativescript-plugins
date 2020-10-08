@@ -77,6 +77,13 @@ module.exports = {
 					description: '@nstudio/nativescript-exoplayer: Build',
 				},
 			},
+			// @nstudio/nativescript-checkbox
+			'nativescript-checkbox': {
+				build: {
+					script: 'nx run nativescript-checkbox:build.all',
+					description: '@nstudio/nativescript-checkbox: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -94,6 +101,10 @@ module.exports = {
 			'nativescript-exoplayer': {
 				script: 'nx run nativescript-exoplayer:focus',
 				description: 'Focus on @nstudio/nativescript-exoplayer',
+			},
+			'nativescript-checkbox': {
+				script: 'nx run nativescript-checkbox:focus',
+				description: 'Focus on @nstudio/nativescript-checkbox',
 			},
 			reset: {
 				script: 'nx run all:focus',

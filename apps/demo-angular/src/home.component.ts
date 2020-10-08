@@ -7,10 +7,13 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 	demos = [
 		{
-			name: 'filterable-listpicker',
+			name: 'nativescript-checkbox',
 		},
 		{
 			name: 'nativescript-exoplayer',
+		},
+		{
+			name: 'nativescript-filterable-listpicker',
 		},
 	];
 }

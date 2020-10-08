@@ -7,6 +7,7 @@
       <StackLayout>
 <Button text="filterable-listpicker" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
 <Button text="nativescript-exoplayer" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-checkbox" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

@@ -65,3 +65,17 @@
   border-width: 1; 
   font-size: 12;
 }
+
+CheckBox {
+  vertical-align: center;
+  color: white;
+  font-size: 20;
+}
+
+.listitem {
+  vertical-align: center;
+  horizontal-align: left;
+  margin-bottom: 10;
+  width: 100%;
+  background-color: transparent;
+}

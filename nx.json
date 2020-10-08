@@ -28,6 +28,9 @@
 		},
 		"nativescript-exoplayer": {
 			"tags": []
+		},
+		"nativescript-checkbox": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

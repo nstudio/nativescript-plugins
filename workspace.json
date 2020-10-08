@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all"],
 						"parallel": false
 					}
 				},
@@ -178,6 +178,49 @@
 					"outputs": ["dist/packages"],
 					"options": {
 						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-checkbox": {
+			"root": "packages/nativescript-checkbox",
+			"sourceRoot": "packages/nativescript-checkbox",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-checkbox",
+						"tsConfig": "packages/nativescript-checkbox/tsconfig.json",
+						"packageJson": "packages/nativescript-checkbox/package.json",
+						"main": "packages/nativescript-checkbox/index.ts",
+						"assets": [
+							"packages/nativescript-checkbox/*.md",
+							"packages/nativescript-checkbox/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-checkbox/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-checkbox:build", "node tools/scripts/build-finish.ts nativescript-checkbox"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"],
 						"parallel": false
 					}
 				}
