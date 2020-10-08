@@ -145,14 +145,22 @@
 						"main": "packages/nativescript-exoplayer/index.ts",
 						"assets": [
 							"packages/nativescript-exoplayer/*.md",
-              "packages/nativescript-exoplayer/index.d.ts",
-              "packages/nativescript-exoplayer/subtitle-source/index.d.ts",
-              "packages/nativescript-exoplayer/video-source/index.d.ts",
+							"packages/nativescript-exoplayer/index.d.ts",
 							"LICENSE",
 							{
 								"glob": "**/*",
 								"input": "packages/nativescript-exoplayer/platforms/",
 								"output": "./platforms/"
+							},
+							{
+								"glob": "index.d.ts",
+								"input": "packages/nativescript-exoplayer/subtitle-source/",
+								"output": "./subtitle-source/"
+							},
+							{
+								"glob": "index.d.ts",
+								"input": "packages/nativescript-exoplayer/video-source/",
+								"output": "./video-source/"
 							}
 						]
 					}
