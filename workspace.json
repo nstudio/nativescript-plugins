@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run filterable-listpicker:build.all", "nx run onfido:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all"],
 						"parallel": false
 					}
 				},
@@ -87,26 +87,26 @@
 				}
 			}
 		},
-		"filterable-listpicker": {
-			"root": "packages/filterable-listpicker",
-			"sourceRoot": "packages/filterable-listpicker",
+		"nativescript-filterable-listpicker": {
+			"root": "packages/nativescript-filterable-listpicker",
+			"sourceRoot": "packages/nativescript-filterable-listpicker",
 			"projectType": "library",
 			"schematics": {},
 			"architect": {
 				"build": {
 					"builder": "@nrwl/node:package",
 					"options": {
-						"outputPath": "dist/packages/filterable-listpicker",
-						"tsConfig": "packages/filterable-listpicker/tsconfig.json",
-						"packageJson": "packages/filterable-listpicker/package.json",
-						"main": "packages/filterable-listpicker/index.ts",
+						"outputPath": "dist/packages/nativescript-filterable-listpicker",
+						"tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
+						"packageJson": "packages/nativescript-filterable-listpicker/package.json",
+						"main": "packages/nativescript-filterable-listpicker/index.ts",
 						"assets": [
-							"packages/filterable-listpicker/*.md",
-							"packages/filterable-listpicker/index.d.ts",
+							"packages/nativescript-filterable-listpicker/*.md",
+							"packages/nativescript-filterable-listpicker/index.d.ts",
 							"LICENSE",
 							{
 								"glob": "**/*",
-								"input": "packages/filterable-listpicker/platforms/",
+								"input": "packages/nativescript-filterable-listpicker/platforms/",
 								"output": "./platforms/"
 							}
 						]
@@ -116,7 +116,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run filterable-listpicker:build", "node tools/scripts/build-finish.ts filterable-listpicker"],
+						"commands": ["nx run nativescript-filterable-listpicker:build", "node tools/scripts/build-finish.ts nativescript-filterable-listpicker"],
 						"parallel": false
 					}
 				},
@@ -124,32 +124,85 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages filterable-listpicker"],
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"],
 						"parallel": false
 					}
 				}
 			}
 		},
-		"onfido": {
-			"root": "packages/onfido",
-			"sourceRoot": "packages/onfido",
+		"nativescript-exoplayer": {
+			"root": "packages/nativescript-exoplayer",
+			"sourceRoot": "packages/nativescript-exoplayer",
 			"projectType": "library",
 			"schematics": {},
 			"architect": {
 				"build": {
 					"builder": "@nrwl/node:package",
 					"options": {
-						"outputPath": "dist/packages/onfido",
-						"tsConfig": "packages/onfido/tsconfig.json",
-						"packageJson": "packages/onfido/package.json",
-						"main": "packages/onfido/index.ts",
+						"outputPath": "dist/packages/nativescript-exoplayer",
+						"tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
+						"packageJson": "packages/nativescript-exoplayer/package.json",
+						"main": "packages/nativescript-exoplayer/index.ts",
 						"assets": [
-							"packages/onfido/*.md",
-							"packages/onfido/index.d.ts",
+							"packages/nativescript-exoplayer/*.md",
+							"packages/nativescript-exoplayer/index.d.ts",
 							"LICENSE",
 							{
 								"glob": "**/*",
-								"input": "packages/onfido/platforms/",
+								"input": "packages/nativescript-exoplayer/platforms/",
+								"output": "./platforms/"
+							},
+							{
+								"glob": "index.d.ts",
+								"input": "packages/nativescript-exoplayer/subtitle-source/",
+								"output": "./subtitle-source/"
+							},
+							{
+								"glob": "index.d.ts",
+								"input": "packages/nativescript-exoplayer/video-source/",
+								"output": "./video-source/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-exoplayer:build", "node tools/scripts/build-finish.ts nativescript-exoplayer"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-checkbox": {
+			"root": "packages/nativescript-checkbox",
+			"sourceRoot": "packages/nativescript-checkbox",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-checkbox",
+						"tsConfig": "packages/nativescript-checkbox/tsconfig.json",
+						"packageJson": "packages/nativescript-checkbox/package.json",
+						"main": "packages/nativescript-checkbox/index.ts",
+						"assets": [
+							"packages/nativescript-checkbox/*.md",
+							"packages/nativescript-checkbox/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-checkbox/platforms/",
 								"output": "./platforms/"
 							}
 						]
@@ -159,7 +212,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run onfido:build", "node tools/scripts/build-finish.ts onfido"],
+						"commands": ["nx run nativescript-checkbox:build", "node tools/scripts/build-finish.ts nativescript-checkbox"],
 						"parallel": false
 					}
 				},
@@ -167,7 +220,50 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages onfido"],
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-onfido": {
+			"root": "packages/nativescript-onfido",
+			"sourceRoot": "packages/nativescript-onfido",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-onfido",
+						"tsConfig": "packages/nativescript-onfido/tsconfig.json",
+						"packageJson": "packages/nativescript-onfido/package.json",
+						"main": "packages/nativescript-onfido/index.ts",
+						"assets": [
+							"packages/nativescript-onfido/*.md",
+							"packages/nativescript-onfido/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-onfido/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-onfido:build", "node tools/scripts/build-finish.ts nativescript-onfido"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"],
 						"parallel": false
 					}
 				}

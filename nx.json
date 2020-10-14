@@ -23,7 +23,13 @@
 		"all": {
 			"tags": []
 		},
-		"filterable-listpicker": {
+		"nativescript-filterable-listpicker": {
+			"tags": []
+		},
+		"nativescript-exoplayer": {
+			"tags": []
+		},
+		"nativescript-checkbox": {
 			"tags": []
 		},
 		"onfido": {

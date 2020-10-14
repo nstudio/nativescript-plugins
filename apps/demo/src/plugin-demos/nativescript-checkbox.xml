@@ -1,0 +1,70 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:ui="@nstudio/nativescript-checkbox">
+    <Page.actionBar>
+        <ActionBar title="nativescript-checkbox" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <TabView id="tabViewContainer" selectedColor="#fff" tabBackgroundColor="black" tabTextColor="white" selectedTabTextColor="#fff000" androidTabsPosition="bottom" tabTextFontSize="14" iosIconRenderingMode="alwaysOriginal">
+        <TabView.items>
+            <TabViewItem title="General" class="tab-item">
+                <TabViewItem.view>
+                    <ScrollView>
+                        <StackLayout id="wrapper">
+                            <ui:CheckBox boxType="circle" id="fontSizeTest" fillColor="#fff000" color="white" onCheckColor="green" text="Font Size Circle Test" tint="red" tintColor="red" checked="false" class="fontBig" />
+
+                            <Label text="" class="hr-light m-t-10 m-b-10" textWrap="true" />
+
+                            <Label text="Functions" class="title" />
+                            // Custom CheckBox on Android
+                            <StackLayout class="listitem">
+                                <android>
+                                    <Label text="The following checkbox uses a custom xml for Android in app_resources/drawable-nodpi. The images haven't been sized correctly, so the demo is a bit ugly, but you can see the effect possible with a `checkStyle` on Android." textWrap="true" />
+                                </android>
+                                <GridLayout rows="*, *" columns="*, *" class="demosection">
+                                    <ui:CheckBox row="0" col="0" colSpan="2" boxType="square" checkPadding="36" checkStyle="custom_checkbox" id="toggleTest" text="toggle()" checked="false" />
+                                    <Button row="1" col="0" text="Toggle" tap="{{onToggleTest}}" class="btn btn-primary" />
+                                    <Button row="1" col="1" text="Disable/Enable" tap="{{onCustomCheckStateChange}}" class="btn btn-primary" />
+                                </GridLayout>
+                            </StackLayout>
+
+                            <Label text="" class="hr-light m-t-10 m-b-10" textWrap="true" />
+
+                            // Events
+                            <Label text="Events" class="title" />
+                            <StackLayout class="listitem">
+                                <Button text="Disable Checkbox" tap="{{disabledTapTestCheck}}" class="btn btn-primary" />
+                                <ui:CheckBox id="tapTestCheck" text="tap test" checked="false" tintColor="#fff000" tap="onTapTest" />
+                                <Label text="{{ eventLabel }}" textWrap="true" class="message" />
+                            </StackLayout>
+
+                            <Label text="" class="hr-light m-t-10 m-b-10" textWrap="true" />
+
+                            // Repeater Example
+                            <Label text="Bound to Repeater" class="title" />
+                            <StackLayout class="demosection">
+                                <Repeater items="{{ data }}">
+                                    <Repeater.itemTemplate>
+                                        <StackLayout class="listitem">
+                                            <ui:CheckBox text="{{ text }}" checked="{{ checked }}" fillColor="{{ color }}" tintColor="{{ color }}" tap="onRepeaterItemTap" />
+                                        </StackLayout>
+                                    </Repeater.itemTemplate>
+                                </Repeater>
+                                <Label id="modelDumpLabel" textWrap="true" class="message" />
+                            </StackLayout>>
+                        </StackLayout>
+                    </ScrollView>
+                </TabViewItem.view>
+            </TabViewItem>
+            <TabViewItem title="Listview" class="tab-item">
+                <TabViewItem.view>
+                    <ListView items="{{ uberData }}" separatorColor="#d0d0d0">
+                        <ListView.itemTemplate>
+                            <StackLayout class="list-item">
+                                <ui:CheckBox class="list-check" ios:color="#555" text="{{ text }}" checked="{{ checked }}" fillColor="{{ color }}" tintColor="{{ color }}" propertyChanged="onPropertyChanged" />
+                            </StackLayout>
+                        </ListView.itemTemplate>
+                    </ListView>
+                </TabViewItem.view>
+            </TabViewItem>
+        </TabView.items>
+    </TabView>
+</Page>

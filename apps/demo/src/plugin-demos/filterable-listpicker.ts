@@ -1,6 +1,6 @@
 import { Observable, EventData, Page, ObservableArray, Http } from '@nativescript/core';
 import { DemoSharedFilterableListpicker } from '@demo/shared';
-import { FilterableListpicker } from '@nstudio/filterable-listpicker';
+import { FilterableListpicker } from '@nstudio/nativescript-filterable-listpicker';
 
 export function navigatingTo(args: EventData) {
 	const page = <Page>args.object;

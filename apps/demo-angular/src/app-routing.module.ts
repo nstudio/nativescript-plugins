@@ -7,8 +7,10 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
 	{ path: '', redirectTo: '/home', pathMatch: 'full' },
 	{ path: 'home', component: HomeComponent },
-	{ path: 'filterable-listpicker', loadChildren: () => import('./plugin-demos/filterable-listpicker.module').then((m) => m.FilterableListpickerModule) },
-	{ path: 'onfido', loadChildren: () => import('./plugin-demos/onfido.module').then((m) => m.OnfidoModule) },
+	{ path: 'nativescript-checkbox', loadChildren: () => import('./plugin-demos/nativescript-checkbox.module').then((m) => m.NativescriptCheckboxModule) },
+	{ path: 'nativescript-exoplayer', loadChildren: () => import('./plugin-demos/nativescript-exoplayer.module').then((m) => m.NativescriptExoplayerModule) },
+	{ path: 'nativescript-filterable-listpicker', loadChildren: () => import('./plugin-demos/nativescript-filterable-listpicker.module').then((m) => m.NativeScriptFilterableListpickerModule) },
+	{ path: 'nativescript-onfido', loadChildren: () => import('./plugin-demos/nativescript-onfido.module').then((m) => m.NativeScriptOnfidoModule) },
 ];
 
 @NgModule({

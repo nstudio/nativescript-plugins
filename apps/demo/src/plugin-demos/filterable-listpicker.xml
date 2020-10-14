@@ -1,6 +1,6 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:ui="@nstudio/filterable-listpicker">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:ui="@nstudio/nativescript-filterable-listpicker">
     <Page.actionBar>
-        <ActionBar title="filterable-listpicker" icon="" class="action-bar">
+        <ActionBar title="nativescript-filterable-listpicker" icon="" class="action-bar">
         </ActionBar>
     </Page.actionBar>
     <GridLayout>

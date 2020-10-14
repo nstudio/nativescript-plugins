@@ -23,7 +23,7 @@
 		"@angular/router": "~10.1.0",
 		"@nativescript/angular": "~10.1.0",
 		"@nativescript/core": "~7.0.0",
-		"@nativescript/plugin-tools": "~1.0.0",
+		"@nativescript/plugin-tools": "1.0.6",
 		"@nativescript/types": "~7.0.0",
 		"@nativescript/webpack": "~3.0.0",
 		"@ngtools/webpack": "~10.1.0",
@@ -31,7 +31,7 @@
 		"nativescript-vue-template-compiler": "~2.8.0",
 		"ng-packagr": "~10.1.0",
 		"rxjs": "~6.6.0",
-		"typescript": "~3.9.7",
+		"typescript": "~4.0.3",
 		"zone.js": "0.11.1"
 	},
 	"husky": {

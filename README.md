@@ -5,8 +5,9 @@ npm run setup
 npm start
 ```
 
-- @nstudio/filterable-listpicker
-- @nstudio/onfido
+- @nstudio/nativescript-checkbox
+- @nstudio/nativescript-exoplayer
+- @nstudio/nativescript-filterable-listpicker
 
 # How to use?
 

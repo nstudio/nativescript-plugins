@@ -1,0 +1,86 @@
+{
+  "name": "@nstudio/nativescript-exoplayer",
+  "version": "5.0.4",
+  "description": "NativeScript plugin that uses the ExoPlayer video player on Android and AVPlayerViewController on iOS to play local and remote videos.",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "ios": "6.0.0",
+      "android": "6.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nstudio/nativescript-plugins.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "Android",
+    "iOS",
+    "TypeScript",
+    "video",
+    "video player",
+    "movie",
+    "exoplayer",
+    "subtitles"
+  ],
+  "contributors": [
+    {
+      "name": "Nathanael Anderson",
+      "email": "nathan@master-technology.com",
+      "url": "https://github.com/nathanaela"
+    },
+    {
+      "name": "Brad Martin",
+      "email": "bradmartin0905@gmail.com",
+      "url": "https://github.com/bradmartin"
+    },
+    {
+      "name": "Alexander Ziskind",
+      "email": "alex@nuvious.com",
+      "url": "https://github.com/alexziskind1"
+    },
+    {
+      "name": "Blake Nussey",
+      "email": "blake@stageme.com",
+      "url": "https://github.com/bnussey"
+    },
+    {
+      "name": "Juan Manuel Campos Olvera",
+      "email": "juan4106@hotmail.com",
+      "url": "https://github.com/juanmcampos"
+    },
+    {
+      "name": "Ivo Georgiev",
+      "email": "ivo@strem.io",
+      "url": "https://github.com/Ivshti"
+    },
+    {
+      "name": "Alexander Semenov",
+      "email": "asemenovboyarka@gmail.com",
+      "url": "https://github.com/SemenovAlexander"
+    },
+    {
+      "name": "Nathan Walker",
+      "email": "walkerrunpdx@gmail.com",
+      "url": "https://github.com/NathanWalker"
+    },
+    {
+      "name": "NativeScript",
+      "email": "oss@nativescript.org"
+    }
+  ],
+  "author": {
+    "name": "Nathanael Anderson",
+    "email": "nathan@master-technology.com",
+    "url": "https://github.com/nathanaela"
+  },
+  "bugs": {
+    "url": "https://github.com/nstudio/nativescript-plugins/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/nstudio/nativescript-plugins",
+  "readmeFilename": "README.md",
+  "bootstrapper": "@nativescript/plugin-seed"
+}
