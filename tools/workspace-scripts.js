@@ -84,11 +84,11 @@ module.exports = {
 					description: '@nstudio/nativescript-checkbox: Build',
 				},
 			},
-			// @nstudio/onfido
-			onfido: {
+			// @nstudio/nativescript-onfido
+			'nativescript-onfido': {
 				build: {
-					script: 'nx run onfido:build.all',
-					description: '@nstudio/onfido: Build',
+					script: 'nx run nativescript-onfido:build.all',
+					description: '@nstudio/nativescript-onfido: Build',
 				},
 			},
 			'build-all': {
@@ -113,9 +113,9 @@ module.exports = {
 				script: 'nx run nativescript-checkbox:focus',
 				description: 'Focus on @nstudio/nativescript-checkbox',
 			},
-			onfido: {
-				script: 'nx run onfido:focus',
-				description: 'Focus on @nstudio/onfido',
+			'nativescript-onfido': {
+				script: 'nx run nativescript-onfido:focus',
+				description: 'Focus on @nstudio/nativescript-onfido',
 			},
 			reset: {
 				script: 'nx run all:focus',

@@ -1,5 +1,5 @@
 {
-	"name": "@nstudio/onfido",
+	"name": "@nstudio/nativescript-onfido",
 	"version": "1.0.0",
 	"description": "Add a plugin description",
 	"main": "index",

@@ -1,7 +1,7 @@
 # Nativescript onfido
 
 ```javascript
-ns plugin add @nstudio/onfido
+ns plugin add @nstudio/nativescript-onfido
 ```
 
 ## Usage

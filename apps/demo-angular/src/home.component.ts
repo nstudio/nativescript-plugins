@@ -16,7 +16,7 @@ export class HomeComponent {
 			name: 'nativescript-filterable-listpicker',
 		},
 		{
-			name: 'onfido',
+			name: 'nativescript-onfido',
 		},
 	];
 }

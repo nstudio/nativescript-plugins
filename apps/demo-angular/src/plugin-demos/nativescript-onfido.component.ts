@@ -1,10 +1,10 @@
 import { Component, NgZone } from '@angular/core';
 import { DemoSharedOnfido } from '@demo/shared';
-import {} from '@nstudio/onfido';
+import {} from '@nstudio/nativescript-onfido';
 
 @Component({
 	selector: 'demo-onfido',
-	templateUrl: 'onfido.component.html',
+	templateUrl: 'nativescript-onfido.component.html',
 })
 export class OnfidoComponent {
 	demoShared: DemoSharedOnfido;

@@ -1,0 +1,19 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+  <Page.actionBar>
+    <ActionBar title="onfido" icon="" class="action-bar"></ActionBar>
+  </Page.actionBar>
+  <StackLayout class="p-20">
+    <ScrollView class="h-full">
+      <StackLayout class="text-center">
+        <Button text="Create Onfido Applicant" tap="{{ createApplicant }}" class="btn btn-primary"/>
+
+        <StackLayout visibility="{{ applicant && applicant.id ? 'visible' : 'collapse' }}">
+          <Label text="Your Applicant ID:" />
+          <Label text="{{ applicant.id }}" />
+
+          <Button text="Get SDK Token" tap="{{ getSdkToken }}" class="btn btn-primary m-t-10"/>
+        </StackLayout>
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+</Page>
