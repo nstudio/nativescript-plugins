@@ -1,0 +1,5 @@
+use_modular_headers!
+
+platform :ios, '13.0'
+
+pod 'Onfido', '~> 18.7.0'

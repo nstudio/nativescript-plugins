@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run filterable-listpicker:build.all"],
+						"commands": ["nx run filterable-listpicker:build.all", "nx run onfido:build.all"],
 						"parallel": false
 					}
 				},
@@ -125,6 +125,49 @@
 					"outputs": ["dist/packages"],
 					"options": {
 						"commands": ["nx g @nativescript/plugin-tools:focus-packages filterable-listpicker"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"onfido": {
+			"root": "packages/onfido",
+			"sourceRoot": "packages/onfido",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/onfido",
+						"tsConfig": "packages/onfido/tsconfig.json",
+						"packageJson": "packages/onfido/package.json",
+						"main": "packages/onfido/index.ts",
+						"assets": [
+							"packages/onfido/*.md",
+							"packages/onfido/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/onfido/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run onfido:build", "node tools/scripts/build-finish.ts onfido"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages onfido"],
 						"parallel": false
 					}
 				}

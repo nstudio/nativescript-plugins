@@ -6,6 +6,7 @@ npm start
 ```
 
 - @nstudio/filterable-listpicker
+- @nstudio/onfido
 
 # How to use?
 

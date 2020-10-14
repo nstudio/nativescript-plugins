@@ -15,7 +15,8 @@
 		"reflect-metadata": "file:../../node_modules/reflect-metadata",
 		"rxjs": "file:../../node_modules/rxjs",
 		"zone.js": "file:../../node_modules/zone.js",
-		"@nstudio/filterable-listpicker": "file:../../dist/packages/filterable-listpicker"
+		"@nstudio/filterable-listpicker": "file:../../dist/packages/filterable-listpicker",
+		"@nstudio/onfido": "file:../../dist/packages/onfido"
 	},
 	"devDependencies": {
 		"@angular/compiler-cli": "file:../../node_modules/@angular/compiler-cli",

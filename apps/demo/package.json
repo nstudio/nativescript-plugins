@@ -6,7 +6,8 @@
 	"dependencies": {
 		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
 		"@nativescript/core": "file:../../node_modules/@nativescript/core",
-		"@nstudio/filterable-listpicker": "file:../../packages/filterable-listpicker"
+		"@nstudio/filterable-listpicker": "file:../../packages/filterable-listpicker",
+		"@nstudio/onfido": "file:../../packages/onfido"
 	},
 	"devDependencies": {
 		"@nativescript/android": "~7.0.0",

@@ -4,3 +4,6 @@
 // To build for device with Xcode 8 you need to specify your development team. More info: https://developer.apple.com/library/prerelease/content/releasenotes/DeveloperTools/RN-Xcode/Introduction.html
 // DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES=YES
+EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64=arm64 arm64e armv7 armv7s armv6 armv8
+EXCLUDED_ARCHS=$(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_$(EFFECTIVE_PLATFORM_SUFFIX)__NATIVE_ARCH_64_BIT_$(NATIVE_ARCH_64_BIT))

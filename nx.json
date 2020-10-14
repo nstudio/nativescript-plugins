@@ -25,6 +25,9 @@
 		},
 		"filterable-listpicker": {
 			"tags": []
+		},
+		"onfido": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

@@ -70,6 +70,13 @@ module.exports = {
 					description: '@nstudio/filterable-listpicker: Build',
 				},
 			},
+			// @nstudio/onfido
+			onfido: {
+				build: {
+					script: 'nx run onfido:build.all',
+					description: '@nstudio/onfido: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -83,6 +90,10 @@ module.exports = {
 			'filterable-listpicker': {
 				script: 'nx run filterable-listpicker:focus',
 				description: 'Focus on @nstudio/filterable-listpicker',
+			},
+			onfido: {
+				script: 'nx run onfido:focus',
+				description: 'Focus on @nstudio/onfido',
 			},
 			reset: {
 				script: 'nx run all:focus',
