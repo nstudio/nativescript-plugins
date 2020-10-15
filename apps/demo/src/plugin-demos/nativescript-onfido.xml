@@ -12,6 +12,13 @@
           <Label text="{{ applicant.id }}" />
 
           <Button text="Get SDK Token" tap="{{ getSdkToken }}" class="btn btn-primary m-t-10"/>
+
+          <StackLayout visibility="{{ sdkToken ? 'visible' : 'collapse' }}">
+            <Label text="Your SDK token:" />
+            <Label text="{{ sdkToken }}" />
+
+            <Button text="Verify Identity" tap="{{ startFlow }}" class="btn btn-primary m-t-10"/>
+          </StackLayout>
         </StackLayout>
       </StackLayout>
     </ScrollView>

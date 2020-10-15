@@ -1,5 +1,12 @@
 import { Http, Observable } from '@nativescript/core';
 
+export interface IOnfidoConfigOptions {
+  showWelcome?: boolean;
+  faceVerify?: boolean;
+  documentVerify?: 'any'|'driving_license'|'generic'|'national_identity_card'|'passport'|'residence_permit'|'visa'|'work_permit';
+  country?: string; // required if using any document type other than any.
+}
+
 export class OnfidoCommon extends Observable {
 
   static apiToken: string;
@@ -58,5 +65,5 @@ export class OnfidoCommon extends Observable {
     });
   }
 
-  static createConfiguration() {}
+  static createConfiguration(sdkToken?, options?: IOnfidoConfigOptions) {}
 }

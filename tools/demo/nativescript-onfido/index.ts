@@ -4,7 +4,7 @@ import { Onfido } from '@nstudio/nativescript-onfido';
 export class DemoSharedOnfido extends DemoSharedBase {
 
 	public applicant: any;
-	public sdkToken
+	public sdkToken: string;
 
 	createApplicant() {
 		Onfido.init('api_sandbox.TlnUCxxjM3B.USz2M3G4BaGEWVetbryGRwulvK2JmqGd', 'foo');
@@ -20,8 +20,15 @@ export class DemoSharedOnfido extends DemoSharedBase {
 		Onfido.getSdkToken().catch(error => {
 			alert(error);
 		}).then(result => {
-			Onfido.createConfiguration();
+			this.set('sdkToken', result)
 			// this.set('applicant', result)
 		})
+	}
+
+	startFlow() {
+		Onfido.createConfiguration(false, {
+			showWelcome: true,
+			faceVerify: true
+		});
 	}
 }
