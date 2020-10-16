@@ -1,43 +1,43 @@
 {
-  "name": "@nstudio/nativescript-checkbox",
-  "version": "2.0.3",
-  "description": "NativeScript plugin for checkbox.",
-  "main": "index",
-  "typings": "index.d.ts",
-  "nativescript": {
-    "platforms": {
-      "ios": "6.0.0",
-      "android": "6.0.0"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nstudio/nativescript-plugins.git"
-  },
-  "keywords": [
-    "NativeScript",
-    "TypeScript",
-    "Android",
-    "iOS",
-    "Material Design",
-    "CheckBox",
-    "nStudio"
-  ],
-  "author": {
-    "name": "Brad Martin",
-    "email": "bradwaynemartin@gmail.com"
-  },
-  "contributors": [
-    {
-      "name": "NativeScript",
-      "email": "oss@nativescript.org"
-    }
-  ],
-  "bugs": {
-    "url": "https://github.com/nstudio/nativescript-plugins/issues"
-  },
-  "license": "Apache-2.0",
-  "homepage": "https://github.com/nstudio/nativescript-plugins",
-  "readmeFilename": "README.md",
-  "bootstrapper": "@nativescript/plugin-seed"
+	"name": "@nstudio/nativescript-checkbox",
+	"version": "2.0.4",
+	"description": "NativeScript plugin for checkbox.",
+	"main": "index",
+	"typings": "index.d.ts",
+	"nativescript": {
+		"platforms": {
+			"ios": "6.0.0",
+			"android": "6.0.0"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nstudio/nativescript-plugins.git"
+	},
+	"keywords": [
+		"NativeScript",
+		"TypeScript",
+		"Android",
+		"iOS",
+		"Material Design",
+		"CheckBox",
+		"nStudio"
+	],
+	"author": {
+		"name": "Brad Martin",
+		"email": "bradwaynemartin@gmail.com"
+	},
+	"contributors": [
+		{
+			"name": "NativeScript",
+			"email": "oss@nativescript.org"
+		}
+	],
+	"bugs": {
+		"url": "https://github.com/nstudio/nativescript-plugins/issues"
+	},
+	"license": "Apache-2.0",
+	"homepage": "https://github.com/nstudio/nativescript-plugins",
+	"readmeFilename": "README.md",
+	"bootstrapper": "@nativescript/plugin-seed"
 }
