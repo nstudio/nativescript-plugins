@@ -65,5 +65,5 @@ export class OnfidoCommon extends Observable {
     });
   }
 
-  static createConfiguration(sdkToken?, options?: IOnfidoConfigOptions) {}
+  static verify(sdkToken?, options?: IOnfidoConfigOptions): any {}
 }

@@ -9,7 +9,7 @@
 
         <StackLayout visibility="{{ applicant && applicant.id ? 'visible' : 'collapse' }}">
           <Label text="Your Applicant ID:" />
-          <Label text="{{ applicant.id }}" />
+          <Label text="{{ 'Your Applicant ID: ' + applicant.id }}" />
 
           <Button text="Get SDK Token" tap="{{ getSdkToken }}" class="btn btn-primary m-t-10"/>
 
@@ -18,6 +18,20 @@
             <Label text="{{ sdkToken }}" />
 
             <Button text="Verify Identity" tap="{{ startFlow }}" class="btn btn-primary m-t-10"/>
+
+
+            <StackLayout visibility="{{ results ? 'visible' : 'collapse' }}">
+              <Repeater items="{{ stringResults }}">
+                <Repeater.itemsLayout>
+                  <StackLayout />
+                </Repeater.itemsLayout>
+                <Repeater.itemTemplate>
+                  <Label textWrap="true" text="{{ $value }}" margin="10" />
+
+                </Repeater.itemTemplate>
+            </Repeater>
+            </StackLayout>
+
           </StackLayout>
         </StackLayout>
       </StackLayout>
