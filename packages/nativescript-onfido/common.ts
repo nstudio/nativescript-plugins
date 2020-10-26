@@ -5,6 +5,7 @@ export interface IOnfidoConfigOptions {
   faceVerify?: boolean;
   documentVerify?: 'any'|'driving_license'|'generic'|'national_identity_card'|'passport'|'residence_permit'|'visa'|'work_permit';
   country?: string; // required if using any document type other than any.
+  showFromModal?: boolean; // if you are trying to open the flow from a modal, pass true or it wont open.
 }
 
 export class OnfidoCommon extends Observable {

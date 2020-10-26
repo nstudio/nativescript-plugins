@@ -89,7 +89,9 @@ export class Onfido extends OnfidoCommon {
         }
       });
       let onfidoController: UIViewController = onfidoFlow.runAndReturnError()
-      Frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(onfidoController, true, () => {
+      let ctrl = Frame.topmost().ios.controller;
+      if (options.showFromModal) ctrl = ctrl.presentedViewController;
+      ctrl.presentViewControllerAnimatedCompletion(onfidoController, true, () => {
 
       })
     })
