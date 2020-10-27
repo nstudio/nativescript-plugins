@@ -8,6 +8,18 @@ export interface IOnfidoConfigOptions {
   showFromModal?: boolean; // if you are trying to open the flow from a modal, pass true or it wont open.
 }
 
+export interface IOnfidoResult {
+  createdAt: Date;
+  fileName: string;
+  fileSize: number;
+  fileType: string;
+  href: string;
+  id: string;
+  side?: string;
+  type?: string;
+  description: 'DocumentResult'|'FaceResult';
+}
+
 export class OnfidoCommon extends Observable {
 
   static apiToken: string;

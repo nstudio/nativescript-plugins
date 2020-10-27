@@ -1,7 +1,7 @@
 import { Frame } from '@nativescript/core';
 import { topmost } from '@nativescript/core/ui/frame/frame-common';
 import { iOSNativeHelper } from '@nativescript/core/utils';
-import { OnfidoCommon, IOnfidoConfigOptions } from './common';
+import { OnfidoCommon, IOnfidoConfigOptions, IOnfidoResult } from './common';
 
 export class Onfido extends OnfidoCommon {
   static verify(sdkToken?, options?: IOnfidoConfigOptions) {
@@ -59,7 +59,7 @@ export class Onfido extends OnfidoCommon {
             if (item.type == 1) {
               // face result
               let result: ONFaceResult = item.result;
-              let objResult = {
+              let objResult: IOnfidoResult = {
                 fileName: result.fileName,
                 fileSize: result.fileSize,
                 fileType: result.fileType,
@@ -71,7 +71,7 @@ export class Onfido extends OnfidoCommon {
               returnResults.push(objResult)
             } else {
               let result: ONDocumentResult = item.result;
-              let objResult = {
+              let objResult: IOnfidoResult = {
                 createdAt: result.createdAt,
                 fileName: result.fileName,
                 fileSize: result.fileSize,
