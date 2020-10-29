@@ -5,14 +5,15 @@
 //	compile 'com.android.support:recyclerview-v7:+'
 //}
 
-android {  
+android {
   compileSdkVersion 29
-  defaultConfig {  
+  defaultConfig {
     minSdkVersion 21
     targetSdkVersion 29
     generatedDensities = []
-  }  
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
-} 
+    multiDexEnabled true
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
