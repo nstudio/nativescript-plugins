@@ -9,6 +9,7 @@
         <Button text="nativescript-exoplayer" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-checkbox" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-onfido" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-plaid" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

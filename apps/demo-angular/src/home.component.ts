@@ -18,5 +18,8 @@ export class HomeComponent {
 		{
 			name: 'nativescript-onfido',
 		},
+		{
+			name: 'nativescript-plaid',
+		},
 	];
 }
