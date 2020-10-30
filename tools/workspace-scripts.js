@@ -91,6 +91,13 @@ module.exports = {
 					description: '@nstudio/nativescript-onfido: Build',
 				},
 			},
+			// @nstudio/nativescript-plaid
+			'nativescript-plaid': {
+				build: {
+					script: 'nx run nativescript-plaid:build.all',
+					description: '@nstudio/nativescript-plaid: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -116,6 +123,10 @@ module.exports = {
 			'nativescript-onfido': {
 				script: 'nx run nativescript-onfido:focus',
 				description: 'Focus on @nstudio/nativescript-onfido',
+			},
+			'nativescript-plaid': {
+				script: 'nx run nativescript-plaid:focus',
+				description: 'Focus on @nstudio/nativescript-plaid',
 			},
 			reset: {
 				script: 'nx run all:focus',
