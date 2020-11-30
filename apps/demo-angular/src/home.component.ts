@@ -16,6 +16,9 @@ export class HomeComponent {
 			name: 'nativescript-filterable-listpicker',
 		},
 		{
+			name: 'nativescript-input-mask',
+		},
+		{
 			name: 'nativescript-onfido',
 		},
 		{

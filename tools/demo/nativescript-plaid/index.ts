@@ -1,5 +1,5 @@
-import { DemoSharedBase } from '../utils';
 import { PlaidLink } from '@nstudio/nativescript-plaid';
+import { DemoSharedBase } from '../utils';
 
 export class DemoSharedNativescriptPlaid extends DemoSharedBase {
 	constructor() {
@@ -8,6 +8,10 @@ export class DemoSharedNativescriptPlaid extends DemoSharedBase {
 			console.log('linkEventListener');
 			console.log(event);
 		});
+	}
+
+	testIt() {
+		console.log('testing plaid');
 	}
 
 	open() {
