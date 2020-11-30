@@ -1,0 +1,17 @@
+<ActionBar title="nativescript-input-mask" class="action-bar"> </ActionBar>
+<StackLayout class="p-20">
+	<ScrollView class="h-full">
+		<StackLayout>
+			<Button text="Test nativescript-input-mask" (tap)="demoShared.testIt()" class="btn btn-primary"></Button>
+			<StackLayout>
+				<InputMask [mask]="mask" hint="0000 0000 0000 0000" (textChange)="onTextChange($event)" (extractedValueChange)="onExtractedValueChange($event)" (completedChange)="onCompleteChange($event)" backgroundColor="#d1d1d1" color="#336699" borderRadius="16"> </InputMask>
+				<Label [text]="'Text: ' + text"></Label>
+				<Label [text]="'Extracted: ' + extractedValue"></Label>
+				<Label [text]="'Complete: ' + complete"></Label>
+			</StackLayout>
+			<StackLayout [formGroup]="form">
+				<InputMask hint="(123) 456-7890" mask="([000]) [000]-[0000]" backgroundColor="#ff4899" color="#fff000" borderRadius="16"></InputMask>
+			</StackLayout>
+		</StackLayout>
+	</ScrollView>
+</StackLayout>

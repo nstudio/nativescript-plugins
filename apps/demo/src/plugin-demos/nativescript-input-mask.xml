@@ -1,0 +1,18 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:im="@nstudio/nativescript-input-mask" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="nativescript-input-mask" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ScrollView class="h-full">
+            <StackLayout>
+                <Button text="Test nativescript-input-mask" tap="{{ testIt }}" class="btn btn-primary"/>
+                <im:InputMask mask="{{ mask }}" hint="0000 0000 0000 0000" textChange="{{ onTextChange }}" extractedValueChange="{{ onExtractedValueChange }}" completedChange="{{ onCompleteChange }}">
+                </im:InputMask>
+                <Label text="{{ 'Text: ' + text }}"></Label>
+                <im:InputMask mask="([000]) [000]-[0000]" hint="(xxx) xxx-xxxx" borderRadius="12" backgroundColor="#f1f1f1" color="#336699"></im:InputMask>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

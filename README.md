@@ -8,6 +8,7 @@ npm start
 - @nstudio/nativescript-checkbox
 - @nstudio/nativescript-exoplayer
 - @nstudio/nativescript-filterable-listpicker
+- @nstudio/nativescript-input-mask
 - @nstudio/nativescript-onfido
 - @nstudio/nativescript-plaid
 

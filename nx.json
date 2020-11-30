@@ -37,6 +37,9 @@
 		},
 		"nativescript-plaid": {
 			"tags": []
+		},
+		"nativescript-input-mask": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

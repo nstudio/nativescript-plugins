@@ -98,6 +98,13 @@ module.exports = {
 					description: '@nstudio/nativescript-plaid: Build',
 				},
 			},
+			// @nstudio/nativescript-input-mask
+			'nativescript-input-mask': {
+				build: {
+					script: 'nx run nativescript-input-mask:build.all',
+					description: '@nstudio/nativescript-input-mask: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -127,6 +134,10 @@ module.exports = {
 			'nativescript-plaid': {
 				script: 'nx run nativescript-plaid:focus',
 				description: 'Focus on @nstudio/nativescript-plaid',
+			},
+			'nativescript-input-mask': {
+				script: 'nx run nativescript-input-mask:focus',
+				description: 'Focus on @nstudio/nativescript-input-mask',
 			},
 			reset: {
 				script: 'nx run all:focus',

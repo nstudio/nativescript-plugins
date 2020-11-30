@@ -1,0 +1,7 @@
+repositories {
+	jcenter()
+}
+
+dependencies {
+	compile 'com.redmadrobot:inputmask:2.3.0'
+}

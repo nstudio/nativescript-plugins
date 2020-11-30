@@ -1,10 +1,14 @@
-import { DemoSharedBase } from '../utils';
 import { Onfido, OnfidoCaptureType, OnfidoCountryCode, OnfidoDocumentType, OnfidoResult, OnfidoUtils } from '@nstudio/nativescript-onfido';
+import { DemoSharedBase } from '../utils';
 
 export class DemoSharedOnfido extends DemoSharedBase {
 	public applicant: any;
 	public sdkToken: string;
 	public results: OnfidoResult;
+
+	testIt() {
+		console.log('testing onfido');
+	}
 
 	createApplicant() {
 		OnfidoUtils.init('api_sandbox.TlnUCxxjM3B.USz2M3G4BaGEWVetbryGRwulvK2JmqGd', 'org.nativescript.plugindemo');
