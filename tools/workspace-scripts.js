@@ -105,6 +105,13 @@ module.exports = {
 					description: '@nstudio/nativescript-input-mask: Build',
 				},
 			},
+			// @nstudio/nativescript-loading-indicator
+			'nativescript-loading-indicator': {
+				build: {
+					script: 'nx run nativescript-loading-indicator:build.all',
+					description: '@nstudio/nativescript-loading-indicator: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -138,6 +145,10 @@ module.exports = {
 			'nativescript-input-mask': {
 				script: 'nx run nativescript-input-mask:focus',
 				description: 'Focus on @nstudio/nativescript-input-mask',
+			},
+			'nativescript-loading-indicator': {
+				script: 'nx run nativescript-loading-indicator:focus',
+				description: 'Focus on @nstudio/nativescript-loading-indicator',
 			},
 			reset: {
 				script: 'nx run all:focus',

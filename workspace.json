@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all", "nx run nativescript-loading-indicator:build.all"],
 						"parallel": false
 					}
 				},
@@ -350,6 +350,49 @@
 					"outputs": ["dist/packages"],
 					"options": {
 						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-loading-indicator": {
+			"root": "packages/nativescript-loading-indicator",
+			"sourceRoot": "packages/nativescript-loading-indicator",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-loading-indicator",
+						"tsConfig": "packages/nativescript-loading-indicator/tsconfig.json",
+						"packageJson": "packages/nativescript-loading-indicator/package.json",
+						"main": "packages/nativescript-loading-indicator/index.ts",
+						"assets": [
+							"packages/nativescript-loading-indicator/*.md",
+							"packages/nativescript-loading-indicator/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-loading-indicator/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-loading-indicator:build", "node tools/scripts/build-finish.ts nativescript-loading-indicator"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-loading-indicator"],
 						"parallel": false
 					}
 				}

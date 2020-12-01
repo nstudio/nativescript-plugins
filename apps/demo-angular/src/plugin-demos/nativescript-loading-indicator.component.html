@@ -1,0 +1,32 @@
+<ActionBar title="nativescript-loading-indicator" class="action-bar"> </ActionBar>
+<StackLayout class="p-20">
+	<ScrollView class="h-full" padding="10">
+		<StackLayout horizontalAlignment="center">
+			<Label text="Made with ❤️ by nStudio" class="h2 text-center m-t-10" textWrap="true"></Label>
+
+			<Button text="Message" (tap)="demoShared.showLoader()" class="btn-tide"></Button>
+			<Button text="Message - No Bezel" (tap)="demoShared.showLoaderNoBezel()" class="btn-burning"></Button>
+
+			<!-- uncomment test iOS target view, see main-view-model for more -->
+			<!--<StackLayout width="300" height="300" id="stackView" backgroundColor="yellow">
+		  </StackLayout>-->
+
+			<Button text="Message w/details" (tap)="demoShared.showLoaderMsgAndDetails()" class="btn-tide"></Button>
+			<ios>
+				<Button text="Square (iOS)" (tap)="demoShared.showLoaderSquare()" class="btn-burning"></Button>
+			</ios>
+			<Button text="Margin" (tap)="demoShared.showLoaderMargin()" class="btn-tide"></Button>
+			<Button text="Dim background" (tap)="demoShared.showLoaderDimBg()" class="btn-burning"></Button>
+			<Button text="Color" (tap)="demoShared.showLoaderColor()" class="btn-tide"></Button>
+			<android>
+				<Button text="Cancel Loader (Android)" (tap)="demoShared.showLoaderCancel()" class="btn-burning"></Button>
+			</android>
+			<Button text="Indeterminate" (tap)="demoShared.showLoaderIndeterminate()" class="btn-tide"></Button>
+			<Button text="Determinate" (tap)="demoShared.showLoaderDeterminate()" class="btn-tide"></Button>
+			<Button text="Annular determinate" (tap)="demoShared.showLoaderAnnularDeterminate()" class="btn-burning"></Button>
+			<Button text="Determinate horizontal bar" (tap)="demoShared.showLoaderDeterminateHorizontalBar()" class="btn-tide"></Button>
+			<Button text="Mode text" (tap)="demoShared.showLoaderModeText()" class="btn-burning"></Button>
+			<Button text="Mode custom" (tap)="demoShared.showLoaderModeCustom()" class="btn-tide"></Button>
+		</StackLayout>
+	</ScrollView>
+</StackLayout>

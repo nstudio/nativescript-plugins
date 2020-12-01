@@ -1,0 +1,37 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+  <Page.actionBar>
+    <ActionBar title="nativescript-loading-indicator" icon="" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
+  <StackLayout class="p-20">
+    <ScrollView row="0" padding="10">
+      <StackLayout horizontalAlignment="center">
+        <Label text="Made with ❤️ by nStudio" class="h2 text-center m-t-10" textWrap="true" />
+
+        <Button text="Message" tap="{{ demoShared.showLoader }}" class="btn-tide" />
+        <Button text="Message - No Bezel" tap="{{ demoShared.showLoaderNoBezel }}" class="btn-burning" />
+
+        <!-- uncomment test iOS target view, see main-view-model for more -->
+        <!--<StackLayout width="300" height="300" id="stackView" backgroundColor="yellow">
+        </StackLayout>-->
+
+        <Button text="Message w/details" tap="{{ demoShared.showLoaderMsgAndDetails }}" class="btn-tide" />
+        <ios>
+          <Button text="Square (iOS)" tap="{{ demoShared.showLoaderSquare }}" class="btn-burning" />
+        </ios>
+        <Button text="Margin" tap="{{ demoShared.showLoaderMargin }}" class="btn-tide" />
+        <Button text="Dim background" tap="{{ demoShared.showLoaderDimBg }}" class="btn-burning" />
+        <Button text="Color" tap="{{ demoShared.showLoaderColor }}" class="btn-tide" />
+        <android>
+          <Button text="Cancel Loader (Android)" tap="{{ demoShared.showLoaderCancel }}" class="btn-burning" />
+        </android>
+        <Button text="Indeterminate" tap="{{ demoShared.showLoaderIndeterminate }}" class="btn-tide" />
+        <Button text="Determinate" tap="{{ demoShared.showLoaderDeterminate }}" class="btn-tide" />
+        <Button text="Annular determinate" tap="{{ demoShared.showLoaderAnnularDeterminate }}" class="btn-burning" />
+        <Button text="Determinate horizontal bar" tap="{{ demoShared.showLoaderDeterminateHorizontalBar }}" class="btn-tide" />
+        <Button text="Mode text" tap="{{ demoShared.showLoaderModeText }}" class="btn-burning" />
+        <Button text="Mode custom" tap="{{ demoShared.showLoaderModeCustom }}" class="btn-tide" />
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+</Page>
