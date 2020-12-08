@@ -11,6 +11,7 @@ npm start
 - @nstudio/nativescript-input-mask
 - @nstudio/nativescript-onfido
 - @nstudio/nativescript-plaid
+- @nstudio/nativescript-waveform
 
 # How to use?
 

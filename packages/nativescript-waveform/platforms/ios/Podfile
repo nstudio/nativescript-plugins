@@ -1,0 +1,2 @@
+platform :ios, '11.0'
+pod 'FDWaveformView', '~> 5.0.1'

@@ -40,6 +40,9 @@
 		},
 		"nativescript-input-mask": {
 			"tags": []
+		},
+		"nativescript-waveform": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

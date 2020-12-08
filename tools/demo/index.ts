@@ -5,3 +5,4 @@ export * from './nativescript-filterable-listpicker';
 export * from './nativescript-input-mask';
 export * from './nativescript-onfido';
 export * from './nativescript-plaid';
+export * from './nativescript-waveform';

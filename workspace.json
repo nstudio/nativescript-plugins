@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all", "nx run nativescript-waveform:build.all"],
 						"parallel": false
 					}
 				},
@@ -350,6 +350,49 @@
 					"outputs": ["dist/packages"],
 					"options": {
 						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-waveform": {
+			"root": "packages/nativescript-waveform",
+			"sourceRoot": "packages/nativescript-waveform",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-waveform",
+						"tsConfig": "packages/nativescript-waveform/tsconfig.json",
+						"packageJson": "packages/nativescript-waveform/package.json",
+						"main": "packages/nativescript-waveform/index.ts",
+						"assets": [
+							"packages/nativescript-waveform/*.md",
+							"packages/nativescript-waveform/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-waveform/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-waveform:build", "node tools/scripts/build-finish.ts nativescript-waveform"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-waveform"],
 						"parallel": false
 					}
 				}

@@ -20,7 +20,8 @@
 		"@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
 		"@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
 		"@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
-		"@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido"
+		"@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
+		"@nstudio/nativescript-waveform": "file:../../dist/packages/nativescript-waveform"
 	},
 	"devDependencies": {
 		"@angular/compiler-cli": "file:../../node_modules/@angular/compiler-cli",

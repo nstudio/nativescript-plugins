@@ -11,7 +11,8 @@
 		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
 		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
 		"@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
-		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido"
+		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
+		"@nstudio/nativescript-waveform": "file:../../packages/nativescript-waveform"
 	},
 	"devDependencies": {
 		"@nativescript/android": "7.0.1",

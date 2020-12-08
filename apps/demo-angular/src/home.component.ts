@@ -24,5 +24,8 @@ export class HomeComponent {
 		{
 			name: 'nativescript-plaid',
 		},
+		{
+			name: 'nativescript-waveform',
+		},
 	];
 }
