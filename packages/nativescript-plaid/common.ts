@@ -7,9 +7,9 @@ export interface PlaidLinkConfig {
 }
 
 export interface PlaidLinkExitResultError {
-	type: string;
-	code: string;
-	message: string;
+	type?: string;
+	code?: string;
+	message?: string;
 	displayMessage: string;
 }
 
@@ -60,19 +60,19 @@ export enum PlaidLinkEventName {
 export interface PlaidLinkEventMetadata {
 	eventName: PlaidLinkEventName;
 	metadata: {
-		errorCode: string;
-		errorMessage: string;
-		errorType: string;
-		errorStatus: string;
-		institutionId: string;
-		institutionName: string;
-		institutionSearchQuery: string;
-		linkSessionId: string;
-		mfaType: string;
-		requestId: string;
-		timestamp: string;
-		viewName: PlaidLinkEventViewName;
-		metadataJson: string;
+		errorCode?: string;
+		errorMessage?: string;
+		errorType?: string;
+		errorStatus?: string;
+		institutionId?: string;
+		institutionName?: string;
+		institutionSearchQuery?: string;
+		linkSessionId?: string;
+		mfaType?: string;
+		requestId?: string;
+		timestamp?: string;
+		viewName?: PlaidLinkEventViewName;
+		metadataJson?: string;
 	};
 }
 
@@ -176,7 +176,7 @@ export interface PlaidLinkResultAccount {
 	id: string;
 	name: string;
 	mask: string;
-	type: PlaidLinkResultAccountType;
+	type?: PlaidLinkResultAccountType;
 	subtype: PlaidLinkResultAccountSubType;
 	verificationStatus: PlaidLinkResultVerificationStatus;
 }

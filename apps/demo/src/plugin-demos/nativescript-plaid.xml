@@ -7,7 +7,7 @@
         <ScrollView class="h-full">
           <StackLayout>
             <Button text="Test nativescript-plaid" tap="{{ open }}" class="btn btn-primary"/>
-
+            <Label visibility="{{ successPublicToken ? 'visible' : 'collapse' }}" text="{{successPublicToken}}" /> 
           </StackLayout>
         </ScrollView>
     </StackLayout>
