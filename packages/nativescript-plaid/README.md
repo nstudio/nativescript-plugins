@@ -46,7 +46,7 @@ export class YourClass {
 
 ## Screenshot
 
-![](demo.gif)
+![](https://github.com/nstudio/nativescript-plugins/raw/master/packages/nativescript-plaid/demo.gif)
 
 ## API
 
