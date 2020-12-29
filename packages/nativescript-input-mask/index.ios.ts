@@ -1,4 +1,4 @@
-import { EventData } from '@nativescript/core';
+import { EventData, TextField } from '@nativescript/core';
 import { textProperty } from '@nativescript/core/ui/text-base';
 import { completedProperty, extractedValueProperty, InputMaskBase, maskProperty } from './common';
 
@@ -23,6 +23,7 @@ class ListenerImpl extends NSObject implements MaskedTextFieldDelegateListener {
 	}
 }
 
+@NativeClass()
 class InputMaskDelegateImpl extends MaskedTextFieldDelegate {
 	public static ObjCProtocols = [UITextFieldDelegate];
 
@@ -95,6 +96,9 @@ export class InputMask extends InputMaskBase {
 	}
 
 	[textProperty.setNative](text: string) {
-		this._delegate.putWithTextInto(text, this._ios);
+		if (this._delegate && this._delegate.putWithTextInto) {
+			// TODO: this does not seem to work as of 12/28/2020
+			this._delegate.putWithTextInto(text, this._ios);
+		}
 	}
 }

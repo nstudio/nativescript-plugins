@@ -7,4 +7,4 @@ import { FilterableListpickerComponent } from './nativescript-filterable-listpic
 	declarations: [FilterableListpickerComponent],
 	schemas: [NO_ERRORS_SCHEMA],
 })
-export class NativeScriptFilterableListpickerModule {}
+export class NativescriptFilterableListpickerModule {}

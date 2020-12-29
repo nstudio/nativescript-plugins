@@ -1,12 +1,12 @@
 {
-	"name": "nstudio-nativescript-checkbox-angular",
+	"name": "nstudio-nativescript-camera-plus-angular",
 	"ngPackage": {
 		"lib": {
 			"entryFile": "index.ts",
 			"umdModuleIds": {
 				"@nativescript/core": "ns-core",
 				"@nativescript/angular": "ns-angular",
-				"@nstudio/nativescript-checkbox": "ns-nativescript-checkbox"
+				"@nstudio/nativescript-camera-plus": "ns-nativescript-camera-plus"
 			}
 		},
 		"whitelistedNonPeerDependencies": [

@@ -40,6 +40,9 @@
 		},
 		"nativescript-input-mask": {
 			"tags": []
+		},
+		"nativescript-camera-plus": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

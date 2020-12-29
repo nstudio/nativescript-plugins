@@ -105,6 +105,13 @@ module.exports = {
 					description: '@nstudio/nativescript-input-mask: Build',
 				},
 			},
+			// @nstudio/nativescript-camera-plus
+			'nativescript-camera-plus': {
+				build: {
+					script: 'nx run nativescript-camera-plus:build.all',
+					description: '@nstudio/nativescript-camera-plus: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -138,6 +145,10 @@ module.exports = {
 			'nativescript-input-mask': {
 				script: 'nx run nativescript-input-mask:focus',
 				description: 'Focus on @nstudio/nativescript-input-mask',
+			},
+			'nativescript-camera-plus': {
+				script: 'nx run nativescript-camera-plus:focus',
+				description: 'Focus on @nstudio/nativescript-camera-plus',
 			},
 			reset: {
 				script: 'nx run all:focus',
