@@ -228,7 +228,7 @@ export class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerD
 }
 
 @NativeClass()
-class MySwifty extends SwiftyCamViewController {
+export class MySwifty extends SwiftyCamViewController {
 	// public static ObjCExposedMethods = {
 	//   switchCam: { returns: interop.types.void },
 	//   resetPreview: { returns: interop.types.void },
@@ -263,7 +263,7 @@ class MySwifty extends SwiftyCamViewController {
 
 	public static initWithOwner(owner: WeakRef<CameraPlus>, defaultCamera: CameraTypes = 'rear') {
 		CLog('MySwifty initWithOwner');
-		const ctrl: MySwifty = <MySwifty>MySwifty.new();
+		const ctrl: MySwifty = MySwifty.new();
 
 		CLog('view', ctrl);
 		CLog('ctrl', ctrl);
