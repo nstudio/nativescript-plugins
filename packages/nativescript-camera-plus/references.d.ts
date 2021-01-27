@@ -1,4 +1,3 @@
 /// <reference path="../../references.d.ts" />
-/// <reference path="./typings/android.d.ts" />
-/// <reference path="./typings/objc!QBImagePickerController.d.ts" />
-/// <reference path="./typings/objc!SwiftyCam.d.ts" />
+/// <reference path="./node_modules/@nativescript/types-ios/index.d.ts" />
+/// <reference path="./node_modules/@nativescript/types-android/lib/android-19.d.ts" />

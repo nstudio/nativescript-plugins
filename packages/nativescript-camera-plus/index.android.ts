@@ -244,9 +244,9 @@ export class CameraPlus extends CameraPlusBase {
 		Application.android.on('activityRequestPermissions', this._permissionListener);
 		this._nativeView = new android.widget.RelativeLayout(this._context);
 		this._camera = new fancycamera.FancyCamera(this._context);
-		(<any>this._camera).setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+		this._camera.setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT));
 
-		this._nativeView.addView(<any>this._camera);
+		this._nativeView.addView(this._camera);
 		return this._nativeView;
 	}
 
