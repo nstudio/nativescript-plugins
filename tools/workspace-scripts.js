@@ -91,6 +91,27 @@ module.exports = {
 					description: '@nstudio/nativescript-onfido: Build',
 				},
 			},
+			// @nstudio/nativescript-plaid
+			'nativescript-plaid': {
+				build: {
+					script: 'nx run nativescript-plaid:build.all',
+					description: '@nstudio/nativescript-plaid: Build',
+				},
+			},
+			// @nstudio/nativescript-input-mask
+			'nativescript-input-mask': {
+				build: {
+					script: 'nx run nativescript-input-mask:build.all',
+					description: '@nstudio/nativescript-input-mask: Build',
+				},
+			},
+			// @nstudio/nativescript-camera-plus
+			'nativescript-camera-plus': {
+				build: {
+					script: 'nx run nativescript-camera-plus:build.all',
+					description: '@nstudio/nativescript-camera-plus: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -116,6 +137,18 @@ module.exports = {
 			'nativescript-onfido': {
 				script: 'nx run nativescript-onfido:focus',
 				description: 'Focus on @nstudio/nativescript-onfido',
+			},
+			'nativescript-plaid': {
+				script: 'nx run nativescript-plaid:focus',
+				description: 'Focus on @nstudio/nativescript-plaid',
+			},
+			'nativescript-input-mask': {
+				script: 'nx run nativescript-input-mask:focus',
+				description: 'Focus on @nstudio/nativescript-input-mask',
+			},
+			'nativescript-camera-plus': {
+				script: 'nx run nativescript-camera-plus:focus',
+				description: 'Focus on @nstudio/nativescript-camera-plus',
 			},
 			reset: {
 				script: 'nx run all:focus',

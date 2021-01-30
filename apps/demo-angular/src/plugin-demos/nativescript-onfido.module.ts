@@ -7,4 +7,4 @@ import { OnfidoComponent } from './nativescript-onfido.component';
 	declarations: [OnfidoComponent],
 	schemas: [NO_ERRORS_SCHEMA],
 })
-export class NativeScriptOnfidoModule {}
+export class NativescriptOnfidoModule {}

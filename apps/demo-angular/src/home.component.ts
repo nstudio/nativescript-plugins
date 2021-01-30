@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 	demos = [
 		{
+			name: 'nativescript-camera-plus',
+		},
+		{
 			name: 'nativescript-checkbox',
 		},
 		{
@@ -16,7 +19,13 @@ export class HomeComponent {
 			name: 'nativescript-filterable-listpicker',
 		},
 		{
+			name: 'nativescript-input-mask',
+		},
+		{
 			name: 'nativescript-onfido',
+		},
+		{
+			name: 'nativescript-plaid',
 		},
 	];
 }

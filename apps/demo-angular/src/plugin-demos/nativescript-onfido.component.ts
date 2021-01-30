@@ -1,6 +1,5 @@
 import { Component, NgZone } from '@angular/core';
 import { DemoSharedOnfido } from '@demo/shared';
-import {} from '@nstudio/nativescript-onfido';
 
 @Component({
 	selector: 'demo-onfido',

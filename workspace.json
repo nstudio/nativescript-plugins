@@ -73,7 +73,7 @@
 					"builder": "@nrwl/workspace:run-commands",
 					"outputs": ["dist/packages"],
 					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-onfido:build.all"],
+						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-input-mask:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all", "nx run nativescript-camera-plus:build.all"],
 						"parallel": false
 					}
 				},
@@ -264,6 +264,135 @@
 					"outputs": ["dist/packages"],
 					"options": {
 						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-plaid": {
+			"root": "packages/nativescript-plaid",
+			"sourceRoot": "packages/nativescript-plaid",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-plaid",
+						"tsConfig": "packages/nativescript-plaid/tsconfig.json",
+						"packageJson": "packages/nativescript-plaid/package.json",
+						"main": "packages/nativescript-plaid/index.ts",
+						"assets": [
+							"packages/nativescript-plaid/*.md",
+							"packages/nativescript-plaid/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-plaid/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-plaid:build", "node tools/scripts/build-finish.ts nativescript-plaid"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-plaid"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-input-mask": {
+			"root": "packages/nativescript-input-mask",
+			"sourceRoot": "packages/nativescript-input-mask",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-input-mask",
+						"tsConfig": "packages/nativescript-input-mask/tsconfig.json",
+						"packageJson": "packages/nativescript-input-mask/package.json",
+						"main": "packages/nativescript-input-mask/index.ts",
+						"assets": [
+							"packages/nativescript-input-mask/*.md",
+							"packages/nativescript-input-mask/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-input-mask/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-input-mask:build", "node tools/scripts/build-finish.ts nativescript-input-mask"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"],
+						"parallel": false
+					}
+				}
+			}
+		},
+		"nativescript-camera-plus": {
+			"root": "packages/nativescript-camera-plus",
+			"sourceRoot": "packages/nativescript-camera-plus",
+			"projectType": "library",
+			"schematics": {},
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-camera-plus",
+						"tsConfig": "packages/nativescript-camera-plus/tsconfig.json",
+						"packageJson": "packages/nativescript-camera-plus/package.json",
+						"main": "packages/nativescript-camera-plus/index.ts",
+						"assets": [
+							"packages/nativescript-camera-plus/*.md",
+							"packages/nativescript-camera-plus/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-camera-plus/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx run nativescript-camera-plus:build", "node tools/scripts/build-finish.ts nativescript-camera-plus"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"outputs": ["dist/packages"],
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-camera-plus"],
 						"parallel": false
 					}
 				}

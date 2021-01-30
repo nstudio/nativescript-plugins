@@ -34,6 +34,15 @@
 		},
 		"nativescript-onfido": {
 			"tags": []
+		},
+		"nativescript-plaid": {
+			"tags": []
+		},
+		"nativescript-input-mask": {
+			"tags": []
+		},
+		"nativescript-camera-plus": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {
