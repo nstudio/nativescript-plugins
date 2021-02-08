@@ -379,7 +379,7 @@ export class Video extends VideoBase {
 	pause() {
 		if (this.player) {
 			this.player.setPlayWhenReady(false);
-			this.player.stop();
+			// this.player.stop();
 		}
 	}
 	mute(mute) {
