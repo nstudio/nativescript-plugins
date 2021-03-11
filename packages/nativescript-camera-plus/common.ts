@@ -113,16 +113,14 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	public pictureSize: string = '0x0';
 
 	/**
-	 *  *ANDROID ONLY*
 	 * @param ratio string
 	 * @returns returns an array of supported picture sizes supported by the current camera
 	 */
-	public getAvailablePictureSizes(ratio: string): { width: number; height: number }[] {
+	public getAvailablePictureSizes(ratio: string): string[] {
 		return [];
 	}
 
 	/**
-	 * *ANDROID ONLY*
 	 * @returns retuns an array of strings representing the preview sizes supported by the current device.
 	 */
 	public getSupportedRatios(): string[] {
