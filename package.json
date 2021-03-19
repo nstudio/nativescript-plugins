@@ -29,13 +29,14 @@
 		"@nativescript/types": "~7.2.0",
 		"@nativescript/webpack": "~4.1.0",
 		"@ngtools/webpack": "~11.2.0",
+		"husky": "^4.3.0",
+		"nativescript-dev-xcode": "^0.3.0",
 		"nativescript-vue": "~2.8.0",
 		"nativescript-vue-template-compiler": "~2.8.0",
 		"ng-packagr": "~11.2.0",
 		"rxjs": "~6.6.0",
 		"typescript": "~4.0.3",
-		"zone.js": "~0.11.1",
-		"husky": "^4.3.0"
+		"zone.js": "~0.11.1"
 	},
 	"husky": {
 		"hooks": {

@@ -112,6 +112,13 @@ module.exports = {
 					description: '@nstudio/nativescript-camera-plus: Build',
 				},
 			},
+			// @nstudio/nativescript-dynatrace
+			'nativescript-dynatrace': {
+				build: {
+					script: 'nx run nativescript-dynatrace:build.all',
+					description: '@nstudio/nativescript-dynatrace: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -149,6 +156,10 @@ module.exports = {
 			'nativescript-camera-plus': {
 				script: 'nx run nativescript-camera-plus:focus',
 				description: 'Focus on @nstudio/nativescript-camera-plus',
+			},
+			'nativescript-dynatrace': {
+				script: 'nx run nativescript-dynatrace:focus',
+				description: 'Focus on @nstudio/nativescript-dynatrace',
 			},
 			reset: {
 				script: 'nx run all:focus',

@@ -1,0 +1,9 @@
+buildscript {
+  repositories {
+    google()
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.dynatrace.tools.android:gradle-plugin:8.+'
+  }
+}
