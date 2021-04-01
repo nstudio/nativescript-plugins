@@ -1,7 +1,7 @@
 declare const enum CameraSelection {
 	Rear = 0,
 
-	Front = 1,
+	Front = 1
 }
 
 declare class Orientation extends NSObject {
@@ -118,6 +118,8 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 	beginZoomScale: number;
 
 	cameraDelegate: SwiftyCamViewControllerDelegate;
+
+    cropByPreview: boolean;
 
 	readonly currentCamera: CameraSelection;
 
@@ -239,6 +241,8 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	gestureRecognizerShouldRequireFailureOfGestureRecognizer(gestureRecognizer: UIGestureRecognizer, otherGestureRecognizer: UIGestureRecognizer): boolean;
 
+    getAvailablePictureSizes(ratio: string): NSArray<string>;
+
 	isEqual(object: any): boolean;
 
 	isKindOfClass(aClass: typeof NSObject): boolean;
@@ -329,4 +333,6 @@ declare const enum VideoQuality {
 	Iframe960x540 = 8,
 
 	Iframe1280x720 = 9,
+
+    Photo = 10
 }
