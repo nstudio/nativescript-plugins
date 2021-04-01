@@ -198,14 +198,13 @@ export class CameraPlus extends CameraPlusBase {
 	/**
 	 * @param ratio get the sizes for a given ratio, i.e. '16:9'.
 	 */
-	public getAvailablePictureSizes(ratio: string): { width: number; height: number }[] {
+	public getAvailablePictureSizes(ratio: string): string[] {
 		const sizes = [];
 		if (this._camera && typeof ratio === 'string') {
-			const nativeSizes = this._camera.getAvailablePictureSizes(ratio);
-			for (let i = 0; i < nativeSizes.length; i++) {
-				const size = nativeSizes[i];
-				sizes.push({ width: size.getWidth(), height: size.getHeight() });
-			}
+			const nativeSizes: any = this._camera.getAvailablePictureSizes(ratio);
+			for (const size of nativeSizes) {
+                sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+            }
 		}
 		return sizes;
 	}
@@ -668,11 +667,8 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public toggleFlash() {
 		if (this._camera) {
-			if (this._camera.getFlashMode() !== fancycamera.CameraFlashMode.OFF) {
-				this._camera.setFlashMode(fancycamera.CameraFlashMode.ON);
-			} else {
-				this._camera.setFlashMode(fancycamera.CameraFlashMode.OFF);
-			}
+			// @ts-ignore
+            this._camera.toggleFlash();
 		}
 	}
 
