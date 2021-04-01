@@ -89,10 +89,10 @@ export class SelectedAsset extends ImageAsset {
 	private static _calculateFileUri(uri: android.net.Uri) {
 		const isKitKat = android.os.Build.VERSION.SDK_INT >= 19; // android.os.Build.VERSION_CODES.KITKAT
 
-		if (isKitKat && DocumentsContract().isDocumentUri(Application.android.context, uri)) {
+		if (isKitKat && DocumentsContract.isDocumentUri(Application.android.context, uri)) {
 			// externalStorageProvider
 			if (SelectedAsset.isExternalStorageDocument(uri)) {
-				const docId = DocumentsContract().getDocumentId(uri);
+				const docId = DocumentsContract.getDocumentId(uri);
 				const id = docId.split(':')[1];
 				const type = docId.split(':')[0];
 
@@ -103,13 +103,13 @@ export class SelectedAsset extends ImageAsset {
 				// tODO handle non-primary volumes
 			} else if (SelectedAsset.isDownloadsDocument(uri)) {
 				// downloadsProvider
-				const id = DocumentsContract().getDocumentId(uri);
+				const id = DocumentsContract.getDocumentId(uri);
 				const contentUri = android.content.ContentUris.withAppendedId(android.net.Uri.parse('content://downloads/public_downloads'), long(id as any));
 
 				return SelectedAsset.getDataColumn(contentUri, null, null);
 			} else if (SelectedAsset.isMediaDocument(uri)) {
 				// mediaProvider
-				const docId = DocumentsContract().getDocumentId(uri);
+				const docId = DocumentsContract.getDocumentId(uri);
 				const split = docId.split(':');
 				const type = split[0];
 				const id = split[1];
