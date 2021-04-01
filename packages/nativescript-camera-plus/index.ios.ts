@@ -156,7 +156,7 @@ class QBImagePickerControllerDelegateImpl extends NSObject implements QBImagePic
  * Take picture with camera delegate
  */
 @NativeClass()
-export class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerDelegate {
+class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerDelegate {
 	public static ObjCProtocols = [SwiftyCamViewControllerDelegate];
 	private _owner: WeakRef<MySwifty>;
 
@@ -228,7 +228,7 @@ export class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerD
 }
 
 @NativeClass()
-export class MySwifty extends SwiftyCamViewController {
+class MySwifty extends SwiftyCamViewController {
 	// public static ObjCExposedMethods = {
 	//   switchCam: { returns: interop.types.void },
 	//   resetPreview: { returns: interop.types.void },

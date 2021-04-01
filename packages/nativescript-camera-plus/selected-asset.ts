@@ -11,11 +11,6 @@ interface ArrayBufferStatic extends ArrayBufferConstructor {
 	from(buffer: java.nio.ByteBuffer): ArrayBuffer;
 }
 
-// Snapshot-friendly functions
-const MediaStore = () => android.provider.MediaStore;
-const DocumentsContract = () => android.provider.DocumentsContract;
-const BitmapFactory = () => android.graphics.BitmapFactory;
-
 export class SelectedAsset extends ImageAsset {
 	private _uri: android.net.Uri;
 	private _thumb: ImageSource;
@@ -89,10 +84,10 @@ export class SelectedAsset extends ImageAsset {
 	private static _calculateFileUri(uri: android.net.Uri) {
 		const isKitKat = android.os.Build.VERSION.SDK_INT >= 19; // android.os.Build.VERSION_CODES.KITKAT
 
-		if (isKitKat && DocumentsContract.isDocumentUri(Application.android.context, uri)) {
+		if (isKitKat && android.provider.DocumentsContract && android.provider.DocumentsContract.isDocumentUri(Application.android.context, uri)) {
 			// externalStorageProvider
 			if (SelectedAsset.isExternalStorageDocument(uri)) {
-				const docId = DocumentsContract.getDocumentId(uri);
+				const docId = android.provider.DocumentsContract.getDocumentId(uri);
 				const id = docId.split(':')[1];
 				const type = docId.split(':')[0];
 
@@ -103,24 +98,24 @@ export class SelectedAsset extends ImageAsset {
 				// tODO handle non-primary volumes
 			} else if (SelectedAsset.isDownloadsDocument(uri)) {
 				// downloadsProvider
-				const id = DocumentsContract.getDocumentId(uri);
+				const id = android.provider.DocumentsContract.getDocumentId(uri);
 				const contentUri = android.content.ContentUris.withAppendedId(android.net.Uri.parse('content://downloads/public_downloads'), long(id as any));
 
 				return SelectedAsset.getDataColumn(contentUri, null, null);
 			} else if (SelectedAsset.isMediaDocument(uri)) {
 				// mediaProvider
-				const docId = DocumentsContract.getDocumentId(uri);
+				const docId = android.provider.DocumentsContract.getDocumentId(uri);
 				const split = docId.split(':');
 				const type = split[0];
 				const id = split[1];
 
 				let contentUri: android.net.Uri = null;
 				if ('image' === type) {
-					contentUri = MediaStore().Images.Media.EXTERNAL_CONTENT_URI;
+					contentUri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 				} else if ('video' === type) {
-					contentUri = MediaStore().Video.Media.EXTERNAL_CONTENT_URI;
+					contentUri = android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
 				} else if ('audio' === type) {
-					contentUri = MediaStore().Audio.Media.EXTERNAL_CONTENT_URI;
+					contentUri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 				}
 
 				const selection = '_id=?';
@@ -143,7 +138,7 @@ export class SelectedAsset extends ImageAsset {
 
 	private static getDataColumn(uri: android.net.Uri, selection, selectionArgs) {
 		let cursor = null;
-		const columns = [MediaStore().MediaColumns.DATA];
+		const columns = [android.provider.MediaStore.MediaColumns.DATA];
 
 		let filePath;
 
@@ -210,7 +205,7 @@ export class SelectedAsset extends ImageAsset {
 	private getSampleSize(uri: android.net.Uri, options?: { maxWidth: number; maxHeight: number }): number {
 		const boundsOptions = new android.graphics.BitmapFactory.Options();
 		boundsOptions.inJustDecodeBounds = true;
-		BitmapFactory().decodeStream(this.openInputStream(uri), null, boundsOptions);
+		android.graphics.BitmapFactory.decodeStream(this.openInputStream(uri), null, boundsOptions);
 
 		// find the correct scale value. It should be the power of 2.
 		let outWidth = boundsOptions.outWidth;
@@ -242,7 +237,7 @@ export class SelectedAsset extends ImageAsset {
 	private decodeUri(uri: android.net.Uri, options?: { maxWidth: number; maxHeight: number }): ImageSource {
 		const downsampleOptions = new android.graphics.BitmapFactory.Options();
 		downsampleOptions.inSampleSize = this.getSampleSize(uri, options);
-		const bitmap = BitmapFactory().decodeStream(this.openInputStream(uri), null, downsampleOptions);
+		const bitmap = android.graphics.BitmapFactory.decodeStream(this.openInputStream(uri), null, downsampleOptions);
 		const image = new ImageSource();
 		image.setNativeSource(bitmap);
 		return image;
@@ -256,7 +251,7 @@ export class SelectedAsset extends ImageAsset {
 	private decodeUriForImageAsset(uri: android.net.Uri, options?: { maxWidth: number; maxHeight: number }): ImageAsset {
 		const downsampleOptions = new android.graphics.BitmapFactory.Options();
 		downsampleOptions.inSampleSize = this.getSampleSize(uri, options);
-		const bitmap = BitmapFactory().decodeStream(this.openInputStream(uri), null, downsampleOptions);
+		const bitmap = android.graphics.BitmapFactory.decodeStream(this.openInputStream(uri), null, downsampleOptions);
 		return new ImageAsset(bitmap);
 	}
 
