@@ -13,6 +13,9 @@ export class HomeComponent {
 			name: 'nativescript-checkbox',
 		},
 		{
+			name: 'nativescript-dynatrace',
+		},
+		{
 			name: 'nativescript-exoplayer',
 		},
 		{

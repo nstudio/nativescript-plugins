@@ -1,0 +1,3 @@
+dependencies {
+  implementation 'com.dynatrace.agent:agent-android:8.+'
+}

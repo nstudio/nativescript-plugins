@@ -6,6 +6,7 @@
 	"dependencies": {
 		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
 		"@nativescript/core": "file:../../node_modules/@nativescript/core",
+		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
 		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
 		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
 		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",

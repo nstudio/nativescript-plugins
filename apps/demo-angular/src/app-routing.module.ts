@@ -8,6 +8,7 @@ const routes: Routes = [
 	{ path: 'home', component: HomeComponent },
 	{ path: 'nativescript-camera-plus', loadChildren: () => import('./plugin-demos/nativescript-camera-plus.module').then((m) => m.NativescriptCameraPlusModule) },
 	{ path: 'nativescript-checkbox', loadChildren: () => import('./plugin-demos/nativescript-checkbox.module').then((m) => m.NativescriptCheckboxModule) },
+	{ path: 'nativescript-dynatrace', loadChildren: () => import('./plugin-demos/nativescript-dynatrace.module').then((m) => m.NativescriptDynatraceModule) },
 	{ path: 'nativescript-exoplayer', loadChildren: () => import('./plugin-demos/nativescript-exoplayer.module').then((m) => m.NativescriptExoplayerModule) },
 	{ path: 'nativescript-filterable-listpicker', loadChildren: () => import('./plugin-demos/nativescript-filterable-listpicker.module').then((m) => m.NativescriptFilterableListpickerModule) },
 	{ path: 'nativescript-input-mask', loadChildren: () => import('./plugin-demos/nativescript-input-mask.module').then((m) => m.NativescriptInputMaskModule) },

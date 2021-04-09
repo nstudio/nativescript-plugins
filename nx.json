@@ -43,6 +43,9 @@
 		},
 		"nativescript-camera-plus": {
 			"tags": []
+		},
+		"nativescript-dynatrace": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {
