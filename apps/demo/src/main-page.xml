@@ -5,13 +5,14 @@
   <StackLayout class="p-20">
     <ScrollView class="h-full">
       <StackLayout>
+        <Button text="nativescript-camera-plus" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-checkbox" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-dynatrace" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-exoplayer" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-filterable-listpicker" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-input-mask" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-onfido" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-plaid" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-<Button text="nativescript-camera-plus" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

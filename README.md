@@ -5,6 +5,7 @@ npm run setup
 npm start
 ```
 
+- @nstudio/dynatrace
 - @nstudio/nativescript-camera-plus
 - @nstudio/nativescript-checkbox
 - @nstudio/nativescript-exoplayer

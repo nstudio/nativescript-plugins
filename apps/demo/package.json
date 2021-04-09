@@ -6,6 +6,7 @@
 	"dependencies": {
 		"@nativescript/core": "file:../../node_modules/@nativescript/core",
 		"@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
+		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
 		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
 		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
 		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",

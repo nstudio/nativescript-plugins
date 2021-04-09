@@ -222,4 +222,4 @@ export class PlaidLink extends PlaidLinkBase {
 	}
 }
 
-export { PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData };
+export { PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData } from './common';
