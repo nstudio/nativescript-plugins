@@ -4,21 +4,21 @@
 	"license": "SEE LICENSE IN <your-license-filename>",
 	"repository": "<fill-your-repository-here>",
 	"dependencies": {
-		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
 		"@nativescript/core": "file:../../node_modules/@nativescript/core",
+		"@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
 		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
-		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
-		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
 		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
-		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
+		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
+		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
 		"@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
 		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
-		"@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus"
+		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
+		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core"
 	},
 	"devDependencies": {
 		"@nativescript/android": "7.0.1",
 		"@nativescript/ios": "7.2.0",
 		"@nativescript/webpack": "~4.1.0",
-		"typescript": "file:../../node_modules/typescript"
+		"typescript": "~4.0.3"
 	}
 }
