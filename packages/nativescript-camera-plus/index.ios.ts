@@ -523,9 +523,13 @@ class MySwifty extends SwiftyCamViewController {
 
 		if (this._snapPicOptions && this._snapPicOptions.confirm) {
 			// show the confirmation
-			const width = this.view.bounds.size.width;
-			const height = this.view.bounds.size.height;
-			this._imageConfirmBg = UIView.alloc().initWithFrame(CGRectMake(0, 0, width, height));
+			const safeAreaWidthOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.left + this.view.safeAreaInsets.right : 0;
+			const safeAreaHeightOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.bottom + this.view.safeAreaInsets.top : 0;
+			const safeAreaLeft = this.view.safeAreaInsets ? this.view.safeAreaInsets.left : 0;
+			const safeAreaTop = this.view.safeAreaInsets ? this.view.safeAreaInsets.top : 0;
+			const width = this.view.bounds.size.width - safeAreaWidthOffset;
+			const height = this.view.bounds.size.height - safeAreaHeightOffset;
+			this._imageConfirmBg = UIView.alloc().initWithFrame(CGRectMake(safeAreaLeft, safeAreaTop, width, height));
 			this._imageConfirmBg.backgroundColor = UIColor.blackColor;
 
 			// confirm user wants to keep photo
