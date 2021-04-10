@@ -12,6 +12,6 @@
 		"noEmitOnError": true,
 		"removeComments": true
 	},
-	"include": ["../typings/**/*.d.ts"],
+	"include": ["../typings/nativescript.d.ts"],
 	"files": ["index.ts"]
 }

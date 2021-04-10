@@ -1,7 +1,7 @@
-# @nstudio/dynatrace
+# @nstudio/nativescript-dynatrace
 
 ```bash
-ns plugin add @nstudio/dynatrace
+ns plugin add @nstudio/nativescript-dynatrace
 ```
 
 ## Usage
