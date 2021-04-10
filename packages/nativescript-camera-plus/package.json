@@ -1,6 +1,6 @@
 {
 	"name": "@nstudio/nativescript-camera-plus",
-	"version": "4.0.2",
+	"version": "4.0.3",
 	"description": "An advanced, embeddable camera for NativeScript.",
 	"main": "index",
 	"typings": "index.d.ts",
