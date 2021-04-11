@@ -109,7 +109,7 @@ export class PlaidLink extends PlaidLinkBase {
 					name: account.name,
 					mask: account.mask,
 					subtype: account.subtype.rawStringValue,
-					verificationStatus: account.verificationStatus.value,
+					verificationStatus: account.verificationStatus?.value,
 				});
 			}
 			this.onSuccess({

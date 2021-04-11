@@ -1,2 +1,1 @@
-platform :ios, '11.0'
-pod 'Plaid', '~> 2.0'
+pod 'Plaid', '~> 2.1'
