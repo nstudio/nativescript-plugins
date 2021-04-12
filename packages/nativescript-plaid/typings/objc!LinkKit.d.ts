@@ -587,6 +587,10 @@ declare const enum PLKEventNameValue {
 	SubmitMFA = 11,
 
 	TransitionView = 12,
+
+	MatchedSelectInstitution = 13,
+
+	MatchedSelectVerifyMethod = 14,
 }
 
 declare class PLKExitMetadata extends NSObject {
@@ -647,6 +651,10 @@ interface PLKHandler extends NSObjectProtocol {
 	openWithContextViewControllerOptions(viewController: UIViewController, options: NSDictionary<string, string>): void;
 
 	openWithPresentationHandler(presentationHandler: (p1: UIViewController) => void): void;
+
+	openWithPresentationHandlerDismissalHandler(presentationHandler: (p1: UIViewController) => void, dismissalHandler: (p1: UIViewController) => void): void;
+
+	openWithPresentationHandlerDismissalHandlerOptions(presentationHandler: (p1: UIViewController) => void, dismissalHandler: (p1: UIViewController) => void, options: NSDictionary<string, string>): void;
 
 	openWithPresentationHandlerOptions(presentationHandler: (p1: UIViewController) => void, options: NSDictionary<string, string>): void;
 }
@@ -831,6 +839,8 @@ declare class PLKLinkPublicKeyConfiguration extends NSObject {
 declare class PLKLinkPublicKeyConfigurationToken extends NSObject {
 	static alloc(): PLKLinkPublicKeyConfigurationToken; // inherited from NSObject
 
+	static createWithDepositSwitchTokenPublicKey(depositSwitchToken: string, publicKey: string): PLKLinkPublicKeyConfigurationToken;
+
 	static createWithPaymentTokenPublicKey(paymentToken: string, publicKey: string): PLKLinkPublicKeyConfigurationToken;
 
 	static createWithPublicKey(publicKey: string): PLKLinkPublicKeyConfigurationToken;
@@ -838,6 +848,8 @@ declare class PLKLinkPublicKeyConfigurationToken extends NSObject {
 	static createWithPublicTokenPublicKey(publicToken: string, publicKey: string): PLKLinkPublicKeyConfigurationToken;
 
 	static new(): PLKLinkPublicKeyConfigurationToken; // inherited from NSObject
+
+	readonly depositSwitchToken: string;
 
 	readonly paymentToken: string;
 
@@ -929,19 +941,21 @@ declare const enum PLKProduct {
 
 	Auth = 1,
 
-	Identity = 2,
+	DepositSwitch = 2,
 
-	Income = 3,
+	Identity = 3,
 
-	Investments = 4,
+	Income = 4,
 
-	Liabilities = 5,
+	Investments = 5,
 
-	LiabilitiesReport = 6,
+	Liabilities = 6,
 
-	PaymentInitiation = 7,
+	LiabilitiesReport = 7,
 
-	Transactions = 8,
+	PaymentInitiation = 8,
+
+	Transactions = 9,
 }
 
 declare const enum PLKRateLimitErrorCode {
@@ -969,7 +983,7 @@ declare class PLKSuccessMetadata extends NSObject {
 
 	readonly accounts: NSArray<PLKAccount>;
 
-	readonly insitution: PLKInstitution;
+	readonly institution: PLKInstitution;
 
 	readonly linkSessionID: string;
 
@@ -1042,4 +1056,10 @@ declare const enum PLKViewNameValue {
 	SelectAccount = 9,
 
 	SelectInstitution = 10,
+
+	MatchedConsent = 11,
+
+	MatchedCredential = 12,
+
+	MatchedMFA = 13,
 }

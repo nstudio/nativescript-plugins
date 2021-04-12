@@ -18,17 +18,17 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 		this._videoPlayer = <any>mainpage.getViewById('nativeVideoPlayer');
 		this.currentTime = '';
 		this.videoDuration = '';
-		this.videoSrc = '~/videos/big_buck_bunny.mp4';
-		this.subtitlesSrc = '~/videos/sample.srt';
+		this.videoSrc = '~/assets/videos/big_buck_bunny.mp4';
+		this.subtitlesSrc = '~/assets/videos/sample.srt';
 		this.trackVideoCurrentPosition();
 	}
 
 	public setEnglishSubtitles() {
-		this._videoPlayer.subtitles = '~/videos/sample.srt';
+		this._videoPlayer.subtitles = '~/assets/videos/sample.srt';
 	}
 
 	public setRussianSubtitles() {
-		this._videoPlayer.subtitles = '~/videos/sample-ru.srt';
+		this._videoPlayer.subtitles = '~/assets/videos/sample-ru.srt';
 	}
 
 	public disableSubtitles() {
@@ -153,7 +153,7 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 		this._videoPlayer.encryption = 'CTR';
 		this._videoPlayer.encryptionKey = '2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B';
 		this._videoPlayer.encryptionIV = '015E42FF678B2B90B743111A396EF850';
-		this._videoPlayer.src = '~/videos/video-ctr.enc';
+		this._videoPlayer.src = '~/assets/videos/video-ctr.enc';
 	}
 
 	/**
@@ -163,27 +163,27 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 		// Disable encryption if it is on...
 		this._videoPlayer.encryption = '';
 
-		if (this.videoSrc === '~/videos/small.mp4' || this.videoSrc === '~/videos/video-ctr.enc') {
+		if (this.videoSrc === '~/assets/videos/small.mp4' || this.videoSrc === '~/assets/videos/video-ctr.enc') {
 			this._videoPlayer.src = 'https://dash.akamaized.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd';
 		} else {
-			this._videoPlayer.src = '~/videos/small.mp4';
+			this._videoPlayer.src = '~/assets/videos/small.mp4';
 		}
 	}
 
 	private trackVideoCurrentPosition(): number {
 		let trackInterval = <any>Utils.setInterval(() => {
-      let x, y;
-      if (this._videoPlayer) {
-        if (this.completed) {
-          x = '';
-          y = '';
-        } else {
-          x = this._videoPlayer.getCurrentTime();
-          y = this._videoPlayer.getDuration();
-        }
-        this.set('currentTime', x);
-        this.set('videoDuration', y);
-      }
+			let x, y;
+			if (this._videoPlayer) {
+				if (this.completed) {
+					x = '';
+					y = '';
+				} else {
+					x = this._videoPlayer.getCurrentTime();
+					y = this._videoPlayer.getDuration();
+				}
+				this.set('currentTime', x);
+				this.set('videoDuration', y);
+			}
 		}, 200);
 		return trackInterval;
 	}
