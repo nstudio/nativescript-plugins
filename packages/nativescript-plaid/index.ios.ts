@@ -116,8 +116,8 @@ export class PlaidLink extends PlaidLinkBase {
 				publicToken: result.publicToken,
 				metadata: {
 					institution: {
-						id: result.metadata.insitution.ID,
-						name: result.metadata.insitution.name,
+						id: result.metadata.institution.ID,
+						name: result.metadata.institution.name,
 					},
 					linkSessionId: result.metadata.linkSessionID,
 					metadataJson: result.metadata.metadataJSON,
