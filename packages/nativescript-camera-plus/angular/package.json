@@ -9,7 +9,7 @@
 				"@nstudio/nativescript-camera-plus": "ns-nativescript-camera-plus"
 			}
 		},
-		"whitelistedNonPeerDependencies": [
+		"allowedNonPeerDependencies": [
 			"."
 		]
 	}

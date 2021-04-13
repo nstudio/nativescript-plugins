@@ -9,7 +9,7 @@
 				"@nstudio/nativescript-checkbox": "ns-nativescript-checkbox"
 			}
 		},
-		"whitelistedNonPeerDependencies": [
+		"allowedNonPeerDependencies": [
 			"."
 		]
 	}
