@@ -4,68 +4,68 @@ import { FilterableListpicker } from '@nstudio/nativescript-filterable-listpicke
 
 export function navigatingTo(args: EventData) {
 	const page = <Page>args.object;
-	
+
 	page.bindingContext = new DemoModel(page);
 }
-let API_KEY = "__YOUR_GOOGLE_API_KEY__";
-let placesApiUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json'
-let placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/json'
+let API_KEY = '__YOUR_GOOGLE_API_KEY__';
+let placesApiUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+let placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/json';
 
 export class DemoModel extends DemoSharedFilterableListpicker {
-
 	private filterableListpicker: FilterableListpicker;
 	private page: Page;
 	public items: Array<any>;
 	constructor(page: Page) {
-			super();
-			this.page = page;
-			this.filterableListpicker = (<any>this.page.getViewById('myfilter'));
+		super();
+		this.page = page;
+		this.filterableListpicker = <any>this.page.getViewById('myfilter');
 	}
 	public showPicker() {
 		console.log('this.items', this.items);
 		let arr = [];
-		this.languages.forEach(item => {
+		this.languages.forEach((item) => {
 			arr.push(item);
-		})
+		});
 		this.set('items', arr);
-		this.filterableListpicker.show()
+		this.filterableListpicker.show();
 	}
 
 	public showFancyPicker() {
 		let arr = [];
-		this.objArray.forEach(item => {
+		this.objArray.forEach((item) => {
 			arr.push(item);
-		})
+		});
 
 		this.set('items', arr);
-		this.filterableListpicker.show()
+		this.filterableListpicker.show();
 	}
 
 	showAutocompletePicker() {
 		this.filterableListpicker.isAutocomplete = true;
 		this.filterableListpicker.show();
 
-
 		this.filterableListpicker.autocomplete((data) => {
-			console.log(data.value)
+			console.log(data.value);
 			let url = `${placesApiUrl}?input=${data.value}&language=fr_FR&key=${API_KEY}`;
-			Http.getJSON<Predictions>(url).then((res) => {
+			Http.getJSON<Predictions>(url)
+				.then((res) => {
 					//console.dir(res)
-				const airportsCollection = res.predictions;
-				const items = [];
-				for (let i = 0; i < airportsCollection.length; i++) {
-					items.push({
-						title: airportsCollection[i].description,
-						description: "",
-						source: airportsCollection[i]
-					});
-				}
-				this.set("items", items)
-			}).catch((err) => {
-				const message = 'Error fetching remote data from ' + url + ': ' + err.message;
-				console.log(message);
-				alert(message);
-			});
+					const airportsCollection = res.predictions;
+					const items = [];
+					for (let i = 0; i < airportsCollection.length; i++) {
+						items.push({
+							title: airportsCollection[i].description,
+							description: '',
+							source: airportsCollection[i],
+						});
+					}
+					this.set('items', items);
+				})
+				.catch((err) => {
+					const message = 'Error fetching remote data from ' + url + ': ' + err.message;
+					console.log(message);
+					alert(message);
+				});
 		});
 	}
 
@@ -74,7 +74,6 @@ export class DemoModel extends DemoSharedFilterableListpicker {
 		this.set('selection', args.selectedItem);
 	}
 }
-
 
 export interface Predictions {
 	predictions: PredictionsItems[];
@@ -92,13 +91,13 @@ export interface PredictionsItems {
 
 export interface StructuredFormattingItems {
 	main_text: string;
-	main_text_matched_substrings: MatchedSubstring[],
+	main_text_matched_substrings: MatchedSubstring[];
 	secondary_text: string;
 }
 
 export interface itemsType {
 	locality: string;
-	political: string[],
+	political: string[];
 	geocode: string;
 }
 
