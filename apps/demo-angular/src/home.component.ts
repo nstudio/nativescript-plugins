@@ -33,8 +33,5 @@ export class HomeComponent {
 		{
 			name: 'nativescript-tracking-transparency',
 		},
-		{
-			name: 'tracking-transparency',
-		},
 	];
 }
