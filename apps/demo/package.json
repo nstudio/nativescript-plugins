@@ -13,7 +13,8 @@
 		"@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
 		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
 		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
-		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core"
+		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
+		"@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency"
 	},
 	"devDependencies": {
 		"@nativescript/android": "7.0.1",
