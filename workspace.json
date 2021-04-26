@@ -442,6 +442,47 @@
 					}
 				}
 			}
+		},
+		"nativescript-tracking-transparency": {
+			"projectType": "library",
+			"schematics": {},
+			"root": "packages/nativescript-tracking-transparency",
+			"sourceRoot": "packages/nativescript-tracking-transparency",
+			"architect": {
+				"build": {
+					"builder": "@nrwl/node:package",
+					"options": {
+						"outputPath": "dist/packages/nativescript-tracking-transparency",
+						"tsConfig": "packages/nativescript-tracking-transparency/tsconfig.json",
+						"packageJson": "packages/nativescript-tracking-transparency/package.json",
+						"main": "packages/nativescript-tracking-transparency/index.ts",
+						"assets": [
+							"packages/nativescript-tracking-transparency/*.md",
+							"packages/nativescript-tracking-transparency/index.d.ts",
+							"LICENSE",
+							{
+								"glob": "**/*",
+								"input": "packages/nativescript-tracking-transparency/platforms/",
+								"output": "./platforms/"
+							}
+						]
+					}
+				},
+				"build.all": {
+					"builder": "@nrwl/workspace:run-commands",
+					"options": {
+						"commands": ["nx run nativescript-tracking-transparency:build", "node tools/scripts/build-finish.ts nativescript-tracking-transparency"],
+						"parallel": false
+					}
+				},
+				"focus": {
+					"builder": "@nrwl/workspace:run-commands",
+					"options": {
+						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-tracking-transparency"],
+						"parallel": false
+					}
+				}
+			}
 		}
 	},
 	"cli": {

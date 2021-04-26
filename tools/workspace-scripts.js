@@ -119,6 +119,13 @@ module.exports = {
 					description: '@nstudio/nativescript-dynatrace: Build',
 				},
 			},
+			// @nstudio/nativescript-tracking-transparency
+			'nativescript-tracking-transparency': {
+				build: {
+					script: 'nx run nativescript-tracking-transparency:build.all',
+					description: '@nstudio/nativescript-tracking-transparency: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -160,6 +167,10 @@ module.exports = {
 			'nativescript-dynatrace': {
 				script: 'nx run nativescript-dynatrace:focus',
 				description: 'Focus on @nstudio/nativescript-dynatrace',
+			},
+			'nativescript-tracking-transparency': {
+				script: 'nx run nativescript-tracking-transparency:focus',
+				description: 'Focus on @nstudio/nativescript-tracking-transparency',
 			},
 			reset: {
 				script: 'nx run all:focus',

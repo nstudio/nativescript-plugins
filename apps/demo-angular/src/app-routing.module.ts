@@ -14,6 +14,8 @@ const routes: Routes = [
 	{ path: 'nativescript-input-mask', loadChildren: () => import('./plugin-demos/nativescript-input-mask.module').then((m) => m.NativescriptInputMaskModule) },
 	{ path: 'nativescript-onfido', loadChildren: () => import('./plugin-demos/nativescript-onfido.module').then((m) => m.NativescriptOnfidoModule) },
 	{ path: 'nativescript-plaid', loadChildren: () => import('./plugin-demos/nativescript-plaid.module').then((m) => m.NativescriptPlaidModule) },
+	{ path: 'nativescript-tracking-transparency', loadChildren: () => import('./plugin-demos/nativescript-tracking-transparency.module').then((m) => m.NativescriptTrackingTransparencyModule) },
+	{ path: 'tracking-transparency', loadChildren: () => import('./plugin-demos/tracking-transparency.module').then((m) => m.TrackingTransparencyModule) },
 ];
 
 @NgModule({
