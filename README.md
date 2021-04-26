@@ -14,7 +14,6 @@ npm start
 - @nstudio/nativescript-onfido
 - @nstudio/nativescript-plaid
 - @nstudio/nativescript-tracking-transparency
-- @nstudio/tracking-transparency
 
 # How to use?
 
