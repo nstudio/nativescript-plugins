@@ -17,14 +17,22 @@
 	"keywords": [
 		"NativeScript",
 		"JavaScript",
-		"TypeScript",
 		"iOS",
-		"Android"
+		"App Tracking Transparency"
 	],
 	"author": {
-		"name": "NativeScript",
-		"email": "oss@nativescript.org"
+		"name": "nStudio LLC"
 	},
+	"contributors": [
+		{
+			"name": "Nathan Walker",
+			"email": "walkerrunpdx@gmail.com"
+		},
+		{
+			"name": "Osei Fortune",
+			"email": "osei@nstudio.io"
+		}
+	],
 	"bugs": {
 		"url": "https://github.com/nstudio/nativescript-plugins/issues"
 	},
