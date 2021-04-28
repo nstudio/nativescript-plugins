@@ -126,21 +126,25 @@ export class PlaidLink extends PlaidLinkBase {
 			});
 		});
 		config.onExit = (result) => {
-			this.onExit({
-				error: {
-					displayMessage: result.error.localizedFailureReason,
-					code: result.error ? result.error.code.toString() : null,
-				},
-				metadata: {
-					institution: {
-						id: result.metadata.institution.ID,
-						name: result.metadata.institution.name,
-					},
-					linkSessionId: result.metadata.linkSessionID,
-					status: result.metadata.status ? result.metadata.status.value.toString() : null,
-					requestId: result.metadata.requestID,
-				},
-			});
+      if(result.error){
+        this.onExit({
+          error: {
+            displayMessage: result.error.localizedFailureReason,
+            code: result.error ? result.error.code.toString() : null,
+          },
+          metadata: {
+            institution: {
+              id: result.metadata.institution.ID,
+              name: result.metadata.institution.name,
+            },
+            linkSessionId: result.metadata.linkSessionID,
+            status: result.metadata.status ? result.metadata.status.value.toString() : null,
+            requestId: result.metadata.requestID,
+          },
+        });
+      } else {
+        this.onExit({}); 
+      }
 		};
 		config.onEvent = (result) => {
 			const plaidLink = new PlaidLink();
