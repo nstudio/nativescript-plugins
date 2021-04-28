@@ -21,8 +21,8 @@ export interface PlaidLinkExitResultMetaData {
 }
 
 export interface PlaidLinkExitResult {
-	error: PlaidLinkExitResultError;
-	metadata: PlaidLinkExitResultMetaData;
+	error?: PlaidLinkExitResultError;
+	metadata?: PlaidLinkExitResultMetaData;
 }
 
 export enum PlaidLinkEventViewName {
