@@ -49,9 +49,7 @@
 	"readmeFilename": "README.md",
 	"bootstrapper": "@nativescript/plugin-seed",
 	"dependencies": {
+		"nativescript-dev-xcode": "^0.3.0",
 		"@nativescript/hook": "^2.0.0"
-	},
-	"devDependencies": {
-		"nativescript-dev-xcode": "^0.3.0"
 	}
 }
