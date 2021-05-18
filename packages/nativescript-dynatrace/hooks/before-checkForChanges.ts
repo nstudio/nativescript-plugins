@@ -19,8 +19,8 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			const buildGradleData = fs.readFileSync(buildGradle);
 			let buildGradleContent = buildGradleData.toString();
 			let write = false;
-			if (buildGradleContent.indexOf("apply plugin: 'com.dynatrace.tools.android'") === -1) {
-				buildGradleContent = buildGradleContent + '\n' + "apply plugin: 'com.dynatrace.tools.android'";
+			if (buildGradleContent.indexOf("apply plugin: 'com.dynatrace.instrumentation'") === -1) {
+				buildGradleContent = buildGradleContent + '\n' + "apply plugin: 'com.dynatrace.instrumentation'";
 				write = true;
 			}
 

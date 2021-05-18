@@ -1,2 +1,2 @@
 use_frameworks!
-pod 'Dynatrace', '~> 8.181'
+pod 'Dynatrace', '~> 8.215'
