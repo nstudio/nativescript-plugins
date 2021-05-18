@@ -8,7 +8,13 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 	const platformData = getPlatformData(hookArgs && hookArgs.platformData, projectData, platformName, injector);
 
 	const environmentName = hookArgs.prepareData.env.use ? hookArgReader(hookArgs.prepareData.env.use) : '';
+
 	if (platformName === 'android') {
+		const dynatrace = `
+		dependencies {
+			  classpath 'com.dynatrace.tools.android:gradle-plugin:8.+'
+		  `;
+
 		const rootPath = projectData.projectDir;
 		const buildGradle = path.join(rootPath, 'platforms', 'android', 'build.gradle');
 		const include = path.join(rootPath, 'platforms', 'android', 'config.gradle');
@@ -19,6 +25,12 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			const buildGradleData = fs.readFileSync(buildGradle);
 			let buildGradleContent = buildGradleData.toString();
 			let write = false;
+
+			if (buildGradleContent.indexOf('com.dynatrace.tools.android:gradle-plugin') === -1) {
+				buildGradleContent = buildGradleContent.replace(/(dependencies(\s{)?({)?)/, dynatrace);
+				write = true;
+			}
+
 			if (buildGradleContent.indexOf("apply plugin: 'com.dynatrace.instrumentation'") === -1) {
 				buildGradleContent = buildGradleContent + '\n' + "apply plugin: 'com.dynatrace.instrumentation'";
 				write = true;

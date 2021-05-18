@@ -8,4 +8,3 @@ export * from './nativescript-input-mask';
 export * from './nativescript-onfido';
 export * from './nativescript-plaid';
 export * from './nativescript-tracking-transparency';
-export * from './tracking-transparency';
