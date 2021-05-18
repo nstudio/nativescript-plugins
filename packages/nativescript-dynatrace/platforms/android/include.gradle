@@ -1,3 +1,8 @@
+repositories {
+    google()
+    mavenCentral()
+}
+
 dependencies {
   implementation 'com.dynatrace.agent:agent-android:8.+'
 }

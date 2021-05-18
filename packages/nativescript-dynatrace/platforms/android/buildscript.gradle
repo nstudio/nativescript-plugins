@@ -1,9 +1,0 @@
-buildscript {
-  repositories {
-    google()
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'com.dynatrace.tools.android:gradle-plugin:8.+'
-  }
-}
