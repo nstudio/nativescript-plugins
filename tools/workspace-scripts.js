@@ -126,6 +126,13 @@ module.exports = {
 					description: '@nstudio/nativescript-tracking-transparency: Build',
 				},
 			},
+			// @nstudio/nativescript-fancyalert
+			'nativescript-fancyalert': {
+				build: {
+					script: 'nx run nativescript-fancyalert:build.all',
+					description: '@nstudio/nativescript-fancyalert: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -171,6 +178,10 @@ module.exports = {
 			'nativescript-tracking-transparency': {
 				script: 'nx run nativescript-tracking-transparency:focus',
 				description: 'Focus on @nstudio/nativescript-tracking-transparency',
+			},
+			'nativescript-fancyalert': {
+				script: 'nx run nativescript-fancyalert:focus',
+				description: 'Focus on @nstudio/nativescript-fancyalert',
 			},
 			reset: {
 				script: 'nx run all:focus',

@@ -1,10 +1,10 @@
 import { Component, NgZone } from '@angular/core';
 import { DemoSharedDynatrace } from '@demo/shared';
-import {} from '@nstudio/dynatrace';
+import {} from '@nstudio/nativescript-dynatrace';
 
 @Component({
-	selector: 'demo-dynatrace',
-	templateUrl: 'dynatrace.component.html',
+	selector: 'demo-nativescript-dynatrace',
+	templateUrl: 'nativescript-dynatrace.component.html',
 })
 export class DynatraceComponent {
 	demoShared: DemoSharedDynatrace;

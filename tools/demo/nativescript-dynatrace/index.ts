@@ -19,4 +19,6 @@ export class DemoSharedDynatrace extends DemoSharedBase {
 			TNSDynatrace.flushEvents();
 		});
 	}
+
+	testIt() {}
 }

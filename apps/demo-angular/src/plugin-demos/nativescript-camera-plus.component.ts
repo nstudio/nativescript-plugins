@@ -63,7 +63,7 @@ export class NativescriptCameraPlusComponent {
 		const availableSizes = this.cam.getAvailablePictureSizes('16:9');
 		console.info(`Picture Sizes Available for ${ratio}:`);
 		for (const size of availableSizes) {
-			console.info(`Height: ${size.height}, Width: ${size.width}`);
+			console.info(size);
 		}
 		console.info(`Total sizes available: ${availableSizes.length}`);
 	}
