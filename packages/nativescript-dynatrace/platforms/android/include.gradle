@@ -4,5 +4,6 @@ repositories {
 }
 
 dependencies {
+  implementation 'com.dynatrace.tools.android:gradle-plugin:8.+'
   implementation 'com.dynatrace.agent:agent-android:8.211.+'
 }

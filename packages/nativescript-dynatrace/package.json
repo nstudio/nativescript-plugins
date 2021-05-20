@@ -1,6 +1,6 @@
 {
 	"name": "@nstudio/nativescript-dynatrace",
-	"version": "1.0.0-rc.1",
+	"version": "1.0.0-rc.3",
 	"description": "DynaTrace SDK for iOS/Android with NativeScript",
 	"main": "index",
 	"typings": "index.d.ts",
@@ -8,19 +8,7 @@
 		"platforms": {
 			"ios": "6.0.0",
 			"android": "6.0.0"
-		},
-		"hooks": [
-			{
-				"type": "before-checkForChanges",
-				"script": "hooks/before-checkForChanges.js",
-				"inject": true
-			},
-			{
-				"type": "before-watchPatterns",
-				"script": "hooks/before-watchPatterns.js",
-				"inject": true
-			}
-		]
+		}
 	},
 	"scripts": {
 		"preuninstall": "node preuninstall",
@@ -49,7 +37,6 @@
 	"readmeFilename": "README.md",
 	"bootstrapper": "@nativescript/plugin-seed",
 	"dependencies": {
-		"nativescript-dev-xcode": "^0.3.0",
 		"@nativescript/hook": "^2.0.0"
 	}
 }
