@@ -19,6 +19,9 @@ export class HomeComponent {
 			name: 'nativescript-exoplayer',
 		},
 		{
+			name: 'nativescript-fancyalert',
+		},
+		{
 			name: 'nativescript-filterable-listpicker',
 		},
 		{

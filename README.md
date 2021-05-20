@@ -9,6 +9,7 @@ npm start
 - @nstudio/nativescript-checkbox
 - @nstudio/nativescript-dynatrace
 - @nstudio/nativescript-exoplayer
+- @nstudio/nativescript-fancyalert
 - @nstudio/nativescript-filterable-listpicker
 - @nstudio/nativescript-input-mask
 - @nstudio/nativescript-onfido

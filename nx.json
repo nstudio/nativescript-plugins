@@ -49,6 +49,9 @@
 		},
 		"nativescript-tracking-transparency": {
 			"tags": []
+		},
+		"nativescript-fancyalert": {
+			"tags": []
 		}
 	},
 	"workspaceLayout": {

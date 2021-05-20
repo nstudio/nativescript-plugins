@@ -1,7 +1,7 @@
 {
-	"name": "@nstudio/nativescript-onfido",
-	"version": "1.0.0",
-	"description": "Add a plugin description",
+	"name": "@nstudio/nativescript-fancyalert",
+	"version": "4.0.0",
+	"description": "Fancy alerts for NativeScript.",
 	"main": "index",
 	"typings": "index.d.ts",
 	"nativescript": {
@@ -16,15 +16,25 @@
 	},
 	"keywords": [
 		"NativeScript",
-		"JavaScript",
-		"TypeScript",
 		"iOS",
-		"Android"
+		"Android",
+		"alert",
+		"dialogs"
 	],
 	"author": {
-		"name": "NativeScript",
-		"email": "oss@nativescript.org"
+		"name": "nStudio LLC",
+		"email": "team@nstudio.io"
 	},
+	"contributors": [
+		{
+			"name": "Nathan Walker",
+			"email": "nwalker@nstudio.io"
+		},
+		{
+			"name": "Brad Martin",
+			"email": "bmartin@nstudio.io"
+		}
+	],
 	"bugs": {
 		"url": "https://github.com/nstudio/nativescript-plugins/issues"
 	},

@@ -10,6 +10,7 @@ const routes: Routes = [
 	{ path: 'nativescript-checkbox', loadChildren: () => import('./plugin-demos/nativescript-checkbox.module').then((m) => m.NativescriptCheckboxModule) },
 	{ path: 'nativescript-dynatrace', loadChildren: () => import('./plugin-demos/nativescript-dynatrace.module').then((m) => m.NativescriptDynatraceModule) },
 	{ path: 'nativescript-exoplayer', loadChildren: () => import('./plugin-demos/nativescript-exoplayer.module').then((m) => m.NativescriptExoplayerModule) },
+	{ path: 'nativescript-fancyalert', loadChildren: () => import('./plugin-demos/nativescript-fancyalert.module').then((m) => m.NativescriptFancyalertModule) },
 	{ path: 'nativescript-filterable-listpicker', loadChildren: () => import('./plugin-demos/nativescript-filterable-listpicker.module').then((m) => m.NativescriptFilterableListpickerModule) },
 	{ path: 'nativescript-input-mask', loadChildren: () => import('./plugin-demos/nativescript-input-mask.module').then((m) => m.NativescriptInputMaskModule) },
 	{ path: 'nativescript-onfido', loadChildren: () => import('./plugin-demos/nativescript-onfido.module').then((m) => m.NativescriptOnfidoModule) },
