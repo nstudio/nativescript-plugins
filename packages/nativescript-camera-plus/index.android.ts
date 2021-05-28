@@ -13,7 +13,7 @@ import { SelectedAsset } from './selected-asset';
 export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
 
-import fancycamera = com.github.triniwiz.fancycamera;
+import fancycamera = io.github.triniwiz.fancycamera;
 
 const REQUEST_VIDEO_CAPTURE = 999;
 const WRAP_CONTENT = -2;
