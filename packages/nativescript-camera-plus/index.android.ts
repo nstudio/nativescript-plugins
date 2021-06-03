@@ -13,7 +13,7 @@ import { SelectedAsset } from './selected-asset';
 export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
 
-import fancycamera = com.github.triniwiz.fancycamera;
+import fancycamera = io.github.triniwiz.fancycamera;
 
 const REQUEST_VIDEO_CAPTURE = 999;
 const WRAP_CONTENT = -2;
@@ -203,8 +203,8 @@ export class CameraPlus extends CameraPlusBase {
 		if (this._camera && typeof ratio === 'string') {
 			const nativeSizes: any = this._camera.getAvailablePictureSizes(ratio);
 			for (const size of nativeSizes) {
-                sizes.push(`${size.getWidth()}x${size.getHeight()}`);
-            }
+				sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+			}
 		}
 		return sizes;
 	}
@@ -668,7 +668,7 @@ export class CameraPlus extends CameraPlusBase {
 	public toggleFlash() {
 		if (this._camera) {
 			// @ts-ignore
-            this._camera.toggleFlash();
+			this._camera.toggleFlash();
 		}
 	}
 
