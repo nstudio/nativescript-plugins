@@ -190,6 +190,9 @@ export class Video extends VideoBase {
 					return;
 				}
 				if (playbackState === STATE_READY) {
+					if (this.owner.eventPlaybackReady) {
+						this.owner._emit(Video.seekToTimeCompleteEvent);
+					}
 					if (!this.owner.eventPlaybackReady) {
 						this.owner.eventPlaybackReady = true;
 						this.owner._emit(Video.playbackReadyEvent);
