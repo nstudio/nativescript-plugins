@@ -57,7 +57,7 @@ export class YourClass {
 ### Contributors
 
 - Dave Coffin [@davecoffin](https://twitter.com/davecoffin)
-- Osie Fortune
+- Osei Fortune [@triniwiz](https://twitter.com/triniwiz)
 
 ## License
 
