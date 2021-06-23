@@ -1,6 +1,6 @@
 /// <reference path="android-declarations.d.ts"/>
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -16,7 +16,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -96,7 +96,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -170,7 +170,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -331,7 +331,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -356,7 +356,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -391,7 +391,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -418,7 +418,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -445,7 +445,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -469,7 +469,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -493,7 +493,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -509,7 +509,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -525,7 +525,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -615,7 +615,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -628,7 +628,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -647,7 +647,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -676,7 +676,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -692,7 +692,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
@@ -710,7 +710,7 @@ declare module com {
 	}
 }
 
-declare module com {
+declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
