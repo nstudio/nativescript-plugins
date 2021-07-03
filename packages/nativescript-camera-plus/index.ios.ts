@@ -892,6 +892,9 @@ Native stack trace:
 19         0x10206e76c Builtins_CEntry_Return1_DontSaveFPRegs_ArgvOnStack_NoBuiltinExit + 108
 20         0x1020e90dc Builtins_LdaNamedPropertyHandler + 3932
 21         0x10200d690 Builtins_InterpreterEntryTrampoline + 240
+
+JavaScript stack trace:
+at _onLayoutChangeFn (file: src/Users/nstudio/Documents/github/nstudio/nativescript-plugins/packages/nativescript-camera-plus/index.ts:859:58
 			 */
 
 			// if (this._swifty.previewLayer) {
