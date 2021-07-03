@@ -856,7 +856,44 @@ export class CameraPlus extends CameraPlusBase {
 			CLog(`xml width/height: ${size.width}x${size.height}`);
 			const frame = this._swifty.view.frame;
 			this._swifty.view.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
+
 			console.log('this._swifty.previewLayer:', this._swifty.previewLayer);
+			// ^^^ right now trying to access the previewLayer crashes on v8 rc
+			// it is exposed in swift here:
+			// https://github.com/NathanWalker/SwiftyCam/blob/feature/swift-4.2/Source/SwiftyCamViewController.swift#L252
+			// using @objcMembers here:
+			// https://github.com/NathanWalker/SwiftyCam/blob/feature/swift-4.2/Source/SwiftyCamViewController.swift#L23
+
+			// and it's available in {N} metadata typings here:
+			// https://github.com/nstudio/nativescript-plugins/blob/release/camplus/packages/nativescript-camera-plus/typings/objc!SwiftyCam.d.ts#L163
+
+			// Crashstack:
+			/**
+			 * ====== Assertion failed ======
+Native stack trace:
+1          0x10178a40c tns::Assert(bool, v8::Isolate*) + 128
+2          0x1017640ac tns::MetadataBuilder::RegisterStaticMethods(v8::Local<v8::Context>, v8::Local<v8::Function>, tns::BaseClassMeta const*, tns::KnownUnknownClassPair, robin_hood::detail::Table<true, 80ul, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, unsigned char, robin_hood::hash<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::equal_to<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > >&) + 476
+3          0x101761f38 tns::MetadataBuilder::GetOrCreateConstructorFunctionTemplateInternal(v8::Local<v8::Context>, tns::BaseClassMeta const*, tns::KnownUnknownClassPair, robin_hood::detail::Table<true, 80ul, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, unsigned char, robin_hood::hash<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::equal_to<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > >&, robin_hood::detail::Table<true, 80ul, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, unsigned char, robin_hood::hash<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::equal_to<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > >&, std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::_<\M-b\M^@\M-&>
+4          0x101760254 tns::MetadataBuilder::GetOrCreateConstructorFunctionTemplate(v8::Local<v8::Context>, tns::BaseClassMeta const*, tns::KnownUnknownClassPair, std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > const&) + 88
+5          0x10171305c std::__1::function<v8::Local<v8::FunctionTemplate> (v8::Local<v8::Context>, tns::BaseClassMeta const*, tns::KnownUnknownClassPair, std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > const&)>::operator()(v8::Local<v8::Context>, tns::BaseClassMeta const*, tns::KnownUnknownClassPair, std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > const&) const + 60
+6          0x101710410 tns::ArgConverter::CreateJsWrapper(v8::Local<v8::Context>, tns::BaseDataWrapper*, v8::Local<v8::Object>, bool, std::__1::vector<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::allocator<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > const&) + 1368
+7          0x1017aba30 tns::Interop::GetResult(v8::Local<v8::Context>, tns::TypeEncoding const*, tns::BaseCall*, bool, std::__1::shared_ptr<v8::Persistent<v8::Value, v8::NonCopyablePersistentTraits<v8::Value> > >, bool, bool, bool, bool) + 3708
+8          0x1017a7bc0 tns::Interop::CallFunctionInternal(tns::MethodCall&) + 496
+9          0x10170f898 tns::ArgConverter::Invoke(v8::Local<v8::Context>, objc_class*, v8::Local<v8::Object>, tns::V8Args&, tns::MethodMeta const*, bool) + 780
+10         0x1017650ac tns::MetadataBuilder::InvokeMethod(v8::Local<v8::Context>, tns::MethodMeta const*, v8::Local<v8::Object>, tns::V8Args&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, bool) + 88
+11         0x101764ba0 tns::MetadataBuilder::PropertyGetterCallback(v8::FunctionCallbackInfo<v8::Value> const&) + 252
+12         0x1018a785c v8::internal::FunctionCallbackArguments::Call(v8::internal::CallHandlerInfo) + 540
+13         0x1018a6de4 v8::internal::MaybeHandle<v8::internal::Object> v8::internal::(anonymous namespace)::HandleApiCallHelper<false>(v8::internal::Isolate*, v8::internal::Handle<v8::internal::HeapObject>, v8::internal::Handle<v8::internal::HeapObject>, v8::internal::Handle<v8::internal::FunctionTemplateInfo>, v8::internal::Handle<v8::internal::Object>, v8::internal::BuiltinArguments) + 472
+14         0x1018a67f0 v8::internal::Builtins::InvokeApiFunction(v8::internal::Isolate*, bool, v8::internal::Handle<v8::internal::HeapObject>, v8::internal::Handle<v8::internal::Object>, int, v8::internal::Handle<v8::internal::Object>*, v8::internal::Handle<v8::internal::HeapObject>) + 504
+15         0x101bf6970 v8::internal::Object::GetPropertyWithAccessor(v8::internal::LookupIterator*) + 744
+16         0x101bf6044 v8::internal::Object::GetProperty(v8::internal::LookupIterator*, bool) + 140
+17         0x101a72ef8 v8::internal::LoadIC::Load(v8::internal::Handle<v8::internal::Object>, v8::internal::Handle<v8::internal::Name>, bool, v8::internal::Handle<v8::internal::Object>) + 2352
+18         0x101a7b174 v8::internal::Runtime_LoadNoFeedbackIC_Miss(int, unsigned long*, v8::internal::Isolate*) + 252
+19         0x10206e76c Builtins_CEntry_Return1_DontSaveFPRegs_ArgvOnStack_NoBuiltinExit + 108
+20         0x1020e90dc Builtins_LdaNamedPropertyHandler + 3932
+21         0x10200d690 Builtins_InterpreterEntryTrampoline + 240
+			 */
+
 			// if (this._swifty.previewLayer) {
 			// 	this._swifty.previewLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
 			// 	this._swifty.view.setNeedsLayout();
