@@ -229,24 +229,24 @@ class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerDelegate
 
 @NativeClass()
 class MySwifty extends SwiftyCamViewController {
-	// public static ObjCExposedMethods = {
-	//   switchCam: { returns: interop.types.void },
-	//   resetPreview: { returns: interop.types.void },
-	//   savePhoto: { returns: interop.types.void },
-	//   snapPicture: { returns: interop.types.void },
-	//   toggleFlash: { returns: interop.types.void },
-	//   openGallery: { returns: interop.types.void },
-	//   recordVideo: { returns: interop.types.void },
-	// videoDidFinishSavingWithErrorContextInfo: {
-	//   returns: interop.types.void,
-	//   params: [NSString, NSError, interop.Pointer],
-	// },
-	//   // 'deviceDidRotate': { returns: interop.types.void }
-	//   // 'thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:': {
-	//   //   returns: interop.types.void,
-	//   //   params: [UIImage, NSError, interop.Pointer]
-	//   // }
-	// };
+	public static ObjCExposedMethods = {
+		switchCam: { returns: interop.types.void },
+		resetPreview: { returns: interop.types.void },
+		savePhoto: { returns: interop.types.void },
+		snapPicture: { returns: interop.types.void },
+		toggleFlash: { returns: interop.types.void },
+		openGallery: { returns: interop.types.void },
+		recordVideo: { returns: interop.types.void },
+		videoDidFinishSavingWithErrorContextInfo: {
+			returns: interop.types.void,
+			params: [NSString, NSError, interop.Pointer],
+		},
+		// 'deviceDidRotate': { returns: interop.types.void },
+		// 'thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:': {
+		//   returns: interop.types.void,
+		//   params: [UIImage, NSError, interop.Pointer]
+		// }
+	};
 	public _owner: WeakRef<CameraPlus>;
 	private _snapPicOptions: ICameraOptions;
 	private _enableVideo: boolean;
@@ -296,10 +296,10 @@ class MySwifty extends SwiftyCamViewController {
 	public viewDidLoad(): void {
 		CLog('MySwifty viewdidload');
 		super.viewDidLoad();
-        const owner = this._owner && this._owner.get();
-        if (owner) {
-            owner._updatePhotoQuality();
-        }
+		const owner = this._owner && this._owner.get();
+		if (owner) {
+			owner._updatePhotoQuality();
+		}
 		this.view.userInteractionEnabled = true;
 		const doubleTapEnabled = this._owner.get().doubleTapCameraSwitch;
 		this.doubleTapCameraSwitch = doubleTapEnabled;
@@ -773,92 +773,82 @@ export class CameraPlus extends CameraPlusBase {
 		return this._swifty.view;
 	}
 
-    private _cropByPreview: boolean;
+	private _cropByPreview: boolean;
 
-    public get cropByPreview () {
-        return this._cropByPreview;
-    }
+	public get cropByPreview() {
+		return this._cropByPreview;
+	}
 
-    public set cropByPreview(value: boolean) {
-        if (typeof value === 'string') {
-            value = Boolean(value);
-        }
-        if (typeof value === 'boolean') {
-            if (this._swifty) {
-                this._swifty.cropByPreview = value;
-            }
-        }
+	public set cropByPreview(value: boolean) {
+		if (typeof value === 'string') {
+			value = Boolean(value);
+		}
+		if (typeof value === 'boolean') {
+			if (this._swifty) {
+				this._swifty.cropByPreview = value;
+			}
+		}
 
-        this._cropByPreview = value;
-    }
+		this._cropByPreview = value;
+	}
 
-    _updatePhotoQuality () {
-        if (this._swifty) {
-            switch (this._pictureQuality) {
-            case "3840x2160":
-                this._swifty.videoQuality = VideoQuality.Resolution3840x2160;
-                this._pictureQuality = "3840x2160";
-                break;
-                case "1920x1080":
-                this._swifty.videoQuality = VideoQuality.Resolution1920x1080;
-                this._pictureQuality = "1920x1080";
-                break;
-                case "1280x720":
-                this._swifty.videoQuality = VideoQuality.Resolution1280x720;
-                this._pictureQuality = "1280x720";
-                break;
-                case "640x480":
-                this._swifty.videoQuality = VideoQuality.Resolution640x480;
-                this._pictureQuality = "640x480";
-                break;
-                case "352x288":
-                this._swifty.videoQuality = VideoQuality.Resolution352x288;
-                this._pictureQuality = "352x288";
-                break;
-                case "Medium":
-                this._swifty.videoQuality = VideoQuality.Medium;
-                this._pictureQuality = "Medium";
-                break;
-                case "Low":
-                this._swifty.videoQuality = VideoQuality.Low;
-                this._pictureQuality = "Low";
-                break;
-                case "Photo":
-                this._swifty.videoQuality = VideoQuality.Photo;
-                this._pictureQuality = "Photo";
-                break;
-            default:
-                this._swifty.videoQuality = VideoQuality.High;
-                this._pictureQuality = "High";
-            break;
-            }
-        }
-    }
-    
-    getAvailablePictureSizes(ratio?: string): string[] {
-        return [
-            "3840x2160",
-            "1920x1080",
-            "1280x720",
-            "640x480",
-            "352x288",
-            "Photo",
-            "High",
-            "Medium",
-            "Low"
-        ];
-    }
-    
-    private _pictureQuality: string = "High";
-        // @ts-ignore
-        set pictureSize(value: string) {
-        this._pictureQuality = value;
-        this._updatePhotoQuality();
-    }
-    
-    get pictureSize(): string {
-        return this._pictureQuality;
-    }
+	_updatePhotoQuality() {
+		if (this._swifty) {
+			switch (this._pictureQuality) {
+				case '3840x2160':
+					this._swifty.videoQuality = VideoQuality.Resolution3840x2160;
+					this._pictureQuality = '3840x2160';
+					break;
+				case '1920x1080':
+					this._swifty.videoQuality = VideoQuality.Resolution1920x1080;
+					this._pictureQuality = '1920x1080';
+					break;
+				case '1280x720':
+					this._swifty.videoQuality = VideoQuality.Resolution1280x720;
+					this._pictureQuality = '1280x720';
+					break;
+				case '640x480':
+					this._swifty.videoQuality = VideoQuality.Resolution640x480;
+					this._pictureQuality = '640x480';
+					break;
+				case '352x288':
+					this._swifty.videoQuality = VideoQuality.Resolution352x288;
+					this._pictureQuality = '352x288';
+					break;
+				case 'Medium':
+					this._swifty.videoQuality = VideoQuality.Medium;
+					this._pictureQuality = 'Medium';
+					break;
+				case 'Low':
+					this._swifty.videoQuality = VideoQuality.Low;
+					this._pictureQuality = 'Low';
+					break;
+				case 'Photo':
+					this._swifty.videoQuality = VideoQuality.Photo;
+					this._pictureQuality = 'Photo';
+					break;
+				default:
+					this._swifty.videoQuality = VideoQuality.High;
+					this._pictureQuality = 'High';
+					break;
+			}
+		}
+	}
+
+	getAvailablePictureSizes(ratio?: string): string[] {
+		return ['3840x2160', '1920x1080', '1280x720', '640x480', '352x288', 'Photo', 'High', 'Medium', 'Low'];
+	}
+
+	private _pictureQuality: string = 'High';
+	// @ts-ignore
+	set pictureSize(value: string) {
+		this._pictureQuality = value;
+		this._updatePhotoQuality();
+	}
+
+	get pictureSize(): string {
+		return this._pictureQuality;
+	}
 
 	private _onLayoutChangeFn(args: any) {
 		const size = this.getActualSize();
@@ -875,10 +865,10 @@ export class CameraPlus extends CameraPlusBase {
 	initNativeView() {
 		CLog('initNativeView.');
 		this.on(View.layoutChangedEvent, this._onLayoutChangeListener);
-        this._updatePhotoQuality();
-        if (this.cropByPreview) {
-            this._swifty.cropByPreview = this.cropByPreview;
-        }
+		this._updatePhotoQuality();
+		if (this.cropByPreview) {
+			this._swifty.cropByPreview = this.cropByPreview;
+		}
 		this._swifty.viewWillAppear(true);
 	}
 
@@ -969,7 +959,7 @@ export class CameraPlus extends CameraPlusBase {
 	 * Snap photo and display confirm save
 	 */
 	public takePicture(options?: ICameraOptions): void {
-        this._updatePhotoQuality();
+		this._updatePhotoQuality();
 		this._swifty.snapPicture(options);
 	}
 
