@@ -851,13 +851,18 @@ export class CameraPlus extends CameraPlusBase {
 	}
 
 	private _onLayoutChangeFn(args: any) {
-		const size = this.getActualSize();
-		CLog(`xml width/height: ${size.width}x${size.height}`);
-		const frame = this._swifty.view.frame;
-		this._swifty.view.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
-		this._swifty.previewLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
-		this._swifty.view.setNeedsLayout();
-		this._swifty.previewLayer.setNeedsLayout();
+		if (this._swifty && this._swifty.view) {
+			const size = this.getActualSize();
+			CLog(`xml width/height: ${size.width}x${size.height}`);
+			const frame = this._swifty.view.frame;
+			this._swifty.view.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
+			console.log('this._swifty.previewLayer:', this._swifty.previewLayer);
+			// if (this._swifty.previewLayer) {
+			// 	this._swifty.previewLayer.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
+			// 	this._swifty.view.setNeedsLayout();
+			// 	this._swifty.previewLayer.setNeedsLayout();
+			// }
+		}
 	}
 
 	private _onLayoutChangeListener: any;
