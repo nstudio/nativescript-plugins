@@ -190,9 +190,6 @@ export class Video extends VideoBase {
 					return;
 				}
 				if (playbackState === STATE_READY) {
-					if (this.owner.eventPlaybackReady) {
-						this.owner._emit(Video.seekToTimeCompleteEvent);
-					}
 					if (!this.owner.eventPlaybackReady) {
 						this.owner.eventPlaybackReady = true;
 						this.owner._emit(Video.playbackReadyEvent);
@@ -398,7 +395,7 @@ export class Video extends VideoBase {
 		}
 	}
 	_addReadyEvent(value) {
-		if (this._onReadyEmitEvent.indexOf(value)) {
+		if (this._onReadyEmitEvent.indexOf(value) > -1) {
 			return;
 		}
 		this._onReadyEmitEvent.push(value);
