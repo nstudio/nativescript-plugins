@@ -19,7 +19,7 @@
 	},
 	"devDependencies": {
 		"@nativescript/android": "8.0.0",
-		"@nativescript/ios": "rc",
+		"@nativescript/ios": "alpha",
 		"@nativescript/webpack": "~4.1.0",
 		"typescript": "~4.0.0"
 	}
