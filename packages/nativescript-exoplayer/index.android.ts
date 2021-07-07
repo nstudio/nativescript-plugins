@@ -398,7 +398,7 @@ export class Video extends VideoBase {
 		}
 	}
 	_addReadyEvent(value) {
-		if (this._onReadyEmitEvent.indexOf(value)) {
+		if (this._onReadyEmitEvent.indexOf(value) > -1) {
 			return;
 		}
 		this._onReadyEmitEvent.push(value);
