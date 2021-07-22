@@ -1,26 +1,23 @@
 {
-	"main": "app.js",
-	"description": "NativeScript Application",
-	"license": "SEE LICENSE IN <your-license-filename>",
-	"repository": "<fill-your-repository-here>",
-	"dependencies": {
-		"@nativescript/core": "~7.2.0",
-		"@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
-		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
-		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
-		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
-		"@nstudio/nativescript-fancyalert": "file:../../packages/nativescript-fancyalert",
-		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
-		"@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
-		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
-		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
-		"@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core"
-	},
-	"devDependencies": {
-		"@nativescript/android": "7.0.1",
-		"@nativescript/ios": "7.2.0",
-		"@nativescript/webpack": "~4.1.0",
-		"typescript": "~4.0.0"
-	}
+  "main": "./src/app.ts",
+  "description": "NativeScript Application",
+  "license": "SEE LICENSE IN <your-license-filename>",
+  "repository": "<fill-your-repository-here>",
+  "dependencies": {
+    "@nativescript/core": "~7.2.0",
+    "@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
+    "@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
+    "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
+    "@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
+    "@nstudio/nativescript-fancyalert": "file:../../packages/nativescript-fancyalert",
+    "@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
+    "@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
+    "@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
+    "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
+    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency"
+  },
+  "devDependencies": {
+    "@nativescript/android": "8.0.0",
+    "@nativescript/ios": "8.0.0"
+  }
 }
