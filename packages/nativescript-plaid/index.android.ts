@@ -1,4 +1,4 @@
-import { PlaidLinkBase, PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData } from './common';
+import { PlaidLinkBase, PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult } from './common';
 import { AndroidActivityResultEventData, AndroidApplication, Application, Utils } from '@nativescript/core';
 
 const toPlaidLinkEventViewName = (viewName): PlaidLinkEventViewName => {
@@ -222,4 +222,4 @@ export class PlaidLink extends PlaidLinkBase {
 	}
 }
 
-export { PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData } from './common';
+export * from './common';

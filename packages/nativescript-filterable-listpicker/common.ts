@@ -1,5 +1,4 @@
-import { booleanConverter, Builder, Enums, GridLayout, isIOS, Observable, ObservableArray, Property, PropertyChangeData, TextField } from '@nativescript/core';
-import { AnimationCurve } from '@nativescript/core/ui/enums';
+import { booleanConverter, Builder, CoreTypes, GridLayout, isIOS, Observable, ObservableArray, Property, PropertyChangeData, TextField } from '@nativescript/core';
 
 let unfilteredSource: Array<any> = [];
 let filtering: boolean = false;
@@ -76,28 +75,28 @@ export class FilterableListpickerCommon extends GridLayout {
     super.onLoaded();
     //let innerComponent = builder.load(__dirname + '/filterable-listpicker.xml') as View;
     let innerComponent = Builder.parse(`
-          <GridLayout id="dc_flp_container" class="flp-container" visibility="collapsed" loaded="{{loadedContainer}}">
+          <GridLayout id="dc_flp_container" class="flp-container" visibility="collapse" loaded="{{loadedContainer}}">
               <StackLayout tap="{{cancel}}" width="100%" height="100%"></StackLayout>
               <GridLayout width="{{listWidth}}" verticalAlignment="middle" rows="auto, auto, auto, auto" id="dc_flp" class="flp-list-container" loaded="{{loadedInnerContainer}}">
 
-                  <Label row="0" text="{{headingTitle ? headingTitle : ''}}" class="flp-heading-title" visibility="{{headingTitle ? 'visible' : 'collapsed'}}"></Label>
-                  <TextField hint="{{hintText}}" row="1" text="{{filterText}}" id="filterTextField" class="flp-hint-field" visibility="{{enableSearch ? 'visible' : 'collapsed'}}" loaded="{{loadedTextField}}"></TextField>
+                  <Label row="0" text="{{headingTitle ? headingTitle : ''}}" class="flp-heading-title" visibility="{{headingTitle ? 'visible' : 'collapse'}}"></Label>
+                  <TextField hint="{{hintText}}" row="1" text="{{filterText}}" id="filterTextField" class="flp-hint-field" visibility="{{enableSearch ? 'visible' : 'collapse'}}" loaded="{{loadedTextField}}"></TextField>
                   <ListView items="{{ source }}" row="2" height="{{listHeight}}" itemTap="{{choose}}" class="flp-listview">
                       <ListView.itemTemplate>
                           <StackLayout class="flp-row">
-                              <GridLayout columns="auto, *, auto" visibility="{{title ? 'visible' : 'collapsed'}}" class="flp-row-container">
-                                  <Image src="{{image ? image : null}}" width="30" visibility="{{image ? 'visible' : 'collapsed'}}" stretch="aspectFit" rowSpan="2" class="flp-image"></Image>
+                              <GridLayout columns="auto, *, auto" visibility="{{title ? 'visible' : 'collapse'}}" class="flp-row-container">
+                                  <Image src="{{image ? image : null}}" width="30" visibility="{{image ? 'visible' : 'collapse'}}" stretch="aspectFit" rowSpan="2" class="flp-image"></Image>
                                   <StackLayout class="flp-title-container" col="1" verticalAlignment="middle">
                                       <Label text="{{title ? title : ''}}" textWrap="true" class="flp-title"></Label>
-                                      <Label text="{{description ? description : ''}}" textWrap="true" visibility="{{description ? 'visible' : 'collapsed'}}" class="flp-description"></Label>
+                                      <Label text="{{description ? description : ''}}" textWrap="true" visibility="{{description ? 'visible' : 'collapse'}}" class="flp-description"></Label>
                                   </StackLayout>
-                                  <Label col="2" text="{{selected ? selected : ''}}" class="flp-item-selected" visibility="{{selected ? 'visible' : 'collapsed'}}"></Label>
+                                  <Label col="2" text="{{selected ? selected : ''}}" class="flp-item-selected" visibility="{{selected ? 'visible' : 'collapse'}}"></Label>
                               </GridLayout>
-                              <Label text="{{$value}}" textWrap="true" class="flp-no-title" visibility="{{title ? 'collapsed' : 'visible'}}"></Label>
+                              <Label text="{{$value}}" textWrap="true" class="flp-no-title" visibility="{{title ? 'collapse' : 'visible'}}"></Label>
                           </StackLayout>
                       </ListView.itemTemplate>
                   </ListView>
-                  <StackLayout row="3" class="flp-cancel-container" visibility="{{showCancel ? 'visible' : 'collapsed'}}">
+                  <StackLayout row="3" class="flp-cancel-container" visibility="{{showCancel ? 'visible' : 'collapse'}}">
                       <Button text="Cancel" tap="{{cancel}}" verticalAlignment="middle" class="flp-btn-cancel"></Button>
                   </StackLayout>
               </GridLayout>
@@ -122,7 +121,7 @@ export class FilterableListpickerCommon extends GridLayout {
   private _searchFilter: (data: any) => void;
   private _isAutocomplete: boolean = false;
   private _suggestions: any;
-  visibility: any = Enums.Visibility.collapse;
+  visibility: CoreTypes.VisibilityType = CoreTypes.Visibility.collapse;
 
   loadedContainer(args) {
     this._container = <GridLayout>args.object;
@@ -215,20 +214,18 @@ export class FilterableListpickerCommon extends GridLayout {
         scale: { x: 0.7, y: 0.7 },
         opacity: 0,
         duration: 400,
-        curve: AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
+        curve: CoreTypes.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
       })
       .then(
         () => {
-          this.visibility = Enums.Visibility.collapse;
-          this._container.visibility = "collapse";
+          this.visibility = this._container.visibility = CoreTypes.Visibility.collapse;
         },
         err => {}
       );
   }
 
   public show() {
-    this.visibility = Enums.Visibility.visible;
-    this._container.visibility = "visible";
+    this.visibility = this._container.visibility = CoreTypes.Visibility.visible;
 
     this.source = unfilteredSource.filter(i => true);
     if (isIOS && this.blur && this.blur != "none") {
@@ -275,7 +272,7 @@ export class FilterableListpickerCommon extends GridLayout {
         scale: { x: 1, y: 1 },
         opacity: 1,
         duration: 400,
-        curve: AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
+        curve: CoreTypes.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
       })
       .then(_ => {}, err => {});
 

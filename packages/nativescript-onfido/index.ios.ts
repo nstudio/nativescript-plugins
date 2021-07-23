@@ -1,4 +1,4 @@
-import { OnfidoCaptureType, OnfidoCommon, OnfidoConfig, OnfidoCountryCode, OnfidoDocument, OnfidoDocumentType, OnfidoFlowSteps, OnfidoResult } from './common';
+import { OnfidoCaptureType, OnfidoCommon, OnfidoDocumentType, OnfidoResult } from './common';
 
 export class Onfido extends OnfidoCommon {
 	private static _flow;
@@ -193,5 +193,5 @@ export class Onfido extends OnfidoCommon {
 	}
 }
 
-export { OnfidoUtils } from './utils';
-export { OnfidoConfig, OnfidoResult, OnfidoCaptureType, OnfidoCountryCode, OnfidoDocument, OnfidoDocumentType, OnfidoFlowSteps };
+export * from './utils';
+export * from './common';

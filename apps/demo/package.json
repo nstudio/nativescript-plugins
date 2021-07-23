@@ -4,7 +4,7 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "dependencies": {
-    "@nativescript/core": "~7.2.0",
+    "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
     "@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
     "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",

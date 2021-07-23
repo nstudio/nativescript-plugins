@@ -1,4 +1,4 @@
-import { PlaidLinkBase, PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData } from './common';
+import { PlaidLinkBase, PlaidLinkConfig, PlaidLinkEventMetadata } from './common';
 
 export declare class PlaidLink extends PlaidLinkBase {
 	public open(): void;
@@ -8,4 +8,4 @@ export declare class PlaidLink extends PlaidLinkBase {
 	public static setLinkEventListener(listener: (event: PlaidLinkEventMetadata) => void);
 }
 
-export { PlaidLinkConfig, PlaidLinkEventMetadata, PlaidLinkEventName, PlaidLinkEventViewName, PlaidLinkExitResult, PlaidLinkInstitution, PlaidLinkResultAccount, PlaidLinkResultAccountSubType, PlaidLinkResultAccountType, PlaidLinkResultVerificationStatus, PlaidLinkSuccessResult, PlaidLinkExitResultMetaData, PlaidLinkExitResultError, PlaidLinkResultAccountSubTypeCredit, PlaidLinkResultAccountSubTypeDepository, PlaidLinkResultAccountSubTypeInvestment, PlaidLinkResultAccountSubTypeLoan, PlaidLinkSuccessMetaData };
+export * from './common';
