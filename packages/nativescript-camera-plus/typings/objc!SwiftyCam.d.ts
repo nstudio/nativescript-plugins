@@ -1,7 +1,7 @@
 declare const enum CameraSelection {
 	Rear = 0,
 
-	Front = 1
+	Front = 1,
 }
 
 declare class Orientation extends NSObject {
@@ -30,6 +30,8 @@ declare class PreviewView extends UIView {
 	static layerClass(): typeof NSObject;
 
 	static new(): PreviewView; // inherited from NSObject
+
+	gravity: SwiftyCamVideoGravity;
 
 	session: AVCaptureSession;
 
@@ -106,8 +108,7 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	static deviceWithMediaTypePreferringPosition(mediaType: string, position: AVCaptureDevicePosition): AVCaptureDevice;
 
-	// static new(): SwiftyCamViewController; // inherited from NSObject
-	static new<T>(): T; // inherited from NSObject
+	static new(): SwiftyCamViewController; // inherited from NSObject
 
 	allowAutoRotate: boolean;
 
@@ -119,7 +120,7 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	cameraDelegate: SwiftyCamViewControllerDelegate;
 
-    cropByPreview: boolean;
+	cropByPreview: boolean;
 
 	readonly currentCamera: CameraSelection;
 
@@ -241,7 +242,7 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	gestureRecognizerShouldRequireFailureOfGestureRecognizer(gestureRecognizer: UIGestureRecognizer, otherGestureRecognizer: UIGestureRecognizer): boolean;
 
-    getAvailablePictureSizes(ratio: string): NSArray<string>;
+	getAvailablePictureSizes(ratio: string): NSArray<string>;
 
 	isEqual(object: any): boolean;
 
@@ -334,5 +335,5 @@ declare const enum VideoQuality {
 
 	Iframe1280x720 = 9,
 
-    Photo = 10
+	Photo = 10,
 }
