@@ -55,6 +55,24 @@ module.exports = {
 					description: '⚆  Run Android  🤖',
 				},
 			},
+			'...React...': {
+				script: `npx cowsay "You like your TS with an X..."`,
+				description: ` 🔻 React`,
+			},
+			'demo-react': {
+				clean: {
+					script: 'nx run demo-react:clean',
+					description: '⚆  Clean  🧹',
+				},
+				ios: {
+					script: 'nx run demo-react:ios',
+					description: '⚆  Run iOS  ',
+				},
+				android: {
+					script: 'nx run demo-react:android',
+					description: '⚆  Run Android  🤖',
+				},
+			},
 			'...Vue...': {
 				script: `npx cowsay "You like the vue here..."`,
 				description: ` 🔻 Vue`,

@@ -73,6 +73,42 @@
         }
       }
     },
+    "demo-react": {
+      "root": "apps/demo-react/",
+      "sourceRoot": "apps/demo-react/src",
+      "projectType": "application",
+      "prefix": "demo",
+      "architect": {
+        "build": {
+          "builder": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "builder": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "builder": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "builder": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
     "demo-vue": {
       "root": "apps/demo-vue/",
       "sourceRoot": "apps/demo-vue/src",
