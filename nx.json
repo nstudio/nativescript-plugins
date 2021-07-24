@@ -23,6 +23,9 @@
 		"demo-react": {
 			"tags": []
 		},
+		"demo-svelte": {
+			"tags": []
+		},
 		"demo-vue": {
 			"tags": []
 		},

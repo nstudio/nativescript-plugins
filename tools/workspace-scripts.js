@@ -73,6 +73,24 @@ module.exports = {
 					description: '⚆  Run Android  🤖',
 				},
 			},
+			'...Svelte...': {
+				script: `npx cowsay "You are a minimalist!"`,
+				description: ` 🔻 Svelte`,
+			},
+			'demo-svelte': {
+				clean: {
+					script: 'nx run demo-svelte:clean',
+					description: '⚆  Clean  🧹',
+				},
+				ios: {
+					script: 'nx run demo-svelte:ios',
+					description: '⚆  Run iOS  ',
+				},
+				android: {
+					script: 'nx run demo-svelte:android',
+					description: '⚆  Run Android  🤖',
+				},
+			},
 			'...Vue...': {
 				script: `npx cowsay "You like the vue here..."`,
 				description: ` 🔻 Vue`,
