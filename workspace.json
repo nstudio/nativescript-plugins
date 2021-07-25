@@ -111,7 +111,7 @@
     },
     "demo-svelte": {
       "root": "apps/demo-svelte/",
-      "sourceRoot": "apps/demo-svelte/src",
+      "sourceRoot": "apps/demo-svelte/app",
       "projectType": "application",
       "prefix": "demo",
       "architect": {
@@ -147,7 +147,7 @@
     },
     "demo-vue": {
       "root": "apps/demo-vue/",
-      "sourceRoot": "apps/demo-vue/src",
+      "sourceRoot": "apps/demo-vue/app",
       "projectType": "application",
       "prefix": "demo",
       "architect": {
