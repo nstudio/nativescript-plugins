@@ -11,7 +11,8 @@
     "publish-packages": "nx g @nativescript/plugin-tools:publish",
     "postinstall": "husky install && npx ts-patch install && patch-package",
     "sync-packages-with-demos": "nx g @nativescript/plugin-tools:sync-packages-with-demos",
-    "remove-package": "nx g @nativescript/plugin-tools:remove-package"
+    "remove-package": "nx g @nativescript/plugin-tools:remove-package",
+    "add-demo": "nx g @nativescript/plugin-tools:add-demo"
   },
   "private": true,
   "devDependencies": {
@@ -25,8 +26,8 @@
     "@angular/platform-browser-dynamic": "^12.0.0",
     "@angular/router": "^12.0.0",
     "@nativescript/angular": "^12.0.0",
-    "@nativescript/core": "next",
-    "@nativescript/plugin-tools": "2.0.0",
+    "@nativescript/core": "^8.0.0",
+    "@nativescript/plugin-tools": "2.0.4",
     "@nativescript/types": "^8.0.0",
     "@nativescript/webpack": "beta",
     "@ngtools/webpack": "^12.0.0",

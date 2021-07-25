@@ -1,14 +1,14 @@
 {
-  "version": 1,
+  "version": 2,
   "projects": {
     "demo": {
       "root": "apps/demo/",
       "sourceRoot": "apps/demo/src",
       "projectType": "application",
       "prefix": "demo",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "noHmr": true,
             "production": true,
@@ -18,19 +18,19 @@
           }
         },
         "ios": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "ios"
           }
         },
         "android": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "android"
           }
         },
         "clean": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "clean": true
           }
@@ -42,9 +42,9 @@
       "sourceRoot": "apps/demo-angular/src",
       "projectType": "application",
       "prefix": "demo",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "noHmr": true,
             "production": true,
@@ -54,19 +54,19 @@
           }
         },
         "ios": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "ios"
           }
         },
         "android": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "android"
           }
         },
         "clean": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "clean": true
           }
@@ -78,9 +78,9 @@
       "sourceRoot": "apps/demo-react/src",
       "projectType": "application",
       "prefix": "demo",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "noHmr": true,
             "production": true,
@@ -90,19 +90,19 @@
           }
         },
         "ios": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "ios"
           }
         },
         "android": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "android"
           }
         },
         "clean": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "clean": true
           }
@@ -114,9 +114,9 @@
       "sourceRoot": "apps/demo-svelte/app",
       "projectType": "application",
       "prefix": "demo",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "noHmr": true,
             "production": true,
@@ -126,19 +126,19 @@
           }
         },
         "ios": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "ios"
           }
         },
         "android": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "android"
           }
         },
         "clean": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "clean": true
           }
@@ -150,9 +150,9 @@
       "sourceRoot": "apps/demo-vue/app",
       "projectType": "application",
       "prefix": "demo",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "noHmr": true,
             "production": true,
@@ -162,19 +162,19 @@
           }
         },
         "ios": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "ios"
           }
         },
         "android": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "platform": "android"
           }
         },
         "clean": {
-          "builder": "@nativescript/nx:build",
+          "executor": "@nativescript/nx:build",
           "options": {
             "clean": true
           }
@@ -184,9 +184,8 @@
     "all": {
       "root": "packages/",
       "projectType": "library",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -204,10 +203,10 @@
               "nx run nativescript-fancyalert:build.all"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -216,7 +215,8 @@
               "nx g @nativescript/plugin-tools:focus-packages"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -225,9 +225,8 @@
       "sourceRoot": "packages/nativescript-filterable-listpicker",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-filterable-listpicker",
             "tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
@@ -243,10 +242,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -256,10 +255,10 @@
               "node tools/scripts/build-finish.ts nativescript-filterable-listpicker"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -268,7 +267,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -277,9 +277,8 @@
       "sourceRoot": "packages/nativescript-exoplayer",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-exoplayer",
             "tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
@@ -305,10 +304,10 @@
                 "output": "./video-source/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -318,10 +317,10 @@
               "node tools/scripts/build-finish.ts nativescript-exoplayer"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -330,7 +329,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -339,9 +339,8 @@
       "sourceRoot": "packages/nativescript-checkbox",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-checkbox",
             "tsConfig": "packages/nativescript-checkbox/tsconfig.json",
@@ -357,10 +356,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -370,10 +369,10 @@
               "node tools/scripts/build-finish.ts nativescript-checkbox"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -382,7 +381,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -391,9 +391,8 @@
       "sourceRoot": "packages/nativescript-onfido",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-onfido",
             "tsConfig": "packages/nativescript-onfido/tsconfig.json",
@@ -409,10 +408,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -422,10 +421,10 @@
               "node tools/scripts/build-finish.ts nativescript-onfido"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -434,7 +433,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -443,9 +443,8 @@
       "sourceRoot": "packages/nativescript-plaid",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-plaid",
             "tsConfig": "packages/nativescript-plaid/tsconfig.json",
@@ -461,10 +460,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -474,10 +473,10 @@
               "node tools/scripts/build-finish.ts nativescript-plaid"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -486,7 +485,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-plaid"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -495,9 +495,8 @@
       "sourceRoot": "packages/nativescript-input-mask",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-input-mask",
             "tsConfig": "packages/nativescript-input-mask/tsconfig.json",
@@ -513,10 +512,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -526,10 +525,10 @@
               "node tools/scripts/build-finish.ts nativescript-input-mask"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -538,7 +537,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -547,9 +547,8 @@
       "sourceRoot": "packages/nativescript-camera-plus",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-camera-plus",
             "tsConfig": "packages/nativescript-camera-plus/tsconfig.json",
@@ -565,10 +564,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -578,10 +577,10 @@
               "node tools/scripts/build-finish.ts nativescript-camera-plus"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -590,7 +589,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-camera-plus"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -599,9 +599,8 @@
       "sourceRoot": "packages/nativescript-dynatrace",
       "projectType": "library",
       "schematics": {},
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-dynatrace",
             "tsConfig": "packages/nativescript-dynatrace/tsconfig.json",
@@ -619,10 +618,10 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -633,10 +632,10 @@
               "node tools/scripts/build-finish.ts nativescript-dynatrace"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -645,7 +644,8 @@
               "nx g @nativescript/plugin-tools:focus-packages nativescript-dynatrace"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -654,9 +654,8 @@
       "schematics": {},
       "root": "packages/nativescript-tracking-transparency",
       "sourceRoot": "packages/nativescript-tracking-transparency",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-tracking-transparency",
             "tsConfig": "packages/nativescript-tracking-transparency/tsconfig.json",
@@ -672,26 +671,27 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "nx run nativescript-tracking-transparency:build",
               "node tools/scripts/build-finish.ts nativescript-tracking-transparency"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-tracking-transparency"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     },
@@ -700,9 +700,8 @@
       "schematics": {},
       "root": "packages/nativescript-fancyalert",
       "sourceRoot": "packages/nativescript-fancyalert",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/node:package",
           "options": {
             "outputPath": "dist/packages/nativescript-fancyalert",
             "tsConfig": "packages/nativescript-fancyalert/tsconfig.json",
@@ -718,26 +717,27 @@
                 "output": "./platforms/"
               }
             ]
-          }
+          },
+          "executor": "@nrwl/node:package"
         },
         "build.all": {
-          "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "nx run nativescript-fancyalert:build",
               "node tools/scripts/build-finish.ts nativescript-fancyalert"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         },
         "focus": {
-          "builder": "@nrwl/workspace:run-commands",
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-fancyalert"
             ],
             "parallel": false
-          }
+          },
+          "executor": "@nrwl/workspace:run-commands"
         }
       }
     }

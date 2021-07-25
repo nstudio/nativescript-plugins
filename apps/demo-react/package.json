@@ -1,5 +1,5 @@
 {
-  "main": "src/app.ts",
+  "main": "./src/app.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "@nativescript/android": "8.0.0",
-    "@nativescript/ios": "8.1.0-alpha.1"
+    "@nativescript/ios": "8.1.0-alpha.2"
   }
 }
