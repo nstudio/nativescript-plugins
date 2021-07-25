@@ -1,14 +1,15 @@
 import { DemoSharedBase } from '../utils';
 import { TNSDynatrace, DynatraceStartupConfiguration, UserPrivacyOptions, DataCollectionLevel } from '@nstudio/nativescript-dynatrace';
+import { Dialogs } from '@nativescript/core';
 
-export class DemoSharedDynatrace extends DemoSharedBase {
+export class DemoSharedNativescriptDynatrace extends DemoSharedBase {
 	constructor() {
 		super();
 		const opts = new UserPrivacyOptions();
 		opts.crashReportingOptedIn = true;
 		opts.dataCollectionLevel = DataCollectionLevel.UserBehavior;
 		TNSDynatrace.applyUserPrivacyOptions(opts).then(() => {
-			const action = TNSDynatrace.enterAction('DemoSharedDynatrace');
+			const action = TNSDynatrace.enterAction('DemoSharedNativescriptDynatrace');
 			TNSDynatrace.identifyUser('triniwiz', action);
 			action.reportEvent('constructor');
 			action.reportValue('number', 1);
@@ -20,5 +21,7 @@ export class DemoSharedDynatrace extends DemoSharedBase {
 		});
 	}
 
-	testIt() {}
+	testIt() {
+		Dialogs.alert('Test it!');
+	}
 }

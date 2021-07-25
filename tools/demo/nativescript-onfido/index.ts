@@ -1,7 +1,7 @@
 import { Onfido, OnfidoCaptureType, OnfidoCountryCode, OnfidoDocumentType, OnfidoResult, OnfidoUtils } from '@nstudio/nativescript-onfido';
 import { DemoSharedBase } from '../utils';
 
-export class DemoSharedOnfido extends DemoSharedBase {
+export class DemoSharedNativescriptOnfido extends DemoSharedBase {
 	public applicant: any;
 	public sdkToken: string;
 	public results: OnfidoResult;

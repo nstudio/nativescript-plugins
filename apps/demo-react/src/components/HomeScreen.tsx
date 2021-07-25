@@ -26,7 +26,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             </button>
             <button
                 style={styles.button}
-                onTap={() => navigation.navigate('Secondary')}
+                onTap={() => navigation.navigate('camplus')}
             >
                 Go to next screen
             </button>

@@ -1,5 +1,5 @@
 import { Observable, EventData, Page } from '@nativescript/core';
-import { DemoSharedDynatrace } from '@demo/shared';
+import { DemoSharedNativescriptDynatrace } from '@demo/shared';
 import {} from '@nstudio/nativescript-dynatrace';
 
 export function navigatingTo(args: EventData) {
@@ -7,4 +7,4 @@ export function navigatingTo(args: EventData) {
 	page.bindingContext = new DemoModel();
 }
 
-export class DemoModel extends DemoSharedDynatrace {}
+export class DemoModel extends DemoSharedNativescriptDynatrace {}
