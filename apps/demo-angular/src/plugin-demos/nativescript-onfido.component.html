@@ -2,7 +2,22 @@
 <StackLayout class="p-20">
 	<ScrollView class="h-full">
 		<StackLayout>
-			<Button text="Test onfido" (tap)="demoShared.testIt()" class="btn btn-primary"></Button>
+			<Button text="Create Onfido Applicant" (tap)="createApplicant()" class="btn btn-primary"></Button>
+
+        <StackLayout *ngIf="applicant && applicant.id">
+          <Label text="Your Applicant ID:"></Label>
+          <Label [text]="applicant.id"></Label>
+
+          <Button text="Get SDK Token" (tap)="getSdkToken()" class="btn btn-primary m-t-10"></Button>
+
+          <StackLayout *ngIf="sdkToken">
+            <Label text="Your SDK token:"></Label>
+            <Label [text]="sdkToken"></Label>
+
+            <Button text="Verify Identity" (tap)="start()" class="btn btn-primary m-t-10"></Button>
+
+          </StackLayout>
+        </StackLayout>
 		</StackLayout>
 	</ScrollView>
 </StackLayout>

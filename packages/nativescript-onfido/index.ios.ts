@@ -166,6 +166,10 @@ export class Onfido extends OnfidoCommon {
 				builder.withFaceStepOfVariant(faceStepBuilder.buildAndReturnError());
 			}
 
+			if (config.flowSteps.customLocalization) {
+				builder.withCustomLocalization();
+			}
+
 			Onfido._flow = ONFlow.alloc()
 				.initWithFlowConfiguration(builder.buildAndReturnError())
 				.withResponseHandler((response) => {

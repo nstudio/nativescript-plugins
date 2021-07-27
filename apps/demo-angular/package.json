@@ -2,6 +2,8 @@
   "main": "./src/main.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
+    "@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
+    "@nativescript/localize": "~5.0.4",
     "@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
     "@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
     "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
@@ -9,7 +11,6 @@
     "@nstudio/nativescript-fancyalert": "file:../../dist/packages/nativescript-fancyalert",
     "@nstudio/nativescript-filterable-listpicker": "file:../../dist/packages/nativescript-filterable-listpicker",
     "@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
-    "@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
     "@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
     "@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency"
   },
