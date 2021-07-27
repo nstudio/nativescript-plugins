@@ -1,5 +1,5 @@
 import { Observable, EventData, Page } from '@nativescript/core';
-import { DemoSharedOnfido } from '@demo/shared';
+import { DemoSharedNativescriptOnfido } from '@demo/shared';
 import {} from '@nstudio/nativescript-onfido';
 
 export function navigatingTo(args: EventData) {
@@ -7,4 +7,4 @@ export function navigatingTo(args: EventData) {
 	page.bindingContext = new DemoModel();
 }
 
-export class DemoModel extends DemoSharedOnfido {}
+export class DemoModel extends DemoSharedNativescriptOnfido {}

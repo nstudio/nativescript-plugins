@@ -20,6 +20,15 @@
 		"demo-angular": {
 			"tags": []
 		},
+		"demo-react": {
+			"tags": []
+		},
+		"demo-svelte": {
+			"tags": []
+		},
+		"demo-vue": {
+			"tags": []
+		},
 		"all": {
 			"tags": []
 		},

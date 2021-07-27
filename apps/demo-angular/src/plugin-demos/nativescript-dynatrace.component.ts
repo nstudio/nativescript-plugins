@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { DemoSharedDynatrace } from '@demo/shared';
+import { DemoSharedNativescriptDynatrace } from '@demo/shared';
 import {} from '@nstudio/nativescript-dynatrace';
 
 @Component({
@@ -7,11 +7,11 @@ import {} from '@nstudio/nativescript-dynatrace';
 	templateUrl: 'nativescript-dynatrace.component.html',
 })
 export class DynatraceComponent {
-	demoShared: DemoSharedDynatrace;
+	demoShared: DemoSharedNativescriptDynatrace;
 
 	constructor(private _ngZone: NgZone) {}
 
 	ngOnInit() {
-		this.demoShared = new DemoSharedDynatrace();
+		this.demoShared = new DemoSharedNativescriptDynatrace();
 	}
 }

@@ -1,532 +1,748 @@
 {
-	"version": 1,
-	"projects": {
-		"demo": {
-			"root": "apps/demo/",
-			"sourceRoot": "apps/demo/src",
-			"projectType": "application",
-			"prefix": "demo",
-			"architect": {
-				"ios": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns debug ios --no-hmr --emulator --env.testing"],
-						"cwd": "apps/demo",
-						"parallel": false
-					}
-				},
-				"android": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns debug android --no-hmr --emulator --env.testing"],
-						"cwd": "apps/demo",
-						"parallel": false
-					}
-				},
-				"clean": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns clean", "npm i --legacy-peer-deps"],
-						"cwd": "apps/demo",
-						"parallel": false
-					}
-				}
-			}
-		},
-		"demo-angular": {
-			"root": "apps/demo-angular/",
-			"sourceRoot": "apps/demo-angular/src",
-			"projectType": "application",
-			"prefix": "demo",
-			"architect": {
-				"ios": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns debug ios --no-hmr --emulator --env.testing"],
-						"cwd": "apps/demo-angular",
-						"parallel": false
-					}
-				},
-				"android": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns debug android --no-hmr --emulator --env.testing"],
-						"cwd": "apps/demo-angular",
-						"parallel": false
-					}
-				},
-				"clean": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["ns clean", "npm i --legacy-peer-deps"],
-						"cwd": "apps/demo-angular",
-						"parallel": false
-					}
-				}
-			}
-		},
-		"all": {
-			"root": "packages/",
-			"projectType": "library",
-			"architect": {
-				"build": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build.all", "nx run nativescript-exoplayer:build.all", "nx run nativescript-checkbox:build.all", "nx run nativescript-input-mask:build.all", "nx run nativescript-onfido:build.all", "nx run nativescript-plaid:build.all", "nx run nativescript-camera-plus:build.all", "nx run nativescript-dynatrace:build.all", "nx run nativescript-tracking-transparency:build.all", "nx run nativescript-fancyalert:build.all"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-filterable-listpicker": {
-			"root": "packages/nativescript-filterable-listpicker",
-			"sourceRoot": "packages/nativescript-filterable-listpicker",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-filterable-listpicker",
-						"tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
-						"packageJson": "packages/nativescript-filterable-listpicker/package.json",
-						"main": "packages/nativescript-filterable-listpicker/index.ts",
-						"assets": [
-							"packages/nativescript-filterable-listpicker/*.md",
-							"packages/nativescript-filterable-listpicker/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-filterable-listpicker/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-filterable-listpicker:build", "node tools/scripts/build-finish.ts nativescript-filterable-listpicker"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-exoplayer": {
-			"root": "packages/nativescript-exoplayer",
-			"sourceRoot": "packages/nativescript-exoplayer",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-exoplayer",
-						"tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
-						"packageJson": "packages/nativescript-exoplayer/package.json",
-						"main": "packages/nativescript-exoplayer/index.ts",
-						"assets": [
-							"packages/nativescript-exoplayer/*.md",
-							"packages/nativescript-exoplayer/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-exoplayer/platforms/",
-								"output": "./platforms/"
-							},
-							{
-								"glob": "index.d.ts",
-								"input": "packages/nativescript-exoplayer/subtitle-source/",
-								"output": "./subtitle-source/"
-							},
-							{
-								"glob": "index.d.ts",
-								"input": "packages/nativescript-exoplayer/video-source/",
-								"output": "./video-source/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-exoplayer:build", "node tools/scripts/build-finish.ts nativescript-exoplayer"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-checkbox": {
-			"root": "packages/nativescript-checkbox",
-			"sourceRoot": "packages/nativescript-checkbox",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-checkbox",
-						"tsConfig": "packages/nativescript-checkbox/tsconfig.json",
-						"packageJson": "packages/nativescript-checkbox/package.json",
-						"main": "packages/nativescript-checkbox/index.ts",
-						"assets": [
-							"packages/nativescript-checkbox/*.md",
-							"packages/nativescript-checkbox/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-checkbox/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-checkbox:build", "node tools/scripts/build-finish.ts nativescript-checkbox"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-onfido": {
-			"root": "packages/nativescript-onfido",
-			"sourceRoot": "packages/nativescript-onfido",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-onfido",
-						"tsConfig": "packages/nativescript-onfido/tsconfig.json",
-						"packageJson": "packages/nativescript-onfido/package.json",
-						"main": "packages/nativescript-onfido/index.ts",
-						"assets": [
-							"packages/nativescript-onfido/*.md",
-							"packages/nativescript-onfido/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-onfido/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-onfido:build", "node tools/scripts/build-finish.ts nativescript-onfido"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-plaid": {
-			"root": "packages/nativescript-plaid",
-			"sourceRoot": "packages/nativescript-plaid",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-plaid",
-						"tsConfig": "packages/nativescript-plaid/tsconfig.json",
-						"packageJson": "packages/nativescript-plaid/package.json",
-						"main": "packages/nativescript-plaid/index.ts",
-						"assets": [
-							"packages/nativescript-plaid/*.md",
-							"packages/nativescript-plaid/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-plaid/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-plaid:build", "node tools/scripts/build-finish.ts nativescript-plaid"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-plaid"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-input-mask": {
-			"root": "packages/nativescript-input-mask",
-			"sourceRoot": "packages/nativescript-input-mask",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-input-mask",
-						"tsConfig": "packages/nativescript-input-mask/tsconfig.json",
-						"packageJson": "packages/nativescript-input-mask/package.json",
-						"main": "packages/nativescript-input-mask/index.ts",
-						"assets": [
-							"packages/nativescript-input-mask/*.md",
-							"packages/nativescript-input-mask/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-input-mask/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-input-mask:build", "node tools/scripts/build-finish.ts nativescript-input-mask"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-camera-plus": {
-			"root": "packages/nativescript-camera-plus",
-			"sourceRoot": "packages/nativescript-camera-plus",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-camera-plus",
-						"tsConfig": "packages/nativescript-camera-plus/tsconfig.json",
-						"packageJson": "packages/nativescript-camera-plus/package.json",
-						"main": "packages/nativescript-camera-plus/index.ts",
-						"assets": [
-							"packages/nativescript-camera-plus/*.md",
-							"packages/nativescript-camera-plus/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-camera-plus/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-camera-plus:build", "node tools/scripts/build-finish.ts nativescript-camera-plus"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-camera-plus"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-dynatrace": {
-			"root": "packages/nativescript-dynatrace",
-			"sourceRoot": "packages/nativescript-dynatrace",
-			"projectType": "library",
-			"schematics": {},
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-dynatrace",
-						"tsConfig": "packages/nativescript-dynatrace/tsconfig.json",
-						"packageJson": "packages/nativescript-dynatrace/package.json",
-						"main": "packages/nativescript-dynatrace/index.ts",
-						"assets": [
-							"packages/nativescript-dynatrace/*.md",
-							"packages/nativescript-dynatrace/index.d.ts",
-							"packages/nativescript-dynatrace/postinstall.js",
-							"packages/nativescript-dynatrace/preuninstall.js",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-dynatrace/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx run nativescript-dynatrace:build", "./node_modules/.bin/tsc -p packages/nativescript-dynatrace/hooks/tsconfig.json", "node tools/scripts/build-finish.ts nativescript-dynatrace"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"outputs": ["dist/packages"],
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-dynatrace"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-tracking-transparency": {
-			"projectType": "library",
-			"schematics": {},
-			"root": "packages/nativescript-tracking-transparency",
-			"sourceRoot": "packages/nativescript-tracking-transparency",
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-tracking-transparency",
-						"tsConfig": "packages/nativescript-tracking-transparency/tsconfig.json",
-						"packageJson": "packages/nativescript-tracking-transparency/package.json",
-						"main": "packages/nativescript-tracking-transparency/index.ts",
-						"assets": [
-							"packages/nativescript-tracking-transparency/*.md",
-							"packages/nativescript-tracking-transparency/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-tracking-transparency/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["nx run nativescript-tracking-transparency:build", "node tools/scripts/build-finish.ts nativescript-tracking-transparency"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-tracking-transparency"],
-						"parallel": false
-					}
-				}
-			}
-		},
-		"nativescript-fancyalert": {
-			"projectType": "library",
-			"schematics": {},
-			"root": "packages/nativescript-fancyalert",
-			"sourceRoot": "packages/nativescript-fancyalert",
-			"architect": {
-				"build": {
-					"builder": "@nrwl/node:package",
-					"options": {
-						"outputPath": "dist/packages/nativescript-fancyalert",
-						"tsConfig": "packages/nativescript-fancyalert/tsconfig.json",
-						"packageJson": "packages/nativescript-fancyalert/package.json",
-						"main": "packages/nativescript-fancyalert/index.ts",
-						"assets": [
-							"packages/nativescript-fancyalert/*.md",
-							"packages/nativescript-fancyalert/index.d.ts",
-							"LICENSE",
-							{
-								"glob": "**/*",
-								"input": "packages/nativescript-fancyalert/platforms/",
-								"output": "./platforms/"
-							}
-						]
-					}
-				},
-				"build.all": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["nx run nativescript-fancyalert:build", "node tools/scripts/build-finish.ts nativescript-fancyalert"],
-						"parallel": false
-					}
-				},
-				"focus": {
-					"builder": "@nrwl/workspace:run-commands",
-					"options": {
-						"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-fancyalert"],
-						"parallel": false
-					}
-				}
-			}
-		}
-	},
-	"cli": {
-		"defaultCollection": "@nrwl/workspace"
-	}
+  "version": 2,
+  "projects": {
+    "demo": {
+      "root": "apps/demo/",
+      "sourceRoot": "apps/demo/src",
+      "projectType": "application",
+      "prefix": "demo",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
+    "demo-angular": {
+      "root": "apps/demo-angular/",
+      "sourceRoot": "apps/demo-angular/src",
+      "projectType": "application",
+      "prefix": "demo",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
+    "demo-react": {
+      "root": "apps/demo-react/",
+      "sourceRoot": "apps/demo-react/src",
+      "projectType": "application",
+      "prefix": "demo",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
+    "demo-svelte": {
+      "root": "apps/demo-svelte/",
+      "sourceRoot": "apps/demo-svelte/app",
+      "projectType": "application",
+      "prefix": "demo",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
+    "demo-vue": {
+      "root": "apps/demo-vue/",
+      "sourceRoot": "apps/demo-vue/app",
+      "projectType": "application",
+      "prefix": "demo",
+      "targets": {
+        "build": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "noHmr": true,
+            "production": true,
+            "uglify": true,
+            "release": true,
+            "forDevice": true
+          }
+        },
+        "ios": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "ios"
+          }
+        },
+        "android": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "platform": "android"
+          }
+        },
+        "clean": {
+          "executor": "@nativescript/nx:build",
+          "options": {
+            "clean": true
+          }
+        }
+      }
+    },
+    "all": {
+      "root": "packages/",
+      "projectType": "library",
+      "targets": {
+        "build": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-filterable-listpicker:build.all",
+              "nx run nativescript-exoplayer:build.all",
+              "nx run nativescript-checkbox:build.all",
+              "nx run nativescript-input-mask:build.all",
+              "nx run nativescript-onfido:build.all",
+              "nx run nativescript-plaid:build.all",
+              "nx run nativescript-camera-plus:build.all",
+              "nx run nativescript-dynatrace:build.all",
+              "nx run nativescript-tracking-transparency:build.all",
+              "nx run nativescript-fancyalert:build.all"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-filterable-listpicker": {
+      "root": "packages/nativescript-filterable-listpicker",
+      "sourceRoot": "packages/nativescript-filterable-listpicker",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-filterable-listpicker",
+            "tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
+            "packageJson": "packages/nativescript-filterable-listpicker/package.json",
+            "main": "packages/nativescript-filterable-listpicker/index.d.ts",
+            "assets": [
+              "packages/nativescript-filterable-listpicker/*.md",
+              "packages/nativescript-filterable-listpicker/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-filterable-listpicker/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-filterable-listpicker:build",
+              "node tools/scripts/build-finish.ts nativescript-filterable-listpicker"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-exoplayer": {
+      "root": "packages/nativescript-exoplayer",
+      "sourceRoot": "packages/nativescript-exoplayer",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-exoplayer",
+            "tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
+            "packageJson": "packages/nativescript-exoplayer/package.json",
+            "main": "packages/nativescript-exoplayer/index.d.ts",
+            "assets": [
+              "packages/nativescript-exoplayer/*.md",
+              "packages/nativescript-exoplayer/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-exoplayer/platforms/",
+                "output": "./platforms/"
+              },
+              {
+                "glob": "index.d.ts",
+                "input": "packages/nativescript-exoplayer/subtitle-source/",
+                "output": "./subtitle-source/"
+              },
+              {
+                "glob": "index.d.ts",
+                "input": "packages/nativescript-exoplayer/video-source/",
+                "output": "./video-source/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-exoplayer:build",
+              "node tools/scripts/build-finish.ts nativescript-exoplayer"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-checkbox": {
+      "root": "packages/nativescript-checkbox",
+      "sourceRoot": "packages/nativescript-checkbox",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-checkbox",
+            "tsConfig": "packages/nativescript-checkbox/tsconfig.json",
+            "packageJson": "packages/nativescript-checkbox/package.json",
+            "main": "packages/nativescript-checkbox/index.d.ts",
+            "assets": [
+              "packages/nativescript-checkbox/*.md",
+              "packages/nativescript-checkbox/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-checkbox/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-checkbox:build",
+              "node tools/scripts/build-finish.ts nativescript-checkbox"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-onfido": {
+      "root": "packages/nativescript-onfido",
+      "sourceRoot": "packages/nativescript-onfido",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-onfido",
+            "tsConfig": "packages/nativescript-onfido/tsconfig.json",
+            "packageJson": "packages/nativescript-onfido/package.json",
+            "main": "packages/nativescript-onfido/index.d.ts",
+            "assets": [
+              "packages/nativescript-onfido/*.md",
+              "packages/nativescript-onfido/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-onfido/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-onfido:build",
+              "node tools/scripts/build-finish.ts nativescript-onfido"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-plaid": {
+      "root": "packages/nativescript-plaid",
+      "sourceRoot": "packages/nativescript-plaid",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-plaid",
+            "tsConfig": "packages/nativescript-plaid/tsconfig.json",
+            "packageJson": "packages/nativescript-plaid/package.json",
+            "main": "packages/nativescript-plaid/index.d.ts",
+            "assets": [
+              "packages/nativescript-plaid/*.md",
+              "packages/nativescript-plaid/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-plaid/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-plaid:build",
+              "node tools/scripts/build-finish.ts nativescript-plaid"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-plaid"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-input-mask": {
+      "root": "packages/nativescript-input-mask",
+      "sourceRoot": "packages/nativescript-input-mask",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-input-mask",
+            "tsConfig": "packages/nativescript-input-mask/tsconfig.json",
+            "packageJson": "packages/nativescript-input-mask/package.json",
+            "main": "packages/nativescript-input-mask/index.d.ts",
+            "assets": [
+              "packages/nativescript-input-mask/*.md",
+              "packages/nativescript-input-mask/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-input-mask/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-input-mask:build",
+              "node tools/scripts/build-finish.ts nativescript-input-mask"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-input-mask"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-camera-plus": {
+      "root": "packages/nativescript-camera-plus",
+      "sourceRoot": "packages/nativescript-camera-plus",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-camera-plus",
+            "tsConfig": "packages/nativescript-camera-plus/tsconfig.json",
+            "packageJson": "packages/nativescript-camera-plus/package.json",
+            "main": "packages/nativescript-camera-plus/index.d.ts",
+            "assets": [
+              "packages/nativescript-camera-plus/*.md",
+              "packages/nativescript-camera-plus/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-camera-plus/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-camera-plus:build",
+              "node tools/scripts/build-finish.ts nativescript-camera-plus"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-camera-plus"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-dynatrace": {
+      "root": "packages/nativescript-dynatrace",
+      "sourceRoot": "packages/nativescript-dynatrace",
+      "projectType": "library",
+      "schematics": {},
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-dynatrace",
+            "tsConfig": "packages/nativescript-dynatrace/tsconfig.json",
+            "packageJson": "packages/nativescript-dynatrace/package.json",
+            "main": "packages/nativescript-dynatrace/index.d.ts",
+            "assets": [
+              "packages/nativescript-dynatrace/*.md",
+              "packages/nativescript-dynatrace/index.d.ts",
+              "packages/nativescript-dynatrace/postinstall.js",
+              "packages/nativescript-dynatrace/preuninstall.js",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-dynatrace/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx run nativescript-dynatrace:build",
+              "./node_modules/.bin/tsc -p packages/nativescript-dynatrace/hooks/tsconfig.json",
+              "node tools/scripts/build-finish.ts nativescript-dynatrace"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "outputs": [
+            "dist/packages"
+          ],
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-dynatrace"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-tracking-transparency": {
+      "projectType": "library",
+      "schematics": {},
+      "root": "packages/nativescript-tracking-transparency",
+      "sourceRoot": "packages/nativescript-tracking-transparency",
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-tracking-transparency",
+            "tsConfig": "packages/nativescript-tracking-transparency/tsconfig.json",
+            "packageJson": "packages/nativescript-tracking-transparency/package.json",
+            "main": "packages/nativescript-tracking-transparency/index.d.ts",
+            "assets": [
+              "packages/nativescript-tracking-transparency/*.md",
+              "packages/nativescript-tracking-transparency/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-tracking-transparency/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "options": {
+            "commands": [
+              "nx run nativescript-tracking-transparency:build",
+              "node tools/scripts/build-finish.ts nativescript-tracking-transparency"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-tracking-transparency"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-fancyalert": {
+      "projectType": "library",
+      "schematics": {},
+      "root": "packages/nativescript-fancyalert",
+      "sourceRoot": "packages/nativescript-fancyalert",
+      "targets": {
+        "build": {
+          "options": {
+            "outputPath": "dist/packages/nativescript-fancyalert",
+            "tsConfig": "packages/nativescript-fancyalert/tsconfig.json",
+            "packageJson": "packages/nativescript-fancyalert/package.json",
+            "main": "packages/nativescript-fancyalert/index.d.ts",
+            "assets": [
+              "packages/nativescript-fancyalert/*.md",
+              "packages/nativescript-fancyalert/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-fancyalert/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          },
+          "executor": "@nrwl/node:package"
+        },
+        "build.all": {
+          "options": {
+            "commands": [
+              "nx run nativescript-fancyalert:build",
+              "node tools/scripts/build-finish.ts nativescript-fancyalert"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        },
+        "focus": {
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-fancyalert"
+            ],
+            "parallel": false
+          },
+          "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
+  }
 }

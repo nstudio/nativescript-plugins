@@ -1,5 +1,5 @@
 import { Observable, EventData, Page, ObservableArray, Http } from '@nativescript/core';
-import { DemoSharedFilterableListpicker } from '@demo/shared';
+import { DemoSharedNativescriptFilterableListpicker } from '@demo/shared';
 import { FilterableListpicker } from '@nstudio/nativescript-filterable-listpicker';
 
 export function navigatingTo(args: EventData) {
@@ -11,7 +11,7 @@ let API_KEY = '__YOUR_GOOGLE_API_KEY__';
 let placesApiUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 let placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/json';
 
-export class DemoModel extends DemoSharedFilterableListpicker {
+export class DemoModel extends DemoSharedNativescriptFilterableListpicker {
 	private filterableListpicker: FilterableListpicker;
 	private page: Page;
 	public items: Array<any>;

@@ -1,6 +1,6 @@
 import { DemoSharedBase } from '../utils';
 import { VideoFill } from '@nstudio/nativescript-exoplayer';
-import { Enums, Page, Utils } from '@nativescript/core';
+import { CoreTypes, Page, Utils } from '@nativescript/core';
 
 export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 	public videoSrc: string;
@@ -97,34 +97,34 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 			.animate({
 				rotate: 360,
 				duration: 3000,
-				curve: Enums.AnimationCurve.spring,
+				curve: CoreTypes.AnimationCurve.spring,
 			})
 			.then(() => {
 				return this._videoPlayer.animate({
 					rotate: 0,
 					duration: 3000,
-					curve: Enums.AnimationCurve.spring,
+					curve: CoreTypes.AnimationCurve.spring,
 				});
 			})
 			.then(() => {
 				return this._videoPlayer.animate({
 					scale: { x: 0.5, y: 0.5 },
 					duration: 1000,
-					curve: Enums.AnimationCurve.spring,
+					curve: CoreTypes.AnimationCurve.spring,
 				});
 			})
 			.then(() => {
 				return this._videoPlayer.animate({
 					scale: { x: 1.5, y: 1.5 },
 					duration: 3000,
-					curve: Enums.AnimationCurve.spring,
+					curve: CoreTypes.AnimationCurve.spring,
 				});
 			})
 			.then(() => {
 				return this._videoPlayer.animate({
 					scale: { x: 1.0, y: 1.0 },
 					duration: 3000,
-					curve: Enums.AnimationCurve.spring,
+					curve: CoreTypes.AnimationCurve.spring,
 				});
 			});
 	}

@@ -1,4 +1,4 @@
-import { OnfidoCaptureType, OnfidoCommon, OnfidoConfig, OnfidoResult, OnfidoCountryCode, OnfidoDocument, OnfidoDocumentType, OnfidoFlowSteps } from './common';
+import { OnfidoCaptureType, OnfidoCommon, OnfidoConfig, OnfidoResult } from './common';
 import { Application, Utils, AndroidActivityResultEventData, AndroidApplication } from '@nativescript/core';
 
 declare const com;
@@ -142,5 +142,5 @@ export class Onfido extends OnfidoCommon {
 	}
 }
 
-export { OnfidoUtils } from './utils';
-export { OnfidoConfig, OnfidoResult, OnfidoCaptureType, OnfidoCountryCode, OnfidoDocument, OnfidoDocumentType, OnfidoFlowSteps };
+export * from './utils';
+export * from './common';

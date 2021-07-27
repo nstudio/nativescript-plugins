@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { DemoSharedFilterableListpicker } from '@demo/shared';
+import { DemoSharedNativescriptFilterableListpicker } from '@demo/shared';
 import { registerElement } from '@nativescript/angular';
 import { Http } from '@nativescript/core';
 import { FilterableListpicker } from '@nstudio/nativescript-filterable-listpicker';
@@ -16,14 +16,14 @@ const placesDetailsApiUrl = 'https://maps.googleapis.com/maps/api/place/details/
 	templateUrl: 'nativescript-filterable-listpicker.component.html',
 })
 export class FilterableListpickerComponent {
-	demoShared: DemoSharedFilterableListpicker;
+	demoShared: DemoSharedNativescriptFilterableListpicker;
 
 	public items: Array<any>;
 
 	constructor(private _ngZone: NgZone) {}
 
 	ngOnInit() {
-		this.demoShared = new DemoSharedFilterableListpicker();
+		this.demoShared = new DemoSharedNativescriptFilterableListpicker();
 		this.items = this.demoShared.languages;
 	}
 

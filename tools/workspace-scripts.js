@@ -55,6 +55,60 @@ module.exports = {
 					description: '⚆  Run Android  🤖',
 				},
 			},
+			'...React...': {
+				script: `npx cowsay "You like your TS with an X..."`,
+				description: ` 🔻 React`,
+			},
+			'demo-react': {
+				clean: {
+					script: 'nx run demo-react:clean',
+					description: '⚆  Clean  🧹',
+				},
+				ios: {
+					script: 'nx run demo-react:ios',
+					description: '⚆  Run iOS  ',
+				},
+				android: {
+					script: 'nx run demo-react:android',
+					description: '⚆  Run Android  🤖',
+				},
+			},
+			'...Svelte...': {
+				script: `npx cowsay "You are a minimalist!"`,
+				description: ` 🔻 Svelte`,
+			},
+			'demo-svelte': {
+				clean: {
+					script: 'nx run demo-svelte:clean',
+					description: '⚆  Clean  🧹',
+				},
+				ios: {
+					script: 'nx run demo-svelte:ios',
+					description: '⚆  Run iOS  ',
+				},
+				android: {
+					script: 'nx run demo-svelte:android',
+					description: '⚆  Run Android  🤖',
+				},
+			},
+			'...Vue...': {
+				script: `npx cowsay "You like the vue here..."`,
+				description: ` 🔻 Vue`,
+			},
+			'demo-vue': {
+				clean: {
+					script: 'nx run demo-vue:clean',
+					description: '⚆  Clean  🧹',
+				},
+				ios: {
+					script: 'nx run demo-vue:ios',
+					description: '⚆  Run iOS  ',
+				},
+				android: {
+					script: 'nx run demo-vue:android',
+					description: '⚆  Run Android  🤖',
+				},
+			},
 		},
 		'⚙️': {
 			script: `npx cowsay "@nstudio/* packages will keep your ⚙️ cranking"`,
