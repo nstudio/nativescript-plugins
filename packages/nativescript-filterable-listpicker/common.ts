@@ -1,4 +1,4 @@
-import { booleanConverter, Builder, Enums, GridLayout, isIOS, Observable, ObservableArray, Property, PropertyChangeData, TextField } from '@nativescript/core';
+import { booleanConverter, Builder, CoreTypes, Enums, GridLayout, isIOS, Observable, ObservableArray, Property, PropertyChangeData, TextField } from '@nativescript/core';
 import { AnimationCurve } from '@nativescript/core/ui/enums';
 
 let unfilteredSource: Array<any> = [];
@@ -122,7 +122,7 @@ export class FilterableListpickerCommon extends GridLayout {
   private _searchFilter: (data: any) => void;
   private _isAutocomplete: boolean = false;
   private _suggestions: any;
-  visibility: any = Enums.Visibility.collapse;
+  visibility: any = CoreTypes.Visibility.collapse;
 
   loadedContainer(args) {
     this._container = <GridLayout>args.object;
@@ -215,11 +215,11 @@ export class FilterableListpickerCommon extends GridLayout {
         scale: { x: 0.7, y: 0.7 },
         opacity: 0,
         duration: 400,
-        curve: AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
+        curve: CoreTypes.AnimationCurve.cubicBezier(0.1, 0.1, 0.1, 1)
       })
       .then(
         () => {
-          this.visibility = Enums.Visibility.collapse;
+          this.visibility = CoreTypes.Visibility.collapse;
           this._container.visibility = "collapse";
         },
         err => {}
@@ -227,7 +227,7 @@ export class FilterableListpickerCommon extends GridLayout {
   }
 
   public show() {
-    this.visibility = Enums.Visibility.visible;
+    this.visibility = CoreTypes.Visibility.visible;
     this._container.visibility = "visible";
 
     this.source = unfilteredSource.filter(i => true);

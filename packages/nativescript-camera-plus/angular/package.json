@@ -1,16 +1,16 @@
 {
-	"name": "nstudio-nativescript-camera-plus-angular",
-	"ngPackage": {
-		"lib": {
-			"entryFile": "index.ts",
-			"umdModuleIds": {
-				"@nativescript/core": "ns-core",
-				"@nativescript/angular": "ns-angular",
-				"@nstudio/nativescript-camera-plus": "ns-nativescript-camera-plus"
-			}
-		},
-		"allowedNonPeerDependencies": [
-			"."
-		]
-	}
+  "name": "nstudio-nativescript-camera-plus-angular",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts",
+      "umdModuleIds": {
+        "@nativescript/core": "ns-core",
+        "@nativescript/angular": "ns-angular",
+        "@nstudio/nativescript-camera-plus": "ns-nativescript-camera-plus"
+      }
+    },
+    "allowedNonPeerDependencies": [
+      "."
+    ]
+  }
 }

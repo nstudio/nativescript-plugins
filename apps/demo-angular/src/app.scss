@@ -1,4 +1,26 @@
-@import '~nativescript-theme-core/css/core.light.css';
+﻿@import 'nativescript-theme-core/scss/light';
+  @import 'nativescript-theme-core/scss/index';
+
+button, label, stack-layout {
+    /* horizontal-align: center; */
+}
+
+button {
+    font-size: 36;
+}
+
+.title {
+    font-size: 30;
+    margin: 20;
+}
+
+.message {
+    font-size: 20;
+    color: #284848;
+    text-align: center;
+    margin: 0 20;
+} 
+
 
 .flp-container .flp-list-container {
   border-radius: 10;
@@ -15,6 +37,7 @@
 }
 
 .flp-container .flp-list-container .flp-listview .flp-row {
+  text-align: left;
   background-color: white;
   padding: 10;
 }
@@ -47,14 +70,15 @@
 .flp-container .flp-hint-field {
   padding: 10 15; 
   height: 40; 
+  font-size: 12;
   background-color: #E0E0E0; 
-  border-radius: 10;
 }
 
 .flp-container .flp-cancel-container {
   background-color: #E0E0E0; 
   height: 40; 
   border-radius: 0 0 10 10;
+  width: 100%;
 }
 
 .flp-container .flp-cancel-container .flp-btn-cancel {
@@ -64,18 +88,4 @@
   border-color: transparent; 
   border-width: 1; 
   font-size: 12;
-}
-
-CheckBox {
-  vertical-align: center;
-  color: white;
-  font-size: 20;
-}
-
-.listitem {
-  vertical-align: center;
-  horizontal-align: left;
-  margin-bottom: 10;
-  width: 100%;
-  background-color: transparent;
 }

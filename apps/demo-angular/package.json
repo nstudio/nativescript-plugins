@@ -1,37 +1,20 @@
 {
-	"main": "main.js",
-	"dependencies": {
-		"@angular/animations": "file:../../node_modules/@angular/animations",
-		"@angular/common": "file:../../node_modules/@angular/common",
-		"@angular/compiler": "file:../../node_modules/@angular/compiler",
-		"@angular/core": "file:../../node_modules/@angular/core",
-		"@angular/forms": "file:../../node_modules/@angular/forms",
-		"@angular/platform-browser": "file:../../node_modules/@angular/platform-browser",
-		"@angular/platform-browser-dynamic": "file:../../node_modules/@angular/platform-browser-dynamic",
-		"@angular/router": "file:../../node_modules/@angular/router",
-		"@nativescript/angular": "file:../../node_modules/@nativescript/angular",
-		"@nativescript/core": "file:../../node_modules/@nativescript/core",
-		"@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
-		"@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
-		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
-		"@nstudio/nativescript-exoplayer": "file:../../dist/packages/nativescript-exoplayer",
-		"@nstudio/nativescript-fancyalert": "file:../../dist/packages/nativescript-fancyalert",
-		"@nstudio/nativescript-filterable-listpicker": "file:../../dist/packages/nativescript-filterable-listpicker",
-		"@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
-		"@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
-		"@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
-		"@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency",
-		"nativescript-theme-core": "file:../../node_modules/nativescript-theme-core",
-		"reflect-metadata": "file:../../node_modules/reflect-metadata",
-		"rxjs": "file:../../node_modules/rxjs",
-		"zone.js": "file:../../node_modules/zone.js"
-	},
-	"devDependencies": {
-		"@angular/compiler-cli": "file:../../node_modules/@angular/compiler-cli",
-		"@nativescript/android": "7.0.1",
-		"@nativescript/ios": "7.2.0",
-		"@nativescript/webpack": "~4.1.0",
-		"@ngtools/webpack": "file:../../node_modules/@ngtools/webpack",
-		"typescript": "file:../../node_modules/typescript"
-	}
+  "main": "./src/main.ts",
+  "dependencies": {
+    "@nativescript/core": "file:../../node_modules/@nativescript/core",
+    "@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
+    "@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
+    "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
+    "@nstudio/nativescript-exoplayer": "file:../../dist/packages/nativescript-exoplayer",
+    "@nstudio/nativescript-fancyalert": "file:../../dist/packages/nativescript-fancyalert",
+    "@nstudio/nativescript-filterable-listpicker": "file:../../dist/packages/nativescript-filterable-listpicker",
+    "@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
+    "@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
+    "@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
+    "@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency"
+  },
+  "devDependencies": {
+    "@nativescript/android": "8.0.0",
+    "@nativescript/ios": "8.0.0"
+  }
 }
