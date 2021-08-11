@@ -182,8 +182,8 @@
       }
     },
     "all": {
-      "root": "packages/",
-      "projectType": "library",
+      "root": "",
+      "projectType": "application",
       "targets": {
         "build": {
           "outputs": [
@@ -218,7 +218,8 @@
           },
           "executor": "@nrwl/workspace:run-commands"
         }
-      }
+      },
+      "sourceRoot": ""
     },
     "nativescript-filterable-listpicker": {
       "root": "packages/nativescript-filterable-listpicker",
