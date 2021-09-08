@@ -1,0 +1,24 @@
+<ActionBar title="nativescript-blur" class="action-bar"> </ActionBar>
+<StackLayout class="p-20">
+	<ScrollView class="h-full">
+		<GridLayout rows="" columns="">
+            <Image src="https://wallpaperscraft.com/image/rose_flower_colorful_close-up_petals_18824_960x544.jpg" id="bgimage" stretch="aspectFill" ></Image>
+            <StackLayout id="dimmer" width="100%" height="100%" ></StackLayout>
+            <StackLayout class="p-20" id="stack">
+                <Button text="Blur the Cat" (tap)="demoShared.blurCat($event)" ></Button>
+                <Button text="Unblur the Cat" (tap)="demoShared.unBlurCat($event)" ></Button>
+
+                <Button text="Blur the Background Dark iOS" id="dark" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Blur the Background Extra Dark iOS" id="extraDark" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Blur the Background Light iOS" id="light" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Blur the Background Extra Light iOS" id="extraLight" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Blur the Background Regular iOS" id="regular" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Blur the Background Prominent iOS" id="prominent" (tap)="demoShared.blurBg($event)" ></Button>
+                <Button text="Unblur the Background iOS" (tap)="demoShared.unBlurBg($event)" ></Button>
+
+
+                <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz2zZ447t45PELg9liuPfDoAcOwdnkuzN5eUSZiTHB8CgL2aduKw" width="200" id="cat" ></Image>
+            </StackLayout>    
+        </GridLayout>
+	</ScrollView>
+</StackLayout>

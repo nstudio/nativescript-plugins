@@ -187,6 +187,13 @@ module.exports = {
 					description: '@nstudio/nativescript-fancyalert: Build',
 				},
 			},
+			// @nstudio/nativescript-blur
+			'nativescript-blur': {
+				build: {
+					script: 'nx run nativescript-blur:build.all',
+					description: '@nstudio/nativescript-blur: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -236,6 +243,10 @@ module.exports = {
 			'nativescript-fancyalert': {
 				script: 'nx run nativescript-fancyalert:focus',
 				description: 'Focus on @nstudio/nativescript-fancyalert',
+			},
+			'nativescript-blur': {
+				script: 'nx run nativescript-blur:focus',
+				description: 'Focus on @nstudio/nativescript-blur',
 			},
 			reset: {
 				script: 'nx run all:focus',

@@ -186,6 +186,7 @@
       "projectType": "application",
       "targets": {
         "build": {
+          "executor": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
@@ -200,11 +201,11 @@
               "nx run nativescript-camera-plus:build.all",
               "nx run nativescript-dynatrace:build.all",
               "nx run nativescript-tracking-transparency:build.all",
-              "nx run nativescript-fancyalert:build.all"
+              "nx run nativescript-fancyalert:build.all",
+              "nx run nativescript-blur:build.all"
             ],
             "parallel": false
-          },
-          "executor": "@nrwl/workspace:run-commands"
+          }
         },
         "focus": {
           "outputs": [
@@ -739,6 +740,51 @@
             "parallel": false
           },
           "executor": "@nrwl/workspace:run-commands"
+        }
+      }
+    },
+    "nativescript-blur": {
+      "root": "packages/nativescript-blur",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-blur",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-blur",
+            "tsConfig": "packages/nativescript-blur/tsconfig.json",
+            "packageJson": "packages/nativescript-blur/package.json",
+            "main": "packages/nativescript-blur/index.d.ts",
+            "assets": [
+              "packages/nativescript-blur/*.md",
+              "packages/nativescript-blur/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-blur/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-blur:build",
+              "node tools/scripts/build-finish.ts nativescript-blur"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-blur"
+            ],
+            "parallel": false
+          }
         }
       }
     }

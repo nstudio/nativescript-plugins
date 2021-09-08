@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 	demos = [
 	{
+		name: 'nativescript-blur'
+	},
+	{
 		name: 'nativescript-camera-plus'
 	},
 	{

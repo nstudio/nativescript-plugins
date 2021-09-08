@@ -5,16 +5,17 @@ npm run setup
 npm start
 ```
 
-- @nstudio/nativescript-camera-plus
-- @nstudio/nativescript-checkbox
-- @nstudio/nativescript-dynatrace
-- @nstudio/nativescript-exoplayer
-- @nstudio/nativescript-fancyalert
-- @nstudio/nativescript-filterable-listpicker
-- @nstudio/nativescript-input-mask
-- @nstudio/nativescript-onfido
-- @nstudio/nativescript-plaid
-- @nstudio/nativescript-tracking-transparency
+- [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
+- [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
+- [@nstudio/nativescript-checkbox](packages/nativescript-checkbox/README.md)
+- [@nstudio/nativescript-dynatrace](packages/nativescript-dynatrace/README.md)
+- [@nstudio/nativescript-exoplayer](packages/nativescript-exoplayer/README.md)
+- [@nstudio/nativescript-fancyalert](packages/nativescript-fancyalert/README.md)
+- [@nstudio/nativescript-filterable-listpicker](packages/nativescript-filterable-listpicker/README.md)
+- [@nstudio/nativescript-input-mask](packages/nativescript-input-mask/README.md)
+- [@nstudio/nativescript-onfido](packages/nativescript-onfido/README.md)
+- [@nstudio/nativescript-plaid](packages/nativescript-plaid/README.md)
+- [@nstudio/nativescript-tracking-transparency](packages/nativescript-tracking-transparency/README.md)
 
 # How to use?
 

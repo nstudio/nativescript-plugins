@@ -11,7 +11,8 @@
     "@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
     "@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
-    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency"
+    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
+    "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur"
   },
   "devDependencies": {
     "@nativescript/android": "8.0.0",

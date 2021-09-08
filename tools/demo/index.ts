@@ -1,4 +1,5 @@
 export * from './utils';
+export * from './nativescript-blur';
 export * from './nativescript-camera-plus';
 export * from './nativescript-checkbox';
 export * from './nativescript-dynatrace';

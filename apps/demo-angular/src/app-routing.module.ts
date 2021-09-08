@@ -6,6 +6,7 @@ import { HomeComponent } from './home.component';
 const routes: Routes = [
    { path: '', redirectTo: '/home', pathMatch: 'full' },
    { path: 'home', component: HomeComponent },
+	{ path: 'nativescript-blur', loadChildren: () => import('./plugin-demos/nativescript-blur.module').then(m => m.NativescriptBlurModule) },
 	{ path: 'nativescript-camera-plus', loadChildren: () => import('./plugin-demos/nativescript-camera-plus.module').then(m => m.NativescriptCameraPlusModule) },
 	{ path: 'nativescript-checkbox', loadChildren: () => import('./plugin-demos/nativescript-checkbox.module').then(m => m.NativescriptCheckboxModule) },
 	{ path: 'nativescript-dynatrace', loadChildren: () => import('./plugin-demos/nativescript-dynatrace.module').then(m => m.NativescriptDynatraceModule) },
