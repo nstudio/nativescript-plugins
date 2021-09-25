@@ -20,20 +20,20 @@ class QBImagePickerControllerDelegateImpl extends NSObject implements QBImagePic
 		return <QBImagePickerControllerDelegateImpl>super.new();
 	}
 
-	private _owner: WeakRef<MySwifty>;
+	private _owner: WeakRef<any>;
 	private _callback: (result?) => void;
 
 	private _width: number;
 	private _height: number;
 	private _keepAspectRatio: boolean;
 
-	public initWithCallback(owner: WeakRef<MySwifty>, callback: (result?) => void): QBImagePickerControllerDelegateImpl {
+	public initWithCallback(owner: WeakRef<any>, callback: (result?) => void): QBImagePickerControllerDelegateImpl {
 		this._owner = owner;
 		this._callback = callback;
 		return this;
 	}
 
-	public initWithCallbackAndOptions(owner: WeakRef<MySwifty>, callback: (result?) => void, options?): QBImagePickerControllerDelegateImpl {
+	public initWithCallbackAndOptions(owner: WeakRef<any>, callback: (result?) => void, options?): QBImagePickerControllerDelegateImpl {
 		this._owner = owner;
 		this._callback = callback;
 		if (options) {
@@ -158,9 +158,9 @@ class QBImagePickerControllerDelegateImpl extends NSObject implements QBImagePic
 @NativeClass()
 class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerDelegate {
 	public static ObjCProtocols = [SwiftyCamViewControllerDelegate];
-	private _owner: WeakRef<MySwifty>;
+	private _owner: WeakRef<any>; //MySwifty>;
 
-	public static initWithOwner(owner: WeakRef<MySwifty>) {
+	public static initWithOwner(owner: WeakRef<any>) {
 		const delegate = <SwiftyDelegate>SwiftyDelegate.new();
 		delegate._owner = owner;
 		return delegate;
@@ -227,510 +227,494 @@ class SwiftyDelegate extends NSObject implements SwiftyCamViewControllerDelegate
 	}
 }
 
-@NativeClass()
-class MySwifty extends SwiftyCamViewController {
-	public static ObjCExposedMethods = {
-		switchCam: { returns: interop.types.void },
-		resetPreview: { returns: interop.types.void },
-		savePhoto: { returns: interop.types.void },
-		snapPicture: { returns: interop.types.void },
-		toggleFlash: { returns: interop.types.void },
-		openGallery: { returns: interop.types.void },
-		recordVideo: { returns: interop.types.void },
-		videoDidFinishSavingWithErrorContextInfo: {
-			returns: interop.types.void,
-			params: [NSString, NSError, interop.Pointer],
+const MySwifty = (<any>SwiftyCamViewController).extend(
+	{
+		cleanup() {
+			this._swiftyDelegate = null;
 		},
-		// 'deviceDidRotate': { returns: interop.types.void },
-		// 'thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:': {
-		//   returns: interop.types.void,
-		//   params: [UIImage, NSError, interop.Pointer]
+
+		set enableVideo(value: boolean) {
+			this._enableVideo = value;
+		},
+
+		set pickerDelegate(value: any) {
+			this._pickerDelegate = value;
+		},
+
+		closePicker() {
+			rootVC().dismissViewControllerAnimatedCompletion(true, () => {
+				this.pickerDelegate = null;
+			});
+		},
+
+		viewDidLoad(): void {
+			CLog('MySwifty viewdidload');
+			super.viewDidLoad();
+			const owner = this._owner && this._owner.get();
+			if (owner) {
+				owner._updatePhotoQuality();
+			}
+			this.view.userInteractionEnabled = true;
+			const doubleTapEnabled = this._owner.get().doubleTapCameraSwitch;
+			this.doubleTapCameraSwitch = doubleTapEnabled;
+			CLog('doubleTapCameraSwitch:', doubleTapEnabled);
+
+			// CLog('view.frame.size:', this.view.frame.size.width + 'x' + this.view.frame.size.height);
+			// retain delegate in javascript to ensure garbage collector does not get it
+			this._swiftyDelegate = SwiftyDelegate.initWithOwner(new WeakRef(this));
+			this.cameraDelegate = this._swiftyDelegate;
+			CLog('this.cameraDelegate:', this.cameraDelegate);
+		},
+
+		doLayout() {
+			const size = this._owner.get().getActualSize();
+			const nativeView = this._owner.get().nativeView;
+			const frame = nativeView.frame;
+			nativeView.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
+			nativeView.setNeedsLayout();
+		},
+
+		viewDidLayoutSubviews() {
+			CLog('MySwifty viewDidLayoutSubviews');
+			super.viewDidLayoutSubviews();
+		},
+
+		viewDidAppear(animated: boolean) {
+			super.viewDidAppear(animated);
+			CLog('MySwifty viewDidAppear');
+		},
+
+		viewWillAppear(animated: boolean) {
+			super.viewWillAppear(animated);
+			CLog('MySwifty viewWillAppear');
+		},
+
+		// public deviceDidRotate() {
+		//   super.deviceDidRotate();
+		//   CLog('deviceDidRotate!');
+		//   if (this.previewLayer && this.previewLayer.videoPreviewLayer) {
+		//     this.previewLayer.videoPreviewLayer.connection.videoOrientation = this.getPreviewLayerOrientation();
+		//   }
 		// }
-	};
-	public _owner: WeakRef<CameraPlus>;
-	private _snapPicOptions: ICameraOptions;
-	private _enableVideo: boolean;
-	private _videoOptions: IVideoOptions;
-	private _videoPath: string;
-	private _isRecording: boolean;
-	private _photoToSave: any;
-	private _imageConfirmBg: UIView;
-	private _flashEnabled: boolean;
-	private _flashBtn: UIButton;
-	private _swiftyDelegate: any;
-	private _pickerDelegate: any;
-	private _resized: boolean;
 
-	public static initWithOwner(owner: WeakRef<CameraPlus>, defaultCamera: CameraTypes = 'rear') {
-		CLog('MySwifty initWithOwner');
-		const ctrl: MySwifty = <MySwifty>MySwifty.new();
+		// public resize(width?: any, height?: any) {
+		//     if (typeof width !== 'number') {
+		//         width = screen.mainScreen.widthDIPs;
+		//     }
+		//     if (typeof height !== 'number') {
+		//         height = screen.mainScreen.heightDIPs;
+		//     }
+		//     CLog('resizing to:', width + 'x' + height);
+		//     this.view.frame = CGRectMake(0, 0, width, height);
+		//     CLog('view.bounds:', this.view.bounds.size.width + 'x' + this.view.bounds.size.height);
+		//     if (!this._resized) {
+		//         this._resized = true;
+		//         this._addButtons();
+		//         this.viewDidAppear(true);
+		//     }
+		// }
 
-		CLog('view', ctrl);
-		CLog('ctrl', ctrl);
-		ctrl._owner = owner;
-		// set default camera
-		ctrl.defaultCamera = defaultCamera === 'rear' ? CameraSelection.Rear : CameraSelection.Front;
-		CLog('ctrl.disableAudio:', ctrl.disableAudio);
-		CLog('ctrl.defaultCamera:', defaultCamera);
-		return ctrl;
-	}
-
-	public cleanup() {
-		this._swiftyDelegate = null;
-	}
-
-	public set enableVideo(value: boolean) {
-		this._enableVideo = value;
-	}
-
-	public set pickerDelegate(value: any) {
-		this._pickerDelegate = value;
-	}
-
-	public closePicker() {
-		rootVC().dismissViewControllerAnimatedCompletion(true, () => {
-			this.pickerDelegate = null;
-		});
-	}
-
-	public viewDidLoad(): void {
-		CLog('MySwifty viewdidload');
-		super.viewDidLoad();
-		const owner = this._owner && this._owner.get();
-		if (owner) {
-			owner._updatePhotoQuality();
-		}
-		this.view.userInteractionEnabled = true;
-		const doubleTapEnabled = this._owner.get().doubleTapCameraSwitch;
-		this.doubleTapCameraSwitch = doubleTapEnabled;
-		CLog('doubleTapCameraSwitch:', doubleTapEnabled);
-
-		// CLog('view.frame.size:', this.view.frame.size.width + 'x' + this.view.frame.size.height);
-		// retain delegate in javascript to ensure garbage collector does not get it
-		this._swiftyDelegate = SwiftyDelegate.initWithOwner(new WeakRef(this));
-		this.cameraDelegate = this._swiftyDelegate;
-		CLog('this.cameraDelegate:', this.cameraDelegate);
-	}
-
-	doLayout() {
-		const size = this._owner.get().getActualSize();
-		const nativeView = this._owner.get().nativeView;
-		const frame = nativeView.frame;
-		nativeView.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width, size.height);
-		nativeView.setNeedsLayout();
-	}
-
-	public viewDidLayoutSubviews() {
-		CLog('MySwifty viewDidLayoutSubviews');
-		super.viewDidLayoutSubviews();
-	}
-
-	public viewDidAppear(animated: boolean) {
-		super.viewDidAppear(animated);
-		CLog('MySwifty viewDidAppear');
-	}
-
-	public viewWillAppear(animated: boolean) {
-		super.viewWillAppear(animated);
-		CLog('MySwifty viewWillAppear');
-	}
-
-	// public deviceDidRotate() {
-	//   super.deviceDidRotate();
-	//   CLog('deviceDidRotate!');
-	//   if (this.previewLayer && this.previewLayer.videoPreviewLayer) {
-	//     this.previewLayer.videoPreviewLayer.connection.videoOrientation = this.getPreviewLayerOrientation();
-	//   }
-	// }
-
-	// public resize(width?: any, height?: any) {
-	//     if (typeof width !== 'number') {
-	//         width = screen.mainScreen.widthDIPs;
-	//     }
-	//     if (typeof height !== 'number') {
-	//         height = screen.mainScreen.heightDIPs;
-	//     }
-	//     CLog('resizing to:', width + 'x' + height);
-	//     this.view.frame = CGRectMake(0, 0, width, height);
-	//     CLog('view.bounds:', this.view.bounds.size.width + 'x' + this.view.bounds.size.height);
-	//     if (!this._resized) {
-	//         this._resized = true;
-	//         this._addButtons();
-	//         this.viewDidAppear(true);
-	//     }
-	// }
-
-	public snapPicture(options?: ICameraOptions) {
-		CLog('CameraPlus takePic options:', options);
-		if (options) {
-			this._snapPicOptions = options;
-		} else {
-			this._snapPicOptions = {
-				confirm: this._owner.get().confirmPhotos, // from property setter
-				confirmRetakeText: this._owner.get().confirmRetakeText,
-				confirmSaveText: this._owner.get().confirmSaveText,
-				saveToGallery: this._owner.get().saveToGallery,
-			};
-		}
-		this.takePhoto();
-	}
-
-	public recordVideo(options?: IVideoOptions) {
-		options = options || {};
-		if (this._enableVideo) {
-			if (this.isVideoRecording) {
-				CLog('CameraPlus stop video recording.');
-				this.stopVideoRecording();
-			} else {
-				CLog('CameraPlus record video options:', options);
-				if (options) {
-					this._videoOptions = options;
-				} else {
-					this._videoOptions = {
-						confirm: this._owner.get().confirmVideo, // from property setter
-						saveToGallery: this._owner.get().saveToGallery,
-					};
-				}
-				if (!this._videoOptions.disableHEVC && parseFloat(Device.sdkVersion) >= 11) {
-					this.videoCodecType = AVVideoCodecTypeHEVC;
-				}
-				switch (this._videoOptions.quality) {
-					case CameraVideoQuality.MAX_2160P:
-						this.videoQuality = VideoQuality.Resolution3840x2160;
-						break;
-					case CameraVideoQuality.MAX_1080P:
-						this.videoQuality = VideoQuality.Resolution1920x1080;
-						break;
-					case CameraVideoQuality.MAX_720P:
-						this.videoQuality = VideoQuality.Resolution1280x720;
-						break;
-					case CameraVideoQuality.HIGHEST:
-						this.videoQuality = VideoQuality.High;
-						break;
-					case CameraVideoQuality.LOWEST:
-						this.videoQuality = VideoQuality.Low;
-						break;
-					case CameraVideoQuality.QVGA:
-						this.videoQuality = VideoQuality.Resolution352x288;
-						break;
-					default:
-						this.videoQuality = VideoQuality.Resolution640x480;
-						break;
-				}
-
-				const status = PHPhotoLibrary.authorizationStatus();
-				if (status === PHAuthorizationStatus.NotDetermined) {
-					PHPhotoLibrary.requestAuthorization(() => {
-						this.startVideoRecording();
-					});
-				} else {
-					this.startVideoRecording();
-				}
-			}
-		}
-	}
-
-	public didStartRecording(camera: CameraSelection) {
-		this._owner.get().sendEvent(CameraPlus.videoRecordingStartedEvent, camera);
-	}
-
-	public recordingReady(recordingPath: string) {
-		CLog(`recordingReady path: ${recordingPath}`);
-		const configSaveToGallery = this._videoOptions.saveToGallery || this._owner.get().saveToGallery;
-		if (configSaveToGallery) {
-			CLog(`recordingReady saveToGallery ${configSaveToGallery}`);
-
-			// TODO: discuss why callback handler(videoDidFinishSavingWithErrorContextInfo) does not emit event correctly - the path passed to the handler is the same as handled here so just go ahead and emit here for now
-			this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, recordingPath);
-
-			const status = PHPhotoLibrary.authorizationStatus();
-			if (status === PHAuthorizationStatus.Authorized) {
-				UISaveVideoAtPathToSavedPhotosAlbum(recordingPath, this, 'videoDidFinishSavingWithErrorContextInfo', null);
-			}
-		} else {
-			CLog(`video not saved to gallery but recording is at: ${recordingPath}`);
-			this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, recordingPath);
-		}
-	}
-
-	public didFinishRecording(camera: CameraSelection) {
-		this._owner.get().sendEvent(CameraPlus.videoRecordingFinishedEvent, camera);
-	}
-
-	public videoDidFinishSavingWithErrorContextInfo(vidPath: string, error: NSError, contextInfo: any) {
-		if (error) {
-			CLog('video save to camera roll error:');
-			CLog(error);
-			return;
-		}
-		CLog(`video saved`, vidPath);
-
-		// ideally could just rely on this, but this will not emit the event (commenting for now and instead doing above in recordready - TODO: discuss why)
-		// this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, path);
-	}
-
-	public switchCam() {
-		CLog('CameraPlus switchCam');
-		this.switchCamera();
-	}
-
-	public toggleFlash() {
-		this._flashEnabled = !this._flashEnabled;
-		this.flashEnabled = this._flashEnabled; // super class behavior
-		CLog('CameraPlus flash enabled:', this._flashEnabled);
-		this._flashBtnHandler();
-	}
-
-	public openGallery() {
-		CLog('CameraPlus openGallery');
-		const width = this._owner.get().galleryPickerWidth;
-		const height = this._owner.get().galleryPickerHeight;
-		const keepAspectRatio = this._owner.get().keepAspectRatio;
-		const showVideos = this._enableVideo;
-		this.chooseFromLibrary({ width, height, keepAspectRatio, showVideos });
-	}
-
-	// public thisImageHasBeenSavedInPhotoAlbumWithErrorUsingContextInfo(image, error, context) {
-	//   CLog('thisImageHasBeenSavedInPhotoAlbumWithErrorUsingContextInfo', image);
-	//   if (error) {
-	//     CLog(error);
-	//   }
-	// }
-
-	public tookPhoto(photo: UIImage) {
-		this._photoToSave = photo;
-		CLog('tookPhoto!');
-		if (this._snapPicOptions && this._snapPicOptions.autoSquareCrop) {
-			const width = photo.size.width;
-			const height = photo.size.height;
-			let originalWidth = width;
-			let originalHeight = height;
-			let x = 0;
-			let y = 0;
-			if (originalWidth < originalHeight) {
-				x = (originalHeight - originalWidth) / 2;
-				originalHeight = originalWidth;
-			} else {
-				y = (originalWidth - originalHeight) / 2;
-				originalWidth = originalHeight;
-			}
-
-			const rect: any = CGRectMake(x, y, originalWidth, originalHeight);
-			const ref = CGImageCreateWithImageInRect(photo.CGImage, rect);
-			this._photoToSave = UIImage.imageWithCGImageScaleOrientation(ref, photo.scale, photo.imageOrientation);
-			CGImageRelease(ref);
-		}
-
-		if (this._snapPicOptions && this._snapPicOptions.confirm) {
-			// show the confirmation
-			const safeAreaWidthOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.left + this.view.safeAreaInsets.right : 0;
-			const safeAreaHeightOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.bottom + this.view.safeAreaInsets.top : 0;
-			const safeAreaLeft = this.view.safeAreaInsets ? this.view.safeAreaInsets.left : 0;
-			const safeAreaTop = this.view.safeAreaInsets ? this.view.safeAreaInsets.top : 0;
-			const width = this.view.bounds.size.width - safeAreaWidthOffset;
-			const height = this.view.bounds.size.height - safeAreaHeightOffset;
-			this._imageConfirmBg = UIView.alloc().initWithFrame(CGRectMake(safeAreaLeft, safeAreaTop, width, height));
-			this._imageConfirmBg.backgroundColor = UIColor.blackColor;
-
-			// confirm user wants to keep photo
-			const imageConfirm = UIImageView.alloc().init();
-			imageConfirm.contentMode = UIViewContentMode.ScaleAspectFit;
-			imageConfirm.image = this._photoToSave;
-			imageConfirm.frame = CGRectMake(0, 50, width, height - 50);
-
-			// add 'Retake' in bottom left and 'Save Photo' in bottom right
-			const retakeBtn = createButton(this, CGRectMake(10, 10, 75, 50), this._snapPicOptions.confirmRetakeText ? this._snapPicOptions.confirmRetakeText : 'Retake', 'resetPreview');
-			const saveBtn = createButton(this, CGRectMake(width - 170, 10, 150, 50), this._snapPicOptions.confirmSaveText ? this._snapPicOptions.confirmSaveText : 'Save', 'savePhoto', 'right');
-
-			this._imageConfirmBg.addSubview(imageConfirm);
-			this._imageConfirmBg.addSubview(retakeBtn);
-			this._imageConfirmBg.addSubview(saveBtn);
-			this.view.addSubview(this._imageConfirmBg);
-			this._owner.get().sendEvent(CameraPlus.confirmScreenShownEvent);
-		} else {
-			// no confirmation - just save
-			this.savePhoto();
-			return;
-		}
-	}
-
-	public resetPreview() {
-		if (this._imageConfirmBg) {
-			this._imageConfirmBg.removeFromSuperview();
-			this._imageConfirmBg = null;
-			this._owner.get().sendEvent(CameraPlus.confirmScreenDismissedEvent);
-		}
-	}
-
-	public savePhoto() {
-		if (this._photoToSave) {
-			const asset = new ImageAsset(this._photoToSave);
-			const useCameraOptions = this._snapPicOptions ? this._snapPicOptions.useCameraOptions : false;
-			const handleSuccess = () => {
-				this._owner.get().sendEvent(CameraPlus.photoCapturedEvent, asset);
-				this.resetPreview();
-			};
-			if (!useCameraOptions) {
-				if ((this._snapPicOptions && this._snapPicOptions.saveToGallery) || this._owner.get().saveToGallery) {
-					UIImageWriteToSavedPhotosAlbum(this._photoToSave, null, null, null);
-				}
-			}
-			if (this._snapPicOptions) {
-				if (typeof this._snapPicOptions.keepAspectRatio === 'boolean') {
-					asset.options.keepAspectRatio = this._snapPicOptions.keepAspectRatio;
-				}
-				if (typeof this._snapPicOptions.height === 'number') {
-					asset.options.height = this._snapPicOptions.height;
-				}
-				if (typeof this._snapPicOptions.width === 'number') {
-					asset.options.width = this._snapPicOptions.width;
-				}
-			}
-			if (!useCameraOptions) {
-				handleSuccess();
-			} else {
-				if ((this._snapPicOptions && this._snapPicOptions.saveToGallery) || this._owner.get().saveToGallery) {
-					asset.getImageAsync((image, error) => {
-						if (image) {
-							UIImageWriteToSavedPhotosAlbum(image, null, null, null);
-							handleSuccess();
-						} else {
-							CLog(`Failed to save image: ${error}`);
-						}
-					});
-				}
-			}
-		}
-	}
-
-	public didSwitchCamera(camera: CameraSelection) {
-		this._owner.get().sendEvent(CameraPlus.toggleCameraEvent, camera);
-	}
-
-	public isCameraAvailable() {
-		return UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera);
-	}
-
-	public chooseFromLibrary(options?: IChooseOptions): Promise<any> {
-		return new Promise((resolve, reject) => {
-			this._pickerDelegate = null;
-			const imagePickerController = QBImagePickerController.new();
-			let reqWidth = 0;
-			let reqHeight = 0;
-			let keepAspectRatio = true;
+		snapPicture(options?: ICameraOptions) {
+			CLog('CameraPlus takePic options:', options);
 			if (options) {
-				reqWidth = options.width || reqWidth;
-				reqHeight = options.height || reqHeight;
-				keepAspectRatio = Utils.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
+				this._snapPicOptions = options;
 			} else {
-				options = {
-					showImages: true,
-					showVideos: this._enableVideo,
+				this._snapPicOptions = {
+					confirm: this._owner.get().confirmPhotos, // from property setter
+					confirmRetakeText: this._owner.get().confirmRetakeText,
+					confirmSaveText: this._owner.get().confirmSaveText,
+					saveToGallery: this._owner.get().saveToGallery,
 				};
 			}
+			this.takePhoto();
+		},
 
-			const authStatus = PHPhotoLibrary.authorizationStatus();
+		recordVideo(options?: IVideoOptions) {
+			options = options || {};
+			if (this._enableVideo) {
+				if (this.isVideoRecording) {
+					CLog('CameraPlus stop video recording.');
+					this.stopVideoRecording();
+				} else {
+					CLog('CameraPlus record video options:', options);
+					if (options) {
+						this._videoOptions = options;
+					} else {
+						this._videoOptions = {
+							confirm: this._owner.get().confirmVideo, // from property setter
+							saveToGallery: this._owner.get().saveToGallery,
+						};
+					}
+					if (!this._videoOptions.disableHEVC && parseFloat(Device.sdkVersion) >= 11) {
+						this.videoCodecType = AVVideoCodecTypeHEVC;
+					}
+					switch (this._videoOptions.quality) {
+						case CameraVideoQuality.MAX_2160P:
+							this.videoQuality = VideoQuality.Resolution3840x2160;
+							break;
+						case CameraVideoQuality.MAX_1080P:
+							this.videoQuality = VideoQuality.Resolution1920x1080;
+							break;
+						case CameraVideoQuality.MAX_720P:
+							this.videoQuality = VideoQuality.Resolution1280x720;
+							break;
+						case CameraVideoQuality.HIGHEST:
+							this.videoQuality = VideoQuality.High;
+							break;
+						case CameraVideoQuality.LOWEST:
+							this.videoQuality = VideoQuality.Low;
+							break;
+						case CameraVideoQuality.QVGA:
+							this.videoQuality = VideoQuality.Resolution352x288;
+							break;
+						default:
+							this.videoQuality = VideoQuality.Resolution640x480;
+							break;
+					}
 
-			if (reqWidth && reqHeight) {
-				this._pickerDelegate = QBImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
-					new WeakRef(this),
-					(result) => {
+					const status = PHPhotoLibrary.authorizationStatus();
+					if (status === PHAuthorizationStatus.NotDetermined) {
+						PHPhotoLibrary.requestAuthorization(() => {
+							this.startVideoRecording();
+						});
+					} else {
+						this.startVideoRecording();
+					}
+				}
+			}
+		},
+
+		didStartRecording(camera: CameraSelection) {
+			this._owner.get().sendEvent(CameraPlus.videoRecordingStartedEvent, camera);
+		},
+
+		recordingReady(recordingPath: string) {
+			CLog(`recordingReady path: ${recordingPath}`);
+			const configSaveToGallery = this._videoOptions.saveToGallery || this._owner.get().saveToGallery;
+			if (configSaveToGallery) {
+				CLog(`recordingReady saveToGallery ${configSaveToGallery}`);
+
+				// TODO: discuss why callback handler(videoDidFinishSavingWithErrorContextInfo) does not emit event correctly - the path passed to the handler is the same as handled here so just go ahead and emit here for now
+				this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, recordingPath);
+
+				const status = PHPhotoLibrary.authorizationStatus();
+				if (status === PHAuthorizationStatus.Authorized) {
+					UISaveVideoAtPathToSavedPhotosAlbum(recordingPath, this, 'videoDidFinishSavingWithErrorContextInfo', null);
+				}
+			} else {
+				CLog(`video not saved to gallery but recording is at: ${recordingPath}`);
+				this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, recordingPath);
+			}
+		},
+
+		didFinishRecording(camera: CameraSelection) {
+			this._owner.get().sendEvent(CameraPlus.videoRecordingFinishedEvent, camera);
+		},
+
+		videoDidFinishSavingWithErrorContextInfo(vidPath: string, error: NSError, contextInfo: any) {
+			if (error) {
+				CLog('video save to camera roll error:');
+				CLog(error);
+				return;
+			}
+			CLog(`video saved`, vidPath);
+
+			// ideally could just rely on this, but this will not emit the event (commenting for now and instead doing above in recordready - TODO: discuss why)
+			// this._owner.get().sendEvent(CameraPlus.videoRecordingReadyEvent, path);
+		},
+
+		switchCam() {
+			CLog('CameraPlus switchCam');
+			this.switchCamera();
+		},
+
+		toggleFlash() {
+			this._flashEnabled = !this._flashEnabled;
+			this.flashEnabled = this._flashEnabled; // super class behavior
+			CLog('CameraPlus flash enabled:', this._flashEnabled);
+			this._flashBtnHandler();
+		},
+
+		openGallery() {
+			CLog('CameraPlus openGallery');
+			const width = this._owner.get().galleryPickerWidth;
+			const height = this._owner.get().galleryPickerHeight;
+			const keepAspectRatio = this._owner.get().keepAspectRatio;
+			const showVideos = this._enableVideo;
+			this.chooseFromLibrary({ width, height, keepAspectRatio, showVideos });
+		},
+
+		// public thisImageHasBeenSavedInPhotoAlbumWithErrorUsingContextInfo(image, error, context) {
+		//   CLog('thisImageHasBeenSavedInPhotoAlbumWithErrorUsingContextInfo', image);
+		//   if (error) {
+		//     CLog(error);
+		//   }
+		// }
+
+		tookPhoto(photo: UIImage) {
+			this._photoToSave = photo;
+			CLog('tookPhoto!');
+			if (this._snapPicOptions && this._snapPicOptions.autoSquareCrop) {
+				const width = photo.size.width;
+				const height = photo.size.height;
+				let originalWidth = width;
+				let originalHeight = height;
+				let x = 0;
+				let y = 0;
+				if (originalWidth < originalHeight) {
+					x = (originalHeight - originalWidth) / 2;
+					originalHeight = originalWidth;
+				} else {
+					y = (originalWidth - originalHeight) / 2;
+					originalWidth = originalHeight;
+				}
+
+				const rect: any = CGRectMake(x, y, originalWidth, originalHeight);
+				const ref = CGImageCreateWithImageInRect(photo.CGImage, rect);
+				this._photoToSave = UIImage.imageWithCGImageScaleOrientation(ref, photo.scale, photo.imageOrientation);
+				CGImageRelease(ref);
+			}
+
+			if (this._snapPicOptions && this._snapPicOptions.confirm) {
+				// show the confirmation
+				const safeAreaWidthOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.left + this.view.safeAreaInsets.right : 0;
+				const safeAreaHeightOffset = this.view.safeAreaInsets ? this.view.safeAreaInsets.bottom + this.view.safeAreaInsets.top : 0;
+				const safeAreaLeft = this.view.safeAreaInsets ? this.view.safeAreaInsets.left : 0;
+				const safeAreaTop = this.view.safeAreaInsets ? this.view.safeAreaInsets.top : 0;
+				const width = this.view.bounds.size.width - safeAreaWidthOffset;
+				const height = this.view.bounds.size.height - safeAreaHeightOffset;
+				this._imageConfirmBg = UIView.alloc().initWithFrame(CGRectMake(safeAreaLeft, safeAreaTop, width, height));
+				this._imageConfirmBg.backgroundColor = UIColor.blackColor;
+
+				// confirm user wants to keep photo
+				const imageConfirm = UIImageView.alloc().init();
+				imageConfirm.contentMode = UIViewContentMode.ScaleAspectFit;
+				imageConfirm.image = this._photoToSave;
+				imageConfirm.frame = CGRectMake(0, 50, width, height - 50);
+
+				// add 'Retake' in bottom left and 'Save Photo' in bottom right
+				const retakeBtn = createButton(this, CGRectMake(10, 10, 75, 50), this._snapPicOptions.confirmRetakeText ? this._snapPicOptions.confirmRetakeText : 'Retake', 'resetPreview');
+				const saveBtn = createButton(this, CGRectMake(width - 170, 10, 150, 50), this._snapPicOptions.confirmSaveText ? this._snapPicOptions.confirmSaveText : 'Save', 'savePhoto', 'right');
+
+				this._imageConfirmBg.addSubview(imageConfirm);
+				this._imageConfirmBg.addSubview(retakeBtn);
+				this._imageConfirmBg.addSubview(saveBtn);
+				this.view.addSubview(this._imageConfirmBg);
+				this._owner.get().sendEvent(CameraPlus.confirmScreenShownEvent);
+			} else {
+				// no confirmation - just save
+				this.savePhoto();
+				return;
+			}
+		},
+
+		resetPreview() {
+			if (this._imageConfirmBg) {
+				this._imageConfirmBg.removeFromSuperview();
+				this._imageConfirmBg = null;
+				this._owner.get().sendEvent(CameraPlus.confirmScreenDismissedEvent);
+			}
+		},
+
+		savePhoto() {
+			if (this._photoToSave) {
+				const asset = new ImageAsset(this._photoToSave);
+				const useCameraOptions = this._snapPicOptions ? this._snapPicOptions.useCameraOptions : false;
+				const handleSuccess = () => {
+					this._owner.get().sendEvent(CameraPlus.photoCapturedEvent, asset);
+					this.resetPreview();
+				};
+				if (!useCameraOptions) {
+					if ((this._snapPicOptions && this._snapPicOptions.saveToGallery) || this._owner.get().saveToGallery) {
+						UIImageWriteToSavedPhotosAlbum(this._photoToSave, null, null, null);
+					}
+				}
+				if (this._snapPicOptions) {
+					if (typeof this._snapPicOptions.keepAspectRatio === 'boolean') {
+						asset.options.keepAspectRatio = this._snapPicOptions.keepAspectRatio;
+					}
+					if (typeof this._snapPicOptions.height === 'number') {
+						asset.options.height = this._snapPicOptions.height;
+					}
+					if (typeof this._snapPicOptions.width === 'number') {
+						asset.options.width = this._snapPicOptions.width;
+					}
+				}
+				if (!useCameraOptions) {
+					handleSuccess();
+				} else {
+					if ((this._snapPicOptions && this._snapPicOptions.saveToGallery) || this._owner.get().saveToGallery) {
+						asset.getImageAsync((image, error) => {
+							if (image) {
+								UIImageWriteToSavedPhotosAlbum(image, null, null, null);
+								handleSuccess();
+							} else {
+								CLog(`Failed to save image: ${error}`);
+							}
+						});
+					}
+				}
+			}
+		},
+
+		didSwitchCamera(camera: CameraSelection) {
+			this._owner.get().sendEvent(CameraPlus.toggleCameraEvent, camera);
+		},
+
+		isCameraAvailable() {
+			return UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera);
+		},
+
+		chooseFromLibrary(options?: IChooseOptions): Promise<any> {
+			return new Promise((resolve, reject) => {
+				this._pickerDelegate = null;
+				const imagePickerController = QBImagePickerController.new();
+				let reqWidth = 0;
+				let reqHeight = 0;
+				let keepAspectRatio = true;
+				if (options) {
+					reqWidth = options.width || reqWidth;
+					reqHeight = options.height || reqHeight;
+					keepAspectRatio = Utils.isNullOrUndefined(options.keepAspectRatio) ? true : options.keepAspectRatio;
+				} else {
+					options = {
+						showImages: true,
+						showVideos: this._enableVideo,
+					};
+				}
+
+				const authStatus = PHPhotoLibrary.authorizationStatus();
+
+				if (reqWidth && reqHeight) {
+					this._pickerDelegate = QBImagePickerControllerDelegateImpl.new().initWithCallbackAndOptions(
+						new WeakRef(this),
+						(result) => {
+							CLog('chosen from library:', result);
+							this._owner.get().sendEvent(CameraPlus.imagesSelectedEvent, result);
+							resolve(result);
+						},
+						{ width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio }
+					);
+				} else {
+					this._pickerDelegate = QBImagePickerControllerDelegateImpl.new().initWithCallback(new WeakRef(this), (result) => {
 						CLog('chosen from library:', result);
 						this._owner.get().sendEvent(CameraPlus.imagesSelectedEvent, result);
 						resolve(result);
-					},
-					{ width: reqWidth, height: reqHeight, keepAspectRatio: keepAspectRatio }
-				);
-			} else {
-				this._pickerDelegate = QBImagePickerControllerDelegateImpl.new().initWithCallback(new WeakRef(this), (result) => {
-					CLog('chosen from library:', result);
-					this._owner.get().sendEvent(CameraPlus.imagesSelectedEvent, result);
-					resolve(result);
-				});
-			}
-			imagePickerController.delegate = this._pickerDelegate;
-			const galleryPickerMode = this._owner.get().galleryPickerMode;
-			CLog('galleryPickerMode:', galleryPickerMode);
-			const galleryMax = this._owner.get().galleryMax;
-			CLog('galleryMax:', galleryMax);
-			imagePickerController.allowsMultipleSelection = galleryPickerMode === 'multiple';
-			imagePickerController.maximumNumberOfSelection = galleryMax;
-			imagePickerController.showsNumberOfSelectedAssets = true;
-
-			imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
-
-			let mediaType = QBImagePickerMediaType.Any;
-
-			if (options.showImages === undefined) {
-				options.showImages = true;
-			}
-
-			if (!options.showImages && options.showVideos) {
-				mediaType = QBImagePickerMediaType.Video;
-			} else {
-				if (options.showImages && !options.showVideos) {
-					mediaType = QBImagePickerMediaType.Image;
+					});
 				}
+				imagePickerController.delegate = this._pickerDelegate;
+				const galleryPickerMode = this._owner.get().galleryPickerMode;
+				CLog('galleryPickerMode:', galleryPickerMode);
+				const galleryMax = this._owner.get().galleryMax;
+				CLog('galleryMax:', galleryMax);
+				imagePickerController.allowsMultipleSelection = galleryPickerMode === 'multiple';
+				imagePickerController.maximumNumberOfSelection = galleryMax;
+				imagePickerController.showsNumberOfSelectedAssets = true;
+
+				imagePickerController.modalPresentationStyle = UIModalPresentationStyle.CurrentContext;
+
+				let mediaType = QBImagePickerMediaType.Any;
+
+				if (options.showImages === undefined) {
+					options.showImages = true;
+				}
+
+				if (!options.showImages && options.showVideos) {
+					mediaType = QBImagePickerMediaType.Video;
+				} else {
+					if (options.showImages && !options.showVideos) {
+						mediaType = QBImagePickerMediaType.Image;
+					}
+				}
+
+				imagePickerController.mediaType = mediaType;
+
+				rootVC().presentViewControllerAnimatedCompletion(imagePickerController, true, null);
+			});
+		},
+
+		_addButtons() {
+			CLog('adding buttons...');
+			const width = this.view.bounds.size.width;
+			const height = this.view.bounds.size.height;
+
+			if (this._owner.get().showToggleIcon) {
+				CLog('adding toggle/switch camera button...');
+				const switchCameraBtn = createButton(this, CGRectMake(width - 100, 20, 100, 50), null, 'switchCam', null, createIcon('toggle', CGSizeMake(65, 50)));
+				switchCameraBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
+				this.view.addSubview(switchCameraBtn);
 			}
 
-			imagePickerController.mediaType = mediaType;
+			this._flashBtnHandler();
 
-			rootVC().presentViewControllerAnimatedCompletion(imagePickerController, true, null);
-		});
-	}
-
-	public _addButtons() {
-		CLog('adding buttons...');
-		const width = this.view.bounds.size.width;
-		const height = this.view.bounds.size.height;
-
-		if (this._owner.get().showToggleIcon) {
-			CLog('adding toggle/switch camera button...');
-			const switchCameraBtn = createButton(this, CGRectMake(width - 100, 20, 100, 50), null, 'switchCam', null, createIcon('toggle', CGSizeMake(65, 50)));
-			switchCameraBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
-			this.view.addSubview(switchCameraBtn);
-		}
-
-		this._flashBtnHandler();
-
-		if (this._owner.get().showGalleryIcon === true) {
-			CLog('adding show gallery button...');
-			const galleryBtn = createButton(this, CGRectMake(20, height - 80, 50, 50), null, 'openGallery', null, createIcon('gallery'));
-			galleryBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
-			this.view.addSubview(galleryBtn);
-		}
-
-		if (this._owner.get().showCaptureIcon) {
-			CLog('adding show capture button...');
-			const heightOffset = this._owner.get().isIPhoneX ? 200 : 110;
-			const picOutline = createButton(this, CGRectMake(width / 2 - 20, height - heightOffset, 50, 50), null, null, null, createIcon('picOutline'));
-			picOutline.transform = CGAffineTransformMakeScale(1.5, 1.5);
-			this.view.addSubview(picOutline);
-			const takePicBtn = createButton(this, CGRectMake(width / 2 - 21.5, height - (heightOffset + 0.7), 50, 50), null, this._enableVideo ? 'recordVideo' : 'snapPicture', null, createIcon('takePic'));
-			// takePicBtn.transform = CGAffineTransformMakeScale(1.5, 1.5);
-			this.view.addSubview(takePicBtn);
-		}
-	}
-
-	private _flashBtnHandler() {
-		if (this._owner.get().showFlashIcon) {
-			CLog('adding flash button...');
-			if (this._flashBtn) this._flashBtn.removeFromSuperview();
-			if (this.flashEnabled) {
-				this._flashBtn = createButton(this, CGRectMake(20, 20, 50, 50), null, 'toggleFlash', null, createIcon('flash'));
-			} else {
-				this._flashBtn = createButton(this, CGRectMake(20, 20, 50, 50), null, 'toggleFlash', null, createIcon('flashOff'));
+			if (this._owner.get().showGalleryIcon === true) {
+				CLog('adding show gallery button...');
+				const galleryBtn = createButton(this, CGRectMake(20, height - 80, 50, 50), null, 'openGallery', null, createIcon('gallery'));
+				galleryBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
+				this.view.addSubview(galleryBtn);
 			}
-			this._flashBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
-			this.view.addSubview(this._flashBtn);
-		}
+
+			if (this._owner.get().showCaptureIcon) {
+				CLog('adding show capture button...');
+				const heightOffset = this._owner.get().isIPhoneX ? 200 : 110;
+				const picOutline = createButton(this, CGRectMake(width / 2 - 20, height - heightOffset, 50, 50), null, null, null, createIcon('picOutline'));
+				picOutline.transform = CGAffineTransformMakeScale(1.5, 1.5);
+				this.view.addSubview(picOutline);
+				const takePicBtn = createButton(this, CGRectMake(width / 2 - 21.5, height - (heightOffset + 0.7), 50, 50), null, this._enableVideo ? 'recordVideo' : 'snapPicture', null, createIcon('takePic'));
+				// takePicBtn.transform = CGAffineTransformMakeScale(1.5, 1.5);
+				this.view.addSubview(takePicBtn);
+			}
+		},
+
+		_flashBtnHandler() {
+			if (this._owner.get().showFlashIcon) {
+				CLog('adding flash button...');
+				if (this._flashBtn) this._flashBtn.removeFromSuperview();
+				if (this.flashEnabled) {
+					this._flashBtn = createButton(this, CGRectMake(20, 20, 50, 50), null, 'toggleFlash', null, createIcon('flash'));
+				} else {
+					this._flashBtn = createButton(this, CGRectMake(20, 20, 50, 50), null, 'toggleFlash', null, createIcon('flashOff'));
+				}
+				this._flashBtn.transform = CGAffineTransformMakeScale(0.75, 0.75);
+				this.view.addSubview(this._flashBtn);
+			}
+		},
+	},
+	{
+		exposedMethods: {
+			switchCam: { returns: interop.types.void },
+			resetPreview: { returns: interop.types.void },
+			savePhoto: { returns: interop.types.void },
+			snapPicture: { returns: interop.types.void },
+			toggleFlash: { returns: interop.types.void },
+			openGallery: { returns: interop.types.void },
+			recordVideo: { returns: interop.types.void },
+			videoDidFinishSavingWithErrorContextInfo: {
+				returns: interop.types.void,
+				params: [NSString, NSError, interop.Pointer],
+			},
+		},
 	}
-}
+);
+MySwifty['initWithOwner'] = function (owner: WeakRef<CameraPlus>, defaultCamera: CameraTypes = 'rear') {
+	CLog('MySwifty initWithOwner');
+	// const ctrl: MySwifty = <MySwifty>MySwifty.alloc().init();
+	const ctrl = MySwifty.new();
+
+	CLog('view', ctrl);
+	CLog('ctrl', ctrl);
+	ctrl._owner = owner;
+	// set default camera
+	ctrl.defaultCamera = defaultCamera === 'rear' ? CameraSelection.Rear : CameraSelection.Front;
+	CLog('ctrl.disableAudio:', ctrl.disableAudio);
+	CLog('ctrl.defaultCamera:', defaultCamera);
+	return ctrl;
+};
 
 export class CameraPlus extends CameraPlusBase {
 	public static useDeviceOrientation: boolean = false; // experimental
 	// swiftyviewcontroller
-	private _swifty: MySwifty;
+	private _swifty: any; //MySwifty;
 	private _isIPhoneX: boolean;
 
 	@GetSetProperty()
