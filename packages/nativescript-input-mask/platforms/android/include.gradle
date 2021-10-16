@@ -3,5 +3,5 @@ repositories {
 }
 
 dependencies {
-	compile 'com.redmadrobot:inputmask:2.3.0'
+	implementation 'com.redmadrobot:inputmask:2.3.0'
 }
