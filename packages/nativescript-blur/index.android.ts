@@ -1,12 +1,11 @@
-import { Application, View, Image, ImageSource } from "@nativescript/core";
-declare var com: any;
+import { Application, View, Image, ImageSource, Utils } from "@nativescript/core";
 
 export class Blur {
     effectViewMap: any = {};
 
     constructor() {
         // Initialize blurkit
-        com.wonderkiln.blurkit.BlurKit.init(Application.android.context);
+        io.alterac.blurkit.BlurKit.init(Utils.android.getApplicationContext());
     }
 
     on(nsView: View | Image, viewName: string, radius: number, theme?: string, duration?: number) {
@@ -19,7 +18,7 @@ export class Blur {
                     // console.log(this.nsViewMap[viewName]);
                     resolve(
                         new ImageSource(
-                            com.wonderkiln.blurkit.BlurKit
+                            io.alterac.blurkit.BlurKit
                                 .getInstance()
                                 .blur(nsView.android, radius)
                         )
