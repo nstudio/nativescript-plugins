@@ -1,4 +1,5 @@
-export class Embrace {
+export class EmbraceSDK {
+    static getInstance(): EmbraceSDK;
     start();
     isStarted(): boolean;
     setUsername(username: string);

@@ -1,6 +1,6 @@
 {
     "name": "@nstudio/nativescript-embrace",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "Embrace.IO SDK",
     "main": "index",
     "typings": "index.d.ts",

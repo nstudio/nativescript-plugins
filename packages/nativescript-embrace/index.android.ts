@@ -1,23 +1,35 @@
 import { EmbraceBase } from "./common";
-import { Embrace as IEmbrace } from '.'
+import { EmbraceSDK as IEmbraceSDK } from '.'
 import { Utils } from '@nativescript/core';
-export class EmbraceSDK extends EmbraceBase implements IEmbrace {
+export class EmbraceSDK extends EmbraceBase implements IEmbraceSDK {
+    private static _nativeInstance: io.embrace.android.embracesdk.Embrace;
+    private static instance = new EmbraceSDK();
+    static getInstance() {
+        if (!this._nativeInstance) {
+            this._nativeInstance = io.embrace.android.embracesdk.Embrace.getInstance();
+        }
+        if (!this._nativeInstance) {
+            return null;
+        }
+
+        return this.instance;
+    }
     setUserAsPayer() {
-        io.embrace.android.embracesdk.Embrace.getInstance().setUserAsPayer();
+        EmbraceSDK._nativeInstance.setUserAsPayer();
     }
     clearUserAsPayer() {
-        io.embrace.android.embracesdk.Embrace.getInstance().clearUserAsPayer();
+        EmbraceSDK._nativeInstance.clearUserAsPayer();
     }
     addSessionProperty(key: string, value: string, permanent: boolean = false) {
-        io.embrace.android.embracesdk.Embrace.getInstance().addSessionProperty(
+        EmbraceSDK._nativeInstance.addSessionProperty(
             key, value, permanent
         )
     }
     removeSessionProperty(key: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().removeSessionProperty(key);
+        EmbraceSDK._nativeInstance.removeSessionProperty(key);
     }
     getSessionProperties(): { [key: string]: any; } {
-        const map = io.embrace.android.embracesdk.Embrace.getInstance().getSessionProperties();
+        const map = EmbraceSDK._nativeInstance.getSessionProperties();
         const keys = map.keySet().toArray();
         const props = {};
         for (let i = 0; i < keys.length; i++) {
@@ -27,86 +39,86 @@ export class EmbraceSDK extends EmbraceBase implements IEmbrace {
         return props;
     }
     endSession() {
-        io.embrace.android.embracesdk.Embrace.getInstance().endSession();
+        EmbraceSDK._nativeInstance.endSession();
     }
     setUserIdentifier(id: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().setUserIdentifier(id);
+        EmbraceSDK._nativeInstance.setUserIdentifier(id);
     }
     clearUserIdentifier() {
-        io.embrace.android.embracesdk.Embrace.getInstance().clearUserIdentifier();
+        EmbraceSDK._nativeInstance.clearUserIdentifier();
     }
     setUserPersona(persona: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().setUserPersona(persona);
+        EmbraceSDK._nativeInstance.setUserPersona(persona);
     }
     clearUserPersona(persona: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().clearUserPersona(persona);
+        EmbraceSDK._nativeInstance.clearUserPersona(persona);
     }
     endStartup(props?: { [key: string]: any; }) {
         if (props) {
-            io.embrace.android.embracesdk.Embrace.getInstance().endAppStartup(createNativePropsFrom(props));
+            EmbraceSDK._nativeInstance.endAppStartup(createNativePropsFrom(props));
         } else {
-            io.embrace.android.embracesdk.Embrace.getInstance().endAppStartup();
+            EmbraceSDK._nativeInstance.endAppStartup();
         }
     }
     logBreadcrumb(message: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().logBreadcrumb(
+        EmbraceSDK._nativeInstance.logBreadcrumb(
             message
         )
     }
     logError(message: string, props?: { [key: string]: any; }, severity: "error" | "warning" | "info" = "error", screenshot: boolean = false) {
         switch (severity) {
             case "error":
-                io.embrace.android.embracesdk.Embrace.getInstance().logError(
+                EmbraceSDK._nativeInstance.logError(
                     message, createNativePropsFrom(props), screenshot
                 );
                 break;
             case "info":
-                io.embrace.android.embracesdk.Embrace.getInstance().logInfo(
+                EmbraceSDK._nativeInstance.logInfo(
                     message, createNativePropsFrom(props)
                 );
                 break;
             case "warning":
-                io.embrace.android.embracesdk.Embrace.getInstance().logWarning(
+                EmbraceSDK._nativeInstance.logWarning(
                     message, createNativePropsFrom(props), screenshot
                 );
                 break;
         }
     }
     logWarning(message: string, props?: { [key: string]: any; }) {
-        io.embrace.android.embracesdk.Embrace.getInstance().logWarning(message, createNativePropsFrom(props));
+        EmbraceSDK._nativeInstance.logWarning(message, createNativePropsFrom(props));
     }
     logInfo(message: string, props: { [key: string]: any; }) {
-        io.embrace.android.embracesdk.Embrace.getInstance().logInfo(message, createNativePropsFrom(props));
+        EmbraceSDK._nativeInstance.logInfo(message, createNativePropsFrom(props));
     }
     endMoment(event: string, id?: string, props: { [key: string]: any; } = {}) {
-        io.embrace.android.embracesdk.Embrace.getInstance().endEvent(event, id, createNativePropsFrom(props));
+        EmbraceSDK._nativeInstance.endEvent(event, id, createNativePropsFrom(props));
     }
     startMoment(event: string, id?: string, props: { [key: string]: any; } = {}, screenshot: boolean = false) {
-        io.embrace.android.embracesdk.Embrace.getInstance().startEvent(
+        EmbraceSDK._nativeInstance.startEvent(
             event, id, screenshot, createNativePropsFrom(props)
         );
     }
     clearUserEmail() {
-        io.embrace.android.embracesdk.Embrace.getInstance().clearUserEmail();
+        EmbraceSDK._nativeInstance.clearUserEmail();
     }
     setUserEmail(email: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().setUserEmail(email);
+        EmbraceSDK._nativeInstance.setUserEmail(email);
     }
     clearUsername() {
-        io.embrace.android.embracesdk.Embrace.getInstance().clearUsername();
+        EmbraceSDK._nativeInstance.clearUsername();
     }
     start() {
-        io.embrace.android.embracesdk.Embrace.getInstance().start(
+        EmbraceSDK._nativeInstance.start(
             Utils.android.getApplicationContext()
         )
     }
 
     isStarted() {
-        return io.embrace.android.embracesdk.Embrace.getInstance().isStarted();
+        return EmbraceSDK._nativeInstance.isStarted();
     }
 
     setUsername(username: string) {
-        io.embrace.android.embracesdk.Embrace.getInstance().setUsername(
+        EmbraceSDK._nativeInstance.setUsername(
             username
         )
     }

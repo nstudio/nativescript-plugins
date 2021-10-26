@@ -1,7 +1,19 @@
 import { EmbraceBase } from "./common";
-import { Embrace as IEmbrace } from '.'
+import { EmbraceSDK as IEmbraceSDK } from '.'
 
-export class EmbraceSDK extends EmbraceBase implements IEmbrace {
+export class EmbraceSDK extends EmbraceBase implements IEmbraceSDK {
+    private static _nativeInstance: Embrace;
+    private static instance = new EmbraceSDK();
+    static getInstance() {
+        if (!this._nativeInstance) {
+            this._nativeInstance = Embrace.sharedInstance();
+        }
+        if (!this._nativeInstance) {
+            return null;
+        }
+
+        return this.instance;
+    }
     setUserAsPayer() {
         Embrace.sharedInstance().setUserAsPayer();
     }
