@@ -1,3 +1,7 @@
+import { LogLevel, PrivacyFeature } from './common';
+
+export { LogLevel, PrivacyFeature } from './common';
+
 export class AirshipPrivacyManager {
     enableFeature(feature: PrivacyFeature);
     enableFeatures(features: PrivacyFeature[]);
@@ -5,29 +9,6 @@ export class AirshipPrivacyManager {
     disableFeatures(features: PrivacyFeature[]);
 }
 
-
-export enum PrivacyFeature {
-    None,
-    InAppAutomation,
-    MessageCenter,
-    Push,
-    Chat,
-    Analytics,
-    TagsAndAttributes,
-    Contacts,
-    All,
-    Analytics
-}
-
-export enum LogLevel {
-    Undefined,
-    None,
-    Error,
-    Warn,
-    Info,
-    Debug,
-    Trace
-}
 
 export class AirshipContact {
     identify(value: string);

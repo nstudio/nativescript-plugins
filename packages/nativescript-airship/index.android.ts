@@ -1,6 +1,9 @@
-import { Airship as IAirship, AirshipPush as IAirshipPush, AirshipChannel as IAirshipChannel, AirshipContact as IAirshipContact, AirshipPrivacyManager as IAirshipPrivacyManager, PrivacyFeature, AirshipConfig as IAirshipConfig, LogLevel, AirshipPushPresentationOptions } from '.';
+import { Airship as IAirship, AirshipPush as IAirshipPush, AirshipChannel as IAirshipChannel, AirshipContact as IAirshipContact, AirshipPrivacyManager as IAirshipPrivacyManager, AirshipConfig as IAirshipConfig, AirshipPushPresentationOptions } from '.';
 
 import { Application, Utils } from '@nativescript/core';
+
+import { LogLevel, PrivacyFeature } from './common';
+export { LogLevel, PrivacyFeature } from './common';
 
 function toFeature(feature: PrivacyFeature) {
     switch (feature) {
