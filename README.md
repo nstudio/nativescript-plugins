@@ -1,14 +1,12 @@
-# @nstudio/\* plugins
-
-```
-npm run setup
-npm start
-```
-
+- [@nstudio/nativescript-airship](packages/nativescript-airship/README.md)
+- [@nstudio/nativescript-airship-adm](packages/nativescript-airship-adm/README.md)
+- [@nstudio/nativescript-airship-fcm](packages/nativescript-airship-fcm/README.md)
+- [@nstudio/nativescript-airship-hms](packages/nativescript-airship-hms/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
 - [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
 - [@nstudio/nativescript-checkbox](packages/nativescript-checkbox/README.md)
 - [@nstudio/nativescript-dynatrace](packages/nativescript-dynatrace/README.md)
+- [@nstudio/nativescript-embrace](packages/nativescript-embrace/README.md)
 - [@nstudio/nativescript-exoplayer](packages/nativescript-exoplayer/README.md)
 - [@nstudio/nativescript-fancyalert](packages/nativescript-fancyalert/README.md)
 - [@nstudio/nativescript-filterable-listpicker](packages/nativescript-filterable-listpicker/README.md)

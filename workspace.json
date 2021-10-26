@@ -202,7 +202,12 @@
               "nx run nativescript-dynatrace:build.all",
               "nx run nativescript-tracking-transparency:build.all",
               "nx run nativescript-fancyalert:build.all",
-              "nx run nativescript-blur:build.all"
+              "nx run nativescript-blur:build.all",
+              "nx run nativescript-embrace:build.all",
+              "nx run nativescript-airship-fcm:build.all",
+              "nx run nativescript-airship:build.all",
+              "nx run nativescript-airship-adm:build.all",
+              "nx run nativescript-airship-hms:build.all"
             ],
             "parallel": false
           }
@@ -782,6 +787,234 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-blur"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-embrace": {
+      "root": "packages/nativescript-embrace",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-embrace",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-embrace",
+            "tsConfig": "packages/nativescript-embrace/tsconfig.json",
+            "packageJson": "packages/nativescript-embrace/package.json",
+            "main": "packages/nativescript-embrace/index.d.ts",
+            "assets": [
+              "packages/nativescript-embrace/*.md",
+              "packages/nativescript-embrace/index.d.ts",
+              "packages/nativescript-embrace/postinstall.js",
+              "packages/nativescript-embrace/preuninstall.js",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-embrace/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-embrace:build",
+              "./node_modules/.bin/tsc -p packages/nativescript-embrace/hooks/tsconfig.json",
+              "node tools/scripts/build-finish.ts nativescript-embrace"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-embrace"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-airship-fcm": {
+      "root": "packages/nativescript-airship-fcm",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-airship-fcm",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-airship-fcm",
+            "tsConfig": "packages/nativescript-airship-fcm/tsconfig.json",
+            "packageJson": "packages/nativescript-airship-fcm/package.json",
+            "main": "packages/nativescript-airship-fcm/index.ts",
+            "assets": [
+              "packages/nativescript-airship-fcm/*.md",
+              "packages/nativescript-airship-fcm/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-airship-fcm/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-airship-fcm:build",
+              "node tools/scripts/build-finish.ts nativescript-airship-fcm"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-airship-fcm"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-airship": {
+      "root": "packages/nativescript-airship",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-airship",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-airship",
+            "tsConfig": "packages/nativescript-airship/tsconfig.json",
+            "packageJson": "packages/nativescript-airship/package.json",
+            "main": "packages/nativescript-airship/index.d.ts",
+            "assets": [
+              "packages/nativescript-airship/*.md",
+              "packages/nativescript-airship/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-airship/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-airship:build",
+              "node tools/scripts/build-finish.ts nativescript-airship"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-airship"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-airship-adm": {
+      "root": "packages/nativescript-airship-adm",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-airship-adm",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-airship-adm",
+            "tsConfig": "packages/nativescript-airship-adm/tsconfig.json",
+            "packageJson": "packages/nativescript-airship-adm/package.json",
+            "main": "packages/nativescript-airship-adm/index.ts",
+            "assets": [
+              "packages/nativescript-airship-adm/*.md",
+              "packages/nativescript-airship-adm/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-airship-adm/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-airship-adm:build",
+              "node tools/scripts/build-finish.ts nativescript-airship-adm"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-airship-adm"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-airship-hms": {
+      "root": "packages/nativescript-airship-hms",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-airship-hms",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-airship-hms",
+            "tsConfig": "packages/nativescript-airship-hms/tsconfig.json",
+            "packageJson": "packages/nativescript-airship-hms/package.json",
+            "main": "packages/nativescript-airship-hms/index.ts",
+            "assets": [
+              "packages/nativescript-airship-hms/*.md",
+              "packages/nativescript-airship-hms/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-airship-hms/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-airship-hms:build",
+              "node tools/scripts/build-finish.ts nativescript-airship-hms"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-airship-hms"
             ],
             "parallel": false
           }

@@ -64,6 +64,21 @@
     },
     "nativescript-blur": {
       "tags": []
+    },
+    "nativescript-embrace": {
+      "tags": []
+    },
+    "nativescript-airship-fcm": {
+      "tags": []
+    },
+    "nativescript-airship": {
+      "tags": []
+    },
+    "nativescript-airship-adm": {
+      "tags": []
+    },
+    "nativescript-airship-hms": {
+      "tags": []
     }
   },
   "workspaceLayout": {
