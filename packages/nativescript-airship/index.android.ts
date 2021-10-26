@@ -399,7 +399,7 @@ export class Airship implements IAirship {
 
 
 function toSet(values: string[]) {
-    const set = new java.util.Set();
+    const set = new java.util.HashSet();
     values.forEach(item => {
         set.add(item);
     })

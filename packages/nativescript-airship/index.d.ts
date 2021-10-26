@@ -46,6 +46,7 @@ export class AirshipChannel {
 
 export class AirshipPush {
     autobadge: boolean;
+    presentationOptions: AirshipPushPresentationOptions[];
     setBadge(count: number);
     resetBadget();
     enable(): Promise<boolean>;
@@ -70,6 +71,7 @@ export class AirshipConfig {
 
 export class Airship {
     static getInstance(): Airship;
+    static takeOff(config?: AirshipConfig, onReady?: (airship: Airship) => void);
     static readonly push: AirshipPush;
     static readonly channel: AirshipChannel;
     static readonly contact: AirshipContact;

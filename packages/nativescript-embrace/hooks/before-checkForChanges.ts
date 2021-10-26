@@ -15,6 +15,12 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			  classpath 'io.embrace:embrace-swazzler:4.11.3'
 		  `;
 
+
+		  const embrace_7_0 = `
+			  classpath "com.android.tools.build:gradle:$androidBuildToolsVersion"
+			  classpath 'io.embrace:embrace-swazzler:4.11.3'
+		  `;
+
 		const rootPath = projectData.projectDir;
 		const buildGradle = path.join(rootPath, 'platforms', 'android', 'build.gradle');
 		const include = path.join(rootPath, 'platforms', 'android', 'config.gradle');
@@ -24,7 +30,12 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			let write = false;
 
 			if (buildGradleContent.indexOf('io.embrace:embrace-swazzler') === -1) {
-				buildGradleContent = buildGradleContent.replace(/(dependencies(\s{)?({)?)/, embrace);
+				if(buildGradleContent.indexOf('classpath "com.android.tools.build:gradle:$androidBuildToolsVersion"') !== -1){
+					// gradle 7.0
+					buildGradleContent = buildGradleContent.replace('classpath "com.android.tools.build:gradle:$androidBuildToolsVersion"', embrace_7_0);
+				}else {
+					buildGradleContent = buildGradleContent.replace(/(dependencies(\s{)?({)?)/, embrace);
+				}
 				write = true;
 			}
 

@@ -225,6 +225,10 @@ export class AirshipPush implements IAirshipPush {
         AirshipPush.getInstance().defaultPresentationOptions = presentationOptions;
     }
 
+    get presentationOptions() {
+        return this._presentationOptions;
+    }
+
     setQuietTime(startHour: number, startMinute: number, endHour: number, endMinute: number) {
         AirshipPush.getInstance().setQuietTimeStartHourStartMinuteEndHourEndMinute(startHour, startMinute, endHour, endMinute);
         AirshipPush.getInstance().quietTimeEnabled = true;
