@@ -126,25 +126,25 @@ export class PlaidLink extends PlaidLinkBase {
 			});
 		});
 		config.onExit = (result) => {
-      if(result.error){
-        this.onExit({
-          error: {
-            displayMessage: result.error.localizedFailureReason,
-            code: result.error ? result.error.code.toString() : null,
-          },
-          metadata: {
-            institution: {
-              id: result.metadata.institution.ID,
-              name: result.metadata.institution.name,
-            },
-            linkSessionId: result.metadata.linkSessionID,
-            status: result.metadata.status ? result.metadata.status.value.toString() : null,
-            requestId: result.metadata.requestID,
-          },
-        });
-      } else {
-        this.onExit({}); 
-      }
+			if (result.error) {
+				this.onExit({
+					error: {
+						displayMessage: result.error.localizedFailureReason,
+						code: result.error ? result.error.code.toString() : null,
+					},
+					metadata: {
+						institution: {
+							id: result.metadata.institution.ID,
+							name: result.metadata.institution.name,
+						},
+						linkSessionId: result.metadata.linkSessionID,
+						status: result.metadata.status ? result.metadata.status.value.toString() : null,
+						requestId: result.metadata.requestID,
+					},
+				});
+			} else {
+				this.onExit({});
+			}
 		};
 		config.onEvent = (result) => {
 			const plaidLink = new PlaidLink();
@@ -165,10 +165,10 @@ export class PlaidLink extends PlaidLinkBase {
 			};
 			if (PlaidLink._listener) PlaidLink._listener(args);
 		};
-		let handler = PLKPlaid.createWithLinkTokenConfigurationError(config);
+		this._handler = PLKPlaid.createWithLinkTokenConfigurationError(config);
 		const topCtrl = PlaidLink.topViewController;
 		topCtrl.modalPresentationStyle = 0;
-		handler.openWithPresentationHandler((ctrl) => {
+		this._handler.openWithPresentationHandler((ctrl) => {
 			topCtrl.presentViewControllerAnimatedCompletion(ctrl, true, () => {});
 		});
 	}
