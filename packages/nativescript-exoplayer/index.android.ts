@@ -264,7 +264,7 @@ export class Video extends VideoBase {
 		}
 		try {
 			var bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter();
-			var trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory(bm);
+			var trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory();
 			var trackSelector = new com.google.android.exoplayer2.trackselection.DefaultTrackSelector(trackSelection);
 			var loadControl = new com.google.android.exoplayer2.DefaultLoadControl();
 			var builder = new com.google.android.exoplayer2.SimpleExoPlayer.Builder(this._context);
