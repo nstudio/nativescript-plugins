@@ -202,7 +202,8 @@
               "nx run nativescript-dynatrace:build.all",
               "nx run nativescript-tracking-transparency:build.all",
               "nx run nativescript-fancyalert:build.all",
-              "nx run nativescript-blur:build.all"
+              "nx run nativescript-blur:build.all",
+              "nx run nativescript-qr:build.all"
             ],
             "parallel": false
           }
@@ -782,6 +783,51 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-blur"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-qr": {
+      "root": "packages/nativescript-qr",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-qr",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-qr",
+            "tsConfig": "packages/nativescript-qr/tsconfig.json",
+            "packageJson": "packages/nativescript-qr/package.json",
+            "main": "packages/nativescript-qr/index.d.ts",
+            "assets": [
+              "packages/nativescript-qr/*.md",
+              "packages/nativescript-qr/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-qr/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-qr:build",
+              "node tools/scripts/build-finish.ts nativescript-qr"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-qr"
             ],
             "parallel": false
           }

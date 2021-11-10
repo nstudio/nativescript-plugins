@@ -37,6 +37,9 @@ export class HomeComponent {
 		name: 'nativescript-plaid'
 	},
 	{
+		name: 'nativescript-qr'
+	},
+	{
 		name: 'nativescript-tracking-transparency'
 	}
 ];

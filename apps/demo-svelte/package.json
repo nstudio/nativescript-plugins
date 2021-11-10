@@ -12,7 +12,8 @@
     "@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur"
+    "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur",
+    "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr"
   },
   "devDependencies": {
     "@nativescript/android": "~8.1.1",

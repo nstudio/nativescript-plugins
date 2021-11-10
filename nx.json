@@ -64,6 +64,9 @@
     },
     "nativescript-blur": {
       "tags": []
+    },
+    "nativescript-qr": {
+      "tags": []
     }
   },
   "workspaceLayout": {
