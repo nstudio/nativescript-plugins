@@ -11,11 +11,13 @@
 		},
 		"hooks": [
 			{
+				"name": "nstudio-nativescript-dynatrace",
 				"type": "before-checkForChanges",
 				"script": "hooks/before-checkForChanges.js",
 				"inject": true
 			},
 			{
+				"name": "nstudio-nativescript-dynatrace",
 				"type": "before-watchPatterns",
 				"script": "hooks/before-watchPatterns.js",
 				"inject": true

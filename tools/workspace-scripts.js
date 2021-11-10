@@ -194,6 +194,48 @@ module.exports = {
 					description: '@nstudio/nativescript-blur: Build',
 				},
 			},
+			// @nstudio/nativescript-embrace
+			'nativescript-embrace': {
+				build: {
+					script: 'nx run nativescript-embrace:build.all',
+					description: '@nstudio/nativescript-embrace: Build',
+				},
+			},
+			// @nstudio/nativescript-airship
+			'nativescript-airship': {
+				build: {
+					script: 'nx run nativescript-airship:build.all',
+					description: '@nstudio/nativescript-airship: Build',
+				},
+			},
+			// @nstudio/nativescript-airship-fcm
+			'nativescript-airship-fcm': {
+				build: {
+					script: 'nx run nativescript-airship-fcm:build.all',
+					description: '@nstudio/nativescript-airship-fcm: Build',
+				},
+			},
+			// @nstudio/nativescript-airship
+			'nativescript-airship': {
+				build: {
+					script: 'nx run nativescript-airship:build.all',
+					description: '@nstudio/nativescript-airship: Build',
+				},
+			},
+			// @nstudio/nativescript-airship-adm
+			'nativescript-airship-adm': {
+				build: {
+					script: 'nx run nativescript-airship-adm:build.all',
+					description: '@nstudio/nativescript-airship-adm: Build',
+				},
+			},
+			// @nstudio/nativescript-airship-hms
+			'nativescript-airship-hms': {
+				build: {
+					script: 'nx run nativescript-airship-hms:build.all',
+					description: '@nstudio/nativescript-airship-hms: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -247,6 +289,30 @@ module.exports = {
 			'nativescript-blur': {
 				script: 'nx run nativescript-blur:focus',
 				description: 'Focus on @nstudio/nativescript-blur',
+			},
+			'nativescript-embrace': {
+				script: 'nx run nativescript-embrace:focus',
+				description: 'Focus on @nstudio/nativescript-embrace',
+			},
+			'nativescript-airship': {
+				script: 'nx run nativescript-airship:focus',
+				description: 'Focus on @nstudio/nativescript-airship',
+			},
+			'nativescript-airship-fcm': {
+				script: 'nx run nativescript-airship-fcm:focus',
+				description: 'Focus on @nstudio/nativescript-airship-fcm',
+			},
+			'nativescript-airship': {
+				script: 'nx run nativescript-airship:focus',
+				description: 'Focus on @nstudio/nativescript-airship',
+			},
+			'nativescript-airship-adm': {
+				script: 'nx run nativescript-airship-adm:focus',
+				description: 'Focus on @nstudio/nativescript-airship-adm',
+			},
+			'nativescript-airship-hms': {
+				script: 'nx run nativescript-airship-hms:focus',
+				description: 'Focus on @nstudio/nativescript-airship-hms',
 			},
 			reset: {
 				script: 'nx run all:focus',
