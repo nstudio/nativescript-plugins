@@ -17,6 +17,13 @@
         <Button text="nativescript-plaid" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-tracking-transparency" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
 <Button text="nativescript-qr" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-embrace" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+
+<Button text="nativescript-airship-fcm" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-airship" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-airship-adm" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-airship-hms" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+
       </StackLayout>
     </ScrollView>
   </StackLayout>

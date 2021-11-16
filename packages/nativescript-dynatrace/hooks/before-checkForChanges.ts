@@ -75,7 +75,7 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			}
 		});
 	} else {
-		logger.warn(`Platform '${platformName}' isn't supported: skipping localization`);
+		logger.warn(`Platform '${platformName}' isn't supported: skipping dynatrace`);
 		return;
 	}
 };

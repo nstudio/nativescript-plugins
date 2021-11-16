@@ -14,7 +14,12 @@
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
     "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur",
-    "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr"
+    "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
+    "@nstudio/nativescript-embrace": "file:../../dist/packages/nativescript-embrace",
+    "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
+    "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
+    "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
+    "@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms"
   },
   "devDependencies": {
     "@nativescript/android": "~8.1.1",

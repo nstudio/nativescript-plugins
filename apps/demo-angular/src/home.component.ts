@@ -7,6 +7,18 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 	demos = [
 	{
+		name: 'nativescript-airship'
+	},
+	{
+		name: 'nativescript-airship-adm'
+	},
+	{
+		name: 'nativescript-airship-fcm'
+	},
+	{
+		name: 'nativescript-airship-hms'
+	},
+	{
 		name: 'nativescript-blur'
 	},
 	{
@@ -17,6 +29,9 @@ export class HomeComponent {
 	},
 	{
 		name: 'nativescript-dynatrace'
+	},
+	{
+		name: 'nativescript-embrace'
 	},
 	{
 		name: 'nativescript-exoplayer'
