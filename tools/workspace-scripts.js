@@ -194,6 +194,13 @@ module.exports = {
 					description: '@nstudio/nativescript-blur: Build',
 				},
 			},
+			// @nstudio/nativescript-qr
+			'nativescript-qr': {
+				build: {
+					script: 'nx run nativescript-qr:build.all',
+					description: '@nstudio/nativescript-qr: Build',
+				},
+			},
 			// @nstudio/nativescript-embrace
 			'nativescript-embrace': {
 				build: {
@@ -289,6 +296,10 @@ module.exports = {
 			'nativescript-blur': {
 				script: 'nx run nativescript-blur:focus',
 				description: 'Focus on @nstudio/nativescript-blur',
+			},
+			'nativescript-qr': {
+				script: 'nx run nativescript-qr:focus',
+				description: 'Focus on @nstudio/nativescript-qr',
 			},
 			'nativescript-embrace': {
 				script: 'nx run nativescript-embrace:focus',

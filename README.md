@@ -13,6 +13,7 @@
 - [@nstudio/nativescript-input-mask](packages/nativescript-input-mask/README.md)
 - [@nstudio/nativescript-onfido](packages/nativescript-onfido/README.md)
 - [@nstudio/nativescript-plaid](packages/nativescript-plaid/README.md)
+- [@nstudio/nativescript-qr](packages/nativescript-qr/README.md)
 - [@nstudio/nativescript-tracking-transparency](packages/nativescript-tracking-transparency/README.md)
 
 # How to use?
