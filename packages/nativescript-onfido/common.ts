@@ -1,8 +1,8 @@
 import { Observable } from '@nativescript/core';
 
 export interface OnfidoFlowSteps {
-	welcome: boolean;
-	customLocalization: boolean;
+	welcome?: boolean;
+	customLocalization?: boolean;
 	captureFace?: {
 		type: OnfidoCaptureType;
 	};
