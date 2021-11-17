@@ -1,4 +1,13 @@
 
+interface AutoCaptureConfig {
+
+	manualFallbackTimeInMilliseconds: number;
+}
+declare var AutoCaptureConfig: {
+
+	prototype: AutoCaptureConfig;
+};
+
 declare class BaseDocumentConfiguration extends NSObject {
 
 	static alloc(): BaseDocumentConfiguration; // inherited from NSObject
@@ -19,6 +28,24 @@ declare class Builder extends NSObject {
 	withVideoCaptureWithConfig(config: VideoStepConfiguration): Builder;
 }
 
+declare const enum CancellationReason {
+
+	UserExit = 0,
+
+	DeniedConsent = 1
+}
+
+declare class DocumentCaptureOptionsBuilder extends NSObject {
+
+	static alloc(): DocumentCaptureOptionsBuilder; // inherited from NSObject
+
+	static new(): DocumentCaptureOptionsBuilder; // inherited from NSObject
+
+	withAutoCapture(config: AutoCaptureConfig): DocumentCaptureOptionsBuilder;
+
+	withFormat(format: DocumentFormat): DocumentCaptureOptionsBuilder;
+}
+
 declare class DocumentConfigBuilder extends NSObject {
 
 	static alloc(): DocumentConfigBuilder; // inherited from NSObject
@@ -37,6 +64,8 @@ declare class DocumentConfigBuilder extends NSObject {
 
 	withResidencePermitWithConfig(config: ResidencePermitConfiguration): DocumentConfigBuilder;
 
+	withVariantWithVariant(variant: DocumentStepVariant): DocumentConfigBuilder;
+
 	withVisaWithConfig(config: VisaConfiguration): DocumentConfigBuilder;
 
 	withWorkPermitWithConfig(config: WorkPermitConfiguration): DocumentConfigBuilder;
@@ -47,6 +76,13 @@ declare const enum DocumentFormat {
 	Card = 0,
 
 	Folded = 1
+}
+
+declare const enum DocumentStepVariant {
+
+	Video = 0,
+
+	Photo = 1
 }
 
 declare class DrivingLicenceConfiguration extends BaseDocumentConfiguration {
@@ -73,6 +109,13 @@ declare class Event extends NSObject {
 	readonly name: string;
 
 	readonly properties: NSDictionary<string, any>;
+}
+
+declare const enum FaceResultVariant {
+
+	Photo = 0,
+
+	Video = 1
 }
 
 declare class GenericDocumentConfiguration extends BaseDocumentConfiguration {
@@ -150,21 +193,38 @@ declare class ONAppearance extends NSObject {
 
 	static new(): ONAppearance; // inherited from NSObject
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; fontRegular: string; fontBold: string; supportDarkMode: boolean; });
+	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; buttonCornerRadius: number; fontRegular: string; fontBold: string; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; });
+	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; buttonCornerRadius: number; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; });
+	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; fontRegular: string; fontBold: string; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	constructor(o: { supportDarkMode: boolean; });
+	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorFontRegularFontBoldSupportDarkMode(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, fontRegular: string, fontBold: string, supportDarkMode: boolean): this;
+	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorSupportDarkMode(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, supportDarkMode: boolean): this;
+	constructor(o: { supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSupportDarkMode(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, supportDarkMode: boolean): this;
+	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorButtonCornerRadiusFontRegularFontBoldSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, buttonCornerRadius: number, fontRegular: string, fontBold: string, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
 
-	initWithSupportDarkMode(supportDarkMode: boolean): this;
+	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorButtonCornerRadiusSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, buttonCornerRadius: number, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+
+	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorFontRegularFontBoldSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, fontRegular: string, fontBold: string, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+
+	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+
+	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+
+	initWithSupportDarkModeCaptureSuccessColors(supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+}
+
+declare class ONCaptureSuccessColors extends NSObject {
+
+	static alloc(): ONCaptureSuccessColors; // inherited from NSObject
+
+	static new(): ONCaptureSuccessColors; // inherited from NSObject
+
+	static readonly defaultColors: ONCaptureSuccessColors;
 }
 
 declare class ONCertificatePinningConfiguration extends NSObject {
@@ -180,27 +240,37 @@ declare class ONCertificatePinningConfiguration extends NSObject {
 	initWithHashesError(hashes: NSArray<string> | string[]): this;
 }
 
+declare class ONCobrandingConfig extends NSObject {
+
+	static alloc(): ONCobrandingConfig; // inherited from NSObject
+
+	static new(): ONCobrandingConfig; // inherited from NSObject
+}
+
 declare class ONDocumentResult extends NSObject {
 
 	static alloc(): ONDocumentResult; // inherited from NSObject
 
 	static new(): ONDocumentResult; // inherited from NSObject
 
-	readonly createdAt: Date;
+	readonly back: ONDocumentSideResult;
 
-	readonly fileName: string;
+	readonly countrySelected: string;
 
-	readonly fileSize: number;
+	readonly front: ONDocumentSideResult;
 
-	readonly fileType: string;
+	readonly nfcMediaId: string;
 
-	readonly href: string;
+	readonly typeSelected: string;
+}
+
+declare class ONDocumentSideResult extends NSObject {
+
+	static alloc(): ONDocumentSideResult; // inherited from NSObject
+
+	static new(): ONDocumentSideResult; // inherited from NSObject
 
 	readonly id: string;
-
-	readonly side: string;
-
-	readonly type: string;
 }
 
 declare class ONDocumentTypeVariantConfig extends NSObject {
@@ -233,7 +303,11 @@ declare class ONEnterpriseFeaturesBuilder extends NSObject {
 
 	build(): ONEnterpriseFeatures;
 
+	withCobrandingLogoCobrandingLogoDarkMode(cobrandingLogoLightMode: UIImage, cobrandingLogoDarkMode: UIImage): ONEnterpriseFeaturesBuilder;
+
 	withCobrandingText(cobrandingText: string): ONEnterpriseFeaturesBuilder;
+
+	withDisableMobileSdkAnalytics(disableMobileSdkAnalytics: boolean): ONEnterpriseFeaturesBuilder;
 
 	withHideOnfidoLogo(hideOnfidoLogo: boolean): ONEnterpriseFeaturesBuilder;
 }
@@ -244,17 +318,9 @@ declare class ONFaceResult extends NSObject {
 
 	static new(): ONFaceResult; // inherited from NSObject
 
-	readonly createdAt: Date;
-
-	readonly fileName: string;
-
-	readonly fileSize: number;
-
-	readonly fileType: string;
-
-	readonly href: string;
-
 	readonly id: string;
+
+	readonly variant: FaceResultVariant;
 }
 
 declare class ONFaceStepVariantConfig extends NSObject {
@@ -285,6 +351,15 @@ declare class ONFlow extends NSObject {
 	withResponseHandlerDismissFlowOnCompletion(responseHandler: (p1: ONFlowResponse) => void, dismissFlowOnCompletion: boolean): ONFlow;
 }
 
+declare class ONFlowCancellation extends NSObject {
+
+	static alloc(): ONFlowCancellation; // inherited from NSObject
+
+	static new(): ONFlowCancellation; // inherited from NSObject
+
+	readonly reason: CancellationReason;
+}
+
 declare class ONFlowConfig extends NSObject {
 
 	static alloc(): ONFlowConfig; // inherited from NSObject
@@ -306,7 +381,11 @@ declare class ONFlowConfigBuilder extends NSObject {
 
 	withApplicantId(applicantId: string): void;
 
+	withCanadianDrivingLicenceAutoCaptureBetaFeatureEnabled(): void;
+
 	withCertificatePinningConfiguration(configuration: ONCertificatePinningConfiguration): void;
+
+	withConsentStep(): void;
 
 	withCustomLocalization(): void;
 
@@ -317,6 +396,8 @@ declare class ONFlowConfigBuilder extends NSObject {
 	withDocumentStep(): void;
 
 	withDocumentStepOfType(variant: ONDocumentTypeVariantConfig): void;
+
+	withDocumentStepWithVariant(variant: DocumentStepVariant): void;
 
 	withEnterpriseFeatures(enterpriseFeatures: ONEnterpriseFeatures): void;
 
@@ -347,11 +428,13 @@ declare const enum ONFlowConfigError {
 
 	InvalidDocumentFormatAndCountryCombination = 5,
 
-	EnterpriseFeaturesNotAuthorized = 6,
+	InvalidCountryCode = 6,
 
-	SelectedEnterpriseFeatureNotAuthorized = 7,
+	EnterpriseFeaturesNotAuthorized = 7,
 
-	EnterpriseFeatureProvidedWithMobileToken = 8
+	SelectedEnterpriseFeatureNotAuthorized = 8,
+
+	EnterpriseFeatureProvidedWithMobileToken = 9
 }
 
 declare const enum ONFlowError {
@@ -377,7 +460,7 @@ declare class ONFlowResponse extends NSObject {
 
 	results: NSArray<ONFlowResult>;
 
-	userCanceled: boolean;
+	userCanceled: ONFlowCancellation;
 }
 
 declare class ONFlowResult extends NSObject {
@@ -417,7 +500,24 @@ declare class OnfidoBlurDetection extends NSObject {
 
 	static new(): OnfidoBlurDetection; // inherited from NSObject
 
-	detect(image: UIImage): boolean;
+	detectWithThreshold(image: UIImage, threshold: number): OnfidoBlurDetectionResult;
+}
+
+declare class OnfidoBlurDetectionResult extends NSObject {
+
+	static alloc(): OnfidoBlurDetectionResult; // inherited from NSObject
+
+	static new(): OnfidoBlurDetectionResult; // inherited from NSObject
+
+	readonly blurScore: number;
+
+	readonly hasBlur: boolean;
+
+	readonly threshold: number;
+
+	constructor(o: { hasBlur: boolean; andBlurScore: number; andThreshold: number; });
+
+	initWithHasBlurAndBlurScoreAndThreshold(hasBlur: boolean, blurScore: number, threshold: number): this;
 }
 
 declare class OnfidoEdgeDetection extends NSObject {
@@ -455,204 +555,6 @@ declare class OnfidoEdgeDetectionResults extends NSObject {
 declare function OnfidoGenerateUUIDString(): string;
 
 declare function OnfidoIso8601FormattedString(date: Date): string;
-
-declare class OnfidoMBBackgroundView extends UIView {
-
-	static alloc(): OnfidoMBBackgroundView; // inherited from NSObject
-
-	static appearance(): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static appearanceForTraitCollection(trait: UITraitCollection): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBBackgroundView; // inherited from UIAppearance
-
-	static new(): OnfidoMBBackgroundView; // inherited from NSObject
-
-	blurEffectStyle: UIBlurEffectStyle;
-
-	color: UIColor;
-
-	style: OnfidoMBProgressHUDBackgroundStyle;
-}
-
-declare class OnfidoMBBarProgressView extends UIView {
-
-	static alloc(): OnfidoMBBarProgressView; // inherited from NSObject
-
-	static appearance(): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollection(trait: UITraitCollection): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBBarProgressView; // inherited from UIAppearance
-
-	static new(): OnfidoMBBarProgressView; // inherited from NSObject
-
-	lineColor: UIColor;
-
-	progress: number;
-
-	progressColor: UIColor;
-
-	progressRemainingColor: UIColor;
-}
-
-declare class OnfidoMBProgressHUD extends UIView {
-
-	static HUDForView(view: UIView): OnfidoMBProgressHUD;
-
-	static alloc(): OnfidoMBProgressHUD; // inherited from NSObject
-
-	static appearance(): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static appearanceForTraitCollection(trait: UITraitCollection): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBProgressHUD; // inherited from UIAppearance
-
-	static hideHUDForViewAnimated(view: UIView, animated: boolean): boolean;
-
-	static new(): OnfidoMBProgressHUD; // inherited from NSObject
-
-	static showHUDAddedToAnimated(view: UIView, animated: boolean): OnfidoMBProgressHUD;
-
-	animationType: OnfidoMBProgressHUDAnimation;
-
-	readonly backgroundView: OnfidoMBBackgroundView;
-
-	readonly bezelView: OnfidoMBBackgroundView;
-
-	completionBlock: () => void;
-
-	contentColor: UIColor;
-
-	customView: UIView;
-
-	defaultMotionEffectsEnabled: boolean;
-
-	delegate: OnfidoMBProgressHUDDelegate;
-
-	readonly detailsLabel: UILabel;
-
-	graceTime: number;
-
-	readonly label: UILabel;
-
-	margin: number;
-
-	minShowTime: number;
-
-	minSize: CGSize;
-
-	mode: OnfidoMBProgressHUDMode;
-
-	offset: CGPoint;
-
-	progress: number;
-
-	progressObject: NSProgress;
-
-	removeFromSuperViewOnHide: boolean;
-
-	square: boolean;
-
-	constructor(o: { view: UIView; });
-
-	hideAnimated(animated: boolean): void;
-
-	hideAnimatedAfterDelay(animated: boolean, delay: number): void;
-
-	initWithView(view: UIView): this;
-
-	showAnimated(animated: boolean): void;
-}
-
-declare const enum OnfidoMBProgressHUDAnimation {
-
-	Fade = 0,
-
-	Zoom = 1,
-
-	ZoomOut = 2,
-
-	ZoomIn = 3
-}
-
-declare const enum OnfidoMBProgressHUDBackgroundStyle {
-
-	SolidColor = 0,
-
-	Blur = 1
-}
-
-interface OnfidoMBProgressHUDDelegate extends NSObjectProtocol {
-
-	hudWasHidden?(hud: OnfidoMBProgressHUD): void;
-}
-declare var OnfidoMBProgressHUDDelegate: {
-
-	prototype: OnfidoMBProgressHUDDelegate;
-};
-
-declare const enum OnfidoMBProgressHUDMode {
-
-	Indeterminate = 0,
-
-	Determinate = 1,
-
-	DeterminateHorizontalBar = 2,
-
-	AnnularDeterminate = 3,
-
-	CustomView = 4,
-
-	Text = 5
-}
-
-declare var OnfidoMBProgressMaxOffset: number;
-
-declare class OnfidoMBRoundProgressView extends UIView {
-
-	static alloc(): OnfidoMBRoundProgressView; // inherited from NSObject
-
-	static appearance(): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollection(trait: UITraitCollection): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): OnfidoMBRoundProgressView; // inherited from UIAppearance
-
-	static new(): OnfidoMBRoundProgressView; // inherited from NSObject
-
-	annular: boolean;
-
-	backgroundTintColor: UIColor;
-
-	progress: number;
-
-	progressTintColor: UIColor;
-}
 
 declare class OnfidoSEGAES256Crypto extends NSObject implements OnfidoSEGCrypto {
 
@@ -1661,6 +1563,10 @@ declare class PhotoStepConfiguration extends NSObject {
 	static alloc(): PhotoStepConfiguration; // inherited from NSObject
 
 	static new(): PhotoStepConfiguration; // inherited from NSObject
+
+	constructor(o: { showSelfieIntroScreen: boolean; });
+
+	initWithShowSelfieIntroScreen(showSelfieIntroScreen: boolean): this;
 }
 
 declare class ResidencePermitConfiguration extends BaseDocumentConfiguration {

@@ -17,38 +17,38 @@ export class Onfido extends OnfidoCommon {
 				faces.push(result.result);
 			}
 		}
-		const front = documents[0];
-		const back = documents[documents.length - 1];
+		const front = documents[0].front;
+		const back = documents[documents.length - 1].back;
 		const face = faces[0];
 		const response: OnfidoResult = {
 			front: {
 				id: front.id,
-				createdAt: front.createdAt,
-				fileName: front.fileName,
-				fileSize: front.fileSize,
-				fileType: front.fileType,
-				href: front.href,
+				// createdAt: front.createdAt,
+				// fileName: front.fileName,
+				// fileSize: front.fileSize,
+				// fileType: front.fileType,
+				// href: front.href,
 			},
 		};
 
 		if (front !== back) {
 			response.back = {
 				id: back.id,
-				createdAt: back.createdAt,
-				fileName: back.fileName,
-				fileSize: back.fileSize,
-				fileType: back.fileType,
-				href: back.href,
+				// createdAt: back.createdAt,
+				// fileName: back.fileName,
+				// fileSize: back.fileSize,
+				// fileType: back.fileType,
+				// href: back.href,
 			};
 		}
 		if (face) {
 			response.face = {
 				id: face.id,
-				createdAt: face.createdAt,
-				fileName: face.fileName,
-				fileSize: face.fileSize,
-				fileType: face.fileType,
-				href: face.href,
+				// createdAt: face.createdAt,
+				// fileName: face.fileName,
+				// fileSize: face.fileSize,
+				// fileType: face.fileType,
+				// href: face.href,
 			};
 			switch (variant) {
 				case OnfidoCaptureType.VIDEO:
