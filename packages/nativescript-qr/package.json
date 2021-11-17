@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NativeScript/plugins.git"
+    "url": "https://github.com/nstudio/nativescript-plugins.git"
   },
   "keywords": [
     "NativeScript",
@@ -25,10 +25,10 @@
     "email": "oss@nativescript.org"
   },
   "bugs": {
-    "url": "https://github.com/NativeScript/plugins/issues"
+    "url": "https://github.com/nstudio/nativescript-plugins/issues"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/NativeScript/plugins",
+  "homepage": "https://github.com/nstudio/nativescript-plugins",
   "readmeFilename": "README.md",
   "bootstrapper": "@nativescript/plugin-seed"
 }

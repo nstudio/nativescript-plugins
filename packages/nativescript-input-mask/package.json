@@ -22,8 +22,8 @@
 		"Android"
 	],
 	"author": {
-		"name": "NativeScript",
-		"email": "oss@nativescript.org"
+		"name": "nStudio",
+		"email": "oss@nstudio.io"
 	},
 	"bugs": {
 		"url": "https://github.com/nstudio/nativescript-plugins.git"
