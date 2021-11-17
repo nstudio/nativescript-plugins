@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "setup": "npx rimraf node_modules package-lock.json dist tmp yarn.lock && yarn config set ignore-engines true && ns package-manager set npm && yarn",
+    "setup": "npx rimraf node_modules package-lock.json dist tmp yarn.lock && yarn",
     "start": "nps",
     "add": "nx g @nativescript/plugin-tools:add-package",
     "add-angular": "nx g @nativescript/plugin-tools:add-angular",
@@ -26,9 +26,9 @@
     "@angular/platform-browser-dynamic": "^12.0.0",
     "@angular/router": "^12.0.0",
     "@nativescript/angular": "^12.0.0",
-    "@nativescript/core": "^8.0.0",
-    "@nativescript/plugin-tools": "2.2.1",
-    "@nativescript/types": "^8.0.0",
+    "@nativescript/core": "^8.1.0",
+    "@nativescript/plugin-tools": "2.3.0",
+    "@nativescript/types": "^8.1.0",
     "@nativescript/webpack": "~5.0.0",
     "@ngtools/webpack": "^12.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "~0.4.0-beta.5",
@@ -60,3 +60,4 @@
     ]
   }
 }
+
