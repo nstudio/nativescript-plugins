@@ -19,6 +19,9 @@ export class HomeComponent {
 		name: 'nativescript-airship-hms'
 	},
 	{
+		name: 'nativescript-barcodescanner'
+	},
+	{
 		name: 'nativescript-blur'
 	},
 	{

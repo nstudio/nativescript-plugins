@@ -19,7 +19,8 @@
     "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
     "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
     "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
-    "@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms"
+    "@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms",
+    "@nstudio/nativescript-barcodescanner": "file:../../packages/nativescript-barcodescanner"
   },
   "devDependencies": {
     "@nativescript/android": "~8.1.1",

@@ -243,6 +243,13 @@ module.exports = {
 					description: '@nstudio/nativescript-airship-hms: Build',
 				},
 			},
+			// @nstudio/nativescript-barcodescanner
+			'nativescript-barcodescanner': {
+				build: {
+					script: 'nx run nativescript-barcodescanner:build.all',
+					description: '@nstudio/nativescript-barcodescanner: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -324,6 +331,10 @@ module.exports = {
 			'nativescript-airship-hms': {
 				script: 'nx run nativescript-airship-hms:focus',
 				description: 'Focus on @nstudio/nativescript-airship-hms',
+			},
+			'nativescript-barcodescanner': {
+				script: 'nx run nativescript-barcodescanner:focus',
+				description: 'Focus on @nstudio/nativescript-barcodescanner',
 			},
 			reset: {
 				script: 'nx run all:focus',

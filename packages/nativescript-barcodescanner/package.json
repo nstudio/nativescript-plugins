@@ -1,0 +1,61 @@
+{
+  "name": "@nstudio/nativescript-barcodescanner",
+  "version": "5.0.0",
+  "description": "Scan QR/barcodes with your NativeScript app.",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "ios": "6.0.0",
+      "android": "6.0.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nstudio/nativescript-plugins.git"
+  },
+  "keywords": [
+    "ecosystem:nativescript",
+    "NativeScript",
+    "Barcode",
+    "Barcode Scanner",
+    "Bulk",
+    "Bulk Scan",
+    "Continuous",
+    "Flashlight",
+    "Torch",
+    "Torch",
+    "Aztec",
+    "Codabar",
+    "Code39",
+    "Code93",
+    "Code128",
+    "Datamatrix",
+    "EAN8",
+    "EAN13",
+    "ITF",
+    "ITF14",
+    "PDF417",
+    "QR",
+    "RSS14",
+    "UPCA",
+    "UPCE"
+  ],
+  "author": {
+    "name": "Eddy Verbruggen",
+    "email": "eddyverbruggen@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "nstudio",
+      "email": "oss@nstudio.io"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/nstudio/nativescript-plugins/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/nstudio/nativescript-plugins",
+  "readmeFilename": "README.md",
+  "bootstrapper": "@nativescript/plugin-seed"
+}

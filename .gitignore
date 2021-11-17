@@ -42,3 +42,26 @@ Thumbs.db
 
 *.tgz
 packages/**/angular/dist
+
+# native-src
+packages/**/native-src/dist
+
+# native-src/android
+packages/**/native-src/android/**/*.iml
+packages/**/native-src/android/**/.gradle
+packages/**/native-src/android/**/local.properties
+packages/**/native-src/android/**/.idea/workspace.xml
+packages/**/native-src/android/**/.idea/libraries
+packages/**/native-src/android/**/.DS_Store
+packages/**/native-src/android/**/build
+packages/**/native-src/android/**/bin
+packages/**/native-src/android/**/captures
+packages/**/native-src/android/**/.externalNativeBuild
+packages/**/native-src/android/**/.settings
+packages/**/native-src/android/**/.project
+packages/**/native-src/android/**/.classpath
+
+# native-src/ios
+packages/**/native-src/ios/**/xcuserdata/
+packages/**/native-src/ios/**/project.xcworkspace/
+packages/**/native-src/ios/**/build

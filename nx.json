@@ -82,6 +82,9 @@
     },
     "nativescript-airship-hms": {
       "tags": []
+    },
+    "nativescript-barcodescanner": {
+      "tags": []
     }
   },
   "workspaceLayout": {

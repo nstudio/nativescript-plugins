@@ -208,7 +208,8 @@
               "nx run nativescript-airship-fcm:build.all",
               "nx run nativescript-airship:build.all",
               "nx run nativescript-airship-adm:build.all",
-              "nx run nativescript-airship-hms:build.all"
+              "nx run nativescript-airship-hms:build.all",
+              "nx run nativescript-barcodescanner:build.all"
             ],
             "parallel": false
           }
@@ -1061,6 +1062,62 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-airship-hms"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-barcodescanner": {
+      "root": "packages/nativescript-barcodescanner",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-barcodescanner",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-barcodescanner",
+            "tsConfig": "packages/nativescript-barcodescanner/tsconfig.json",
+            "packageJson": "packages/nativescript-barcodescanner/package.json",
+            "main": "packages/nativescript-barcodescanner/index.d.ts",
+            "assets": [
+              "packages/nativescript-barcodescanner/*.md",
+              "packages/nativescript-barcodescanner/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-barcodescanner/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-barcodescanner:build.native",
+              "nx run nativescript-barcodescanner:build",
+              "node tools/scripts/build-finish.ts nativescript-barcodescanner"
+            ],
+            "parallel": false
+          }
+        },
+        "build.native": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "./build.sh"
+            ],
+            "cwd": "packages/nativescript-barcodescanner/native-src",
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-barcodescanner"
             ],
             "parallel": false
           }
