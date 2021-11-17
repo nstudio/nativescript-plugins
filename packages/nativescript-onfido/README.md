@@ -1,12 +1,35 @@
-# Nativescript onfido
+# Onfido SDK for NativeScript
+
+* [Onfido Android](https://documentation.onfido.com/sdk/android/)
+* [Onfido iOS](https://documentation.onfido.com/sdk/ios/)
 
 ```javascript
-ns plugin add @nstudio/nativescript-onfido
+npm install @nstudio/nativescript-onfido
 ```
 
 ## Usage
 
-// TODO
+```
+import { OnfidoUtils, Onfido, OnfidoCaptureType } from '@nstudio/nativescript-onfido';
+
+OnfidoUtils.init('<token>', '<app id>');
+
+Onfido.debugMode = true;
+Onfido.start({
+    sdkToken: token,
+    flowSteps: {
+        welcome: true,
+        captureDocument: {},
+        captureFace: {
+          type: OnfidoCaptureType.PHOTO,
+        },
+    },
+}).then(data => {
+    // onfido data
+}).catch((error) => {
+    // onfido data
+});
+```
 
 ## License
 
