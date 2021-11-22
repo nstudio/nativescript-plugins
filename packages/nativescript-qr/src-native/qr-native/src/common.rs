@@ -1,16 +1,15 @@
 use css_color_parser::Color;
-use image::Pixel;
-use image::GenericImageView;
 
 const BLACK_COLOR: Color = Color { r: 0, g: 0, b: 0, a: 1.0 };
 const WHITE_COLOR: Color = Color { r: 255, g: 255, b: 255, a: 1.0 };
+
 
 pub fn generate_qr(bytes: &[u8],
                    width: u32,
                    height: u32,
                    color: &str,
                    background_color: &str) -> Vec<u8> {
-    let mut qr = qrcode::QrCode::new(bytes);
+    let qr = qrcode::QrCode::new(bytes);
 
     let color = color.parse::<css_color_parser::Color>().unwrap_or(
         BLACK_COLOR
@@ -38,7 +37,7 @@ pub fn generate_qr(bytes: &[u8],
         .build();
 
 
-    let mut image = image::DynamicImage::ImageRgba8(result).resize(
+    let image = image::DynamicImage::ImageRgba8(result).resize(
         width, height, image::imageops::Nearest
     );
 

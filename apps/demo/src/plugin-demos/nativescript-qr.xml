@@ -3,12 +3,8 @@
         <ActionBar title="nativescript-qr" icon="" class="action-bar">
         </ActionBar>
     </Page.actionBar>
-    <StackLayout class="p-20">
-        <ScrollView class="h-full">
-          <StackLayout>
-            <Button text="Test nativescript-qr" tap="{{ testIt }}" class="btn btn-primary"/>
-
-          </StackLayout>
-        </ScrollView>
-    </StackLayout>
+    <GridLayout class="p-20" rows="auto,auto">
+        <Image src="{{ qr }} "/>
+        <Button row="1" text="Generate Qr" tap="{{ generateQr }}" class="btn btn-primary"/>
+    </GridLayout>
 </Page>
