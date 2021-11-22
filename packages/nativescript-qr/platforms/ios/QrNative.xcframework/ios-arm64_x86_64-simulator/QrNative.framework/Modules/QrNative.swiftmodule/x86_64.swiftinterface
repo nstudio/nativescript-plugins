@@ -1,0 +1,13 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name QrNative
+import Foundation
+@_exported import QrNative
+import Swift
+import UIKit
+import _Concurrency
+@_inheritsConvenienceInitializers @objcMembers @objc(TNSQr) public class TNSQr : ObjectiveC.NSObject {
+  @objc public static func generateQr(_ value: Swift.String, _ width: Swift.Int, _ height: Swift.Int, _ color: Swift.String, _ backgroundColor: Swift.String) -> UIKit.UIImage?
+  @objc override dynamic public init()
+  @objc deinit
+}

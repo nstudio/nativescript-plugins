@@ -1,0 +1,11 @@
+framework module QrNative {
+  umbrella header "QrNative.h"
+
+  export *
+  module * { export * }
+}
+
+module QrNative.Swift {
+    header "QrNative-Swift.h"
+    requires objc
+}

@@ -1,6 +1,6 @@
 import { Observable, EventData, Page } from '@nativescript/core';
 import { DemoSharedNativescriptQr } from '@demo/shared';
-import { } from '@nstudio/nativescript-qr';
+import { Qr } from '@nstudio/nativescript-qr';
 
 export function navigatingTo(args: EventData) {
 	const page = <Page>args.object;
@@ -8,5 +8,8 @@ export function navigatingTo(args: EventData) {
 }
 
 export class DemoModel extends DemoSharedNativescriptQr {
-	
+	qr;
+	generateQr(event) {
+		this.qr = Qr.generate('https://twitter.com/triniwiz');
+	}
 }
