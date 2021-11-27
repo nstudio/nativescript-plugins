@@ -1,6 +1,6 @@
 # @nstudio/nativescript-intercom
 
-* [Intercom Android SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-ios)
+* [Intercom Android SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-android)
 * [Intercom iOS SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-ios)
 
 ```javascript
@@ -12,7 +12,12 @@ ns plugin add @nstudio/nativescript-intercom
 ```
 import { IntercomModule } '@nstudio/nativescript-intercom';
 
-IntercomModule.init()
+IntercomModule.init('<apiKey>', '<appId>');
+// show
+IntercomModule.displayMessenger();
+
+// hide
+IntercomModule.hideMessenger();
 ```
 
 ## License
