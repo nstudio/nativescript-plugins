@@ -1,6 +1,6 @@
 {
     "name": "@nstudio/nativescript-intercom",
-    "version": "1.0.0",
+    "version": "1.0.0-alpha.0",
     "description": "Intercom SDK for NativeScript",
     "main": "index",
     "typings": "index.d.ts",
