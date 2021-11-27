@@ -85,6 +85,9 @@
     },
     "nativescript-barcodescanner": {
       "tags": []
+    },
+    "nativescript-intercom": {
+      "tags": []
     }
   },
   "workspaceLayout": {

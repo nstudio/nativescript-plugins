@@ -250,6 +250,13 @@ module.exports = {
 					description: '@nstudio/nativescript-barcodescanner: Build',
 				},
 			},
+			// @nstudio/nativescript-intercom
+			'nativescript-intercom': {
+				build: {
+					script: 'nx run nativescript-intercom:build.all',
+					description: '@nstudio/nativescript-intercom: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -335,6 +342,10 @@ module.exports = {
 			'nativescript-barcodescanner': {
 				script: 'nx run nativescript-barcodescanner:focus',
 				description: 'Focus on @nstudio/nativescript-barcodescanner',
+			},
+			'nativescript-intercom': {
+				script: 'nx run nativescript-intercom:focus',
+				description: 'Focus on @nstudio/nativescript-intercom',
 			},
 			reset: {
 				script: 'nx run all:focus',

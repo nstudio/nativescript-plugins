@@ -209,7 +209,8 @@
               "nx run nativescript-airship:build.all",
               "nx run nativescript-airship-adm:build.all",
               "nx run nativescript-airship-hms:build.all",
-              "nx run nativescript-barcodescanner:build.all"
+              "nx run nativescript-barcodescanner:build.all",
+              "nx run nativescript-intercom:build.all"
             ],
             "parallel": false
           }
@@ -1170,6 +1171,51 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-barcodescanner"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-intercom": {
+      "root": "packages/nativescript-intercom",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-intercom",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-intercom",
+            "tsConfig": "packages/nativescript-intercom/tsconfig.json",
+            "packageJson": "packages/nativescript-intercom/package.json",
+            "main": "packages/nativescript-intercom/index.d.ts",
+            "assets": [
+              "packages/nativescript-intercom/*.md",
+              "packages/nativescript-intercom/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-intercom/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-intercom:build",
+              "node tools/scripts/build-finish.ts nativescript-intercom"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-intercom"
             ],
             "parallel": false
           }
