@@ -6,7 +6,6 @@
     <ScrollView class="h-full">
       <StackLayout class="text-center">
         <Button text="Create Onfido Applicant" tap="{{ createApplicant }}" class="btn btn-primary"/>
-
         <StackLayout visibility="{{ applicant && applicant.id ? 'visible' : 'collapse' }}">
           <Label text="Your Applicant ID:"/>
           <Label text="{{ 'Your Applicant ID: ' + applicant.id }}"/>
@@ -18,7 +17,6 @@
             <Label text="{{ sdkToken }}"/>
 
             <Button text="Verify Identity" tap="{{ startFlow }}" class="btn btn-primary m-t-10"/>
-
           </StackLayout>
         </StackLayout>
       </StackLayout>

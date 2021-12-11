@@ -1,15 +1,7 @@
 repositories {
-  maven {
-    url "https://dl.bintray.com/onfido/maven"
-  }
+  mavenCentral()
 }
 
 dependencies {
-  implementation "com.onfido.sdk.capture:onfido-capture-sdk:7.4.0"
-  implementation 'androidx.multidex:multidex:2.0.1'
-
-  // only required to support TLSv1.2 for devices with Android API lower than 5.x
-  implementation('com.google.android.gms:play-services-base:11.8.0') {
-    exclude group: 'com.android.support' // to avoid conflicts with your current support library
-  }
+  implementation "com.onfido.sdk.capture:onfido-capture-sdk:10.3.1"
 }
