@@ -85,6 +85,9 @@
     },
     "nativescript-barcodescanner": {
       "tags": []
+    },
+    "nativescript-loading-indicator": {
+      "tags": []
     }
   },
   "workspaceLayout": {

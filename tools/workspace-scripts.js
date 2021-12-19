@@ -250,6 +250,13 @@ module.exports = {
 					description: '@nstudio/nativescript-barcodescanner: Build',
 				},
 			},
+			// @nstudio/nativescript-loading-indicator
+			'nativescript-loading-indicator': {
+				build: {
+					script: 'nx run nativescript-loading-indicator:build.all',
+					description: '@nstudio/nativescript-loading-indicator: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -335,6 +342,10 @@ module.exports = {
 			'nativescript-barcodescanner': {
 				script: 'nx run nativescript-barcodescanner:focus',
 				description: 'Focus on @nstudio/nativescript-barcodescanner',
+			},
+			'nativescript-loading-indicator': {
+				script: 'nx run nativescript-loading-indicator:focus',
+				description: 'Focus on @nstudio/nativescript-loading-indicator',
 			},
 			reset: {
 				script: 'nx run all:focus',

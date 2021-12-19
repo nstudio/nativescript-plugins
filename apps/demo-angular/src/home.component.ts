@@ -49,6 +49,9 @@ export class HomeComponent {
 		name: 'nativescript-input-mask'
 	},
 	{
+		name: 'nativescript-loading-indicator'
+	},
+	{
 		name: 'nativescript-onfido'
 	},
 	{
