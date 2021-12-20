@@ -88,6 +88,9 @@
     },
     "nativescript-intercom": {
       "tags": []
+    },
+    "nativescript-loading-indicator": {
+      "tags": []
     }
   },
   "workspaceLayout": {

@@ -1,7 +1,7 @@
 {
-  "name": "@nstudio/nativescript-onfido",
-  "version": "3.0.0",
-  "description": "Onfido SDK for NativeScript",
+  "name": "@nstudio/nativescript-loading-indicator",
+  "version": "4.1.2",
+  "description": "A NativeScript plugin for showing an overlayed loading indicator.",
   "main": "index",
   "typings": "index.d.ts",
   "nativescript": {
@@ -22,9 +22,23 @@
     "Android"
   ],
   "author": {
-    "name": "nStudio",
+    "name": "nstudio",
     "email": "oss@nstudio.io"
   },
+  "contributors": [
+    {
+      "name": "Nathan Walker",
+      "email": "walkerrunpdx@gmail.com"
+    },
+    {
+      "name": "Osei Fortune",
+      "email": "fortune.osei@yahoo.com"
+    },
+    {
+      "name": "Brad Martin",
+      "email": "bradwaynemartin@gmail.com"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/nstudio/nativescript-plugins/issues"
   },

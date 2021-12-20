@@ -21,6 +21,7 @@ const routes: Routes = [
 	{ path: 'nativescript-filterable-listpicker', loadChildren: () => import('./plugin-demos/nativescript-filterable-listpicker.module').then(m => m.NativescriptFilterableListpickerModule) },
 	{ path: 'nativescript-input-mask', loadChildren: () => import('./plugin-demos/nativescript-input-mask.module').then(m => m.NativescriptInputMaskModule) },
 	{ path: 'nativescript-intercom', loadChildren: () => import('./plugin-demos/nativescript-intercom.module').then(m => m.NativescriptIntercomModule) },
+	{ path: 'nativescript-loading-indicator', loadChildren: () => import('./plugin-demos/nativescript-loading-indicator.module').then(m => m.NativescriptLoadingIndicatorModule) },
 	{ path: 'nativescript-onfido', loadChildren: () => import('./plugin-demos/nativescript-onfido.module').then(m => m.NativescriptOnfidoModule) },
 	{ path: 'nativescript-plaid', loadChildren: () => import('./plugin-demos/nativescript-plaid.module').then(m => m.NativescriptPlaidModule) },
 	{ path: 'nativescript-qr', loadChildren: () => import('./plugin-demos/nativescript-qr.module').then(m => m.NativescriptQrModule) },

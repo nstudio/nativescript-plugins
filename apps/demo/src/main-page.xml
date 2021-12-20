@@ -20,6 +20,7 @@
         <Button text="nativescript-filterable-listpicker" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-input-mask" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-intercom" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-loading-indicator" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-onfido" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-plaid" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-qr" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>

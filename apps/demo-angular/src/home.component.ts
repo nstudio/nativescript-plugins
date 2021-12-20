@@ -52,6 +52,9 @@ export class HomeComponent {
 		name: 'nativescript-intercom'
 	},
 	{
+		name: 'nativescript-loading-indicator'
+	},
+	{
 		name: 'nativescript-onfido'
 	},
 	{

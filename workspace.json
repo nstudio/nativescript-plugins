@@ -210,7 +210,8 @@
               "nx run nativescript-airship-adm:build.all",
               "nx run nativescript-airship-hms:build.all",
               "nx run nativescript-barcodescanner:build.all",
-              "nx run nativescript-intercom:build.all"
+              "nx run nativescript-intercom:build.all",
+              "nx run nativescript-loading-indicator:build.all"
             ],
             "parallel": false
           }
@@ -1216,6 +1217,51 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-intercom"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-loading-indicator": {
+      "root": "packages/nativescript-loading-indicator",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-loading-indicator",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-loading-indicator",
+            "tsConfig": "packages/nativescript-loading-indicator/tsconfig.json",
+            "packageJson": "packages/nativescript-loading-indicator/package.json",
+            "main": "packages/nativescript-loading-indicator/index.d.ts",
+            "assets": [
+              "packages/nativescript-loading-indicator/*.md",
+              "packages/nativescript-loading-indicator/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-loading-indicator/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-loading-indicator:build",
+              "node tools/scripts/build-finish.ts nativescript-loading-indicator"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-loading-indicator"
             ],
             "parallel": false
           }
