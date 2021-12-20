@@ -4,7 +4,7 @@
 * [Intercom iOS SDK](https://developers.intercom.com/installing-intercom/docs/intercom-for-ios)
 
 ```javascript
-ns plugin add @nstudio/nativescript-intercom
+npm install @nstudio/nativescript-intercom
 ```
 
 ## Usage
