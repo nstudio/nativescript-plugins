@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'io.intercom.android:intercom-sdk:10.1.+'
+}

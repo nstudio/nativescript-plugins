@@ -49,6 +49,9 @@ export class HomeComponent {
 		name: 'nativescript-input-mask'
 	},
 	{
+		name: 'nativescript-intercom'
+	},
+	{
 		name: 'nativescript-loading-indicator'
 	},
 	{

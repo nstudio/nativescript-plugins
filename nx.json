@@ -86,6 +86,9 @@
     "nativescript-barcodescanner": {
       "tags": []
     },
+    "nativescript-intercom": {
+      "tags": []
+    },
     "nativescript-loading-indicator": {
       "tags": []
     }

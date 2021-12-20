@@ -12,6 +12,7 @@
 - [@nstudio/nativescript-fancyalert](packages/nativescript-fancyalert/README.md)
 - [@nstudio/nativescript-filterable-listpicker](packages/nativescript-filterable-listpicker/README.md)
 - [@nstudio/nativescript-input-mask](packages/nativescript-input-mask/README.md)
+- [@nstudio/nativescript-intercom](packages/nativescript-intercom/README.md)
 - [@nstudio/nativescript-loading-indicator](packages/nativescript-loading-indicator/README.md)
 - [@nstudio/nativescript-onfido](packages/nativescript-onfido/README.md)
 - [@nstudio/nativescript-plaid](packages/nativescript-plaid/README.md)
