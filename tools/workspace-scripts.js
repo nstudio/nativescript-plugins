@@ -222,13 +222,6 @@ module.exports = {
 					description: '@nstudio/nativescript-airship-fcm: Build',
 				},
 			},
-			// @nstudio/nativescript-airship
-			'nativescript-airship': {
-				build: {
-					script: 'nx run nativescript-airship:build.all',
-					description: '@nstudio/nativescript-airship: Build',
-				},
-			},
 			// @nstudio/nativescript-airship-adm
 			'nativescript-airship-adm': {
 				build: {
