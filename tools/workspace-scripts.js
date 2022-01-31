@@ -264,6 +264,13 @@ module.exports = {
 					description: '@nstudio/nativescript-loading-indicator: Build',
 				}
 			},
+			// @nstudio/nativescript-carousel
+			'nativescript-carousel': {
+				build: {
+					script: 'nx run nativescript-carousel:build.all',
+					description: '@nstudio/nativescript-carousel: Build',
+				}
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -357,6 +364,10 @@ module.exports = {
 			'nativescript-loading-indicator': {
 				script: 'nx run nativescript-loading-indicator:focus',
 				description: 'Focus on @nstudio/nativescript-loading-indicator',
+			},
+			'nativescript-carousel': {
+				script: 'nx run nativescript-carousel:focus',
+				description: 'Focus on @nstudio/nativescript-carousel',
 			},
 			reset: {
 				script: 'nx run all:focus',

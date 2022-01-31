@@ -5,6 +5,7 @@
 - [@nstudio/nativescript-barcodescanner](packages/nativescript-barcodescanner/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
 - [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
+- [@nstudio/nativescript-carousel](packages/nativescript-carousel/README.md)
 - [@nstudio/nativescript-checkbox](packages/nativescript-checkbox/README.md)
 - [@nstudio/nativescript-dynatrace](packages/nativescript-dynatrace/README.md)
 - [@nstudio/nativescript-embrace](packages/nativescript-embrace/README.md)
