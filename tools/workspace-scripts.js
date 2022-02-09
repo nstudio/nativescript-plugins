@@ -222,13 +222,6 @@ module.exports = {
 					description: '@nstudio/nativescript-airship-fcm: Build',
 				},
 			},
-			// @nstudio/nativescript-airship
-			'nativescript-airship': {
-				build: {
-					script: 'nx run nativescript-airship:build.all',
-					description: '@nstudio/nativescript-airship: Build',
-				},
-			},
 			// @nstudio/nativescript-airship-adm
 			'nativescript-airship-adm': {
 				build: {
@@ -262,6 +255,13 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-loading-indicator:build.all',
 					description: '@nstudio/nativescript-loading-indicator: Build',
+				}
+			},
+			// @nstudio/nativescript-carousel
+			'nativescript-carousel': {
+				build: {
+					script: 'nx run nativescript-carousel:build.all',
+					description: '@nstudio/nativescript-carousel: Build',
 				}
 			},
 			'build-all': {
@@ -357,6 +357,10 @@ module.exports = {
 			'nativescript-loading-indicator': {
 				script: 'nx run nativescript-loading-indicator:focus',
 				description: 'Focus on @nstudio/nativescript-loading-indicator',
+			},
+			'nativescript-carousel': {
+				script: 'nx run nativescript-carousel:focus',
+				description: 'Focus on @nstudio/nativescript-carousel',
 			},
 			reset: {
 				script: 'nx run all:focus',

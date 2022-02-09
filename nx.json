@@ -91,6 +91,9 @@
     },
     "nativescript-loading-indicator": {
       "tags": []
+    },
+    "nativescript-carousel": {
+      "tags": []
     }
   },
   "workspaceLayout": {

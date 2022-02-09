@@ -211,7 +211,8 @@
               "nx run nativescript-airship-hms:build.all",
               "nx run nativescript-barcodescanner:build.all",
               "nx run nativescript-intercom:build.all",
-              "nx run nativescript-loading-indicator:build.all"
+              "nx run nativescript-loading-indicator:build.all",
+              "nx run nativescript-carousel:build.all"
             ],
             "parallel": false
           }
@@ -1262,6 +1263,51 @@
           "options": {
             "commands": [
               "nx g @nativescript/plugin-tools:focus-packages nativescript-loading-indicator"
+            ],
+            "parallel": false
+          }
+        }
+      }
+    },
+    "nativescript-carousel": {
+      "root": "packages/nativescript-carousel",
+      "projectType": "library",
+      "sourceRoot": "packages/nativescript-carousel",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/nativescript-carousel",
+            "tsConfig": "packages/nativescript-carousel/tsconfig.json",
+            "packageJson": "packages/nativescript-carousel/package.json",
+            "main": "packages/nativescript-carousel/carousel.d.ts",
+            "assets": [
+              "packages/nativescript-carousel/*.md",
+              "packages/nativescript-carousel/carousel.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/nativescript-carousel/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run nativescript-carousel:build",
+              "node tools/scripts/build-finish.ts nativescript-carousel"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages nativescript-carousel"
             ],
             "parallel": false
           }
