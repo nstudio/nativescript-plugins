@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-blur",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Uses the iOS blur effect to blur anything that has an underlying iOS view, and blurs images on android, using BlurKit..",
   "main": "index",
   "typings": "index.d.ts",
