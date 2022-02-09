@@ -9,5 +9,5 @@ android {
 }
 
 dependencies {
-  implementation "com.plaid.link:sdk-core:3.1.0"
+  implementation "com.plaid.link:sdk-core:3.7.0"
 }
