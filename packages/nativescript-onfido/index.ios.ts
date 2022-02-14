@@ -31,7 +31,7 @@ export class Onfido extends OnfidoCommon {
 			},
 		};
 
-		if (front !== back) {
+		if (back && front !== back) {
 			response.back = {
 				id: back.id,
 				// createdAt: back.createdAt,
