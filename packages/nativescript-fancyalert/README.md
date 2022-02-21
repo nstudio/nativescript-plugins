@@ -18,7 +18,7 @@ Based on:
 #### Usage Examples
 
 ```js
-import { TNSFancyAlert, TNSFancyAlertButton } from 'nativescript-fancyalert';
+import { TNSFancyAlert, TNSFancyAlertButton } from '@nstudio/nativescript-fancyalert';
 
 // show success
 TNSFancyAlert.showSuccess('Success!', 'Fancy alerts are nice.', 'Yes they are!');
@@ -159,7 +159,7 @@ TNSFancyAlert.showSwitch(
 NOTE: Android supports only a subset of the iOS features, but will return a Promise on every call:
 
 ```js
-import { TNSFancyAlert, TNSFancyAlertButton } from 'nativescript-fancyalert';
+import { TNSFancyAlert, TNSFancyAlertButton } from '@nstudio/nativescript-fancyalert';
 
 // show success
 TNSFancyAlert.showSuccess('Success!', 'Fancy alerts are nice.', 'Yes they are!').then(() => {
