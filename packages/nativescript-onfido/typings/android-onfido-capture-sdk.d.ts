@@ -739,6 +739,14 @@ declare module com {
 										public static class: java.lang.Class<com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep.WhenMappings>;
 									}
 								}
+								export module stepbuilder {
+									export class FaceCaptureStepBuilder {
+										public static class: java.lang.Class<com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder>;
+										public static INSTANCE: com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder;
+										public static forPhoto(): com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.PhotoCaptureStepBuilder;
+										public static forVideo(): com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.VideoCaptureStepBuilder;
+									}
+								}
 							}
 						}
 					}
@@ -15053,31 +15061,6 @@ declare module com {
 										public static class: java.lang.Class<com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.BaseFaceCaptureStepBuilder>;
 										public build(): com.onfido.android.sdk.capture.ui.options.FlowStep;
 										public constructor();
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module onfido {
-		export module android {
-			export module sdk {
-				export module capture {
-					export module ui {
-						export module camera {
-							export module face {
-								export module stepbuilder {
-									export class FaceCaptureStepBuilder {
-										public static class: java.lang.Class<com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder>;
-										public static INSTANCE: com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder;
-										public static forPhoto(): com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.PhotoCaptureStepBuilder;
-										public static forVideo(): com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.VideoCaptureStepBuilder;
 									}
 								}
 							}

@@ -124,15 +124,16 @@ export class Onfido extends OnfidoCommon {
 				// 	}
 				// 	steps.push(new com.onfido.android.sdk.capture.ui.options.CaptureScreenStep(doc, countryCodeEnum));
 				// } else {
-					steps.push(com.onfido.android.sdk.capture.ui.options.FlowStep.CAPTURE_DOCUMENT);
+					// steps.push(com.onfido.android.sdk.capture.ui.options.FlowStep.CAPTURE_DOCUMENT);
+					steps.push(new com.onfido.android.sdk.capture.ui.options.FlowStep(com.onfido.android.sdk.capture.ui.options.FlowAction.valueOf('CAPTURE_DOCUMENT')));
 				// }
 			}
 
 			if (config.flowSteps.captureFace) {
 				if (config.flowSteps.captureFace.type === OnfidoCaptureType.VIDEO) {
-					steps.push(new com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep(com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureVariantVideo));
+					steps.push(com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder.forVideo().build());
 				} else {
-					steps.push(new com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureStep(com.onfido.android.sdk.capture.ui.camera.face.FaceCaptureVariantPhoto));
+					steps.push(com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder.forPhoto().build());
 				}
 			}
 
