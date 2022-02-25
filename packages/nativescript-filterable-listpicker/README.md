@@ -226,6 +226,7 @@ The UI element accepts the following parameters:
 } */
 .flp-container .flp-list-container .flp-listview .flp-row .flp-image {
   margin: 10 0 10 5;
+  width: 30;
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-title-container {
   margin: 10 10 10 5;
