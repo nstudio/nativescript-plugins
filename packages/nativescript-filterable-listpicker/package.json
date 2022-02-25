@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-filterable-listpicker",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "The native listpickers on iOS and Android are not great for huge lists that users may want to filter. This plugin is a modal that offers filtering capabilities.",
   "main": "index",
   "typings": "index.d.ts",
