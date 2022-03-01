@@ -22,7 +22,7 @@ export class Onfido extends OnfidoCommon {
 			countryCodeString = countryCodeString.substring(0,2);
 		}
 		for (let i = 0; i < values.length; i++) {
-			const cc = values[i];
+			const cc = values[i] as any;
 			let alpha3;
 			if (cc.getAlpha3) {
 				alpha3 = cc.getAlpha3();
@@ -85,7 +85,7 @@ export class Onfido extends OnfidoCommon {
 						Onfido._reject(Onfido._buildErrorMessage('User exited by pressing the back button.', 'cancel'));
 					}
 				},
-				onError(e) {
+				onError(e: com.onfido.android.sdk.capture.errors.OnfidoException & java.lang.Exception) {
 					if (this._reject) {
 						this._reject(Onfido._buildErrorMessage('error', e.getMessage()));
 					}
