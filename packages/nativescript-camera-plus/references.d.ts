@@ -1,3 +1,2 @@
 /// <reference path="../../references.d.ts" />
-/// <reference path="./node_modules/@nativescript/types-ios/index.d.ts" />
-/// <reference path="./node_modules/@nativescript/types-android/lib/android-19.d.ts" />
+/// <reference path="../../node_modules/@nativescript/types-ios/lib/ios/objc-x86_64/objc!Darwin.d.ts" />

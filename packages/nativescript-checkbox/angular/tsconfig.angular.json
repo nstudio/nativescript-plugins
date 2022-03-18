@@ -5,6 +5,9 @@
 		"baseUrl": ".",
 		"paths": {
 			"@nstudio/nativescript-checkbox": ["../../../dist/packages/nativescript-checkbox"]
-		}
-	}
+		},
+		"outDir": "../../../dist/out-tsc",
+		"declarationDir": "../../../dist/out-tsc"
+	},
+	"files": ["index.ts"]
 }

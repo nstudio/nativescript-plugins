@@ -1,0 +1,63 @@
+{
+	"root": "packages/nativescript-loading-indicator",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-loading-indicator",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-loading-indicator",
+				"tsConfig": "packages/nativescript-loading-indicator/tsconfig.json",
+				"packageJson": "packages/nativescript-loading-indicator/package.json",
+				"main": "packages/nativescript-loading-indicator/index.d.ts",
+				"assets": [
+					"packages/nativescript-loading-indicator/*.md",
+					"packages/nativescript-loading-indicator/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-loading-indicator/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-loading-indicator"],
+				"parallel": false
+			},
+			"outputs": ["dist/packages/nativescript-loading-indicator"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-loading-indicator"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-loading-indicator/**/*.ts"]
+			}
+		}
+	}
+}

@@ -1,103 +1,32 @@
 {
-  "npmScope": "nstudio",
-  "affected": {
-    "defaultBase": "master"
-  },
-  "implicitDependencies": {
-    "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    "tsconfig.base.json": "*",
-    "tslint.json": "*",
-    "nx.json": "*"
-  },
-  "projects": {
-    "demo": {
-      "tags": []
-    },
-    "demo-angular": {
-      "tags": []
-    },
-    "demo-react": {
-      "tags": []
-    },
-    "demo-svelte": {
-      "tags": []
-    },
-    "demo-vue": {
-      "tags": []
-    },
-    "all": {
-      "tags": []
-    },
-    "nativescript-filterable-listpicker": {
-      "tags": []
-    },
-    "nativescript-exoplayer": {
-      "tags": []
-    },
-    "nativescript-checkbox": {
-      "tags": []
-    },
-    "nativescript-onfido": {
-      "tags": []
-    },
-    "nativescript-plaid": {
-      "tags": []
-    },
-    "nativescript-input-mask": {
-      "tags": []
-    },
-    "nativescript-camera-plus": {
-      "tags": []
-    },
-    "nativescript-dynatrace": {
-      "tags": []
-    },
-    "nativescript-tracking-transparency": {
-      "tags": []
-    },
-    "nativescript-fancyalert": {
-      "tags": []
-    },
-    "nativescript-blur": {
-      "tags": []
-    },
-    "nativescript-qr": {
-      "tags": []
-    },
-    "nativescript-embrace": {
-      "tags": []
-    },
-    "nativescript-airship-fcm": {
-      "tags": []
-    },
-    "nativescript-airship": {
-      "tags": []
-    },
-    "nativescript-airship-adm": {
-      "tags": []
-    },
-    "nativescript-airship-hms": {
-      "tags": []
-    },
-    "nativescript-barcodescanner": {
-      "tags": []
-    },
-    "nativescript-intercom": {
-      "tags": []
-    },
-    "nativescript-loading-indicator": {
-      "tags": []
-    },
-    "nativescript-carousel": {
-      "tags": []
-    }
-  },
-  "workspaceLayout": {
-    "appsDir": "apps",
-    "libsDir": "packages"
-  }
+	"npmScope": "nstudio",
+	"affected": {
+		"defaultBase": "master"
+	},
+	"implicitDependencies": {
+		"workspace.json": "*",
+		"package.json": {
+			"dependencies": "*",
+			"devDependencies": "*"
+		},
+		"tsconfig.base.json": "*",
+		"tslint.json": "*",
+		"nx.json": "*"
+	},
+	"workspaceLayout": {
+		"appsDir": "apps",
+		"libsDir": "packages"
+	},
+	"tasksRunnerOptions": {
+		"default": {
+			"runner": "@nrwl/workspace/tasks-runners/default",
+			"options": {
+				"cacheableOperations": ["build", "build.all", "lint", "test", "e2e"],
+				"runtimeCacheInputs": ["node -v"]
+			}
+		}
+	},
+	"cli": {
+		"defaultCollection": "@nrwl/workspace"
+	}
 }

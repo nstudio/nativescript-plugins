@@ -1,0 +1,64 @@
+{
+	"projectType": "library",
+	"generators": {},
+	"root": "packages/nativescript-tracking-transparency",
+	"sourceRoot": "packages/nativescript-tracking-transparency",
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-tracking-transparency",
+				"tsConfig": "packages/nativescript-tracking-transparency/tsconfig.json",
+				"packageJson": "packages/nativescript-tracking-transparency/package.json",
+				"main": "packages/nativescript-tracking-transparency/index.d.ts",
+				"assets": [
+					"packages/nativescript-tracking-transparency/*.md",
+					"packages/nativescript-tracking-transparency/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-tracking-transparency/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-tracking-transparency"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"outputs": ["dist/packages/nativescript-tracking-transparency"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-tracking-transparency"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-tracking-transparency/**/*.ts"]
+			}
+		}
+	}
+}

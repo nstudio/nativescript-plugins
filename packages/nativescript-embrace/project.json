@@ -1,0 +1,65 @@
+{
+	"root": "packages/nativescript-embrace",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-embrace",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-embrace",
+				"tsConfig": "packages/nativescript-embrace/tsconfig.json",
+				"packageJson": "packages/nativescript-embrace/package.json",
+				"main": "packages/nativescript-embrace/index.d.ts",
+				"assets": [
+					"packages/nativescript-embrace/*.md",
+					"packages/nativescript-embrace/index.d.ts",
+					"packages/nativescript-embrace/postinstall.js",
+					"packages/nativescript-embrace/preuninstall.js",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-embrace/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["./node_modules/.bin/tsc -p packages/nativescript-embrace/hooks/tsconfig.json", "node tools/scripts/build-finish.ts nativescript-embrace"],
+				"parallel": false
+			},
+			"outputs": ["dist/packages/nativescript-embrace"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-embrace"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-embrace/**/*.ts"]
+			}
+		}
+	}
+}

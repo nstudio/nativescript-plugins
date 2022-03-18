@@ -1,0 +1,64 @@
+{
+	"projectType": "library",
+	"generators": {},
+	"root": "packages/nativescript-fancyalert",
+	"sourceRoot": "packages/nativescript-fancyalert",
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-fancyalert",
+				"tsConfig": "packages/nativescript-fancyalert/tsconfig.json",
+				"packageJson": "packages/nativescript-fancyalert/package.json",
+				"main": "packages/nativescript-fancyalert/index.d.ts",
+				"assets": [
+					"packages/nativescript-fancyalert/*.md",
+					"packages/nativescript-fancyalert/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-fancyalert/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-fancyalert"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"outputs": ["dist/packages/nativescript-fancyalert"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-fancyalert"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-fancyalert/**/*.ts"]
+			}
+		}
+	}
+}

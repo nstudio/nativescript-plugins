@@ -1,0 +1,64 @@
+{
+	"root": "packages/nativescript-checkbox",
+	"sourceRoot": "packages/nativescript-checkbox",
+	"projectType": "library",
+	"generators": {},
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-checkbox",
+				"tsConfig": "packages/nativescript-checkbox/tsconfig.json",
+				"packageJson": "packages/nativescript-checkbox/package.json",
+				"main": "packages/nativescript-checkbox/index.d.ts",
+				"assets": [
+					"packages/nativescript-checkbox/*.md",
+					"packages/nativescript-checkbox/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-checkbox/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"outputs": ["dist/packages/nativescript-checkbox"],
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-checkbox"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-checkbox"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-checkbox/**/*.ts"]
+			}
+		}
+	}
+}

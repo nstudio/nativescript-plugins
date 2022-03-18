@@ -1,0 +1,74 @@
+{
+	"root": "packages/nativescript-exoplayer",
+	"sourceRoot": "packages/nativescript-exoplayer",
+	"projectType": "library",
+	"generators": {},
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-exoplayer",
+				"tsConfig": "packages/nativescript-exoplayer/tsconfig.json",
+				"packageJson": "packages/nativescript-exoplayer/package.json",
+				"main": "packages/nativescript-exoplayer/index.d.ts",
+				"assets": [
+					"packages/nativescript-exoplayer/*.md",
+					"packages/nativescript-exoplayer/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-exoplayer/platforms/",
+						"output": "./platforms/"
+					},
+					{
+						"glob": "index.d.ts",
+						"input": "packages/nativescript-exoplayer/subtitle-source/",
+						"output": "./subtitle-source/"
+					},
+					{
+						"glob": "index.d.ts",
+						"input": "packages/nativescript-exoplayer/video-source/",
+						"output": "./video-source/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"outputs": ["dist/packages/nativescript-exoplayer"],
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-exoplayer"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-exoplayer"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-exoplayer/**/*.ts"]
+			}
+		}
+	}
+}

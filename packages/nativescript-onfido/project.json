@@ -1,0 +1,64 @@
+{
+	"root": "packages/nativescript-onfido",
+	"sourceRoot": "packages/nativescript-onfido",
+	"projectType": "library",
+	"generators": {},
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-onfido",
+				"tsConfig": "packages/nativescript-onfido/tsconfig.json",
+				"packageJson": "packages/nativescript-onfido/package.json",
+				"main": "packages/nativescript-onfido/index.d.ts",
+				"assets": [
+					"packages/nativescript-onfido/*.md",
+					"packages/nativescript-onfido/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-onfido/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"outputs": ["dist/packages/nativescript-onfido"],
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-onfido"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-onfido"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-onfido/**/*.ts"]
+			}
+		}
+	}
+}

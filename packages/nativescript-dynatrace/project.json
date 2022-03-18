@@ -1,0 +1,66 @@
+{
+	"root": "packages/nativescript-dynatrace",
+	"sourceRoot": "packages/nativescript-dynatrace",
+	"projectType": "library",
+	"generators": {},
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-dynatrace",
+				"tsConfig": "packages/nativescript-dynatrace/tsconfig.json",
+				"packageJson": "packages/nativescript-dynatrace/package.json",
+				"main": "packages/nativescript-dynatrace/index.d.ts",
+				"assets": [
+					"packages/nativescript-dynatrace/*.md",
+					"packages/nativescript-dynatrace/index.d.ts",
+					"packages/nativescript-dynatrace/postinstall.js",
+					"packages/nativescript-dynatrace/preuninstall.js",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-dynatrace/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"outputs": ["dist/packages/nativescript-dynatrace"],
+			"options": {
+				"commands": ["./node_modules/.bin/tsc -p packages/nativescript-dynatrace/hooks/tsconfig.json", "node tools/scripts/build-finish.ts nativescript-dynatrace"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-dynatrace"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-dynatrace/**/*.ts"]
+			}
+		}
+	}
+}

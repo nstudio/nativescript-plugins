@@ -255,17 +255,17 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-loading-indicator:build.all',
 					description: '@nstudio/nativescript-loading-indicator: Build',
-				}
+				},
 			},
 			// @nstudio/nativescript-carousel
 			'nativescript-carousel': {
 				build: {
 					script: 'nx run nativescript-carousel:build.all',
 					description: '@nstudio/nativescript-carousel: Build',
-				}
+				},
 			},
 			'build-all': {
-				script: 'nx run all:build',
+				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
 			},
 		},
@@ -363,7 +363,7 @@ module.exports = {
 				description: 'Focus on @nstudio/nativescript-carousel',
 			},
 			reset: {
-				script: 'nx run all:focus',
+				script: 'nx g @nativescript/plugin-tools:focus-packages',
 				description: 'Reset Focus',
 			},
 		},

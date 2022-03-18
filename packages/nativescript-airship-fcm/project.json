@@ -1,0 +1,63 @@
+{
+	"root": "packages/nativescript-airship-fcm",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-airship-fcm",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-airship-fcm",
+				"tsConfig": "packages/nativescript-airship-fcm/tsconfig.json",
+				"packageJson": "packages/nativescript-airship-fcm/package.json",
+				"main": "packages/nativescript-airship-fcm/index.ts",
+				"assets": [
+					"packages/nativescript-airship-fcm/*.md",
+					"packages/nativescript-airship-fcm/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-airship-fcm/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-airship-fcm"],
+				"parallel": false
+			},
+			"outputs": ["dist/packages/nativescript-airship-fcm"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-airship-fcm"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-airship-fcm/**/*.ts"]
+			}
+		}
+	}
+}

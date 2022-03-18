@@ -1,0 +1,63 @@
+{
+	"root": "packages/nativescript-blur",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-blur",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-blur",
+				"tsConfig": "packages/nativescript-blur/tsconfig.json",
+				"packageJson": "packages/nativescript-blur/package.json",
+				"main": "packages/nativescript-blur/index.d.ts",
+				"assets": [
+					"packages/nativescript-blur/*.md",
+					"packages/nativescript-blur/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-blur/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-blur"],
+				"parallel": false
+			},
+			"outputs": ["dist/packages/nativescript-blur"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "@nrwl/workspace:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-blur"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-blur/**/*.ts"]
+			}
+		}
+	}
+}

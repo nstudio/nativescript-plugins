@@ -1,0 +1,64 @@
+{
+	"root": "packages/nativescript-filterable-listpicker",
+	"sourceRoot": "packages/nativescript-filterable-listpicker",
+	"projectType": "library",
+	"generators": {},
+	"targets": {
+		"build": {
+			"options": {
+				"outputPath": "dist/packages/nativescript-filterable-listpicker",
+				"tsConfig": "packages/nativescript-filterable-listpicker/tsconfig.json",
+				"packageJson": "packages/nativescript-filterable-listpicker/package.json",
+				"main": "packages/nativescript-filterable-listpicker/index.d.ts",
+				"assets": [
+					"packages/nativescript-filterable-listpicker/*.md",
+					"packages/nativescript-filterable-listpicker/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-filterable-listpicker/platforms/",
+						"output": "./platforms/"
+					}
+				]
+			},
+			"executor": "@nrwl/js:tsc",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				}
+			]
+		},
+		"build.all": {
+			"outputs": ["dist/packages/nativescript-filterable-listpicker"],
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-filterable-listpicker"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands",
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-filterable-listpicker"],
+				"parallel": false
+			},
+			"executor": "@nrwl/workspace:run-commands"
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-filterable-listpicker/**/*.ts"]
+			}
+		}
+	}
+}
