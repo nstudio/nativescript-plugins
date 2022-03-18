@@ -30,7 +30,7 @@
 			"@nstudio/nativescript-blur": ["packages/nativescript-blur/index.d.ts"],
 			"@nstudio/nativescript-camera-plus": ["packages/nativescript-camera-plus/index.d.ts"],
 			"@nstudio/nativescript-camera-plus/angular": ["packages/nativescript-camera-plus/angular/index.ts"],
-			"@nstudio/nativescript-carousel": ["packages/nativescript-carousel/carousel.d.ts"],
+			"@nstudio/nativescript-carousel": ["packages/nativescript-carousel/index.d.ts"],
 			"@nstudio/nativescript-checkbox": ["packages/nativescript-checkbox/index.d.ts"],
 			"@nstudio/nativescript-checkbox/angular": ["packages/nativescript-checkbox/angular/index.ts"],
 			"@nstudio/nativescript-dynatrace": ["packages/nativescript-dynatrace/index.d.ts"],

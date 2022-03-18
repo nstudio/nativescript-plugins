@@ -3,7 +3,7 @@
 NativeScript plugin that uses the ExoPlayer video player on Android and AVPlayerViewController on iOS to play local and remote videos.
 
 ```javascript
-ns plugin add @nstudio/nativescript-exoplayer
+npm install @nstudio/nativescript-exoplayer
 ```
 
 ## Platform controls used:

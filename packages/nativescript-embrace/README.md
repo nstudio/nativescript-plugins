@@ -1,7 +1,7 @@
 # @nstudio/nativescript-embrace
 
 ```javascript
-ns plugin add @nstudio/nativescript-embrace
+npm install @nstudio/nativescript-embrace
 ```
 
 ## Usage

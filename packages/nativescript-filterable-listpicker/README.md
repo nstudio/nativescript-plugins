@@ -8,7 +8,7 @@ The native listpickers on iOS and Android are not great for huge lists that user
 ## Installation
 
 ```
-tns plugin add @nstudio/nativescript-filterable-listpicker
+npm install @nstudio/nativescript-filterable-listpicker
 ```
 
 ## Usage 

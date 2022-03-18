@@ -1,7 +1,7 @@
 # @nstudio/nativescript-blur
 
 ```javascript
-ns plugin add @nstudio/nativescript-blur
+npm install @nstudio/nativescript-blur
 ```
 
 ## iOS

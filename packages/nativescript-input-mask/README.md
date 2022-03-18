@@ -7,7 +7,7 @@ This plugin makes the native libraries [InputMask(Android)](https://github.com/R
 ## Installation
 
 ```javascript
-ns plugin add @nstudio/nativescript-input-mask
+npm install @nstudio/nativescript-input-mask
 ```
 
 ## Usage

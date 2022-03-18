@@ -10,7 +10,7 @@ import {
   indicatorRadiusProperty,
   Log,
   selectedPageProperty,
-} from './carousel.common';
+} from './common';
 
 const VIEWS_STATES = '_viewStates';
 const PagerNamespace = androidx.viewpager.widget;
@@ -18,7 +18,7 @@ const POSITION_UNCHANGED = -1;
 const POSITION_NONE = -2;
 declare const global, com: any;
 
-export * from './carousel.common';
+export * from './common';
 
 export class Carousel extends CarouselCommon {
   private _androidViewId = -1;

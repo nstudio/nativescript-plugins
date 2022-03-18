@@ -35,7 +35,7 @@
 ## Installation
 
 ```bash
-ns plugin add @nstudio/nativescript-camera-plus
+npm install @nstudio/nativescript-camera-plus
 ```
 
 **Note :- Android**

@@ -3,7 +3,7 @@
 🕵️ A NativeScript Library for interacting with the tracking API for iOS 14+
 
 ```javascript
-ns plugin add @nstudio/nativescript-tracking-transparency
+npm install @nstudio/nativescript-tracking-transparency
 ```
 
 ## Usage

@@ -1,7 +1,4 @@
-[![npm](https://img.shields.io/npm/v/nativescript-carousel.svg)](https://www.npmjs.com/package/nativescript-carousel)
-[![npm](https://img.shields.io/npm/dt/nativescript-carousel.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-carousel)
-
-# NativeScript Carousel
+# @nstudio/nativescript-carousel
 
 A simple carousel component for NativeScript.
 
@@ -15,13 +12,13 @@ A simple carousel component for NativeScript.
 NativeScript 7+:
 
 ```bash
-ns plugin add nativescript-carousel
+npm install @nstudio/nativescript-carousel
 ```
 
 NativeScript less than NS7:
 
 ```bash
-tns plugin add nativescript-carousel@6.1.1
+npm install nativescript-carousel@6.1.1
 ```
 
 ## Limitations
@@ -29,16 +26,6 @@ tns plugin add nativescript-carousel@6.1.1
 - (iOS) PagerIndicator animations not available for iOS, only Android.
 - (Android) Auto- and Infinite-paging not available.
 - (Android) Carousel still needs to be wrapped in a GridLayout for the indicator to overlap.
-
-## Usage
-
-Check out the demos included in this repo for instructions on how to use the Carousel with your choice of framework:
-
-[Vanilla TS demo](https://github.com/manijak/nativescript-carousel/tree/master/demo)
-
-[Angular demo](https://github.com/manijak/nativescript-carousel/tree/master/demo-ng)
-
-[Vue demo](https://github.com/manijak/nativescript-carousel/tree/master/demo-vue)
 
 ## Attributes - Common
 
@@ -139,6 +126,11 @@ Set the indicator count which will change the underlying Android data adapter. S
 | ![anim_worm](https://raw.githubusercontent.com/romandanylyk/PageIndicatorView/master/assets/anim_worm.gif) | ![anim_thin_worm](https://raw.githubusercontent.com/romandanylyk/PageIndicatorView/master/assets/anim_thin_worm.gif) | ![anim_fill](https://raw.githubusercontent.com/romandanylyk/PageIndicatorView/master/assets/anim_fill.gif) | ![anim_drop](https://raw.githubusercontent.com/romandanylyk/PageIndicatorView/master/assets/anim_drop.gif) | ![anim_swap](https://raw.githubusercontent.com/romandanylyk/PageIndicatorView/master/assets/anim_swap.gif) |
 
 ## Changelog
+
+**8.0.0**
+
+- Moved under @nstudio scope
+- gradle plugin to use `implementation`
 
 **7.0.1**
 

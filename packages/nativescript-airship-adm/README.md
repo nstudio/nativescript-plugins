@@ -1,7 +1,7 @@
 # @nstudio/nativescript-airship-adm
 
 ```javascript
-ns plugin add @nstudio/nativescript-airship-adm
+npm install @nstudio/nativescript-airship-adm
 ```
 
 ## Usage

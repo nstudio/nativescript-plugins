@@ -1,7 +1,7 @@
 # @nstudio/nativescript-dynatrace
 
 ```bash
-ns plugin add @nstudio/nativescript-dynatrace
+npm install @nstudio/nativescript-dynatrace
 ```
 
 ## Usage

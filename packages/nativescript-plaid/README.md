@@ -3,7 +3,7 @@
 NativeScript plugin that opens the Plaid native sdk to log in to banking services.
 
 ```javascript
-ns plugin add @nstudio/nativescript-plaid
+npm install @nstudio/nativescript-plaid
 ```
 
 ## Usage

@@ -1,7 +1,7 @@
 # @nstudio/nativescript-airship-fcm
 
 ```javascript
-ns plugin add @nstudio/nativescript-airship-fcm
+npm install @nstudio/nativescript-airship-fcm
 ```
 
 ## Usage

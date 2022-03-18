@@ -3,7 +3,7 @@
 A NativeScript plugin to provide a checkbox widget, radio buttons are also possible.
 
 ```javascript
-ns plugin add @nstudio/nativescript-checkbox
+npm install @nstudio/nativescript-checkbox
 ```
 
 #### Platform controls used:

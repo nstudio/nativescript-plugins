@@ -1,7 +1,7 @@
 # @nstudio/nativescript-qr
 
 ```javascript
-ns plugin add @nstudio/nativescript-qr
+npm install @nstudio/nativescript-qr
 ```
 
 ## Usage
