@@ -28,6 +28,9 @@ export class HomeComponent {
 		name: 'nativescript-camera-plus'
 	},
 	{
+		name: 'nativescript-carousel'
+	},
+	{
 		name: 'nativescript-checkbox'
 	},
 	{
