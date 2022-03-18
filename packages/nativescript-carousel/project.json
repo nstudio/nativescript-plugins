@@ -9,10 +9,10 @@
 				"outputPath": "dist/packages/nativescript-carousel",
 				"tsConfig": "packages/nativescript-carousel/tsconfig.json",
 				"packageJson": "packages/nativescript-carousel/package.json",
-				"main": "packages/nativescript-carousel/carousel.d.ts",
+				"main": "packages/nativescript-carousel/index.d.ts",
 				"assets": [
 					"packages/nativescript-carousel/*.md",
-					"packages/nativescript-carousel/carousel.d.ts",
+					"packages/nativescript-carousel/index.d.ts",
 					"LICENSE",
 					{
 						"glob": "**/*",
