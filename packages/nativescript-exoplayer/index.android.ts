@@ -114,69 +114,69 @@ export class Video extends VideoBase {
 		const that = new WeakRef(this);
 		const playerListener = new com.google.android.exoplayer2.Player.Listener({
 			onEvents: function (_player: com.google.android.exoplayer2.Player, _events: com.google.android.exoplayer2.Player.Events): void {},
-      onTimelineChanged: function (_timeline: com.google.android.exoplayer2.Timeline, _manifest: number): void {},
-      onMediaItemTransition: function (_mediaItem: com.google.android.exoplayer2.MediaItem, _reason: number): void {},
-      onTracksChanged: function (_trackGroups: com.google.android.exoplayer2.source.TrackGroupArray, _trackSelections: com.google.android.exoplayer2.trackselection.TrackSelectionArray): void {},
-      onTracksInfoChanged: function (_tracksInfo: com.google.android.exoplayer2.TracksInfo): void {},
-      onMediaMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
-      onPlaylistMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
-      onIsLoadingChanged: function (_isLoading: boolean): void {},
-      onLoadingChanged: function (_isLoading: boolean): void {},
-      onAvailableCommandsChanged: function (_availableCommands: com.google.android.exoplayer2.Player.Commands): void {},
+			onTimelineChanged: function (_timeline: com.google.android.exoplayer2.Timeline, _manifest: number): void {},
+			onMediaItemTransition: function (_mediaItem: com.google.android.exoplayer2.MediaItem, _reason: number): void {},
+			onTracksChanged: function (_trackGroups: com.google.android.exoplayer2.source.TrackGroupArray, _trackSelections: com.google.android.exoplayer2.trackselection.TrackSelectionArray): void {},
+			onTracksInfoChanged: function (_tracksInfo: com.google.android.exoplayer2.TracksInfo): void {},
+			onMediaMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
+			onPlaylistMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
+			onIsLoadingChanged: function (_isLoading: boolean): void {},
+			onLoadingChanged: function (_isLoading: boolean): void {},
+			onAvailableCommandsChanged: function (_availableCommands: com.google.android.exoplayer2.Player.Commands): void {},
 			onTrackSelectionParametersChanged: function (_parameters: com.google.android.exoplayer2.trackselection.TrackSelectionParameters): void {},
-      onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void {},
-      onPlaybackStateChanged: function (playbackState: number): void {
-        const owner = that.get();
-        if (!owner) {
-          return;
-        }
-        if (playbackState === STATE_READY) {
-          if (owner.eventPlaybackReady) {
-            owner._emit(Video.seekToTimeCompleteEvent);
-          }
-          if (!owner.eventPlaybackReady) {
-            owner.eventPlaybackReady = true;
-            owner._emit(Video.playbackReadyEvent);
-          }
-          if (owner._onReadyEmitEvent.length) {
-            do {
-              owner._emit(owner._onReadyEmitEvent.shift());
-            } while (owner._onReadyEmitEvent.length);
-          }
-        } else if (playbackState === STATE_ENDED) {
-          if (!owner.loop) {
-            owner.eventPlaybackStart = false;
-            owner.stopCurrentTimer();
-          }
-          owner._emit(Video.finishedEvent);
-          if (owner.loop) {
-            owner.play();
-          }
-        }
-      },
-      onPlayWhenReadyChanged: function (playWhenReady: boolean, _reason: number): void {
-        const owner = that.get();
-        if (!owner) {
-          return;
-        }
-        if (playWhenReady && !owner.eventPlaybackStart) {
-          owner.eventPlaybackStart = true;
-        }
-      },
-      onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void {},
-      onIsPlayingChanged: function (_isPlaying: boolean): void {},
-      onRepeatModeChanged: function (_repeatMode: number): void {},
-      onShuffleModeEnabledChanged: function (_shuffleModeEnabled: boolean): void {},
-      onPlayerError: function (error: com.google.android.exoplayer2.PlaybackException): void {
-        console.error('PlayerError', error);
-      },
-      onPlayerErrorChanged: function (_error: com.google.android.exoplayer2.PlaybackException): void {},
-      onPositionDiscontinuity: function (_reasonOrOldPosition: number | com.google.android.exoplayer2.Player.PositionInfo, _newPosition?: com.google.android.exoplayer2.Player.PositionInfo, _reason?: number): void {},
-      onPlaybackParametersChanged: function (_playbackParameters: com.google.android.exoplayer2.PlaybackParameters): void {},
-      onSeekBackIncrementChanged: function (_param0: number): void {},
-      onSeekForwardIncrementChanged: function (_seekBackIncrementMs: number): void {},
-      onMaxSeekToPreviousPositionChanged: function (_maxSeekToPreviousPositionMs: number): void {},
-      onSeekProcessed: function (): void {},
+			onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void {},
+			onPlaybackStateChanged: function (playbackState: number): void {
+				const owner = that.get();
+				if (!owner) {
+					return;
+				}
+				if (playbackState === STATE_READY) {
+					if (owner.eventPlaybackReady) {
+						owner._emit(Video.seekToTimeCompleteEvent);
+					}
+					if (!owner.eventPlaybackReady) {
+						owner.eventPlaybackReady = true;
+						owner._emit(Video.playbackReadyEvent);
+					}
+					if (owner._onReadyEmitEvent.length) {
+						do {
+							owner._emit(owner._onReadyEmitEvent.shift());
+						} while (owner._onReadyEmitEvent.length);
+					}
+				} else if (playbackState === STATE_ENDED) {
+					if (!owner.loop) {
+						owner.eventPlaybackStart = false;
+						owner.stopCurrentTimer();
+					}
+					owner._emit(Video.finishedEvent);
+					if (owner.loop) {
+						owner.play();
+					}
+				}
+			},
+			onPlayWhenReadyChanged: function (playWhenReady: boolean, _reason: number): void {
+				const owner = that.get();
+				if (!owner) {
+					return;
+				}
+				if (playWhenReady && !owner.eventPlaybackStart) {
+					owner.eventPlaybackStart = true;
+				}
+			},
+			onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void {},
+			onIsPlayingChanged: function (_isPlaying: boolean): void {},
+			onRepeatModeChanged: function (_repeatMode: number): void {},
+			onShuffleModeEnabledChanged: function (_shuffleModeEnabled: boolean): void {},
+			onPlayerError: function (error: com.google.android.exoplayer2.PlaybackException): void {
+				console.error('PlayerError', error);
+			},
+			onPlayerErrorChanged: function (_error: com.google.android.exoplayer2.PlaybackException): void {},
+			onPositionDiscontinuity: function (_reasonOrOldPosition: number | com.google.android.exoplayer2.Player.PositionInfo, _newPosition?: com.google.android.exoplayer2.Player.PositionInfo, _reason?: number): void {},
+			onPlaybackParametersChanged: function (_playbackParameters: com.google.android.exoplayer2.PlaybackParameters): void {},
+			onSeekBackIncrementChanged: function (_param0: number): void {},
+			onSeekForwardIncrementChanged: function (_seekBackIncrementMs: number): void {},
+			onMaxSeekToPreviousPositionChanged: function (_maxSeekToPreviousPositionMs: number): void {},
+			onSeekProcessed: function (): void {},
 			onAudioSessionIdChanged: function (_audioSessionId: number): void {},
 			onAudioAttributesChanged: function (_audioAttributes: com.google.android.exoplayer2.audio.AudioAttributes): void {},
 			onVolumeChanged: function (_volume: number): void {},
@@ -190,7 +190,7 @@ export class Video extends VideoBase {
 			onMetadata: function (_metadata: com.google.android.exoplayer2.metadata.Metadata): void {},
 		});
 		if (that.get().player) {
-      that.get().player.addListener(playerListener);
+			that.get().player.addListener(playerListener);
 		}
 	}
 
