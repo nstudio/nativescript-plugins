@@ -113,81 +113,86 @@ export class Video extends VideoBase {
 	_setupMediaPlayerListeners = function () {
 		const that = new WeakRef(this);
 		const playerListener = new com.google.android.exoplayer2.Player.Listener({
-			onIsPlayingChanged: function (isPlaying: boolean): void {},
-			onLoadingChanged: function (isLoading: boolean): void {},
-			onPlaybackParametersChanged: function (playbackParameters: com.google.android.exoplayer2.PlaybackParameters): void {},
-			onPlaybackSuppressionReasonChanged: function (playbackSuppressionReason: number): void {},
-			onPlayerError: function (error: com.google.android.exoplayer2.PlaybackException): void {
-				console.error('PlayerError', error);
-			},
-			onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void {
-				const owner = that.get();
-				if (!owner) {
-					return;
-				}
-				if (playbackState === STATE_READY) {
-					if (owner.eventPlaybackReady) {
-						owner._emit(Video.seekToTimeCompleteEvent);
-					}
-					if (!owner.eventPlaybackReady) {
-						owner.eventPlaybackReady = true;
-						owner._emit(Video.playbackReadyEvent);
-					}
-					if (owner._onReadyEmitEvent.length) {
-						do {
-							owner._emit(owner._onReadyEmitEvent.shift());
-						} while (owner._onReadyEmitEvent.length);
-					}
-					if (playWhenReady && !owner.eventPlaybackStart) {
-						owner.eventPlaybackStart = true;
-					}
-				} else if (playbackState === STATE_ENDED) {
-					if (!owner.loop) {
-						owner.eventPlaybackStart = false;
-						owner.stopCurrentTimer();
-					}
-					owner._emit(Video.finishedEvent);
-					if (owner.loop) {
-						owner.play();
-					}
-				}
-			},
-			onPositionDiscontinuity: function (reasonOrOldPositrion: number | com.google.android.exoplayer2.Player.PositionInfo, newPosition?: com.google.android.exoplayer2.Player.PositionInfo, reason?: number): void {},
-			onRepeatModeChanged: function (repeatMode: number): void {},
-			onSeekProcessed: function (): void {},
-			onShuffleModeEnabledChanged: function (shuffleModeEnabled: boolean): void {},
-			onTimelineChanged: function (timeline: com.google.android.exoplayer2.Timeline, manifest: number): void {},
-			onTracksChanged: function (trackGroups: com.google.android.exoplayer2.source.TrackGroupArray, trackSelections: com.google.android.exoplayer2.trackselection.TrackSelectionArray): void {},
-			onMediaItemTransition: function (param0: com.google.android.exoplayer2.MediaItem, _param1: number): void {},
-			onMediaMetadataChanged: function (param0: com.google.android.exoplayer2.MediaMetadata): void {},
-			onPlaylistMetadataChanged: function (param0: com.google.android.exoplayer2.MediaMetadata): void {},
-			onIsLoadingChanged: function (param0: boolean): void {},
-			onAvailableCommandsChanged: function (_param0: com.google.android.exoplayer2.Player.Commands): void {},
-			onPlaybackStateChanged: function (param0: number): void {},
-			onPlayWhenReadyChanged: function (param0: boolean, param1: number): void {},
-			onPlayerErrorChanged: function (param0: com.google.android.exoplayer2.PlaybackException): void {},
-			onSeekBackIncrementChanged: function (_param0: number): void {},
-			onSeekForwardIncrementChanged: function (_param0: number): void {},
-			onMaxSeekToPreviousPositionChanged: function (_param0: number): void {},
-			onEvents: function (_param0: com.google.android.exoplayer2.Player, _param1: com.google.android.exoplayer2.Player.Events): void {},
-			onTracksInfoChanged: function (_param0: com.google.android.exoplayer2.TracksInfo): void {},
-			onTrackSelectionParametersChanged: function (_param0: com.google.android.exoplayer2.trackselection.TrackSelectionParameters): void {},
-			onAudioSessionIdChanged: function (_param0: number): void {},
-			onAudioAttributesChanged: function (_param0: com.google.android.exoplayer2.audio.AudioAttributes): void {},
-			onVolumeChanged: function (_param0: number): void {},
-			onSkipSilenceEnabledChanged: function (_param0: boolean): void {},
-			onDeviceInfoChanged: function (_param0: com.google.android.exoplayer2.DeviceInfo): void {},
-			onDeviceVolumeChanged: function (_param0: number, _param1: boolean): void {},
-			onVideoSizeChanged: function (_param0: com.google.android.exoplayer2.video.VideoSize): void {},
-			onSurfaceSizeChanged: function (_param0: number, _param1: number): void {},
+			onEvents: function (_player: com.google.android.exoplayer2.Player, _events: com.google.android.exoplayer2.Player.Events): void {},
+      onTimelineChanged: function (_timeline: com.google.android.exoplayer2.Timeline, _manifest: number): void {},
+      onMediaItemTransition: function (_mediaItem: com.google.android.exoplayer2.MediaItem, _reason: number): void {},
+      onTracksChanged: function (_trackGroups: com.google.android.exoplayer2.source.TrackGroupArray, _trackSelections: com.google.android.exoplayer2.trackselection.TrackSelectionArray): void {},
+      onTracksInfoChanged: function (_tracksInfo: com.google.android.exoplayer2.TracksInfo): void {},
+      onMediaMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
+      onPlaylistMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {},
+      onIsLoadingChanged: function (_isLoading: boolean): void {},
+      onLoadingChanged: function (_isLoading: boolean): void {},
+      onAvailableCommandsChanged: function (_availableCommands: com.google.android.exoplayer2.Player.Commands): void {},
+			onTrackSelectionParametersChanged: function (_parameters: com.google.android.exoplayer2.trackselection.TrackSelectionParameters): void {},
+      onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void {},
+      onPlaybackStateChanged: function (playbackState: number): void {
+        const owner = that.get();
+        if (!owner) {
+          return;
+        }
+        if (playbackState === STATE_READY) {
+          if (owner.eventPlaybackReady) {
+            owner._emit(Video.seekToTimeCompleteEvent);
+          }
+          if (!owner.eventPlaybackReady) {
+            owner.eventPlaybackReady = true;
+            owner._emit(Video.playbackReadyEvent);
+          }
+          if (owner._onReadyEmitEvent.length) {
+            do {
+              owner._emit(owner._onReadyEmitEvent.shift());
+            } while (owner._onReadyEmitEvent.length);
+          }
+        } else if (playbackState === STATE_ENDED) {
+          if (!owner.loop) {
+            owner.eventPlaybackStart = false;
+            owner.stopCurrentTimer();
+          }
+          owner._emit(Video.finishedEvent);
+          if (owner.loop) {
+            owner.play();
+          }
+        }
+      },
+      onPlayWhenReadyChanged: function (playWhenReady: boolean, _reason: number): void {
+        const owner = that.get();
+        if (!owner) {
+          return;
+        }
+        if (playWhenReady && !owner.eventPlaybackStart) {
+          owner.eventPlaybackStart = true;
+        }
+      },
+      onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void {},
+      onIsPlayingChanged: function (_isPlaying: boolean): void {},
+      onRepeatModeChanged: function (_repeatMode: number): void {},
+      onShuffleModeEnabledChanged: function (_shuffleModeEnabled: boolean): void {},
+      onPlayerError: function (error: com.google.android.exoplayer2.PlaybackException): void {
+        console.error('PlayerError', error);
+      },
+      onPlayerErrorChanged: function (_error: com.google.android.exoplayer2.PlaybackException): void {},
+      onPositionDiscontinuity: function (_reasonOrOldPosition: number | com.google.android.exoplayer2.Player.PositionInfo, _newPosition?: com.google.android.exoplayer2.Player.PositionInfo, _reason?: number): void {},
+      onPlaybackParametersChanged: function (_playbackParameters: com.google.android.exoplayer2.PlaybackParameters): void {},
+      onSeekBackIncrementChanged: function (_param0: number): void {},
+      onSeekForwardIncrementChanged: function (_seekBackIncrementMs: number): void {},
+      onMaxSeekToPreviousPositionChanged: function (_maxSeekToPreviousPositionMs: number): void {},
+      onSeekProcessed: function (): void {},
+			onAudioSessionIdChanged: function (_audioSessionId: number): void {},
+			onAudioAttributesChanged: function (_audioAttributes: com.google.android.exoplayer2.audio.AudioAttributes): void {},
+			onVolumeChanged: function (_volume: number): void {},
+			onSkipSilenceEnabledChanged: function (_skipSilenceEnabled: boolean): void {},
+			onDeviceInfoChanged: function (_deviceInfo: com.google.android.exoplayer2.DeviceInfo): void {},
+			onDeviceVolumeChanged: function (_volume: number, _muted: boolean): void {},
+			onVideoSizeChanged: function (_videoSize: com.google.android.exoplayer2.video.VideoSize): void {},
+			onSurfaceSizeChanged: function (_width: number, _height: number): void {},
 			onRenderedFirstFrame: function (): void {},
-			onCues: function (_param0: java.util.List<com.google.android.exoplayer2.text.Cue>): void {},
-			onMetadata: function (_param0: com.google.android.exoplayer2.metadata.Metadata): void {},
+			onCues: function (_cues: java.util.List<com.google.android.exoplayer2.text.Cue>): void {},
+			onMetadata: function (_metadata: com.google.android.exoplayer2.metadata.Metadata): void {},
 		});
-		if (this.player) {
-			this.player.addListener(playerListener);
+		if (that.get().player) {
+      that.get().player.addListener(playerListener);
 		}
-	};
+	}
 
 	_setupMediaController() {
 		this.nativeView.setUseController(!!this.controls);
