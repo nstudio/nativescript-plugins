@@ -368,7 +368,7 @@ export class Video extends VideoBase {
 			if (this.backgroundAudio) {
 				audioSession.setCategoryError(AVAudioSessionCategoryAmbient);
 			} else {
-				audioSession.setCategoryError(AVAudioSessionCategoryPlayAndRecord);
+				audioSession.setCategoryError(AVAudioSessionCategoryPlayback);
 			}
 			audioSession.setActiveError(true);
 		} catch (err) {
