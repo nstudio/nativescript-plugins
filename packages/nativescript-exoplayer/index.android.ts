@@ -7,11 +7,6 @@ import ep2 = com.google.android.exoplayer2;
 export * from './common';
 
 // States from Exo Player
-const STATE_IDLE: number = 1;
-const STATE_BUFFERING: number = 2;
-const STATE_READY: number = 3;
-const STATE_ENDED: number = 4;
-
 const SURFACE_WAITING: number = 0;
 const SURFACE_READY: number = 1;
 
@@ -72,9 +67,9 @@ export class Video extends VideoBase {
 		this.player = null;
 	}
 
-	get playState(): any {
+	get playState(): number {
 		if (!this.nativeView || !this.nativeView.getPlayer()) {
-			return STATE_IDLE;
+			return ep2.Player.STATE_IDLE;
 		}
 		return this.nativeView.getPlayer().getPlaybackState();
 	}
@@ -130,7 +125,7 @@ export class Video extends VideoBase {
 				if (!owner) {
 					return;
 				}
-				if (playbackState === STATE_READY) {
+				if (playbackState === ep2.Player.STATE_READY) {
 					if (owner.eventPlaybackReady) {
 						owner._emit(Video.seekToTimeCompleteEvent);
 					}
@@ -143,7 +138,7 @@ export class Video extends VideoBase {
 							owner._emit(owner._onReadyEmitEvent.shift());
 						} while (owner._onReadyEmitEvent.length);
 					}
-				} else if (playbackState === STATE_ENDED) {
+				} else if (playbackState === ep2.Player.STATE_ENDED) {
 					if (!owner.loop) {
 						owner.eventPlaybackStart = false;
 						owner.stopCurrentTimer();
@@ -315,6 +310,7 @@ export class Video extends VideoBase {
 			this._setupMediaPlayerListeners();
 			this.player.setMediaSource(vs);
 			if (this.autoplay === true) {
+        this.player.prepare();
 				this.player.setPlayWhenReady(true);
 			}
 			if (this.preSeekTime > 0) {
@@ -345,21 +341,22 @@ export class Video extends VideoBase {
 	play() {
 		if (!this.player) {
 			this._openVideo();
-		} else if (this.playState === STATE_ENDED) {
+		} else if (this.playState === ep2.Player.STATE_ENDED) {
 			this.eventPlaybackStart = false;
 			this.player.seekToDefaultPosition();
-			this.startCurrentTimer();
-		} else {
-			this.player.setPlayWhenReady(true);
-			this.startCurrentTimer();
 		}
+    this.player.prepare();
+    this.player.setPlayWhenReady(true);
+    this.startCurrentTimer();
 	}
 
 	pause() {
-		if (this.player) {
+    if(this.player && this.player.getPlayWhenReady()) {
+      // pause player
 			this.player.setPlayWhenReady(false);
-			// this.player.stop();
-		}
+		} else {
+      this.play();
+    }
 	}
 
 	mute(mute) {
@@ -372,6 +369,8 @@ export class Video extends VideoBase {
 		if (this.player) {
 			this.stopCurrentTimer();
 			this.player.stop();
+      this.player.seekToDefaultPosition();
+      // don't release the player, because this prevents the player internal action buttons
 			this.release();
 		}
 	}
@@ -400,7 +399,7 @@ export class Video extends VideoBase {
 		if (!this.player) {
 			return false;
 		}
-		if (this.playState === STATE_READY) {
+		if (this.playState === ep2.Player.STATE_READY) {
 			return this.player.getPlayWhenReady();
 		}
 		return false;

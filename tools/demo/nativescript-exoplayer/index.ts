@@ -1,3 +1,4 @@
+import { Video } from "@nstudio/nativescript-exoplayer";
 import { DemoSharedBase } from '../utils';
 import { VideoFill } from '@nstudio/nativescript-exoplayer';
 import { CoreTypes, Page, Utils } from '@nativescript/core';
@@ -8,14 +9,14 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 	public currentTime: any;
 	public videoDuration: any;
 	public videoFill: VideoFill = VideoFill.default;
-	private _videoPlayer: any;
+	private _videoPlayer: Video;
 	private completed: boolean;
 
 	constructor(mainpage: Page) {
 		super();
 
 		this.completed = false;
-		this._videoPlayer = <any>mainpage.getViewById('nativeVideoPlayer');
+		this._videoPlayer = mainpage.getViewById('nativeVideoPlayer');
 		this.currentTime = '';
 		this.videoDuration = '';
 		this.videoSrc = '~/assets/videos/big_buck_bunny.mp4';
@@ -163,7 +164,7 @@ export class DemoSharedNativescriptExoplayer extends DemoSharedBase {
 		// Disable encryption if it is on...
 		this._videoPlayer.encryption = '';
 
-		if (this.videoSrc === '~/assets/videos/small.mp4' || this.videoSrc === '~/assets/videos/video-ctr.enc') {
+		if (this._videoPlayer.src === '~/assets/videos/small.mp4' || this._videoPlayer.src === '~/assets/videos/video-ctr.enc') {
 			this._videoPlayer.src = 'https://dash.akamaized.net/dash264/TestCases/1a/netflix/exMPD_BIP_TC1.mpd';
 		} else {
 			this._videoPlayer.src = '~/assets/videos/small.mp4';

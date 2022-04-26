@@ -47,7 +47,7 @@ export declare class Video extends View {
 
 	/**
    * aspect/fill settings
-   * Android: 
+   * Android:
    * When set to VideoFill.aspectFill, the aspect ratio of the video will not be honored and it will fill the entire space available.
 
    * iOS:
@@ -59,6 +59,13 @@ export declare class Video extends View {
 	static IMAGETYPEMONO: number;
 	static IMAGETYPESTEREOTOPBOTTOM: number;
 	static IMAGETYPESTEREOLEFTRIGHT: number;
+
+  /**
+   * encryption parameters
+   */
+  public encryptionKey: string = null;
+  public encryptionIV: string = null;
+  public encryption: string = '';
 
 	/**
 	 * Start playing the video.
