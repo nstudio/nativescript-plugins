@@ -1,7 +1,7 @@
 {
   "name": "@nstudio/nativescript-carousel",
   "description": "Carousel component for NativeScript (iOS & Android).",
-  "version": "8.0.0",
+  "version": "8.0.3",
   "main": "index",
   "typings": "index.d.ts",
   "nativescript": {

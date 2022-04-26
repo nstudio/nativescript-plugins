@@ -8,7 +8,7 @@ const AppCompatCheckBox_Namespace = useAndroidX() ? androidx.appcompat.widget : 
 const CompoundButtonCompat_Namespace = useAndroidX() ? androidx.core.widget : (android.support.v4 as any).widget;
 
 function useAndroidX() {
-	return global.androidx && com.google && com.google.android && com.google.android.material;
+	return androidx.appcompat && androidx.core;
 }
 
 export const checkedProperty = new Property<CheckBox, boolean>({
