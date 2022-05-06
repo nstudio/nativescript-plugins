@@ -351,11 +351,8 @@ export class Video extends VideoBase {
 	}
 
 	pause() {
-    if(this.player && this.player.getPlayWhenReady()) {
-      // pause player
+		if(this.player) {
 			this.player.setPlayWhenReady(false);
-		} else {
-      this.play();
     }
 	}
 
