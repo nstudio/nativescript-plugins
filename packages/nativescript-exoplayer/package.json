@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-exoplayer",
-  "version": "5.1.0",
+  "version": "6.0.0",
   "description": "NativeScript plugin that uses the ExoPlayer video player on Android and AVPlayerViewController on iOS to play local and remote videos.",
   "main": "index",
   "typings": "index.d.ts",
