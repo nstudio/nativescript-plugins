@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 
-import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty  } from './common';
+import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty } from './common';
 import { Application, Utils } from '@nativescript/core';
-import ep2 = com.google.android.exoplayer2;
 
 export * from './common';
 
@@ -11,11 +10,11 @@ const SURFACE_WAITING: number = 0;
 const SURFACE_READY: number = 1;
 
 export class Video extends VideoBase {
-	private _textureView: android.widget.VideoView
-	private _subtitlesView: ep2.ui.SubtitleView
+	private _textureView: android.widget.VideoView;
+	private _subtitlesView: com.google.android.exoplayer2.ui.SubtitleView;
 	private videoWidth: number;
 	private videoHeight: number;
-	private _src: string | ep2.source.MediaSource | any;
+	private _src: string | com.google.android.exoplayer2.source.MediaSource | any;
 	private _subtitlesSrc: any;
 	private mediaState: number;
 	private textureSurface: any;
@@ -35,9 +34,9 @@ export class Video extends VideoBase {
 	private _resumeOnFocusGain = false;
 	private enableSubtitles: boolean = false;
 
-	public TYPE = {DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4};
-	public nativeView: ep2.ui.PlayerView;
-	public player: ep2.ExoPlayer;
+	public TYPE = { DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4 };
+	public nativeView: com.google.android.exoplayer2.ui.PlayerView;
+	public player: com.google.android.exoplayer2.ExoPlayer;
 
 	constructor() {
 		super();
@@ -45,7 +44,7 @@ export class Video extends VideoBase {
 		this._boundStop = this.suspendEvent.bind(this);
 		this._resumeOnFocusGain = false;
 		this.enableSubtitles = false;
-		this.TYPE = {DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4};
+		this.TYPE = { DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4 };
 		this._textureView = null;
 		this.nativeView = null;
 		this.videoWidth = 0;
@@ -69,7 +68,7 @@ export class Video extends VideoBase {
 
 	get playState(): number {
 		if (!this.nativeView || !this.nativeView.getPlayer()) {
-			return ep2.Player.STATE_IDLE;
+			return com.google.android.exoplayer2.Player.STATE_IDLE;
 		}
 		return this.nativeView.getPlayer().getPlaybackState();
 	}
@@ -83,7 +82,7 @@ export class Video extends VideoBase {
 	}
 
 	createNativeView() {
-		const nativeView = new ep2.ui.PlayerView(this._context);
+		const nativeView = new com.google.android.exoplayer2.ui.PlayerView(this._context);
 		if (this.enableSubtitles) {
 		}
 		return nativeView;
@@ -107,25 +106,49 @@ export class Video extends VideoBase {
 
 	_setupMediaPlayerListeners = function () {
 		const that = new WeakRef(this);
-		const playerListener = new ep2.Player.Listener({
-			onEvents: function (_player: ep2.Player, _events: ep2.Player.Events): void { /* required in listener implementation */ },
-			onTimelineChanged: function (_timeline: ep2.Timeline, _manifest: number): void { /* required in listener implementation */ },
-			onMediaItemTransition: function (_mediaItem: ep2.MediaItem, _reason: number): void { /* required in listener implementation */ },
-			onTracksChanged: function (_trackGroups: ep2.source.TrackGroupArray, _trackSelections: ep2.trackselection.TrackSelectionArray): void { /* required in listener implementation */ },
-			onTracksInfoChanged: function (_tracksInfo: ep2.TracksInfo): void { /* required in listener implementation */ },
-			onMediaMetadataChanged: function (_mediaMetadata: ep2.MediaMetadata): void { /* required in listener implementation */ },
-			onPlaylistMetadataChanged: function (_mediaMetadata: ep2.MediaMetadata): void { /* required in listener implementation */ },
-			onIsLoadingChanged: function (_isLoading: boolean): void { /* required in listener implementation */ },
-			onLoadingChanged: function (_isLoading: boolean): void { /* required in listener implementation */ },
-			onAvailableCommandsChanged: function (_availableCommands: ep2.Player.Commands): void { /* required in listener implementation */ },
-			onTrackSelectionParametersChanged: function (_parameters: ep2.trackselection.TrackSelectionParameters): void { /* required in listener implementation */ },
-			onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void { /* required in listener implementation */ },
+		const playerListener = new com.google.android.exoplayer2.Player.Listener({
+			onEvents: function (_player: com.google.android.exoplayer2.Player, _events: com.google.android.exoplayer2.Player.Events): void {
+				/* required in listener implementation */
+			},
+			onTimelineChanged: function (_timeline: com.google.android.exoplayer2.Timeline, _manifest: number): void {
+				/* required in listener implementation */
+			},
+			onMediaItemTransition: function (_mediaItem: com.google.android.exoplayer2.MediaItem, _reason: number): void {
+				/* required in listener implementation */
+			},
+			onTracksChanged: function (_trackGroups: com.google.android.exoplayer2.source.TrackGroupArray, _trackSelections: com.google.android.exoplayer2.trackselection.TrackSelectionArray): void {
+				/* required in listener implementation */
+			},
+			onTracksInfoChanged: function (_tracksInfo: com.google.android.exoplayer2.TracksInfo): void {
+				/* required in listener implementation */
+			},
+			onMediaMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {
+				/* required in listener implementation */
+			},
+			onPlaylistMetadataChanged: function (_mediaMetadata: com.google.android.exoplayer2.MediaMetadata): void {
+				/* required in listener implementation */
+			},
+			onIsLoadingChanged: function (_isLoading: boolean): void {
+				/* required in listener implementation */
+			},
+			onLoadingChanged: function (_isLoading: boolean): void {
+				/* required in listener implementation */
+			},
+			onAvailableCommandsChanged: function (_availableCommands: com.google.android.exoplayer2.Player.Commands): void {
+				/* required in listener implementation */
+			},
+			onTrackSelectionParametersChanged: function (_parameters: com.google.android.exoplayer2.trackselection.TrackSelectionParameters): void {
+				/* required in listener implementation */
+			},
+			onPlayerStateChanged: function (playWhenReady: boolean, playbackState: number): void {
+				/* required in listener implementation */
+			},
 			onPlaybackStateChanged: function (playbackState: number): void {
 				const owner = that.get();
 				if (!owner) {
 					return;
 				}
-				if (playbackState === ep2.Player.STATE_READY) {
+				if (playbackState === com.google.android.exoplayer2.Player.STATE_READY) {
 					if (owner.eventPlaybackReady) {
 						owner._emit(Video.seekToTimeCompleteEvent);
 					}
@@ -138,7 +161,7 @@ export class Video extends VideoBase {
 							owner._emit(owner._onReadyEmitEvent.shift());
 						} while (owner._onReadyEmitEvent.length);
 					}
-				} else if (playbackState === ep2.Player.STATE_ENDED) {
+				} else if (playbackState === com.google.android.exoplayer2.Player.STATE_ENDED) {
 					if (!owner.loop) {
 						owner.eventPlaybackStart = false;
 						owner.stopCurrentTimer();
@@ -158,36 +181,80 @@ export class Video extends VideoBase {
 					owner.eventPlaybackStart = true;
 				}
 			},
-			onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void { /* required in listener implementation */ },
-			onIsPlayingChanged: function (_isPlaying: boolean): void { /* required in listener implementation */ },
-			onRepeatModeChanged: function (_repeatMode: number): void { /* required in listener implementation */ },
-			onShuffleModeEnabledChanged: function (_shuffleModeEnabled: boolean): void { /* required in listener implementation */ },
-			onPlayerError: function (error: ep2.PlaybackException): void {
+			onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void {
+				/* required in listener implementation */
+			},
+			onIsPlayingChanged: function (_isPlaying: boolean): void {
+				/* required in listener implementation */
+			},
+			onRepeatModeChanged: function (_repeatMode: number): void {
+				/* required in listener implementation */
+			},
+			onShuffleModeEnabledChanged: function (_shuffleModeEnabled: boolean): void {
+				/* required in listener implementation */
+			},
+			onPlayerError: function (error: com.google.android.exoplayer2.PlaybackException): void {
 				console.error('PlayerError', error);
 			},
-			onPlayerErrorChanged: function (_error: ep2.PlaybackException): void { /* required in listener implementation */ },
-			onPositionDiscontinuity: function (_reasonOrOldPosition: number | ep2.Player.PositionInfo, _newPosition?: ep2.Player.PositionInfo, _reason?: number): void { /* required in listener implementation */ },
-			onPlaybackParametersChanged: function (_playbackParameters: ep2.PlaybackParameters): void { /* required in listener implementation */ },
-			onSeekBackIncrementChanged: function (_param0: number): void { /* required in listener implementation */ },
-			onSeekForwardIncrementChanged: function (_seekBackIncrementMs: number): void { /* required in listener implementation */ },
-			onMaxSeekToPreviousPositionChanged: function (_maxSeekToPreviousPositionMs: number): void { /* required in listener implementation */ },
-			onSeekProcessed: function (): void { /* required in listener implementation */ },
-			onAudioSessionIdChanged: function (_audioSessionId: number): void { /* required in listener implementation */ },
-			onAudioAttributesChanged: function (_audioAttributes: ep2.audio.AudioAttributes): void { /* required in listener implementation */ },
-			onVolumeChanged: function (_volume: number): void { /* required in listener implementation */ },
-			onSkipSilenceEnabledChanged: function (_skipSilenceEnabled: boolean): void { /* required in listener implementation */ },
-			onDeviceInfoChanged: function (_deviceInfo: ep2.DeviceInfo): void { /* required in listener implementation */ },
-			onDeviceVolumeChanged: function (_volume: number, _muted: boolean): void { /* required in listener implementation */ },
-			onVideoSizeChanged: function (_videoSize: ep2.video.VideoSize): void { /* required in listener implementation */ },
-			onSurfaceSizeChanged: function (_width: number, _height: number): void { /* required in listener implementation */ },
-			onRenderedFirstFrame: function (): void { /* required in listener implementation */ },
-			onCues: function (_cues: java.util.List<ep2.text.Cue>): void { /* required in listener implementation */ },
-			onMetadata: function (_metadata: ep2.metadata.Metadata): void { /* required in listener implementation */ },
+			onPlayerErrorChanged: function (_error: com.google.android.exoplayer2.PlaybackException): void {
+				/* required in listener implementation */
+			},
+			onPositionDiscontinuity: function (_reasonOrOldPosition: number | com.google.android.exoplayer2.Player.PositionInfo, _newPosition?: com.google.android.exoplayer2.Player.PositionInfo, _reason?: number): void {
+				/* required in listener implementation */
+			},
+			onPlaybackParametersChanged: function (_playbackParameters: com.google.android.exoplayer2.PlaybackParameters): void {
+				/* required in listener implementation */
+			},
+			onSeekBackIncrementChanged: function (_param0: number): void {
+				/* required in listener implementation */
+			},
+			onSeekForwardIncrementChanged: function (_seekBackIncrementMs: number): void {
+				/* required in listener implementation */
+			},
+			onMaxSeekToPreviousPositionChanged: function (_maxSeekToPreviousPositionMs: number): void {
+				/* required in listener implementation */
+			},
+			onSeekProcessed: function (): void {
+				/* required in listener implementation */
+			},
+			onAudioSessionIdChanged: function (_audioSessionId: number): void {
+				/* required in listener implementation */
+			},
+			onAudioAttributesChanged: function (_audioAttributes: com.google.android.exoplayer2.audio.AudioAttributes): void {
+				/* required in listener implementation */
+			},
+			onVolumeChanged: function (_volume: number): void {
+				/* required in listener implementation */
+			},
+			onSkipSilenceEnabledChanged: function (_skipSilenceEnabled: boolean): void {
+				/* required in listener implementation */
+			},
+			onDeviceInfoChanged: function (_deviceInfo: com.google.android.exoplayer2.DeviceInfo): void {
+				/* required in listener implementation */
+			},
+			onDeviceVolumeChanged: function (_volume: number, _muted: boolean): void {
+				/* required in listener implementation */
+			},
+			onVideoSizeChanged: function (_videoSize: com.google.android.exoplayer2.video.VideoSize): void {
+				/* required in listener implementation */
+			},
+			onSurfaceSizeChanged: function (_width: number, _height: number): void {
+				/* required in listener implementation */
+			},
+			onRenderedFirstFrame: function (): void {
+				/* required in listener implementation */
+			},
+			onCues: function (_cues: java.util.List<com.google.android.exoplayer2.text.Cue>): void {
+				/* required in listener implementation */
+			},
+			onMetadata: function (_metadata: com.google.android.exoplayer2.metadata.Metadata): void {
+				/* required in listener implementation */
+			},
 		});
 		if (that.get().player) {
 			that.get().player.addListener(playerListener);
 		}
-	}
+	};
 
 	_setupMediaController() {
 		this.nativeView.setUseController(!!this.controls);
@@ -201,7 +268,7 @@ export class Video extends VideoBase {
 				return this.TYPE.OTHER;
 			}
 		}
-		const type = ep2.util.Util.inferContentType(uri as android.net.Uri);
+		const type = com.google.android.exoplayer2.util.Util.inferContentType(uri as android.net.Uri);
 		switch (type) {
 			case 0:
 				return this.TYPE.DASH;
@@ -224,82 +291,77 @@ export class Video extends VideoBase {
 		}
 		this.videoOpened = true;
 
-
 		if (!this.backgroundAudio) {
 			const am: android.media.AudioManager = this._context.getSystemService(android.content.Context.AUDIO_SERVICE);
 			const afr = new android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN).build();
 			am.requestAudioFocus(afr);
 		}
 		try {
-			const bm = new ep2.upstream.DefaultBandwidthMeter.Builder(this._context).build();
-			const trackSelection = new ep2.trackselection.AdaptiveTrackSelection.Factory();
-			const trackSelector = new ep2.trackselection.DefaultTrackSelector(this._context, trackSelection);
-			const loadControl = new ep2.DefaultLoadControl();
-			const builder = new ep2.ExoPlayer.Builder(this._context);
+			const bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter.Builder(this._context).build();
+			const trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory();
+			const trackSelector = new com.google.android.exoplayer2.trackselection.DefaultTrackSelector(this._context, trackSelection);
+			const loadControl = new com.google.android.exoplayer2.DefaultLoadControl();
+			const builder = new com.google.android.exoplayer2.ExoPlayer.Builder(this._context);
 			builder.setTrackSelector(trackSelector);
 			builder.setLoadControl(loadControl);
 			this.player = builder.build();
 
 			if (this.fill === VideoFill.aspectFill) {
-				this.nativeView.setResizeMode(ep2.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
+				this.nativeView.setResizeMode(com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
 			} else if (this.fill === VideoFill.aspect) {
-				this.nativeView.setResizeMode(ep2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIT);
+				this.nativeView.setResizeMode(com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FIT);
 			} else if (this.fill === VideoFill.fill) {
-				this.nativeView.setResizeMode(ep2.ui.AspectRatioFrameLayout.RESIZE_MODE_FILL);
+				this.nativeView.setResizeMode(com.google.android.exoplayer2.ui.AspectRatioFrameLayout.RESIZE_MODE_FILL);
 			}
-			const userAgent = ep2.util.Util.getUserAgent(this._context, Utils.ad.getApplicationContext().getPackageName());
-			const dsf = new ep2.upstream.DefaultDataSourceFactory(this._context, userAgent, bm);
-			let vs: ep2.source.MediaSource;
+			const userAgent = com.google.android.exoplayer2.util.Util.getUserAgent(this._context, Utils.ad.getApplicationContext().getPackageName());
+			const dsf = new com.google.android.exoplayer2.upstream.DefaultDataSourceFactory(this._context, userAgent, bm);
+			let vs: com.google.android.exoplayer2.source.MediaSource;
 			if (this._src instanceof String || typeof this._src === 'string') {
 				const uri = android.net.Uri.parse(<string>this._src);
-				const mediaItem = ep2.MediaItem.fromUri(uri);
+				const mediaItem = com.google.android.exoplayer2.MediaItem.fromUri(uri);
 				const type = this._detectTypeFromSrc(uri);
 				switch (type) {
 					case this.TYPE.SS:
-						vs = new ep2.source.smoothstreaming.SsMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource.Factory(dsf).createMediaSource(mediaItem);
 						break;
 					case this.TYPE.DASH:
-						vs = new ep2.source.dash.DashMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.dash.DashMediaSource.Factory(dsf).createMediaSource(mediaItem);
 						break;
 					case this.TYPE.HLS:
-						vs = new ep2.source.hls.HlsMediaSource.Factory(dsf)
+						vs = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(dsf)
 							// .setAllowChunklessPreparation(true)
 							.createMediaSource(mediaItem);
 						break;
 					default:
-						vs = new ep2.source.ProgressiveMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(dsf).createMediaSource(mediaItem);
 				}
 			} else if (typeof this._src.typeSource === 'number') {
-				const mediaItem = ep2.MediaItem.fromUri(android.net.Uri.parse(this._src.url))
+				const mediaItem = com.google.android.exoplayer2.MediaItem.fromUri(android.net.Uri.parse(this._src.url));
 				switch (this._src.typeSource) {
 					case this.TYPE.SS:
-						vs = new ep2.source.smoothstreaming.SsMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource.Factory(dsf).createMediaSource(mediaItem);
 						break;
 					case this.TYPE.DASH:
-						vs = new ep2.source.dash.DashMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.dash.DashMediaSource.Factory(dsf).createMediaSource(mediaItem);
 						break;
 					case this.TYPE.HLS:
-						vs = new ep2.source.hls.HlsMediaSource.Factory(dsf).setAllowChunklessPreparation(true).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(dsf).setAllowChunklessPreparation(true).createMediaSource(mediaItem);
 						break;
 					default:
-						vs = new ep2.source.ProgressiveMediaSource.Factory(dsf).createMediaSource(mediaItem);
+						vs = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(dsf).createMediaSource(mediaItem);
 				}
 			} else {
-				vs = this._src as ep2.source.MediaSource;
+				vs = this._src as com.google.android.exoplayer2.source.MediaSource;
 			}
 			try {
 				if (this._subtitlesSrc != null && this._subtitlesSrc.trim() != '') {
 					const subtitleUri = android.net.Uri.parse(this._subtitlesSrc.trim());
-					const subtitleConfig = new ep2.MediaItem.SubtitleConfiguration.Builder(subtitleUri)
-						.setMimeType(ep2.util.MimeTypes.APPLICATION_SUBRIP)
-						.setLanguage('en')
-						.build();
-					const subtitlesSrc = new ep2.source.SingleSampleMediaSource.Factory(dsf)
-						.createMediaSource(subtitleConfig, ep2.C.TIME_UNSET);
-					const mergedArray = Array.create(ep2.source.MediaSource, 2);
+					const subtitleConfig = new com.google.android.exoplayer2.MediaItem.SubtitleConfiguration.Builder(subtitleUri).setMimeType(com.google.android.exoplayer2.util.MimeTypes.APPLICATION_SUBRIP).setLanguage('en').build();
+					const subtitlesSrc = new com.google.android.exoplayer2.source.SingleSampleMediaSource.Factory(dsf).createMediaSource(subtitleConfig, com.google.android.exoplayer2.C.TIME_UNSET);
+					const mergedArray = Array.create(com.google.android.exoplayer2.source.MediaSource, 2);
 					mergedArray[0] = vs;
 					mergedArray[1] = subtitlesSrc;
-					vs = new ep2.source.MergingMediaSource(mergedArray);
+					vs = new com.google.android.exoplayer2.source.MergingMediaSource(mergedArray);
 				}
 			} catch (ex) {
 				console.log('Error loading subtitles:', ex, ex.stack);
@@ -310,7 +372,7 @@ export class Video extends VideoBase {
 			this._setupMediaPlayerListeners();
 			this.player.setMediaSource(vs);
 			if (this.autoplay === true) {
-        this.player.prepare();
+				this.player.prepare();
 				this.player.setPlayWhenReady(true);
 			}
 			if (this.preSeekTime > 0) {
@@ -341,13 +403,13 @@ export class Video extends VideoBase {
 	play() {
 		if (!this.player) {
 			this._openVideo();
-		} else if (this.playState === ep2.Player.STATE_ENDED) {
+		} else if (this.playState === com.google.android.exoplayer2.Player.STATE_ENDED) {
 			this.eventPlaybackStart = false;
 			this.player.seekToDefaultPosition();
 		}
-    this.player.prepare();
-    this.player.setPlayWhenReady(true);
-    this.startCurrentTimer();
+		this.player.prepare();
+		this.player.setPlayWhenReady(true);
+		this.startCurrentTimer();
 	}
 
 	pause() {
@@ -366,8 +428,8 @@ export class Video extends VideoBase {
 		if (this.player) {
 			this.stopCurrentTimer();
 			this.player.stop();
-      this.player.seekToDefaultPosition();
-      // don't release the player, because this prevents the player internal action buttons
+			this.player.seekToDefaultPosition();
+			// don't release the player, because this prevents the player internal action buttons
 			this.release();
 		}
 	}
@@ -396,7 +458,7 @@ export class Video extends VideoBase {
 		if (!this.player) {
 			return false;
 		}
-		if (this.playState === ep2.Player.STATE_READY) {
+		if (this.playState === com.google.android.exoplayer2.Player.STATE_READY) {
 			return this.player.getPlayWhenReady();
 		}
 		return false;
@@ -469,14 +531,14 @@ export class Video extends VideoBase {
 			this.nativeView.onResume();
 		}
 		//this._openVideo();
-		if(this._resumeOnFocusGain) {
+		if (this._resumeOnFocusGain) {
 			this._resumeOnFocusGain = false;
 			this.player.setPlayWhenReady(true);
 		}
 	}
 
 	startCurrentTimer() {
-		console.log("[EXOPLAYER] startCurrentTimer");
+		console.log('[EXOPLAYER] startCurrentTimer');
 		if (this.interval) {
 			return;
 		}
