@@ -1025,7 +1025,7 @@ export class CameraPlus extends CameraPlusBase {
 
 const rootVC = function () {
 	const appWindow = UIApplication.sharedApplication.keyWindow;
-	return appWindow.rootViewController;
+	return Utils.ios.getVisibleViewController(appWindow.rootViewController);
 };
 
 const createButton = function (target: any, frame: CGRect, label: string, eventName: string, align?: string, img?: UIImage, imgSelected?: UIImage): UIButton {
