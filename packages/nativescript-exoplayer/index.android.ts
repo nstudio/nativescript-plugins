@@ -293,8 +293,12 @@ export class Video extends VideoBase {
 
 		if (!this.backgroundAudio) {
 			const am: android.media.AudioManager = this._context.getSystemService(android.content.Context.AUDIO_SERVICE);
-			const afr = new android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN).build();
-			am.requestAudioFocus(afr);
+			if (com.google.android.exoplayer2.util.Util.SDK_INT >= 26) {
+				const afr = new android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN).build();
+				am.requestAudioFocus(afr);
+			} else {
+				am.requestAudioFocus(null, android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN);
+			}
 		}
 		try {
 			const bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter.Builder(this._context).build();
@@ -507,8 +511,12 @@ export class Video extends VideoBase {
 			this.player.release();
 			this.player = null;
 			const am: android.media.AudioManager = this._context.getSystemService(android.content.Context.AUDIO_SERVICE);
-			const afr = new android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN).build();
-			am.abandonAudioFocusRequest(afr);
+			if (com.google.android.exoplayer2.util.Util.SDK_INT >= 26) {
+				const afr = new android.media.AudioFocusRequest.Builder(android.media.AudioManager.AUDIOFOCUS_GAIN).build();
+				am.abandonAudioFocusRequest(afr);
+			} else {
+				am.abandonAudioFocus(null);
+			}
 		}
 	}
 
