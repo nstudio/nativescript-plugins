@@ -242,8 +242,10 @@ const MySwifty = (<any>SwiftyCamViewController).extend(
 		},
 
 		closePicker() {
-			rootVC().dismissViewControllerAnimatedCompletion(true, () => {
-				this.pickerDelegate = null;
+			Utils.dispatchToMainThread(()=>{
+				rootVC().dismissViewControllerAnimatedCompletion(true, () => {
+					this.pickerDelegate = null;
+				});
 			});
 		},
 
