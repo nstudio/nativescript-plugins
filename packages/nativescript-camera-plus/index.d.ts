@@ -15,6 +15,16 @@ export declare class CameraPlus extends ContentView {
 	 */
 	public static enableVideo: boolean;
 
+
+	/**
+	 * Audio Support (on by default)
+	 * defined statically due to necessity to set this very early before constructor
+	 * users should set this in a component constructor before their view creates the component
+	 * and can reset it before different using in different views if they want to go back/forth
+	 * between photo/camera and video/camera
+	 */
+	public static enableAudio: boolean;
+
 	/**
 	 * Default camera: must be set early before constructor to default the camera correctly on launch (default to 'rear')
 	 */
