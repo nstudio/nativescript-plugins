@@ -35,6 +35,8 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 */
 	public static enableVideo: boolean = false;
 
+	public static enableAudio: boolean = true;
+
 	/**
 	 * Default camera: must be set early before constructor to default the camera correctly on launch (default to rear)
 	 */

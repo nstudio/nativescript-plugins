@@ -720,6 +720,9 @@ export class CameraPlus extends CameraPlusBase {
 	@GetSetProperty()
 	public enableVideo: boolean;
 
+	@GetSetProperty()
+	public enableAudio: boolean = true;
+
 	// library picker handling
 	private _galleryMax: number = 3;
 	private _galleryPickerWidth: number;
@@ -744,11 +747,23 @@ export class CameraPlus extends CameraPlusBase {
 		return this.enableVideo === true || CameraPlus.enableVideo;
 	}
 
+	private isAudioEnabled() {
+		return this.enableAudio === true || CameraPlus.enableAudio;
+	}
+
 	public createNativeView() {
 		// this._swifty.videoGravity = SwiftyCamVideoGravity.ResizeAspectFill;
-		this._swifty.enableVideo = this.isVideoEnabled();
-		// disable audio if no video support
-		this._swifty.disableAudio = !this.isVideoEnabled();
+		const videoEnabled = this.isVideoEnabled();
+		this._swifty.enableVideo = videoEnabled;
+		if (!videoEnabled) {
+			// disable audio if no video support
+			this._swifty.disableAudio = !this.isVideoEnabled();
+		} else {
+			this._swifty.disableAudio = !this.isAudioEnabled();
+		}
+		
+
+	
 		CLog('CameraPlus createNativeView');
 		CLog('video enabled:', this.isVideoEnabled());
 		CLog('default camera:', CameraPlus.defaultCamera);

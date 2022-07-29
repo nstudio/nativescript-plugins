@@ -74,6 +74,10 @@ export class CameraPlus extends CameraPlusBase {
 	public enableVideo: boolean;
 	@GetSetProperty()
 	public isRecording: boolean;
+
+	@GetSetProperty()
+	public enableAudio: boolean = true;
+
 	public events: ICameraPlusEvents;
 	private _nativeView: android.widget.RelativeLayout;
 	private _owner: WeakRef<any>;
@@ -115,6 +119,10 @@ export class CameraPlus extends CameraPlusBase {
 
 	private isVideoEnabled() {
 		return this.enableVideo === true || CameraPlus.enableVideo;
+	}
+
+	private isAudioEnabled() {
+		return this.enableAudio === true || CameraPlus.enableAudio;
 	}
 
 	// @ts-ignore
@@ -244,7 +252,7 @@ export class CameraPlus extends CameraPlusBase {
 		this._nativeView = new android.widget.RelativeLayout(this._context);
 		this._camera = new fancycamera.FancyCamera(this._context);
 		(this._camera as any).setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT));
-
+		this._camera.setEnableAudio(CameraPlus.enableAudio);
 		this._nativeView.addView(this._camera as any);
 		return this._nativeView;
 	}
