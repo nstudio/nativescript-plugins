@@ -68,6 +68,9 @@ export class HomeComponent {
 	},
 	{
 		name: 'nativescript-tracking-transparency'
+	},
+	{
+		name: 'nativescript-walletconnect'
 	}
 ];
 }

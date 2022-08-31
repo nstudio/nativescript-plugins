@@ -23,10 +23,11 @@
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel"
+    "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel",
+    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.2.0",
-    "@nativescript/ios": "~8.2.0"
+    "@nativescript/android": "~8.3.1",
+    "@nativescript/ios": "~8.3.0"
   }
 }
