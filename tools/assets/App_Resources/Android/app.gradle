@@ -6,10 +6,10 @@
 //}
 
 android {
-  compileSdkVersion 29
+  compileSdkVersion 32
   defaultConfig {
     minSdkVersion 21
-    targetSdkVersion 29
+    targetSdkVersion 32
     generatedDensities = []
     multiDexEnabled true
   }

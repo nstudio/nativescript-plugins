@@ -22,7 +22,8 @@
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel"
+    "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel",
+    "@nstudio/nativescript-persona": "file:../../packages/nativescript-persona"
   },
   "devDependencies": {
     "@nativescript/android": "~8.2.0",

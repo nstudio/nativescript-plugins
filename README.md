@@ -16,6 +16,7 @@
 - [@nstudio/nativescript-intercom](packages/nativescript-intercom/README.md)
 - [@nstudio/nativescript-loading-indicator](packages/nativescript-loading-indicator/README.md)
 - [@nstudio/nativescript-onfido](packages/nativescript-onfido/README.md)
+- [@nstudio/nativescript-persona](packages/nativescript-persona/README.md)
 - [@nstudio/nativescript-plaid](packages/nativescript-plaid/README.md)
 - [@nstudio/nativescript-qr](packages/nativescript-qr/README.md)
 - [@nstudio/nativescript-tracking-transparency](packages/nativescript-tracking-transparency/README.md)

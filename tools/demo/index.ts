@@ -17,6 +17,7 @@ export * from './nativescript-input-mask';
 export * from './nativescript-intercom';
 export * from './nativescript-loading-indicator';
 export * from './nativescript-onfido';
+export * from './nativescript-persona';
 export * from './nativescript-plaid';
 export * from './nativescript-qr';
 export * from './nativescript-tracking-transparency';
