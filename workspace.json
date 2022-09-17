@@ -27,5 +27,6 @@
 		"nativescript-plaid": "packages/nativescript-plaid",
 		"nativescript-qr": "packages/nativescript-qr",
 		"nativescript-tracking-transparency": "packages/nativescript-tracking-transparency"
-	}
+	},
+	"$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

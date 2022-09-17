@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-dynatrace",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/nativescript-dynatrace",
 	"projectType": "library",
 	"generators": {},
