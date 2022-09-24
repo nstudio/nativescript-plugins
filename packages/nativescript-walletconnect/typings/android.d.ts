@@ -1,429 +1,429 @@
-declare module org {
-	export module walletconnect {
-		export class Session {
-			public static class: java.lang.Class<org.walletconnect.Session>;
-			/**
-			 * Constructs a new instance of the org.walletconnect.Session interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-			 */
-			public constructor(implementation: {
-				init(): void;
-				offer(): void;
-				approve(param0: java.util.List<string>, param1: number): void;
-				reject(): void;
-				update(param0: java.util.List<string>, param1: number): void;
-				kill(): void;
-				peerMeta(): org.walletconnect.Session.PeerMeta;
-				approvedAccounts(): java.util.List<string>;
-				approveRequest(param0: number, param1: any): void;
-				rejectRequest(param0: number, param1: number, param2: string): void;
-				performMethodCall(param0: org.walletconnect.Session.MethodCall, param1: any /* Function arg is Response */): void;
-				addCallback(param0: org.walletconnect.Session.Callback): void;
-				removeCallback(param0: org.walletconnect.Session.Callback): void;
-				clearCallbacks(): void;
-			});
-			public constructor();
-			public approvedAccounts(): java.util.List<string>;
-			public clearCallbacks(): void;
-			public approve(param0: java.util.List<string>, param1: number): void;
-			public init(): void;
-			public offer(): void;
-			public rejectRequest(param0: number, param1: number, param2: string): void;
-			public performMethodCall(param0: org.walletconnect.Session.MethodCall, param1: any /* Function arg is Response */): void;
-			public approveRequest(param0: number, param1: any): void;
-			public reject(): void;
-			public kill(): void;
-			public removeCallback(param0: org.walletconnect.Session.Callback): void;
-			public update(param0: java.util.List<string>, param1: number): void;
-			public addCallback(param0: org.walletconnect.Session.Callback): void;
-			public peerMeta(): org.walletconnect.Session.PeerMeta;
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class BuildConfig {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.BuildConfig>;
+				public static DEBUG: boolean;
+				public static LIBRARY_PACKAGE_NAME: string;
+				public static BUILD_TYPE: string;
+				public constructor();
+			}
 		}
-		export module Session {
-			export class Callback {
-				public static class: java.lang.Class<org.walletconnect.Session.Callback>;
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class WCCipher {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.WCCipher>;
+				public static INSTANCE: com.trustwallet.walletconnect.WCCipher;
+				public decrypt(param0: com.trustwallet.walletconnect.models.WCEncryptionPayload, param1: androidNative.Array<number>): androidNative.Array<number>;
+				public encrypt(param0: androidNative.Array<number>, param1: androidNative.Array<number>): com.trustwallet.walletconnect.models.WCEncryptionPayload;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class WCClient {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.WCClient>;
+				public setOnGetAccounts(param0: kotlin.jvm.functions.Function1<java.lang.Long,kotlin.Unit>): void;
+				public getOnWalletAddNetwork(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.session.WCAddNetwork,kotlin.Unit>;
+				public setOnFailure(param0: kotlin.jvm.functions.Function1<java.lang.Throwable,kotlin.Unit>): void;
+				public getOnBnbTransfer(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder,kotlin.Unit>;
+				public getPeerId(): string;
+				public rejectRequest(param0: number, param1: string): boolean;
+				public addSocketListener(param0: okhttp3.WebSocketListener): void;
+				public getOnEthSignTransaction(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction,kotlin.Unit>;
+				public isConnected(): boolean;
+				public getOnBnbTrade(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder,kotlin.Unit>;
+				public getOnGetAccounts(): kotlin.jvm.functions.Function1<java.lang.Long, kotlin.Unit>;
+				public setOnBnbTxConfirm(param0: kotlin.jvm.functions.Function1<java.lang.Long,kotlin.Unit>): void;
+				public setOnWalletAddNetwork(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.session.WCAddNetwork,kotlin.Unit>): void;
+				public onFailure(param0: okhttp3.WebSocket, param1: java.lang.Throwable, param2: okhttp3.Response): void;
+				public getOnDisconnect(): kotlin.jvm.functions.Function2<java.lang.Integer,string,kotlin.Unit>;
+				public getOnSignTransaction(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.WCSignTransaction,kotlin.Unit>;
+				public setOnBnbTrade(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder,kotlin.Unit>): void;
+				public getOnCustomRequest(): kotlin.jvm.functions.Function2<java.lang.Long,string,kotlin.Unit>;
+				public killSession(): boolean;
+				public getOnBnbTxConfirm(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceTxConfirmParam,kotlin.Unit>;
+				public getOnFailure(): kotlin.jvm.functions.Function1<java.lang.Throwable,kotlin.Unit>;
+				public constructor(param0: com.google.gson.GsonBuilder, param1: okhttp3.OkHttpClient);
+				public getOnSessionRequest(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.WCPeerMeta,kotlin.Unit>;
+				public getOnEthSendTransaction(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction,kotlin.Unit>;
+				public onClosing(param0: okhttp3.WebSocket, param1: number, param2: string): void;
+				public getOnEthSign(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage,kotlin.Unit>;
+				public setOnBnbCancel(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder,kotlin.Unit>): void;
+				public approveRequest(param0: number, param1: any): boolean;
+				public setOnEthSendTransaction(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction,kotlin.Unit>): void;
+				public setOnCustomRequest(param0: otlin.jvm.functions.Function2<java.lang.Long,string,kotlin.Unit>): void;
+				public setOnSignTransaction(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.WCSignTransaction,kotlin.Unit>): void;
+				public rejectSession(param0: string): boolean;
+				public getOnWalletChangeNetwork(): kotlin.jvm.functions.Function2<java.lang.Long,java.lang.Integer,kotlin.Unit>;
+				public setOnWalletChangeNetwork(param0: kotlin.jvm.functions.Function2<java.lang.Long,java.lang.Integer,kotlin.Unit>): void;
+				public onMessage(param0: okhttp3.WebSocket, param1: string): void;
+				public getRemotePeerId(): string;
+				public onClosed(param0: okhttp3.WebSocket, param1: number, param2: string): void;
+				public disconnect(): boolean;
+				public setOnDisconnect(param0: kotlin.jvm.functions.Function2<java.lang.Integer,string,kotlin.Unit>): void;
+				public updateSession(param0: java.util.List<string>, param1: java.lang.Integer, param2: boolean): boolean;
+				public removeSocketListener(param0: okhttp3.WebSocketListener): void;
+				public getOnBnbCancel(): kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder,kotlin.Unit>;
+				public onOpen(param0: okhttp3.WebSocket, param1: okhttp3.Response): void;
+				public getChainId(): string;
+				public setOnBnbTransfer(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder,kotlin.Unit>): void;
+				public connect(param0: com.trustwallet.walletconnect.models.session.WCSession, param1: com.trustwallet.walletconnect.models.WCPeerMeta, param2: string, param3: string): void;
+				public getSession(): com.trustwallet.walletconnect.models.session.WCSession;
+				public setOnEthSignTransaction(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction,kotlin.Unit>): void;
+				public onMessage(param0: okhttp3.WebSocket, param1: okio.ByteString): void;
+				public getPeerMeta(): com.trustwallet.walletconnect.models.WCPeerMeta;
+				public approveSession(param0: java.util.List<string>, param1: number): boolean;
+				public setOnEthSign(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage,kotlin.Unit>): void;
+				public setOnSessionRequest(param0: kotlin.jvm.functions.Function2<java.lang.Long,com.trustwallet.walletconnect.models.WCPeerMeta,kotlin.Unit>): void;
+			}
+			export module WCClient {
+				export class WhenMappings {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.WCClient.WhenMappings>;
+				}
+			}
+		}
+	}
+}
+
+
+declare module io {
+	export module nstudio {
+		export module plugins {
+			export module walletconnect {
+			export class WCClientImpl extends com.trustwallet.walletconnect.WCClient {
+				public static class: java.lang.Class<io.nstudio.plugins.walletconnect.WCClientImpl>;
+
+				public getOnConnect(): kotlin.jvm.functions.Function1<boolean,kotlin.Unit>;
+
+				public setOnConnect(param0: kotlin.jvm.functions.Function1<boolean,kotlin.Unit>): void;
+
+			}
+		}
+	}
+	}
+}
+
+
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class WCSessionStore {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.WCSessionStore>;
 				/**
-				 * Constructs a new instance of the org.walletconnect.Session$Callback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 * Constructs a new instance of the com.trustwallet.walletconnect.WCSessionStore interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 				 */
 				public constructor(implementation: {
-					onStatus(param0: org.walletconnect.Session.Status): void;
-					onMethodCall(param0: org.walletconnect.Session.MethodCall): void;
+					getSession(): com.trustwallet.walletconnect.WCSessionStoreItem;
+					setSession(param0: com.trustwallet.walletconnect.WCSessionStoreItem): void;
 				});
 				public constructor();
-				public onMethodCall(param0: org.walletconnect.Session.MethodCall): void;
-				public onStatus(param0: org.walletconnect.Session.Status): void;
+				public getSession(): com.trustwallet.walletconnect.WCSessionStoreItem;
+				public setSession(param0: com.trustwallet.walletconnect.WCSessionStoreItem): void;
 			}
-			export class Config {
-				public static class: java.lang.Class<org.walletconnect.Session.Config>;
-				public toFullyQualifiedConfig(): org.walletconnect.Session.FullyQualifiedConfig;
-				public copy(param0: string, param1: string, param2: string, param3: string, param4: number): org.walletconnect.Session.Config;
-				public component1(): string;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class WCSessionStoreItem {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.WCSessionStoreItem>;
+				public component1(): com.trustwallet.walletconnect.models.session.WCSession;
+				public component2(): number;
+				public getRemotePeerMeta(): com.trustwallet.walletconnect.models.WCPeerMeta;
+				public component5(): com.trustwallet.walletconnect.models.WCPeerMeta;
 				public component4(): string;
-				public isFullyQualifiedConfig(): boolean;
+				public getDate(): java.util.Date;
+				public getPeerId(): string;
 				public toString(): string;
-				public toWCUri(): string;
-				public getKey(): string;
-				public component5(): number;
-				public getVersion(): number;
+				public getChainId(): number;
+				public component7(): java.util.Date;
+				public copy(param0: com.trustwallet.walletconnect.models.session.WCSession, param1: number, param2: string, param3: string, param4: com.trustwallet.walletconnect.models.WCPeerMeta, param5: boolean, param6: java.util.Date): com.trustwallet.walletconnect.WCSessionStoreItem;
+				public getSession(): com.trustwallet.walletconnect.models.session.WCSession;
+				public constructor(param0: com.trustwallet.walletconnect.models.session.WCSession, param1: number, param2: string, param3: string, param4: com.trustwallet.walletconnect.models.WCPeerMeta, param5: boolean, param6: java.util.Date);
 				public component3(): string;
 				public hashCode(): number;
-				public getBridge(): string;
-				public component2(): string;
 				public equals(param0: any): boolean;
-				public getHandshakeTopic(): string;
-				public getProtocol(): string;
-				public constructor(param0: string, param1: string, param2: string, param3: string, param4: number);
+				public getRemotePeerId(): string;
+				public component6(): boolean;
+				public isAutoSign(): boolean;
 			}
-			export module Config {
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export class WCSessionStoreType extends com.trustwallet.walletconnect.WCSessionStore {
+				public static class: java.lang.Class<com.trustwallet.walletconnect.WCSessionStoreType>;
+				public getSession(): com.trustwallet.walletconnect.WCSessionStoreItem;
+				public constructor(param0: globalAndroid.content.SharedPreferences, param1: com.google.gson.GsonBuilder);
+				public setSession(param0: com.trustwallet.walletconnect.WCSessionStoreItem): void;
+			}
+			export module WCSessionStoreType {
 				export class Companion {
-					public static class: java.lang.Class<org.walletconnect.Session.Config.Companion>;
-					public fromWCUri(param0: string): org.walletconnect.Session.Config;
+					public static class: java.lang.Class<com.trustwallet.walletconnect.WCSessionStoreType.Companion>;
 				}
 			}
-			export class DefaultImpls {
-				public static class: java.lang.Class<org.walletconnect.Session.DefaultImpls>;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidHmacException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidHmacException>;
+					public constructor();
+				}
 			}
-			export class Error {
-				public static class: java.lang.Class<org.walletconnect.Session.Error>;
-				public copy(param0: number, param1: string): org.walletconnect.Session.Error;
-				public constructor(param0: number, param1: string);
-				public hashCode(): number;
-				public getCode(): number;
-				public component2(): string;
-				public equals(param0: any): boolean;
-				public component1(): number;
-				public getMessage(): string;
-				public toString(): string;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidJsonRpcParamsException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidJsonRpcParamsException>;
+					public getRequestId(): number;
+					public constructor(param0: number);
+				}
 			}
-			export class FullyQualifiedConfig {
-				public static class: java.lang.Class<org.walletconnect.Session.FullyQualifiedConfig>;
-				public component1(): string;
-				public component4(): string;
-				public toString(): string;
-				public getKey(): string;
-				public component5(): number;
-				public getVersion(): number;
-				public component3(): string;
-				public hashCode(): number;
-				public getBridge(): string;
-				public component2(): string;
-				public equals(param0: any): boolean;
-				public getHandshakeTopic(): string;
-				public getProtocol(): string;
-				public constructor(param0: string, param1: string, param2: string, param3: string, param4: number);
-				public copy(param0: string, param1: string, param2: string, param3: string, param4: number): org.walletconnect.Session.FullyQualifiedConfig;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidMessageException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidMessageException>;
+					public constructor();
+				}
 			}
-			export abstract class MethodCall {
-				public static class: java.lang.Class<org.walletconnect.Session.MethodCall>;
-				public id(): number;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidPayloadException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidPayloadException>;
+					public constructor();
+				}
 			}
-			export module MethodCall {
-				export class Custom extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.Custom>;
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidSessionException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidSessionException>;
+					public constructor();
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class InvalidUriException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.InvalidUriException>;
+					public constructor();
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module exceptions {
+				export class RequiredFieldException {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.exceptions.RequiredFieldException>;
+					public constructor(param0: string);
+					public constructor();
+					public getField(): string;
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module jsonrpc {
+				export class JsonRpcError {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.jsonrpc.JsonRpcError>;
 					public equals(param0: any): boolean;
-					public constructor(param0: number, param1: string, param2: java.util.List<any>);
 					public toString(): string;
 					public component2(): string;
-					public component3(): java.util.List<any>;
-					public getId(): number;
 					public component1(): number;
-					public getParams(): java.util.List<any>;
+					public constructor(param0: number, param1: string);
+					public getMessage(): string;
 					public hashCode(): number;
-					public getMethod(): string;
-					public copy(param0: number, param1: string, param2: java.util.List<any>): org.walletconnect.Session.MethodCall.Custom;
+					public copy(param0: number, param1: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+					public getCode(): number;
 				}
-				export class Response extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.Response>;
+				export module JsonRpcError {
+					export class Companion {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.jsonrpc.JsonRpcError.Companion>;
+						public serverError(param0: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+						public parseError(param0: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+						public methodNotFound(param0: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+						public invalidRequest(param0: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+						public invalidParams(param0: string): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module jsonrpc {
+				export class JsonRpcErrorResponse {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.jsonrpc.JsonRpcErrorResponse>;
 					public equals(param0: any): boolean;
-					public constructor(param0: number, param1: any, param2: org.walletconnect.Session.Error);
 					public toString(): string;
+					public component1(): string;
 					public getId(): number;
-					public component1(): number;
-					public component2(): any;
-					public getResult(): any;
+					public component2(): number;
+					public copy(param0: string, param1: number, param2: com.trustwallet.walletconnect.jsonrpc.JsonRpcError): com.trustwallet.walletconnect.jsonrpc.JsonRpcErrorResponse;
+					public component3(): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
+					public constructor(param0: string, param1: number, param2: com.trustwallet.walletconnect.jsonrpc.JsonRpcError);
+					public getJsonrpc(): string;
 					public hashCode(): number;
-					public getError(): org.walletconnect.Session.Error;
-					public component3(): org.walletconnect.Session.Error;
-					public copy(param0: number, param1: any, param2: org.walletconnect.Session.Error): org.walletconnect.Session.MethodCall.Response;
+					public getError(): com.trustwallet.walletconnect.jsonrpc.JsonRpcError;
 				}
-				export class SendTransaction extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.SendTransaction>;
-					public getGasPrice(): string;
-					public getNonce(): string;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module jsonrpc {
+				export class JsonRpcRequest<T>  extends java.lang.Object {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.jsonrpc.JsonRpcRequest<any>>;
+					public getParams(): T;
 					public component2(): string;
-					public component5(): string;
-					public constructor(param0: number, param1: string, param2: string, param3: string, param4: string, param5: string, param6: string, param7: string);
-					public getFrom(): string;
 					public getId(): number;
-					public getTo(): string;
-					public getGasLimit(): string;
-					public component7(): string;
-					public component3(): string;
-					public copy(param0: number, param1: string, param2: string, param3: string, param4: string, param5: string, param6: string, param7: string): org.walletconnect.Session.MethodCall.SendTransaction;
-					public getData(): string;
+					public getMethod(): com.trustwallet.walletconnect.models.WCMethod;
+					public copy(param0: number, param1: string, param2: com.trustwallet.walletconnect.models.WCMethod, param3: T): com.trustwallet.walletconnect.jsonrpc.JsonRpcRequest<T>;
 					public equals(param0: any): boolean;
-					public getValue(): string;
 					public toString(): string;
-					public component8(): string;
+					public constructor(param0: number, param1: string, param2: com.trustwallet.walletconnect.models.WCMethod, param3: T);
 					public component1(): number;
-					public component6(): string;
-					public component4(): string;
+					public component4(): T;
+					public component3(): com.trustwallet.walletconnect.models.WCMethod;
+					public getJsonrpc(): string;
 					public hashCode(): number;
 				}
-				export class SessionRequest extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.SessionRequest>;
-					public copy(param0: number, param1: org.walletconnect.Session.PeerData): org.walletconnect.Session.MethodCall.SessionRequest;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module jsonrpc {
+				export class JsonRpcResponse<T>  extends java.lang.Object {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.jsonrpc.JsonRpcResponse<any>>;
 					public equals(param0: any): boolean;
-					public getPeer(): org.walletconnect.Session.PeerData;
 					public toString(): string;
-					public constructor(param0: number, param1: org.walletconnect.Session.PeerData);
+					public component1(): string;
+					public copy(param0: string, param1: number, param2: T): com.trustwallet.walletconnect.jsonrpc.JsonRpcResponse<T>;
+					public constructor(param0: string, param1: number, param2: T);
+					public component3(): T;
 					public getId(): number;
-					public component1(): number;
-					public hashCode(): number;
-					public component2(): org.walletconnect.Session.PeerData;
-				}
-				export class SessionUpdate extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.SessionUpdate>;
-					public copy(param0: number, param1: org.walletconnect.Session.SessionParams): org.walletconnect.Session.MethodCall.SessionUpdate;
-					public equals(param0: any): boolean;
-					public constructor(param0: number, param1: org.walletconnect.Session.SessionParams);
-					public toString(): string;
-					public component2(): org.walletconnect.Session.SessionParams;
-					public getParams(): org.walletconnect.Session.SessionParams;
-					public getId(): number;
-					public component1(): number;
+					public getResult(): T;
+					public component2(): number;
+					public getJsonrpc(): string;
 					public hashCode(): number;
 				}
-				export class SignMessage extends org.walletconnect.Session.MethodCall {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCall.SignMessage>;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class MessageType {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.MessageType>;
+					public static PUB: com.trustwallet.walletconnect.models.MessageType;
+					public static SUB: com.trustwallet.walletconnect.models.MessageType;
+					public static values(): androidNative.Array<com.trustwallet.walletconnect.models.MessageType>;
+					public static valueOf(param0: string): com.trustwallet.walletconnect.models.MessageType;
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCAccount {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCAccount>;
 					public getAddress(): string;
 					public equals(param0: any): boolean;
 					public toString(): string;
+					public getNetwork(): number;
 					public component2(): string;
-					public copy(param0: number, param1: string, param2: string): org.walletconnect.Session.MethodCall.SignMessage;
-					public getId(): number;
 					public component1(): number;
-					public getMessage(): string;
-					public constructor(param0: number, param1: string, param2: string);
-					public component3(): string;
-					public hashCode(): number;
-				}
-			}
-			export abstract class MethodCallException {
-				public static class: java.lang.Class<org.walletconnect.Session.MethodCallException>;
-				public getId(): number;
-				public getCode(): number;
-			}
-			export module MethodCallException {
-				export class InvalidAccount extends org.walletconnect.Session.MethodCallException {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCallException.InvalidAccount>;
 					public constructor(param0: number, param1: string);
-				}
-				export class InvalidRequest extends org.walletconnect.Session.MethodCallException {
-					public static class: java.lang.Class<org.walletconnect.Session.MethodCallException.InvalidRequest>;
-					public constructor(param0: number, param1: string);
-				}
-			}
-			export class PayloadAdapter {
-				public static class: java.lang.Class<org.walletconnect.Session.PayloadAdapter>;
-				/**
-				 * Constructs a new instance of the org.walletconnect.Session$PayloadAdapter interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					parse(param0: string, param1: string): org.walletconnect.Session.MethodCall;
-					prepare(param0: org.walletconnect.Session.MethodCall, param1: string): string;
-				});
-				public constructor();
-				public parse(param0: string, param1: string): org.walletconnect.Session.MethodCall;
-				public prepare(param0: org.walletconnect.Session.MethodCall, param1: string): string;
-			}
-			export class PeerData {
-				public static class: java.lang.Class<org.walletconnect.Session.PeerData>;
-				public copy(param0: string, param1: org.walletconnect.Session.PeerMeta): org.walletconnect.Session.PeerData;
-				public getId(): string;
-				public getMeta(): org.walletconnect.Session.PeerMeta;
-				public component2(): org.walletconnect.Session.PeerMeta;
-				public component1(): string;
-				public hashCode(): number;
-				public equals(param0: any): boolean;
-				public toString(): string;
-				public constructor(param0: string, param1: org.walletconnect.Session.PeerMeta);
-			}
-			export class PeerMeta {
-				public static class: java.lang.Class<org.walletconnect.Session.PeerMeta>;
-				public component1(): string;
-				public component4(): java.util.List<string>;
-				public getUrl(): string;
-				public getName(): string;
-				public getDescription(): string;
-				public toString(): string;
-				public constructor(param0: string, param1: string, param2: string, param3: java.util.List<string>);
-				public constructor();
-				public component3(): string;
-				public hashCode(): number;
-				public component2(): string;
-				public equals(param0: any): boolean;
-				public copy(param0: string, param1: string, param2: string, param3: java.util.List<string>): org.walletconnect.Session.PeerMeta;
-				public getIcons(): java.util.List<string>;
-			}
-			export class SessionParams {
-				public static class: java.lang.Class<org.walletconnect.Session.SessionParams>;
-				public getAccounts(): java.util.List<string>;
-				public getApproved(): boolean;
-				public component1(): boolean;
-				public component2(): java.lang.Long;
-				public component4(): org.walletconnect.Session.PeerData;
-				public toString(): string;
-				public getChainId(): java.lang.Long;
-				public getPeerData(): org.walletconnect.Session.PeerData;
-				public hashCode(): number;
-				public equals(param0: any): boolean;
-				public component3(): java.util.List<string>;
-				public copy(param0: boolean, param1: java.lang.Long, param2: java.util.List<string>, param3: org.walletconnect.Session.PeerData): org.walletconnect.Session.SessionParams;
-				public constructor(param0: boolean, param1: java.lang.Long, param2: java.util.List<string>, param3: org.walletconnect.Session.PeerData);
-			}
-			export abstract class Status {
-				public static class: java.lang.Class<org.walletconnect.Session.Status>;
-			}
-			export module Status {
-				export class Approved extends org.walletconnect.Session.Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Status.Approved>;
-					public static INSTANCE: org.walletconnect.Session.Status.Approved;
-				}
-				export class Closed extends org.walletconnect.Session.Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Status.Closed>;
-					public static INSTANCE: org.walletconnect.Session.Status.Closed;
-				}
-				export class Connected extends org.walletconnect.Session.Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Status.Connected>;
-					public static INSTANCE: org.walletconnect.Session.Status.Connected;
-				}
-				export class Disconnected extends org.walletconnect.Session.Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Status.Disconnected>;
-					public static INSTANCE: org.walletconnect.Session.Status.Disconnected;
-				}
-				export class Error extends org.walletconnect.Session.Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Status.Error>;
-					public equals(param0: any): boolean;
-					public toString(): string;
-					public component1(): java.lang.Throwable;
-					public constructor(param0: java.lang.Throwable);
-					public getThrowable(): java.lang.Throwable;
-					public copy(param0: java.lang.Throwable): org.walletconnect.Session.Status.Error;
+					public copy(param0: number, param1: string): com.trustwallet.walletconnect.models.WCAccount;
 					public hashCode(): number;
 				}
-			}
-			export class Transport {
-				public static class: java.lang.Class<org.walletconnect.Session.Transport>;
-				/**
-				 * Constructs a new instance of the org.walletconnect.Session$Transport interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					connect(): boolean;
-					isConnected(): boolean;
-					send(param0: org.walletconnect.Session.Transport.Message): void;
-					close(): void;
-				});
-				public constructor();
-				public isConnected(): boolean;
-				public close(): void;
-				public send(param0: org.walletconnect.Session.Transport.Message): void;
-				public connect(): boolean;
-			}
-			export module Transport {
-				export class Builder {
-					public static class: java.lang.Class<org.walletconnect.Session.Transport.Builder>;
-					/**
-					 * Constructs a new instance of the org.walletconnect.Session$Transport$Builder interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-						build(param0: string, param1: any /* statusHandler: (Status) -> Unit */, param2: any /* messageHandler: (Message) -> Unit */): org.walletconnect.Session.Transport;
-					});
-					public constructor();
-					public build(param0: string, param1: any /* statusHandler: (Status) -> Unit */, param2: any /* messageHandler: (Message) -> Unit */): org.walletconnect.Session.Transport;
-				}
-				export class Message {
-					public static class: java.lang.Class<org.walletconnect.Session.Transport.Message>;
-					public equals(param0: any): boolean;
-					public toString(): string;
-					public component1(): string;
-					public component2(): string;
-					public getTopic(): string;
-					public component3(): string;
-					public getType(): string;
-					public hashCode(): number;
-					public copy(param0: string, param1: string, param2: string): org.walletconnect.Session.Transport.Message;
-					public getPayload(): string;
-					public constructor(param0: string, param1: string, param2: string);
-				}
-				export abstract class Status {
-					public static class: java.lang.Class<org.walletconnect.Session.Transport.Status>;
-				}
-				export module Status {
-					export class Connected extends org.walletconnect.Session.Transport.Status {
-						public static class: java.lang.Class<org.walletconnect.Session.Transport.Status.Connected>;
-						public static INSTANCE: org.walletconnect.Session.Transport.Status.Connected;
-					}
-					export class Disconnected extends org.walletconnect.Session.Transport.Status {
-						public static class: java.lang.Class<org.walletconnect.Session.Transport.Status.Disconnected>;
-						public static INSTANCE: org.walletconnect.Session.Transport.Status.Disconnected;
-					}
-					export class Error extends org.walletconnect.Session.Transport.Status {
-						public static class: java.lang.Class<org.walletconnect.Session.Transport.Status.Error>;
-						public constructor(param0: java.lang.Throwable);
-						public component1(): java.lang.Throwable;
-						public copy(param0: java.lang.Throwable): org.walletconnect.Session.Transport.Status.Error;
-						public hashCode(): number;
-						public equals(param0: any): boolean;
-						public getThrowable(): java.lang.Throwable;
-						public toString(): string;
-					}
-				}
-			}
-			export class TransportError {
-				public static class: java.lang.Class<org.walletconnect.Session.TransportError>;
-				public copy(param0: java.lang.Throwable): org.walletconnect.Session.TransportError;
-				public component1(): java.lang.Throwable;
-				public hashCode(): number;
-				public equals(param0: any): boolean;
-				public getCause(): java.lang.Throwable;
-				public toString(): string;
-				public constructor(param0: java.lang.Throwable);
 			}
 		}
 	}
 }
 
-declare module org {
-	export module walletconnect {
-		export module impls {
-			export class FileWCSessionStore extends org.walletconnect.impls.WCSessionStore {
-				public static class: java.lang.Class<org.walletconnect.impls.FileWCSessionStore>;
-				public list(): java.util.List<org.walletconnect.impls.WCSessionStore.State>;
-				public store(param0: string, param1: org.walletconnect.impls.WCSessionStore.State): void;
-				public remove(param0: string): void;
-				public constructor(param0: java.io.File, param1: com.squareup.moshi.Moshi);
-				public load(param0: string): org.walletconnect.impls.WCSessionStore.State;
-			}
-		}
-	}
-}
-
-declare module org {
-	export module walletconnect {
-		export module impls {
-			export class MoshiPayloadAdapter extends org.walletconnect.Session.PayloadAdapter {
-				public static class: java.lang.Class<org.walletconnect.impls.MoshiPayloadAdapter>;
-				public parse(param0: string, param1: string): org.walletconnect.Session.MethodCall;
-				public constructor(param0: com.squareup.moshi.Moshi);
-				public prepare(param0: org.walletconnect.Session.MethodCall, param1: string): string;
-			}
-			export module MoshiPayloadAdapter {
-				export class EncryptedPayload {
-					public static class: java.lang.Class<org.walletconnect.impls.MoshiPayloadAdapter.EncryptedPayload>;
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCEncryptionPayload {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCEncryptionPayload>;
 					public getData(): string;
 					public equals(param0: any): boolean;
+					public copy(param0: string, param1: string, param2: string): com.trustwallet.walletconnect.models.WCEncryptionPayload;
 					public toString(): string;
 					public component1(): string;
-					public copy(param0: string, param1: string, param2: string): org.walletconnect.impls.MoshiPayloadAdapter.EncryptedPayload;
 					public component2(): string;
 					public component3(): string;
 					public getHmac(): string;
@@ -436,101 +436,589 @@ declare module org {
 	}
 }
 
-declare module org {
-	export module walletconnect {
-		export module impls {
-			export class OkHttpTransport implements org.walletconnect.Session.Transport {
-				public static class: java.lang.Class<org.walletconnect.impls.OkHttpTransport>;
-				public onOpen(param0: okhttp3.WebSocket, param1: okhttp3.Response): void;
-				public isConnected(): boolean;
-				public close(): void;
-				public onFailure(param0: okhttp3.WebSocket, param1: java.lang.Throwable, param2: okhttp3.Response): void;
-				public send(param0: org.walletconnect.Session.Transport.Message): void;
-				public onMessage(param0: okhttp3.WebSocket, param1: string): void;
-				public constructor(param0: okhttp3.OkHttpClient, param1: string, param2: any /* statusHandler: (Session.Transport.Status) -> Unit, */, param3: any /* messageHandler: (Session.Transport.Message) -> Unit */, param4: com.squareup.moshi.Moshi);
-				public connect(): boolean;
-				public onClosed(param0: okhttp3.WebSocket, param1: number, param2: string): void;
-			}
-			export module OkHttpTransport {
-				export class Builder extends org.walletconnect.Session.Transport.Builder {
-					public static class: java.lang.Class<org.walletconnect.impls.OkHttpTransport.Builder>;
-					public constructor(param0: okhttp3.OkHttpClient, param1: com.squareup.moshi.Moshi);
-					public getClient(): okhttp3.OkHttpClient;
-					public build(param0: string, param1: any /* statusHandler: (Session.Transport.Status) -> Unit, */, param2: any /* messageHandler: (Session.Transport.Message) -> Unit */): org.walletconnect.Session.Transport;
-					public getMoshi(): com.squareup.moshi.Moshi;
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCMethod {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCMethod>;
+					public static SESSION_REQUEST: com.trustwallet.walletconnect.models.WCMethod;
+					public static SESSION_UPDATE: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_SIGN: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_PERSONAL_SIGN: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_SIGN_TYPE_DATA: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_SIGN_TYPE_DATA_V4: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_SIGN_TRANSACTION: com.trustwallet.walletconnect.models.WCMethod;
+					public static ETH_SEND_TRANSACTION: com.trustwallet.walletconnect.models.WCMethod;
+					public static BNB_SIGN: com.trustwallet.walletconnect.models.WCMethod;
+					public static BNB_TRANSACTION_CONFIRM: com.trustwallet.walletconnect.models.WCMethod;
+					public static GET_ACCOUNTS: com.trustwallet.walletconnect.models.WCMethod;
+					public static SIGN_TRANSACTION: com.trustwallet.walletconnect.models.WCMethod;
+					public static WALLET_SWITCH_NETWORK: com.trustwallet.walletconnect.models.WCMethod;
+					public static WALLET_ADD_NETWORK: com.trustwallet.walletconnect.models.WCMethod;
+					public static valueOf(param0: string): com.trustwallet.walletconnect.models.WCMethod;
+					public static values(): androidNative.Array<com.trustwallet.walletconnect.models.WCMethod>;
 				}
 			}
 		}
 	}
 }
 
-declare module org {
-	export module walletconnect {
-		export module impls {
-			export class WCSession extends org.walletconnect.Session {
-				public static class: java.lang.Class<org.walletconnect.impls.WCSession>;
-				public approvedAccounts(): java.util.List<string>;
-				public removeCallback(param0: org.walletconnect.Session.Callback): void;
-				public constructor(param0: org.walletconnect.Session.FullyQualifiedConfig, param1: org.walletconnect.Session.PayloadAdapter, param2: org.walletconnect.impls.WCSessionStore, param3: org.walletconnect.Session.Transport.Builder, param4: org.walletconnect.Session.PeerMeta, param5: string);
-				public reject(): void;
-				public kill(): void;
-				public rejectRequest(param0: number, param1: number, param2: string): void;
-				public addCallback(param0: org.walletconnect.Session.Callback): void;
-				public init(): void;
-				public offer(): void;
-				public peerMeta(): org.walletconnect.Session.PeerMeta;
-				public update(param0: java.util.List<string>, param1: number): void;
-				public approve(param0: java.util.List<string>, param1: number): void;
-				public clearCallbacks(): void;
-				public approveRequest(param0: number, param1: any): void;
-				public performMethodCall(param0: org.walletconnect.Session.MethodCall, param1: any /* (Session.MethodCall.Response) -> Unit)? */): void;
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCPeerMeta {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCPeerMeta>;
+					public component2(): string;
+					public constructor(param0: string, param1: string, param2: string, param3: java.util.List<string>);
+					public component3(): string;
+					public component4(): java.util.List<string>;
+					public getIcons(): java.util.List<string>;
+					public copy(param0: string, param1: string, param2: string, param3: java.util.List<string>): com.trustwallet.walletconnect.models.WCPeerMeta;
+					public equals(param0: any): boolean;
+					public toString(): string;
+					public component1(): string;
+					public getUrl(): string;
+					public getName(): string;
+					public getDescription(): string;
+					public hashCode(): number;
+				}
 			}
 		}
 	}
 }
 
-declare module org {
-	export module walletconnect {
-		export module impls {
-			export class WCSessionStore {
-				public static class: java.lang.Class<org.walletconnect.impls.WCSessionStore>;
-				/**
-				 * Constructs a new instance of the org.walletconnect.impls.WCSessionStore interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					load(param0: string): org.walletconnect.impls.WCSessionStore.State;
-					store(param0: string, param1: org.walletconnect.impls.WCSessionStore.State): void;
-					remove(param0: string): void;
-					list(): java.util.List<org.walletconnect.impls.WCSessionStore.State>;
-				});
-				public constructor();
-				public list(): java.util.List<org.walletconnect.impls.WCSessionStore.State>;
-				public store(param0: string, param1: org.walletconnect.impls.WCSessionStore.State): void;
-				public remove(param0: string): void;
-				public load(param0: string): org.walletconnect.impls.WCSessionStore.State;
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCSignTransaction {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCSignTransaction>;
+					public equals(param0: any): boolean;
+					public getTransaction(): string;
+					public copy(param0: number, param1: string): com.trustwallet.walletconnect.models.WCSignTransaction;
+					public toString(): string;
+					public getNetwork(): number;
+					public component2(): string;
+					public component1(): number;
+					public constructor(param0: number, param1: string);
+					public hashCode(): number;
+				}
 			}
-			export module WCSessionStore {
-				export class State {
-					public static class: java.lang.Class<org.walletconnect.impls.WCSessionStore.State>;
-					public getCurrentKey(): string;
-					public component5(): string;
-					public getClientData(): org.walletconnect.Session.PeerData;
-					public getChainId(): java.lang.Long;
-					public component7(): java.lang.Long;
-					public component4(): java.lang.Long;
-					public getPeerData(): org.walletconnect.Session.PeerData;
-					public constructor(param0: org.walletconnect.Session.FullyQualifiedConfig, param1: org.walletconnect.Session.PeerData, param2: org.walletconnect.Session.PeerData, param3: java.lang.Long, param4: string, param5: java.util.List<string>, param6: java.lang.Long);
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export class WCSocketMessage {
+					public static class: java.lang.Class<com.trustwallet.walletconnect.models.WCSocketMessage>;
+					public getType(): com.trustwallet.walletconnect.models.MessageType;
 					public equals(param0: any): boolean;
 					public toString(): string;
-					public component3(): org.walletconnect.Session.PeerData;
-					public getConfig(): org.walletconnect.Session.FullyQualifiedConfig;
-					public component6(): java.util.List<string>;
-					public component1(): org.walletconnect.Session.FullyQualifiedConfig;
-					public getApprovedAccounts(): java.util.List<string>;
-					public copy(param0: org.walletconnect.Session.FullyQualifiedConfig, param1: org.walletconnect.Session.PeerData, param2: org.walletconnect.Session.PeerData, param3: java.lang.Long, param4: string, param5: java.util.List<string>, param6: java.lang.Long): org.walletconnect.impls.WCSessionStore.State;
+					public component1(): string;
+					public constructor(param0: string, param1: com.trustwallet.walletconnect.models.MessageType, param2: string);
+					public getTopic(): string;
+					public copy(param0: string, param1: com.trustwallet.walletconnect.models.MessageType, param2: string): com.trustwallet.walletconnect.models.WCSocketMessage;
+					public component2(): com.trustwallet.walletconnect.models.MessageType;
+					public component3(): string;
 					public hashCode(): number;
-					public getHandshakeId(): java.lang.Long;
-					public component2(): org.walletconnect.Session.PeerData;
+					public getPayload(): string;
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceCancelOrder extends com.trustwallet.walletconnect.models.binance.WCBinanceOrder<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.Message> {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder>;
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<any>);
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.Message>);
+					}
+					export module WCBinanceCancelOrder {
+						export class Message {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.Message>;
+							public getSymbol(): string;
+							public component2(): string;
+							public getRefid(): string;
+							public hashCode(): number;
+							public getSender(): string;
+							public constructor(param0: string, param1: string, param2: string);
+							public toString(): string;
+							public equals(param0: any): boolean;
+							public component3(): string;
+							public component1(): string;
+							public copy(param0: string, param1: string, param2: string): com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.Message;
+						}
+						export class MessageKey {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey>;
+							public static REFID: com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey;
+							public static SENDER: com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey;
+							public static SYMBOL: com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey;
+							public getKey(): string;
+							public static values(): androidNative.Array<com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey>;
+							public static valueOf(param0: string): com.trustwallet.walletconnect.models.binance.WCBinanceCancelOrder.MessageKey;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceOrder<T>  extends java.lang.Object {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceOrder<any>>;
+						public getAccountNumber(): string;
+						public getSource(): string;
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<any>);
+						public getMsgs(): java.util.List<T>;
+						public getData(): string;
+						public getMemo(): string;
+						public getSequence(): string;
+						public getChainId(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceTradeOrder extends com.trustwallet.walletconnect.models.binance.WCBinanceOrder<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.Message> {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder>;
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<any>);
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.Message>);
+					}
+					export module WCBinanceTradeOrder {
+						export class Message {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.Message>;
+							public getTimeInforce(): number;
+							public getSide(): number;
+							public component7(): string;
+							public hashCode(): number;
+							public getId(): string;
+							public component2(): number;
+							public getOrderType(): number;
+							public constructor(param0: string, param1: number, param2: number, param3: number, param4: string, param5: number, param6: string, param7: number);
+							public toString(): string;
+							public component5(): string;
+							public component1(): string;
+							public getSymbol(): string;
+							public getQuantity(): number;
+							public component8(): number;
+							public getSender(): string;
+							public component4(): number;
+							public component6(): number;
+							public getPrice(): number;
+							public component3(): number;
+							public equals(param0: any): boolean;
+							public copy(param0: string, param1: number, param2: number, param3: number, param4: string, param5: number, param6: string, param7: number): com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.Message;
+						}
+						export class MessageKey {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey>;
+							public static ID: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static ORDER_TYPE: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static PRICE: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static QUANTITY: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static SENDER: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static SIDE: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static SYMBOL: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public static TIME_INFORCE: com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+							public getKey(): string;
+							public static values(): androidNative.Array<com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey>;
+							public static valueOf(param0: string): com.trustwallet.walletconnect.models.binance.WCBinanceTradeOrder.MessageKey;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceTradePair {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTradePair>;
+						public component2(): string;
+						public copy(param0: string, param1: string): com.trustwallet.walletconnect.models.binance.WCBinanceTradePair;
+						public component1(): string;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public constructor(param0: string, param1: string);
+						public getFrom(): string;
+						public toString(): string;
+						public getTo(): string;
+					}
+					export module WCBinanceTradePair {
+						export class Companion {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTradePair.Companion>;
+							public from(param0: string): com.trustwallet.walletconnect.models.binance.WCBinanceTradePair;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceTransferOrder extends com.trustwallet.walletconnect.models.binance.WCBinanceOrder<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message> {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder>;
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<any>);
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message>);
+					}
+					export module WCBinanceTransferOrder {
+						export class Message {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message>;
+							public getInputs(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>;
+							public component1(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>;
+							public component2(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>;
+							public constructor(param0: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>, param1: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>);
+							public hashCode(): number;
+							public copy(param0: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>, param1: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>): com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message;
+							public getOutputs(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>;
+							public toString(): string;
+							public equals(param0: any): boolean;
+						}
+						export module Message {
+							export class Item {
+								public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item>;
+								public getCoins(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin>;
+								public component1(): string;
+								public toString(): string;
+								public getAddress(): string;
+								public copy(param0: string, param1: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin>): com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item;
+								public constructor(param0: string, param1: java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin>);
+								public component2(): java.util.List<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin>;
+								public equals(param0: any): boolean;
+								public hashCode(): number;
+							}
+							export module Item {
+								export class Coin {
+									public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin>;
+									public component2(): string;
+									public hashCode(): number;
+									public copy(param0: number, param1: string): com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.Message.Item.Coin;
+									public component1(): number;
+									public equals(param0: any): boolean;
+									public constructor(param0: number, param1: string);
+									public toString(): string;
+									public getAmount(): number;
+									public getDenom(): string;
+								}
+							}
+						}
+						export class MessageKey {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.MessageKey>;
+							public static INPUTS: com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.MessageKey;
+							public static OUTPUTS: com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.MessageKey;
+							public getKey(): string;
+							public static valueOf(param0: string): com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.MessageKey;
+							public static values(): androidNative.Array<com.trustwallet.walletconnect.models.binance.WCBinanceTransferOrder.MessageKey>;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module binance {
+					export class WCBinanceTxConfirmParam {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.binance.WCBinanceTxConfirmParam>;
+						public component2(): string;
+						public constructor(param0: boolean, param1: string);
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public component1(): boolean;
+						public copy(param0: boolean, param1: string): com.trustwallet.walletconnect.models.binance.WCBinanceTxConfirmParam;
+						public getErrorMsg(): string;
+						public toString(): string;
+						public getOk(): boolean;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module ethereum {
+					export class WCEthereumSignMessage {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage>;
+						public getRaw(): java.util.List<string>;
+						public getType(): com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+						public component1(): java.util.List<string>;
+						public component2(): com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+						public copy(param0: java.util.List<string>, param1: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType): com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public getData(): string;
+						public constructor(param0: java.util.List<string>, param1: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType);
+						public toString(): string;
+					}
+					export module WCEthereumSignMessage {
+						export class WCSignType {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType>;
+							public static MESSAGE: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+							public static PERSONAL_MESSAGE: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+							public static TYPED_MESSAGE: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+							public static values(): androidNative.Array<com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType>;
+							public static valueOf(param0: string): com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType;
+						}
+						export class WhenMappings {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WhenMappings>;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module ethereum {
+					export class WCEthereumTransaction {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction>;
+						public getNonce(): string;
+						public component5(): string;
+						public constructor(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: string, param7: string, param8: string, param9: string);
+						public component1(): string;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public getValue(): string;
+						public getData(): string;
+						public component9(): string;
+						public component4(): string;
+						public component10(): string;
+						public getFrom(): string;
+						public getMaxFeePerGas(): string;
+						public component8(): string;
+						public component3(): string;
+						public getGas(): string;
+						public component7(): string;
+						public toString(): string;
+						public component2(): string;
+						public copy(param0: string, param1: string, param2: string, param3: string, param4: string, param5: string, param6: string, param7: string, param8: string, param9: string): com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
+						public getMaxPriorityFeePerGas(): string;
+						public component6(): string;
+						public getGasPrice(): string;
+						public getTo(): string;
+						public getGasLimit(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCAddNetwork {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCAddNetwork>;
+						public getRpcUrls(): java.util.List<string>;
+						public getNativeCurrency(): com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency;
+						public component1(): string;
+						public copy(param0: string, param1: string, param2: java.util.List<string>, param3: java.util.List<string>, param4: com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency): com.trustwallet.walletconnect.models.session.WCAddNetwork;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public getBlockExplorerUrls(): java.util.List<string>;
+						public toString(): string;
+						public getChainIdHex(): string;
+						public component5(): com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency;
+						public constructor(param0: string, param1: string, param2: java.util.List<string>, param3: java.util.List<string>, param4: com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency);
+						public component2(): string;
+						public component3(): java.util.List<string>;
+						public component4(): java.util.List<string>;
+						public getChainName(): string;
+					}
+					export module WCAddNetwork {
+						export class WcAddNetworkNativeCurrency {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency>;
+							public getSymbol(): string;
+							public constructor(param0: string, param1: string, param2: number);
+							public component2(): string;
+							public getDecimals(): number;
+							public hashCode(): number;
+							public getName(): string;
+							public copy(param0: string, param1: string, param2: number): com.trustwallet.walletconnect.models.session.WCAddNetwork.WcAddNetworkNativeCurrency;
+							public component3(): number;
+							public toString(): string;
+							public equals(param0: any): boolean;
+							public component1(): string;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCApproveSessionResponse {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCApproveSessionResponse>;
+						public copy(param0: boolean, param1: number, param2: java.util.List<string>, param3: string, param4: com.trustwallet.walletconnect.models.WCPeerMeta): com.trustwallet.walletconnect.models.session.WCApproveSessionResponse;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public getPeerMeta(): com.trustwallet.walletconnect.models.WCPeerMeta;
+						public toString(): string;
+						public constructor(param0: boolean, param1: number, param2: java.util.List<string>, param3: string, param4: com.trustwallet.walletconnect.models.WCPeerMeta);
+						public component4(): string;
+						public component2(): number;
+						public getPeerId(): string;
+						public component3(): java.util.List<string>;
+						public getChainId(): number;
+						public component1(): boolean;
+						public getAccounts(): java.util.List<string>;
+						public getApproved(): boolean;
+						public component5(): com.trustwallet.walletconnect.models.WCPeerMeta;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCChangeNetwork {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCChangeNetwork>;
+						public getChainIdHex(): string;
+						public copy(param0: string): com.trustwallet.walletconnect.models.session.WCChangeNetwork;
+						public component1(): string;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public toString(): string;
+						public constructor(param0: string);
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCSession {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCSession>;
+						public component3(): string;
+						public getVersion(): string;
+						public component1(): string;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public copy(param0: string, param1: string, param2: string, param3: string): com.trustwallet.walletconnect.models.session.WCSession;
+						public getKey(): string;
+						public toString(): string;
+						public toUri(): string;
+						public constructor(param0: string, param1: string, param2: string, param3: string);
+						public component4(): string;
+						public getBridge(): string;
+						public getTopic(): string;
+						public component2(): string;
+					}
+					export module WCSession {
+						export class Companion {
+							public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCSession.Companion>;
+							public from(param0: string): com.trustwallet.walletconnect.models.session.WCSession;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCSessionRequest {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCSessionRequest>;
+						public constructor(param0: string, param1: com.trustwallet.walletconnect.models.WCPeerMeta, param2: string);
+						public component2(): com.trustwallet.walletconnect.models.WCPeerMeta;
+						public component3(): string;
+						public getPeerId(): string;
+						public component1(): string;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public getPeerMeta(): com.trustwallet.walletconnect.models.WCPeerMeta;
+						public getChainId(): string;
+						public copy(param0: string, param1: com.trustwallet.walletconnect.models.WCPeerMeta, param2: string): com.trustwallet.walletconnect.models.session.WCSessionRequest;
+						public toString(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module trustwallet {
+		export module walletconnect {
+			export module models {
+				export module session {
+					export class WCSessionUpdate {
+						public static class: java.lang.Class<com.trustwallet.walletconnect.models.session.WCSessionUpdate>;
+						public constructor(param0: boolean, param1: java.lang.Integer, param2: java.util.List<string>);
+						public copy(param0: boolean, param1: java.lang.Integer, param2: java.util.List<string>): com.trustwallet.walletconnect.models.session.WCSessionUpdate;
+						public getChainId(): java.lang.Integer;
+						public component3(): java.util.List<string>;
+						public hashCode(): number;
+						public equals(param0: any): boolean;
+						public component1(): boolean;
+						public component2(): java.lang.Integer;
+						public getAccounts(): java.util.List<string>;
+						public getApproved(): boolean;
+						public toString(): string;
+					}
 				}
 			}
 		}
@@ -538,4 +1026,7 @@ declare module org {
 }
 
 //Generics information:
+//com.trustwallet.walletconnect.jsonrpc.JsonRpcRequest:1
+//com.trustwallet.walletconnect.jsonrpc.JsonRpcResponse:1
+//com.trustwallet.walletconnect.models.binance.WCBinanceOrder:1
 

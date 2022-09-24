@@ -12,22 +12,30 @@ export interface WalletConnectConfig {
 	clientMeta?: IClientMeta;
 }
 
-export interface TransactionConfig {
-	from: string;
-	to?: string;
-	nonce?: string;
-	gasPrice?: string;
-	gas?: string;
-	value: string;
-	data: string;
-}
-
 export interface MessageConfig {
 	address: string;
 	message: string;
 }
 
-export type WalletEvent = 'connect' | 'disconnect' | 'session_update' | 'call_request' | 'error';
+export declare class EthereumTransaction {
+	readonly from: string;
+	readonly to: string;
+	readonly nonce: string;
+	readonly gasPrice: string;
+	readonly gas: string;
+	readonly value: string;
+	readonly data: string;
+	readonly native;
+}
+
+export declare class ClientMeta implements IClientMeta {
+	readonly description?: string;
+	readonly url?: string;
+	readonly icons?: string[];
+	readonly name?: string;
+}
+
+export type WalletEvent = 'connect' | 'disconnect' | 'session_update' | 'call_request' | 'session_request' | 'error';
 
 export function toHex(value: string): string;
 
@@ -74,14 +82,6 @@ export interface IWalletConnect {
 
 	on(event: WalletEvent, callback: (error: Error | null, payload: any | null) => void);
 
-	/**
-	 * @param modal string 'default' | 'custom' set custom to use custom qr modal. Modal closes on success. Optional
-	 * @param renderModal return view to render in the custom modal. Optional
-	 * @returns a Promise with chainId & accounts.
-	 */
-
-	connect(modal?: 'default' | 'custom', renderModal?: (qrCode: ImageSource) => View): Promise<{ chainId: number; accounts: string[] }>;
-
 	createSession(): Promise<{ chainId: number; accounts: string[] }>;
 
 	approveSession(sessionStatus: { chainId: number; accounts: string[] });
@@ -92,16 +92,6 @@ export interface IWalletConnect {
 
 	killSession(sessionError?: { message: string }): Promise<void>;
 
-	sendTransaction(tx: TransactionConfig): Promise<any>;
-
-	signMessage(params: any[]): Promise<any>;
-
-	signPersonalMessage(params: any[]): Promise<any>;
-
-	signTypedData(params: any[]): Promise<any>;
-
-	sendCustomRequest(request: { id: number; method: string; params: any[] }): Promise<any>;
-
 	approveRequest(response: { id: number; result?: any });
 
 	rejectRequest(response: {
@@ -111,6 +101,8 @@ export interface IWalletConnect {
 			message?: string;
 		};
 	});
+
+	disconnect();
 }
 
 export declare class WalletConnect implements IWalletConnect {
@@ -175,4 +167,6 @@ export declare class WalletConnect implements IWalletConnect {
 			message?: string;
 		};
 	});
+
+	disconnect();
 }

@@ -4,6 +4,8 @@
 ns plugin add @nstudio/nativescript-walletconnect
 ```
 
+minSdk 23
+
 ## Usage
 
 ```ts
@@ -33,7 +35,6 @@ connector.on('session_request', (error, payload) => {
 	/* payload:
   {
     id: 1,
-    jsonrpc: '2.0'.
     method: 'session_request',
     params: [{
       peerId: '15d8b6a3-15bd-493e-9358-111e3a4e6ee4',
@@ -59,7 +60,6 @@ connector.on('call_request', (error, payload) => {
 	/* payload:
   {
     id: 1,
-    jsonrpc: '2.0'.
     method: 'eth_sign',
     params: [
       "0xbc28ea04101f03ea7a94c1379bc3ab32e65e62d3",

@@ -1,15 +1,22 @@
 import Foundation
-import WalletConnectSwift
-
+import WalletConnect
+import WalletCore
 @objc(NSCWalletConnectDelegate)
 public protocol NSCWalletConnectDelegate {
-    func didFailToConnect(url: String)
-    func didConnect(url: String)
-    func didConnect(session: NSCWallectSession)
-    func didDisconnect(session: NSCWallectSession)
-    func didUpdate(session: NSCWallectSession)
+    func onConnect()
+    func onCustomRequest(id: Int64, request: [String: Any])
+    func onSessionRequest(id: Int64, peerParam: NSCWCSessionRequestParam)
+    func onError(error: NSError?)
+    func onDisconnect(reason: String, code: UInt16)
+    func onEthSign(id: Int64, data: Data, raw: [String])
+    func onEthPersonalSign(id: Int64, data: Data, raw: [String])
+    func onEthSignTypeData(id: Int64, data: Data, raw: [String])
+    func onEthSignTransaction(id: Int64, transaction: NSCWCEthereumTransaction)
+    func onEthSendTransaction(id: Int64, transaction: NSCWCEthereumTransaction)
+    func onOktSignTransaction(id: Int64, transaction: NSCWCOKExChainTransaction)
+    func onOktSendTransaction(id: Int64, transaction: NSCWCOKExChainTransaction)
+    func onBnbSign(id: Int64, order: String)
 }
-
 
 private let ERROR_SESSION_CONNECTED = "Session currently connected"
 private let ERROR_SESSION_DISCONNECTED = "Session currently disconnected"
@@ -20,8 +27,9 @@ private let ERROR_SESSION_REJECTED = "Session Rejected"
 @objcMembers
 public class NSCClientMeta: NSObject {
     
-    let meta: Session.ClientMeta
-    public init(meta: Session.ClientMeta) {
+    private let meta: WCPeerMeta
+    
+    public init(meta: WCPeerMeta) {
         self.meta = meta
         super.init()
     }
@@ -39,196 +47,133 @@ public class NSCClientMeta: NSObject {
         }
     }
     
-    public var icons: [URL] {
+    public var icons: [String] {
         get {
             return meta.icons
         }
     }
     
-    public var url: URL {
+    public var url: String {
         get {
             return meta.url
         }
     }
     
-    public var scheme: String? {
-        get {
-            return meta.scheme
-        }
-    }
-}
-
-
-@objc(NSCWallectSession)
-@objcMembers
-public class NSCWallectSession: NSObject {
-    var session: Session
-    var walletCollect: NSCWallectConnect? = nil
-    public init(session: Session, walletCollect: NSCWallectConnect? = nil) {
-        self.session = session
-        self.walletCollect = walletCollect
-        super.init()
-    }
-    
-    var connected: Bool {
-        get {
-            return self.walletCollect?.isConnect(session: self.session) ?? false
-        }
-    }
-    var accounts: [String] {
-        get {
-            self.session.walletInfo?.accounts ?? []
-        }
-    }
-    var chainId: Int {
-        get {
-            return self.session.walletInfo?.chainId ?? 0
-        }
-    }
-    var bridge: String {
-        get {
-            return self.session.url.absoluteString
-        }
-    }
-    
-    var key: String {
-        get {
-            return self.session.url.key
-        }
-    }
-    
-    
-    var clientMeta: NSCClientMeta {
-        get {
-            return NSCClientMeta(meta: self.session.dAppInfo.peerMeta)
-        }
-    }
-    
-    var peerId: String {
-        get {
-            return self.session.dAppInfo.peerId
-        }
-    }
-    
-    var peerMeta: NSCClientMeta? {
-        get {
-            if(self.session.walletInfo != nil){
-                return NSCClientMeta(meta: self.session.walletInfo!.peerMeta)
-            }
-            return nil
-        }
-    }
-    
-    var handshakeId: Int {
-        get {
-            return 0
-        }
-    }
-    
-    var handshakeTopic: String {
-        get {
-            return session.url.topic
-        }
-    }
-    
-    
+    public var scheme: String?
 }
 
 
 @objc(NSCWallectConnect)
 @objcMembers
-public class NSCWallectConnect: NSObject, ClientDelegate {
-    
+public class NSCWallectConnect: NSObject {
     
     public static func toHex(_ value: String) -> String {
         return value.utf8.map{ String(format:"%02x", $0) }.joined()
     }
     
-    
-    public func client(_ client: Client, didFailToConnect url: WCURL) {
-        if(clientMode){
-            DispatchQueue.main.async {
-                self.delegate?.didFailToConnect(url: url.absoluteString)
-            }
-        }
-    }
-    
-    public func client(_ client: Client, didConnect url: WCURL) {
-        if(clientMode){
-            DispatchQueue.main.async {
-                self.delegate?.didConnect(url: url.absoluteString)
-            }
-        }
-    }
-    
-    public func client(_ client: Client, didConnect session: Session) {
-        if(clientMode){
-            if(session.walletInfo != nil){
-                self._account = session.walletInfo!.accounts
-            }else {
-                self._account = []
-            }
-            self.connected = true
-            DispatchQueue.main.async {
-                self.delegate?.didConnect(session: NSCWallectSession(session: session))
-            }
-        }
-    }
-    
-    public func client(_ client: Client, didDisconnect session: Session) {
-        if(clientMode){
-            DispatchQueue.main.async {
-                self.delegate?.didDisconnect(session: NSCWallectSession(session: session))
-            }
-        }
-    }
-    
-    public func client(_ client: Client, didUpdate session: Session) {
-        if(clientMode){
-            DispatchQueue.main.async {
-                self.delegate?.didUpdate(session: NSCWallectSession(session: session))
-            }
-        }
+    public static func toHexString(_ value: Data) -> String {
+        return value.hexString
     }
     
     
+    public static func hexToData(_ value: String) -> NSData {
+        return Data(hex: value) as NSData
+    }
+    
+    public static func createPrivateKey(string: NSString)-> OpaquePointer? {
+        return createPrivateKey(data: Data(hex: string as String) as NSData)
+    }
+    
+    public static func createPrivateKey(data: NSData)-> OpaquePointer? {
+        return TWPrivateKeyCreateWithData(TWDataCreateWithBytes(data.bytes, data.count))
+    }
+    
+    public static func deriveEthAddress(_ key: OpaquePointer) -> String {
+        let string = TWCoinTypeDeriveAddress(TWCoinTypeEthereum, key)
+        return String(utf8String: TWStringUTF8Bytes(string))!
+    }
     
     
-    var client: Client?
+    public static func privateKeySign(key: OpaquePointer, string: NSString, curve: TWCurve) -> Data? {
+        let data =  Data(hex: string as String)
+        return privateKeySign(key: key, data: data, curve: curve)
+    }
+    
+    public static func privateKeySign(key: OpaquePointer, data: Data, curve: TWCurve) -> Data?{
+        let digestData = TWDataCreateWithNSData(data as Data)
+        defer {
+            TWDataDelete(digestData)
+        }
+        
+        guard let result = TWPrivateKeySign(key, digestData, curve) else {
+            return nil
+        }
+        return TWDataNSData(result)
+    }
+    
+    public static func privateKeySignToHex(key: OpaquePointer, string: NSString, curve: TWCurve) -> String? {
+        return privateKeySign(key: key, string: string , curve: curve)?.hexString
+    }
+    
+    public static func privateKeySignToHex(key: OpaquePointer, data: Data, curve: TWCurve) -> String?{
+        return privateKeySign(key: key, data: data, curve: curve)?.hexString
+    }
+    
+    public static func deriveBnbAddress(_ key: OpaquePointer) -> String {
+        let string = TWCoinTypeDeriveAddress(TWCoinTypeBinance, key)
+        return String(utf8String: TWStringUTF8Bytes(string))!
+    }
+    
+    public static func deriveBitCoinAddress(_ key: OpaquePointer) -> String {
+        let string = TWCoinTypeDeriveAddress(TWCoinTypeBitcoin, key)
+        return String(utf8String: TWStringUTF8Bytes(string))!
+    }
+    
+    public static func createEthSigningSignature(_ string: String) -> Data {
+        return createEthSigningSignature(data: string.data(using: .utf8)!)
+    }
+    
+    public static func createEthSigningSignature(data: Data) -> Data {
+        let prefix = "\u{19}Ethereum Signed Message:\n\(data)".data(using: .utf8)!
+        return prefix + data
+    }
+    
+    
+    public static func keccak256(_ data: Data) -> Data {
+        return Hash.keccak256(data: data)
+    }
+    
+    public static func sha256(_ data: Data) -> Data {
+        return Hash.sha256(data: data)
+    }
+    
     let decoder = JSONDecoder()
-    let encoder = JSONEncoder()
     private var _account: [String] = []
     private(set) public var accounts: [String]  = []
-    var url: WCURL? = nil
+    private(set) var url: String? = nil
     public var delegate: NSCWalletConnectDelegate?
-    private var clientMode = true
-    private var approvalCompletion: ((Session.WalletInfo) -> Void)? = nil
-    private(set) public var clientId: String = ""
     private(set) public var connected: Bool = false
+    
+    private var session: WCSession?
+    private var meta: WCPeerMeta?
+    private var interactor: WCInteractor?
+    private var uuid = UUID()
     public init(configuration: NSCWalletConnectConfig) {
         super.init()
         
-        if(configuration.uri != nil){
-            url = WCURL(configuration.uri!)
-        }else {
-            let randomBytes = secureRandomBytes(count: 32)
-            let key = configuration.key ?? randomBytes.toHexString()
-            
-            url = WCURL(topic: NSUUID().uuidString, bridgeURL: URL(string: configuration.bridge ?? "")!, key: key)
+        
+        self.session = WCSession.from(string: configuration.uri!)
+        
+        self.meta = WCPeerMeta(name: configuration.clientMeta!.name!, url: configuration.clientMeta!.url!)
+        
+        if(!configuration.uuid.isEmpty){
+            let uuid = UUID(uuidString: configuration.uuid)
+            if(uuid != nil){
+                self.uuid = uuid!
+            }
         }
         
-        if(configuration.clientMeta != nil){
-            let name = configuration.clientMeta!.name!
-            let desc = configuration.clientMeta!.desc!
-            let icons = configuration.clientMeta!.icons!
-            let url = configuration.clientMeta!.url!
-            
-            let info = Session.DAppInfo(peerId: NSUUID().uuidString, peerMeta: Session.ClientMeta(name: name, description: desc, icons: icons.map {URL(string: $0)!}, url: URL(string: url)!))
-            
-            client = Client(delegate: self, dAppInfo: info)
-        }else {
-            client = Client(delegate: self)
-        }
+        self.url = configuration.uri
     }
     
     private static func toError(message: String) -> NSError {
@@ -242,137 +187,157 @@ public class NSCWallectConnect: NSObject, ClientDelegate {
         return NSError(domain: "NativeScript", code: 1001, userInfo: info)
     }
     
-    func isConnect(session: Session) -> Bool{
-        var ret = false
-        for openSession in self.client?.openSessions() ?? [] {
-            if(session.url == openSession.url){
-                ret = true
-                break
-            }
-        }
-        return ret
-    }
     
     public var uri: String {
         get {
-            return url?.absoluteString ?? ""
+            return session?.encodedString ?? ""
         }
     }
     
     public var bridge: String {
         get {
-            return url?.bridgeURL.absoluteString ?? ""
+            return session?.bridge.absoluteString ?? ""
         }
     }
     
     
     public var handshakeTopic: String {
         get {
-            return url?.topic ?? ""
+            return session?.topic ?? ""
         }
     }
     
     
-    private func currentSession() -> Session? {
-        if(url == nil){
-            return nil
-        }
-        var session: Session? = nil
-        for openSession in self.client?.openSessions() ?? [] {
-            if(openSession.url == url!){
-                session = openSession
-                break
-            }
-        }
-        return  session
-    }
+    private(set) public var chainId: Int  = 0
     
-    
-    public var chainId: Int {
-        get {
-            return currentSession()?.dAppInfo.chainId ?? 0
-        }
-    }
     
     public var key: String {
-        return url?.key ?? ""
+        if(session?.key != nil){
+            return session!.key.encodedString
+        }
+        return ""
     }
     
     public var clientMeta: NSCClientMeta? {
-        let currentSession = currentSession()
-        if(currentSession != nil){
-            return NSCClientMeta(meta: currentSession!.dAppInfo.peerMeta)
+        if(interactor?.clientMeta != nil){
+            return NSCClientMeta(meta: interactor!.clientMeta)
         }
         return nil
     }
     
-    public var peerId: String {
-        return currentSession()?.dAppInfo.peerId ?? ""
-    }
-    
-    public var peerMeta: NSCClientMeta? {
-        let currentSession = currentSession()
-        if(currentSession != nil && currentSession?.walletInfo != nil){
-            return NSCClientMeta(meta: currentSession!.walletInfo!.peerMeta)
-        }
-        return nil
-    }
-    
-    private(set) var pending: Bool = false
     
     public func connect(_ callback:@escaping (NSError?) -> Void){
         if(connected){
             callback(NSCWallectConnect.toError(message: ERROR_SESSION_CONNECTED))
             return
         }
-        if(pending){
-            return
-        }
-        do {
-            clientMode = false
-            try client!.connect(to: url!)
-            callback(nil)
-        }catch {
-            callback(error as NSError)
-        }
-    }
-    
-    public func createSession(_ callback:@escaping (NSError?) -> Void){
-        if(connected){
-            callback(NSCWallectConnect.toError(message: ERROR_SESSION_CONNECTED))
-            return
-        }
-        if(pending){
-            return
-        }
-        do {
-            try client!.connect(to: url!)
-            callback(nil)
-        }catch {
-            callback(error as NSError)
-        }
-    }
-    
-    public func approveRequest(id: Int, result: String, _ callback:@escaping (NSError?) -> Void){
         
-        do {
-            let response = try Response(url: url!, value: result, id: id)
-            try client!.send(response)
-            callback(nil)
-        }catch {
-            callback(error as NSError)
+        if(session == nil){
+            let userInfo = [NSLocalizedDescriptionKey: "Invalid Configuration uri", NSLocalizedFailureReasonErrorKey: "Invalid Configuration uri", NSLocalizedRecoverySuggestionErrorKey: "Validate Configuration uri and try again"]
+            
+            
+            callback(NSError(domain: "NativeScript", code: 1001, userInfo: userInfo))
+            return
         }
+        
+        self.interactor = WCInteractor(session: self.session!, meta: self.meta!, uuid: self.uuid)
+        
+                    
+        self.interactor?.onError = { error in self.delegate?.onError(error: error as NSError?)}
+        
+        self.interactor?.onDisconnect = { reason, code in
+            self.delegate?.onDisconnect(reason: reason, code: code)
+            self.accounts = []
+        }
+        
+        self.interactor?.onCustomRequest = {
+            id,request in self.delegate?.onCustomRequest(id: id, request: request)
+        }
+        
+        self.interactor?.onSessionRequest = {
+            id, peerParam in
+            self.chainId = peerParam.chainId ?? 0
+            self.delegate?.onSessionRequest(id: id, peerParam: NSCWCSessionRequestParam(param: peerParam))
+        }
+        
+        self.interactor?.eth.onSign = {
+            id, payload in
+            switch(payload){
+            case .sign(data: let data, raw: let raw):
+                self.delegate?.onEthSign(id: id, data: data, raw: raw)
+                break
+            case .personalSign(data: let data, raw: let raw):
+                self.delegate?.onEthPersonalSign(id: id, data: data, raw: raw)
+                break
+            case .signTypeData(id: let id, data: let data, raw: let raw):
+                self.delegate?.onEthSignTypeData(id: id, data: data, raw: raw)
+                break
+            }
+        }
+        
+        self.interactor?.eth.onTransaction = {
+            id, event, transaction in
+            switch(event){
+            case .ethSignTransaction:
+                self.delegate?.onEthSignTransaction(id: id, transaction: NSCWCEthereumTransaction(transaction: transaction))
+                break
+            case .ethSendTransaction:
+                self.delegate?.onEthSendTransaction(id: id, transaction: NSCWCEthereumTransaction(transaction: transaction))
+                break
+            default:
+                break
+            }
+        }
+        
+        
+        self.interactor?.okt.onTransaction = {
+            id, event, transaction in
+            switch(event){
+            case .oktSignTransaction:
+                self.delegate?.onOktSignTransaction(id: id, transaction: NSCWCOKExChainTransaction(transaction: transaction))
+                break
+            case .oktSendTransaction:
+                self.delegate?.onOktSendTransaction(id: id, transaction: NSCWCOKExChainTransaction(transaction: transaction))
+                break
+            default:
+                break
+            }
+        }
+        self.interactor?.bnb.onSign = {
+            id, order in
+            self.delegate?.onBnbSign(id: id, order: order.encodedString)
+        }
+        
+        self.interactor?.connect().done({ connected in
+            callback(nil)
+        }).catch({ error in
+            callback(error as NSError)
+        })
+        
+    }
+    
+    public func disconnect(){
+        self.interactor?.disconnect()
+    }
+    
+    
+    public func approveRequest(id: Int64, result: String, _ callback:@escaping (NSError?) -> Void){
+        self.interactor?.approveRequest(id: id, result: result)
+            .done({ _ in
+                callback(nil)
+            })
+            .catch({ error in
+                callback(error as NSError)
+            })
     }
     
     public func rejectSession(_ callback:@escaping (NSError?) -> Void){
-        do {
-            
-            let reject = try Response(url: url!, error: ResponseError.requestRejected)
-            try client!.send(reject)
-            callback(nil)
-        }catch {
-            callback(error as NSError)
-        }
+        self.interactor?.rejectSession()
+            .done({ _ in
+                callback(nil)
+            }).catch({ error in
+                callback(error as NSError)
+            })
     }
     
     public func approveSession(chainId: Int, accounts: [String], _ callback:@escaping (NSError?) -> Void){
@@ -381,174 +346,63 @@ public class NSCWallectConnect: NSObject, ClientDelegate {
             return
         }
         
-        do {
-            let walletInfo = Session.WalletInfo(approved: true, accounts: accounts, chainId: chainId, peerId: peerId, peerMeta: peerMeta!.meta)
-            let request = try Request(url: url!, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
-            try client?.send(request, completion: { response in
-                if(response.error != nil){
-                    callback(response.error)
-                }else {
-                    callback(nil)
-                }
+        self.interactor?.approveSession(accounts: accounts, chainId: chainId)
+            .done({ _ in
+                self.accounts = accounts
+                self.connected = true
+                self.delegate?.onConnect()
+                callback(nil)
+            }).catch({ error in
+                callback(error as NSError)
             })
-        }catch {
-            callback(error as NSError)
-        }
     }
     
-    public func updateSession(chainId: Int, accounts: [String], _ callback:@escaping (NSError?) -> Void){
-        do {
-            let currentSession = currentSession()!
-            let walletInfo = Session.WalletInfo(approved: true, accounts: accounts, chainId: chainId, peerId: currentSession.dAppInfo.peerId, peerMeta: currentSession.dAppInfo.peerMeta)
-            
-            let request = try Request(url: url!, method: "wc_sessionUpdate", params: [walletInfo], id: nil)
-            
-            try client?.send(request, completion: { response in
-                if(response.error != nil){
-                    callback(response.error)
-                }else {
-                    callback(nil)
-                }
+    
+    public func rejectRequest(id: Int64, errorCode: Int, errorMessage: String, callback:@escaping (NSError?) -> Void){
+        self.interactor?.rejectRequest(id: id, message: errorMessage)
+            .done({ _ in
+                callback(nil)
+            }).catch({ error in
+                callback(error as NSError)
             })
-            
-        }catch {
-            callback(error as NSError)
-        }
     }
     
-    public func rejectRequest(id: Int, errorCode: Int, errorMessage: String, callback:@escaping (NSError?) -> Void){
-        do {
-            let reject = try Response(url: url!, errorCode: errorCode, message: errorMessage, id: id)
-            try client!.send(reject)
+    
+    public func rejectRequest(id: Int64, callback:@escaping (NSError?) -> Void){
+        self.interactor?.rejectRequest(id: id, message: "Request rejected").done({ _ in
             callback(nil)
-        }catch {
+        }).catch({ error in
             callback(error as NSError)
-        }
+        })
     }
-    
-    
-    public func rejectRequest(id: Int, callback:@escaping (NSError?) -> Void){
-        do {
-            let reject = try Response(url: url!, error: .requestRejected)
-            try client!.send(reject)
-            callback(nil)
-        }catch {
-            callback(error as NSError)
-        }
-    }
-    
     
     
     public func killSession(_ callback:@escaping (NSError?) -> Void){
-        let currentSession = currentSession()
-        if(currentSession != nil){
-            do {
-                try client!.disconnect(from: currentSession!)
-                callback(nil)
-            }catch{
-                callback(error as NSError)
-            }
-        }
-    }
-    
-    public func signMessage(_ account: String, _ message: String, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client!.eth_sign(url: url!, account: account, message: message) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
-    }
-    
-    public func signTransaction(_ tx: NSCTransactionConfig, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client!.eth_sendTransaction(url: url!, transaction: tx.intoTx()) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
+        self.interactor?.killSession().done({ _ in
+            callback(nil)
+        }).catch({ error in
+            callback(error as NSError)
+        })
     }
     
     
-    public func sendTransaction(_ tx: NSCTransactionConfig, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client!.eth_sendTransaction(url: url!, transaction: tx.intoTx()) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
-    }
-    
-    public func signPersonalMessage(_ account: String, _ message: String, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client!.personal_sign(url: url!, message: message, account: account) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
-    }
-    
-    
-    public func signTypedData(_ account: String, _ message: String, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client!.eth_signTypedData(url: url!,account: account, message: message) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
-    }
-    
-    
-    public func sendRawTransaction(_ data: String, _ callback:@escaping (String?, NSError?) -> Void){
-        try? client?.eth_sendRawTransaction(url: url!, data: data) {response in
-            if(response.error != nil){
-                callback(nil, response.error)
-            }else {
-                callback(try? response.result(as: String.self), nil)
-            }
-        }
-    }
-    
-    
-    public func sendCustomRequest(_ method: String, _ id: Int, _ params: String , _ callback:@escaping (String?, NSError?) -> Void){
+    public func approveBnbOrder(id: Int64, signature: String, callback:@escaping (NSError?, Bool) -> Void){
         do {
-            let values = try decoder.decode(Array<NSCParamType>.self, from: params.data(using: .utf8)!)
-            let request = try Request(url: url!, method: method, params: values, id: id)
-            try? client!.send(request) {response in
-                if(response.error != nil){
-                    callback(nil, response.error)
+            let sig = try decoder.decode(WCBinanceOrderSignature.self, from: signature.encoded)
+            self.interactor?.approveBnbOrder(id: id, signed: sig).done({ param in
+                if(param.errorMsg != nil){
+                    callback(NSCWallectConnect.toError(message: param.errorMsg!), param.ok)
                 }else {
-                    callback(try? response.result(as: String.self), nil)
+                    callback(nil, param.ok)
                 }
-            }
+                
+            }).catch({ error in
+                callback(error as NSError, false)
+            })
         }catch {
-            callback(nil, error as NSError)
+            callback(error as NSError, false)
         }
+        
     }
     
-    
-    
-    private func secureRandomBytes(count: Int) -> [UInt8] {
-        var bytes = [UInt8](repeating: 0, count: count)
-        
-        // Fill bytes with secure random data
-        let status = SecRandomCopyBytes(
-            kSecRandomDefault,
-            count,
-            &bytes
-        )
-        
-        // A status of errSecSuccess indicates success
-        if status == errSecSuccess {
-            return bytes
-        }
-        else {
-            return []
-        }
-    }
 }

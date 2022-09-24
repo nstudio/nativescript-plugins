@@ -9,16 +9,9 @@
             <Label text="{{ state }}" />
             <Label text="{{ accounts }}" />
             <TextView text="{{ wcurl }}" hint="Enter WCURL"/>
-            <TextView text="{{ bridge }}" hint="Enter Bridge Url"/>
-            <Button text="Connect" tap="{{ connect }}" class="btn btn-primary"/>
             <Button text="Create Session" tap="{{ createSession }}" class="btn btn-primary"/>
             <Button text="Approve Session" tap="{{ approveSession }}" class="btn btn-primary"/>
-            <Button text="Show Qr" tap="{{ showQr }}" class="btn btn-primary"/>
             <Button text="Open WCUrl" tap="{{ openWCUrl }}" class="btn btn-primary"/>
-            <Button text="Sign Test Message" tap="{{ signMessage }}" class="btn btn-primary"/>
-            <Button text="Sign Test Personal Message" tap="{{ signPersonalMessage }}" class="btn btn-primary"/>
-            <Button text="Send Test Transaction" tap="{{ sendTransaction }}" class="btn btn-primary"/>
-            <Button text="Sign Test TypedData" tap="{{ signTypedData }}" class="btn btn-primary"/>
             <Button text="Reject Session" tap="{{ rejectSession }}" class="btn btn-primary"/>
             <Button text="Disconnect" tap="{{ killSession }}" class="btn btn-primary"/>
           </StackLayout>

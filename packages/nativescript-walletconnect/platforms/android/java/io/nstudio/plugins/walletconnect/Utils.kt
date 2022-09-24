@@ -1,75 +1,50 @@
 package io.nstudio.plugins.walletconnect
-
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import org.komputing.khex.extensions.toNoPrefixHexString
-import org.walletconnect.Session
-import org.walletconnect.impls.WCSession
-import org.walletconnect.impls.WCSessionStore
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.*
+import com.trustwallet.walletconnect.extensions.toHex
+import com.trustwallet.walletconnect.models.session.WCSession
 
+fun String.decodeHex(): ByteArray {
+    check(length % 2 == 0) { "Must have an even length" }
+
+    return removePrefix("0x")
+      .chunked(2)
+      .map { it.toInt(16).toByte() }
+      .toByteArray()
+  }
 
 class Utils {
-  
+
   interface Callback<T> {
     fun onSuccess(response: T)
   }
 
   companion object {
-    @JvmStatic
-    fun createMoshiInstance(): Moshi {
-      return Moshi.Builder()
-        .addLast(KotlinJsonAdapterFactory())
-        .build()
+
+    init {
+      System.loadLibrary("TrustWalletCore")
+    }
+
+       @JvmStatic
+    fun toHexString(byteArray: ByteArray): String{
+      return byteArray.toHex()
     }
 
     @JvmStatic
-    fun createWCSession(
-      config: Session.FullyQualifiedConfig,
-      payloadAdapter: Session.PayloadAdapter,
-      sessionStore: WCSessionStore,
-      transportBuilder: Session.Transport.Builder,
-      clientMeta: Session.PeerMeta,
-      clientId: String?
-    ): WCSession {
-      return WCSession(
-        config, payloadAdapter, sessionStore, transportBuilder, clientMeta, clientId
-      )
+    fun createEthSigningSignature(text: String): ByteArray {
+      val buf = text.decodeHex()
+      val prefix = "\\u{19}Ethereum Signed Message:\n\\($buf)".encodeToByteArray()
+      return prefix + buf
     }
 
-    @JvmStatic
-    fun createRandomKey(
-      size: Int
-    ): String {
-      return ByteArray(size).also { Random().nextBytes(it) }.toNoPrefixHexString()
-    }
 
-    @JvmStatic
-    fun createConfigFromWCUri(
-      uri: String
-    ): Session.Config {
-      return Session.Config.fromWCUri(uri)
-    }
-    
-    @JvmStatic
-    fun signMessage(
-      session: WCSession,
-      id: Long,
-      address: String,
-      message: String,
-      callback: Callback<Session.MethodCall.Response>
-    ){
-      return session.performMethodCall(
-        Session.MethodCall.SignMessage(id, address, message)
-      ) { resp ->
-        callback.onSuccess(resp)
-      }
-    }
-    
     private var digest: MessageDigest? = null
-    
+
+    @JvmStatic
+    fun createSession(uri: String): WCSession?{
+      return WCSession.from(uri)
+    }
+
     @JvmStatic
     fun md5(s: String): String {
       try {
@@ -79,7 +54,7 @@ class Utils {
         digest?.let {digest ->
           digest.update(s.toByteArray())
           val messageDigest = digest.digest()
-          
+
           val hexString = StringBuffer()
           for (i in messageDigest.indices) hexString.append(
             Integer.toHexString(
@@ -103,7 +78,7 @@ class Utils {
         digest?.let {digest ->
           digest.update(s.toByteArray())
           val messageDigest = digest.digest()
-          
+
           val hexString = StringBuffer()
           for (i in messageDigest.indices) hexString.append(
             Integer.toHexString(
@@ -126,7 +101,7 @@ class Utils {
         digest?.let {digest ->
           digest.update(s.toByteArray())
           val messageDigest = digest.digest()
-          
+
           val hexString = StringBuffer()
           for (i in messageDigest.indices) hexString.append(
             Integer.toHexString(
@@ -156,5 +131,15 @@ class Utils {
     fun mapToList(vararg map: Any): List<*> {
       return map.toList()
     }
+  }
+
+
+  fun String.decodeHex(): ByteArray {
+    check(length % 2 == 0) { "Must have an even length" }
+
+    return removePrefix("0x")
+      .chunked(2)
+      .map { it.toInt(16).toByte() }
+      .toByteArray()
   }
 }

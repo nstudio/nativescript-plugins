@@ -1,1 +1,2 @@
-pod 'WalletConnectSwift'
+pod 'WalletConnect', git: 'https://github.com/triniwiz/wallet-connect-swift', branch: 'master'
+pod 'TrustWalletCore', '~> 3.0.4'

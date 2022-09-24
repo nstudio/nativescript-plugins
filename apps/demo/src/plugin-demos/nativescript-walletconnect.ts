@@ -1,6 +1,8 @@
-import { Observable, EventData, Page, Application } from '@nativescript/core';
+import { Observable, EventData, Page, Application, Dialogs } from '@nativescript/core';
 import { DemoSharedNativescriptWalletconnect } from '@demo/shared';
 import { toHex, WalletConnect } from '@nstudio/nativescript-walletconnect';
+
+import { PrivateKey, CoinType, CoinTypeInstance, Utils } from '@nstudio/nativescript-walletconnect/utils';
 
 export function navigatingTo(args: EventData) {
 	const page = <Page>args.object;
@@ -10,18 +12,20 @@ export function navigatingTo(args: EventData) {
 export class DemoModel extends DemoSharedNativescriptWalletconnect {
 	state: 'Disconnected';
 	wallet: WalletConnect;
-	wcurl: string;
-	bridge = 'https://bridge.walletconnect.org';
+	wcurl: string = '';
 	accounts: string;
+	key: PrivateKey;
+	address: string;
 	constructor() {
 		super();
-		this.resetConnection();
+		this.key = new PrivateKey('ba005cd605d8a02e3d5dfd04234cef3a3ee4f76bfbad2722d1fb5af8e12e6764');
+
+		this.address = CoinType.getInstance(CoinTypeInstance.Ethereum).deriveAddress(this.key);
 	}
 
 	resetConnection() {
 		this.wallet = new WalletConnect({
 			uri: this.wcurl,
-			bridge: this.bridge,
 			clientMeta: {
 				description: 'WalletConnect Developer App',
 				url: 'https://walletconnect.org',
@@ -36,13 +40,90 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 		});
 		this.wallet.on('disconnect', () => {
 			this.set('accounts', undefined);
-			this.set('wcurl', undefined);
+			//this.set('wcurl', undefined);
 			this.set('state', 'Disconnected');
-			this.resetConnection();
+			//this.resetConnection();
 		});
 
 		this.wallet.on('error', (error) => {
 			this.set('state', `Error: ${error}`);
+		});
+
+		this.wallet.on('session_request', (error, payload) => {
+			if (error) {
+				throw error;
+			}
+
+			const meta = payload.params[1];
+			Dialogs.confirm({
+				title: meta.name,
+				message: `${meta.description}\n${meta.url}`,
+				okButtonText: 'Approve',
+				cancelButtonText: 'Reject',
+			}).then((done) => {
+				if (done) {
+					this.wallet.approveSession({
+						chainId: 1,
+						accounts: [this.address],
+					});
+				} else {
+					this.wallet.rejectSession();
+					this.wallet.disconnect();
+				}
+			});
+		});
+
+		this.wallet.on('call_request', (error, payload) => {
+			if (error) {
+				throw error;
+			}
+
+			const method = payload.method;
+			const isTransaction = method === 'eth_signTransaction' || method === 'eth_sendTransaction';
+			const data = (method.indexOf('personal_sign') > -1 || isTransaction ? payload.params[0] : payload.params[1])?.toString?.();
+
+			Dialogs.confirm({
+				title: method,
+				message: isTransaction ? data?.toString?.() : data,
+				okButtonText: isTransaction ? 'Approve' : 'Sign',
+				cancelButtonText: isTransaction ? 'Deny' : 'Cancel',
+			}).then((done) => {
+				if (done) {
+					if (!isTransaction) {
+						let value;
+						console.log('method', method, method === 'eth_signTypedData');
+						switch (method) {
+							case 'eth_sign':
+							case 'personal_sign':
+								{
+									// sign(keccak256("\x19Ethereum Signed Message:\n" + len(message) + message)))
+									// 🤷🏽‍♂️
+									const signed = this.key.sign(Utils.createEthSignKeccak256(data), CoinType.getInstance(CoinTypeInstance.Ethereum).curve());
+									value = '0x' + signed;
+								}
+								break;
+							case 'eth_signTypedData':
+								{
+									// keccak256("\x19Ethereum Signed Message:\n" + len(message) + message))
+									const signed = Utils.createEthSignKeccak256(data);
+									value = signed; // '0x' + Utils.bufferToString(signed);
+								}
+								break;
+						}
+						this.wallet.approveRequest({
+							id: payload.id,
+							result: value,
+						});
+					} else {
+						this.wallet.approveRequest({
+							id: payload.id,
+							result: data,
+						});
+					}
+				} else {
+					this.wallet.rejectRequest({ id: payload.id });
+				}
+			});
 		});
 	}
 
@@ -56,7 +137,8 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 	}
 
 	createSession() {
-		this.set('wcurl', this.wallet.uri);
+		this.resetConnection();
+		//this.set('wcurl', this.wallet.uri);
 		this.wallet
 			.createSession()
 			.then((res) => {
@@ -70,12 +152,12 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 	approveSession() {
 		this.wallet.approveSession({
 			chainId: this.wallet.chainId || 1,
-			accounts: [''],
+			accounts: [this.address],
 		});
 	}
 
 	connect() {
-		this.set('wcurl', this.wallet.uri);
+		//	this.set('wcurl', this.wallet.uri);
 		this.wallet
 			.connect()
 			.then((res) => {
@@ -92,100 +174,6 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 
 	reject() {
 		//this.wallet.rejectRequest();
-	}
-
-	async sendTransaction() {
-		const account = this.wallet.accounts[0];
-		if (account) {
-			// 0x02540be400
-			// 0x9c40
-			const ret = await this.wallet.sendTransaction({
-				from: account, // Required
-				to: account, // Required (for non contract deployments)
-				data: toHex(''), // Required
-				gasPrice: '0x02540be400', // Optional
-				gas: '0x9c40', // Optional
-				value: '0x0', // Optional
-				nonce: '0x0114', // Optional
-			});
-			console.log('sendTransaction', ret);
-		}
-	}
-
-	async signMessage() {
-		const account = this.wallet.accounts[0];
-		if (account) {
-			const ret = await this.wallet.signMessage([`My email is john@doe.com - ${Date.now()}`, account]);
-			console.log('signMessage', ret);
-		}
-	}
-
-	async signPersonalMessage() {
-		const account = this.wallet.accounts[0];
-		if (account) {
-			const ret = await this.wallet.signPersonalMessage([toHex(`My email is john@doe.com - ${Date.now()}`), account]);
-			console.log('signPersonalMessage', ret);
-		}
-	}
-
-	async signTypedData() {
-		const account = this.wallet.accounts[0];
-		if (account) {
-			const typedData = {
-				types: {
-					EIP712Domain: [
-						{ name: 'name', type: 'string' },
-						{ name: 'version', type: 'string' },
-						{ name: 'chainId', type: 'uint256' },
-						{ name: 'verifyingContract', type: 'address' },
-					],
-					Person: [
-						{ name: 'name', type: 'string' },
-						{ name: 'account', type: 'address' },
-					],
-					Mail: [
-						{ name: 'from', type: 'Person' },
-						{ name: 'to', type: 'Person' },
-						{ name: 'contents', type: 'string' },
-					],
-				},
-				primaryType: 'Mail',
-				domain: {
-					name: 'Example Dapp',
-					version: '1.0',
-					chainId: 1,
-					verifyingContract: '0x0000000000000000000000000000000000000000',
-				},
-				message: {
-					from: {
-						name: 'Alice',
-						account: '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-					},
-					to: {
-						name: 'Bob',
-						account: '0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
-					},
-					contents: 'Hey, Bob!',
-				},
-			};
-
-			const msgParams = [
-				account, // Required
-				JSON.stringify(typedData), // Required
-			];
-
-			// Sign Typed Data
-			this.wallet
-				.signTypedData(msgParams)
-				.then((result) => {
-					// Returns signature.
-					console.log(result);
-				})
-				.catch((error) => {
-					// Error returned when rejected
-					console.error(error);
-				});
-		}
 	}
 
 	rejectSession() {

@@ -1,95 +1,123 @@
-
 declare class NSCClientMeta extends NSObject {
-
 	static alloc(): NSCClientMeta; // inherited from NSObject
 
 	static new(): NSCClientMeta; // inherited from NSObject
 
 	readonly desc: string;
 
-	readonly icons: NSArray<NSURL>;
+	readonly icons: NSArray<string>;
 
 	readonly name: string;
 
-	readonly scheme: string;
+	scheme: string;
 
-	readonly url: NSURL;
+	readonly url: string;
 }
 
-declare class NSCMessageConfig extends NSObject {
+declare class NSCWCEthereumTransaction extends NSObject {
+	static alloc(): NSCWCEthereumTransaction; // inherited from NSObject
 
-	static alloc(): NSCMessageConfig; // inherited from NSObject
+	static new(): NSCWCEthereumTransaction; // inherited from NSObject
 
-	static new(): NSCMessageConfig; // inherited from NSObject
+	readonly data: string;
 
-	address: string;
+	readonly from: string;
 
-	id: number;
+	readonly gas: string;
 
-	message: string;
+	readonly gasLimit: string;
 
-	constructor();
+	readonly gasPrice: string;
 
-	init(id: number, address: string, message: string): this;
+	readonly nonce: string;
+
+	readonly to: string;
+
+	readonly value: string;
 }
 
-declare class NSCPersonalMessageConfig extends NSObject {
+declare class NSCWCOKExChainTransaction extends NSObject {
+	static alloc(): NSCWCOKExChainTransaction; // inherited from NSObject
 
-	static alloc(): NSCPersonalMessageConfig; // inherited from NSObject
+	static new(): NSCWCOKExChainTransaction; // inherited from NSObject
 
-	static new(): NSCPersonalMessageConfig; // inherited from NSObject
+	readonly accountNumber: string;
 
-	id: number;
+	readonly contractAddress: string;
 
-	params: NSArray<any>;
+	readonly data: string;
 
-	constructor();
+	readonly decimalNum: string;
 
-	init(id: number, params: NSArray<any> | any[]): this;
+	readonly from: string;
+
+	readonly gasLimit: string;
+
+	readonly gasPrice: string;
+
+	readonly memo: string;
+
+	readonly sequenceNumber: string;
+
+	readonly symbol: string;
+
+	readonly to: string;
+
+	readonly value: string;
 }
 
-declare class NSCTransactionConfig extends NSObject {
+declare class NSCWCSessionRequestParam extends NSObject {
+	static alloc(): NSCWCSessionRequestParam; // inherited from NSObject
 
-	static alloc(): NSCTransactionConfig; // inherited from NSObject
+	static new(): NSCWCSessionRequestParam; // inherited from NSObject
 
-	static new(): NSCTransactionConfig; // inherited from NSObject
+	readonly chainId: number;
 
-	data: string;
+	readonly peerId: string;
 
-	from: string;
-
-	gas: string;
-
-	gasPrice: string;
-
-	id: number;
-
-	nonce: string;
-
-	to: string;
-
-	value: string;
-
-	constructor();
-
-	init(id: number, from: string, value: string, data: string): this;
+	readonly peerMeta: NSCClientMeta;
 }
 
 declare class NSCWallectConnect extends NSObject {
-
 	static alloc(): NSCWallectConnect; // inherited from NSObject
 
 	static new(): NSCWallectConnect; // inherited from NSObject
 
 	static toHex(value: string): string;
 
+	static hexToData(value: string): NSData;
+
+	static createPrivateKeyWithData(data: NSData): interop.Pointer | interop.Reference<any>;
+
+	static createPrivateKeyWithString(string: string): interop.Pointer | interop.Reference<any>;
+
+	static deriveBitCoinAddress(key: interop.Pointer | interop.Reference<any>): string;
+
+	static deriveBnbAddress(key: interop.Pointer | interop.Reference<any>): string;
+
+	static deriveEthAddress(key: interop.Pointer | interop.Reference<any>): string;
+
+	static privateKeySignToHexWithKeyDataCurve(key: interop.Pointer | interop.Reference<any>, data: NSData, curve: TWCurve): string;
+
+	static privateKeySignToHexWithKeyStringCurve(key: interop.Pointer | interop.Reference<any>, string: string, curve: TWCurve): string;
+
+	static privateKeySignWithKeyDataCurve(key: interop.Pointer | interop.Reference<any>, data: NSData, curve: TWCurve): NSData;
+
+	static privateKeySignWithKeyStringCurve(key: interop.Pointer | interop.Reference<any>, string: string, curve: TWCurve): NSData;
+
+	static createEthSigningSignature(string: string): NSData;
+
+	static createEthSigningSignatureWithData(string: string): NSData;
+
+	static sha256(data: NSData): NSData;
+
+	static keccak256(data: NSData): NSData;
+
 	readonly accounts: NSArray<string>;
 
 	readonly bridge: string;
 
 	readonly chainId: number;
-
-	readonly clientId: string;
 
 	readonly clientMeta: NSCClientMeta;
 
@@ -101,15 +129,13 @@ declare class NSCWallectConnect extends NSObject {
 
 	readonly key: string;
 
-	readonly peerId: string;
-
-	readonly peerMeta: NSCClientMeta;
-
-	readonly pending: boolean;
-
 	readonly uri: string;
 
-	constructor(o: { configuration: NSCWalletConnectConfig; });
+	readonly url: string;
+
+	constructor(o: { configuration: NSCWalletConnectConfig });
+
+	approveBnbOrderWithIdSignatureCallback(id: number, signature: string, callback: (p1: NSError, p2: boolean) => void): void;
 
 	approveRequestWithIdResult(id: number, result: string, callback: (p1: NSError) => void): void;
 
@@ -117,7 +143,7 @@ declare class NSCWallectConnect extends NSObject {
 
 	connect(callback: (p1: NSError) => void): void;
 
-	createSession(callback: (p1: NSError) => void): void;
+	disconnect(): void;
 
 	initWithConfiguration(configuration: NSCWalletConnectConfig): this;
 
@@ -128,55 +154,9 @@ declare class NSCWallectConnect extends NSObject {
 	rejectRequestWithIdErrorCodeErrorMessageCallback(id: number, errorCode: number, errorMessage: string, callback: (p1: NSError) => void): void;
 
 	rejectSession(callback: (p1: NSError) => void): void;
-
-	sendCustomRequest(method: string, id: number, params: string, callback: (p1: string, p2: NSError) => void): void;
-
-	sendRawTransaction(data: string, callback: (p1: string, p2: NSError) => void): void;
-
-	sendTransaction(tx: NSCTransactionConfig, callback: (p1: string, p2: NSError) => void): void;
-
-	signMessage(account: string, message: string, callback: (p1: string, p2: NSError) => void): void;
-
-	signPersonalMessage(account: string, message: string, callback: (p1: string, p2: NSError) => void): void;
-
-	signTransaction(tx: NSCTransactionConfig, callback: (p1: string, p2: NSError) => void): void;
-
-	signTypedData(account: string, message: string, callback: (p1: string, p2: NSError) => void): void;
-
-	updateSessionWithChainIdAccounts(chainId: number, accounts: NSArray<string> | string[], callback: (p1: NSError) => void): void;
-}
-
-declare class NSCWallectSession extends NSObject {
-
-	static alloc(): NSCWallectSession; // inherited from NSObject
-
-	static new(): NSCWallectSession; // inherited from NSObject
-
-	readonly accounts: NSArray<string>;
-
-	readonly bridge: string;
-
-	readonly chainId: number;
-
-	readonly clientMeta: NSCClientMeta;
-
-	readonly connected: boolean;
-
-	readonly handshakeId: number;
-
-	readonly handshakeTopic: string;
-
-	readonly key: string;
-
-	readonly peerId: string;
-
-	readonly peerMeta: NSCClientMeta;
-
-	walletCollect: NSCWallectConnect;
 }
 
 declare class NSCWalletConnectClientMetaConfig extends NSObject {
-
 	static alloc(): NSCWalletConnectClientMetaConfig; // inherited from NSObject
 
 	static new(): NSCWalletConnectClientMetaConfig; // inherited from NSObject
@@ -191,7 +171,6 @@ declare class NSCWalletConnectClientMetaConfig extends NSObject {
 }
 
 declare class NSCWalletConnectConfig extends NSObject {
-
 	static alloc(): NSCWalletConnectConfig; // inherited from NSObject
 
 	static new(): NSCWalletConnectConfig; // inherited from NSObject
@@ -203,21 +182,37 @@ declare class NSCWalletConnectConfig extends NSObject {
 	key: string;
 
 	uri: string;
+
+	uuid: string;
 }
 
 interface NSCWalletConnectDelegate {
+	onBnbSignWithIdOrder(id: number, order: string): void;
 
-	didConnectWithSession(session: NSCWallectSession): void;
+	onConnect(): void;
 
-	didConnectWithUrl(url: string): void;
+	onCustomRequestWithIdRequest(id: number, request: NSDictionary<string, any>): void;
 
-	didDisconnectWithSession(session: NSCWallectSession): void;
+	onDisconnectWithReasonCode(reason: string, code: number): void;
 
-	didFailToConnectWithUrl(url: string): void;
+	onErrorWithError(error: NSError): void;
 
-	didUpdateWithSession(session: NSCWallectSession): void;
+	onEthPersonalSignWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
+
+	onEthSendTransactionWithIdTransaction(id: number, transaction: NSCWCEthereumTransaction): void;
+
+	onEthSignTransactionWithIdTransaction(id: number, transaction: NSCWCEthereumTransaction): void;
+
+	onEthSignTypeDataWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
+
+	onEthSignWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
+
+	onOktSendTransactionWithIdTransaction(id: number, transaction: NSCWCOKExChainTransaction): void;
+
+	onOktSignTransactionWithIdTransaction(id: number, transaction: NSCWCOKExChainTransaction): void;
+
+	onSessionRequestWithIdPeerParam(id: number, peerParam: NSCWCSessionRequestParam): void;
 }
 declare var NSCWalletConnectDelegate: {
-
 	prototype: NSCWalletConnectDelegate;
 };

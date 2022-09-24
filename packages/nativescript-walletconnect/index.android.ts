@@ -1,94 +1,74 @@
 declare const com, okhttp3, io, kotlin;
-import { File, Frame, GridLayout, knownFolders, path, Image, Label, View, ItemSpec, GridUnitType, ImageSource, Observable, fromObject } from '@nativescript/core';
-import { isNumber } from '@nativescript/core/utils/types';
-import { Qr } from '@nstudio/nativescript-qr';
-import { IWalletConnect, IWalletConnectSession, TransactionConfig, WalletConnectConfig, WalletEvent } from '.';
-import { ERROR_QRCODE_MODAL_USER_CLOSED, generateId } from './common';
-
-function toArrayList(items?: any[]) {
-	if (Array.isArray(items)) {
-		const list = new java.util.ArrayList();
-		items.forEach((item) => {
-			list.add(item);
-		});
-		return list;
-	}
-	return null;
-}
-
+import { fromObject } from '@nativescript/core';
+import { IWalletConnect, IWalletConnectSession, WalletConnectConfig, WalletEvent } from '.';
 export function toHex(value: string): string {
 	return `0x${io.nstudio.plugins.walletconnect.Utils.toHex(value)}`;
 }
 
-const isHexStrict = (hex: string) => {
-	return (typeof hex === 'string' || isNumber(hex)) && /^(-)?0x[0-9a-f]*$/i.test(hex);
-};
-
-function numberHasDecimals(item: number) {
-	return !(item % 1 === 0);
-}
-
-function serialize(data) {
-	let store;
-	switch (typeof data) {
-		case 'string':
-		case 'boolean': {
-			if (typeof data === 'string') {
-				return new java.lang.String(data);
-			}
-			return new java.lang.Boolean(data);
-		}
-		case 'number': {
-			const hasDecimals = numberHasDecimals(data);
-			if (hasDecimals) {
-				return java.lang.Double.valueOf(data);
-			} else {
-				return java.lang.Long.valueOf(data);
-			}
+export class EthereumTransaction {
+	private _native: com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction;
+	constructor(instance) {
+		if (instance instanceof com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction) {
+			this._native = instance;
 		}
 
-		case 'object': {
-			if (!data) {
-				return null;
-			}
-
-			if (data instanceof Date) {
-				return new java.util.Date(data.getTime());
-			}
-
-			if (Array.isArray(data)) {
-				store = new java.util.ArrayList();
-				data.forEach((item) => store.add(serialize(item)));
-				return store;
-			}
-
-			if (data.native) {
-				return data.native;
-			}
-
-			store = new java.util.HashMap();
-			Object.keys(data).forEach((key) => store.put(key, serialize(data[key])));
-			return store;
-		}
-
-		default:
+		if (!this._native) {
 			return null;
+		}
+	}
+
+	get from(): string {
+		return this._native.getFrom();
+	}
+
+	get to(): string {
+		return this._native.getTo();
+	}
+	get nonce(): string {
+		return this._native.getNonce();
+	}
+	get gasPrice(): string {
+		return this._native.getGasPrice();
+	}
+	get gas(): string {
+		return this._native.getGas();
+	}
+	get value(): string {
+		return this.native.getValue();
+	}
+	get data(): string {
+		return this.native.getData();
+	}
+	get native() {
+		return this._native;
+	}
+
+	toJSON() {
+		return {
+			from: this.from,
+			to: this.to,
+			nonce: this.nonce,
+			gasPrice: this.gasPrice,
+			gas: this.gas,
+			value: this.value,
+			data: this.data,
+		};
 	}
 }
 
-class ClientMeta {
-	#meta: org.walletconnect.Session.PeerMeta;
-	static fromNative(meta: org.walletconnect.Session.PeerMeta) {
-		if (meta instanceof org.walletconnect.Session.PeerMeta) {
+export class ClientMeta {
+	private _meta: com.trustwallet.walletconnect.models.WCPeerMeta;
+	static fromNative(meta: com.trustwallet.walletconnect.models.WCPeerMeta) {
+		if (meta instanceof com.trustwallet.walletconnect.models.WCPeerMeta) {
 			const ret = new ClientMeta();
-			ret.#meta = meta;
+			ret._meta = meta;
 			return ret;
 		}
 		return null;
 	}
 
 	get native() {
-		return this.#meta;
+		return this._meta;
 	}
 
 	get description(): string {
@@ -127,125 +107,215 @@ class ClientMeta {
 }
 
 export class WalletConnectError extends Error {
-	#native: java.lang.Exception;
+	private _native: java.lang.Exception;
 	static fromNative(native: java.lang.Exception, message?: string) {
 		const error = new WalletConnectError(message || native?.getMessage?.());
-		error.#native = native;
+		error._native = native;
 		return error;
 	}
 
 	get native() {
-		return this.#native;
+		return this._native;
 	}
 
 	intoNative() {
-		if (!this.#native) {
+		if (!this._native) {
 			return new java.lang.Exception(this.message);
 		}
-		return this.#native;
+		return this._native;
 	}
 }
 
 export class WalletConnect implements IWalletConnect {
-	#internal_events = fromObject({});
-	#events = {
+	_internal_events = fromObject({});
+	_events = {
 		connected: [],
 		disconnected: [],
 		closed: [],
 		error: [],
-		update: [],
+		session_update: [],
 		call_request: [],
+		session_request: [],
 	};
-	#config: org.walletconnect.Session.Config;
-	#session: org.walletconnect.impls.WCSession;
-	#moshi;
-	#client;
-	#store: org.walletconnect.impls.FileWCSessionStore;
-	#connected: boolean = false;
-	#clientId: string = '';
+	_session: com.trustwallet.walletconnect.models.session.WCSession;
+	_client: io.nstudio.plugins.walletconnect.WCClientImpl;
+	_connected: boolean = false;
+	_clientId: string = '';
+	_clientMeta: com.trustwallet.walletconnect.models.WCPeerMeta;
+	_accounts = [];
 	constructor(configuration: WalletConnectConfig) {
-		if (configuration.uri) {
-			this.#config = io.nstudio.plugins.walletconnect.Utils.createConfigFromWCUri(configuration.uri);
-		} else {
-			const uuid = java.util.UUID.randomUUID().toString();
-			this.#config = new org.walletconnect.Session.Config(uuid, configuration.bridge, configuration?.key ?? io.nstudio.plugins.walletconnect.Utils.createRandomKey(32), 'wc', 1);
+		this._session = new io.nstudio.plugins.walletconnect.Utils.createSession(configuration.uri);
+		this._client = new com.trustwallet.walletconnect.WCClient(new com.google.gson.GsonBuilder(), new okhttp3.OkHttpClient()); //new io.nstudio.plugins.walletconnect.WCClientImpl(new com.google.gson.GsonBuilder(), new okhttp3.OkHttpClient());
+
+		if (configuration.clientMeta) {
+			this._clientMeta = new com.trustwallet.walletconnect.models.WCPeerMeta(configuration.clientMeta.name, configuration.clientMeta.url, configuration.clientMeta.description || '', java.util.Arrays.asList(configuration.clientMeta.icons || []));
 		}
 
-		this.#moshi = io.nstudio.plugins.walletconnect.Utils.createMoshiInstance();
-
-		this.#client = new okhttp3.OkHttpClient.Builder().build();
-
-		const file = File.fromPath(path.join(knownFolders.temp().path, 'session_store.json'));
-
-		this.#store = new org.walletconnect.impls.FileWCSessionStore(new java.io.File(file.path), this.#moshi);
-
-		const meta = new org.walletconnect.Session.PeerMeta(configuration?.clientMeta?.url ?? null, configuration?.clientMeta?.name ?? null, configuration?.clientMeta?.description ?? null, toArrayList(configuration?.clientMeta?.icons));
-
-		const adapter = new org.walletconnect.impls.MoshiPayloadAdapter(this.#moshi);
-
-		this.#clientId = java.util.UUID.randomUUID().toString();
-
-		this.#session = io.nstudio.plugins.walletconnect.Utils.createWCSession(this.#config.toFullyQualifiedConfig(), adapter, this.#store, new org.walletconnect.impls.OkHttpTransport.Builder(this.#client, this.#moshi), meta, this.clientId);
+		this._clientId = java.util.UUID.randomUUID().toString();
 
 		const ref = new WeakRef(this);
 
-		this.#session.addCallback(
-			new org.walletconnect.Session.Callback({
-				onStatus(status: org.walletconnect.Session.Status) {
-					console.log('onStatus', status);
+		this._client.setOnDisconnect(
+			new kotlin.jvm.functions.Function2({
+				invoke(code: java.lang.Integer, reason: string) {
 					const owner = ref.get?.();
 					if (owner) {
-						if (status instanceof org.walletconnect.Session.Status.Disconnected) {
-							owner._emitEvent('disconnect', [null, null]);
-						} else if (status instanceof org.walletconnect.Session.Status.Approved) {
-							owner.#internal_events.notify({
-								eventName: 'connected',
-							});
-							owner._emitEvent('connect', [null, null]);
-						} else if (status instanceof org.walletconnect.Session.Status.Closed) {
-							owner.#internal_events.notify({
-								eventName: 'closed',
-							});
-						} else if (status instanceof org.walletconnect.Session.Status.Error) {
-							const error = WalletConnectError.fromNative(status.getThrowable(), status.toString());
-							owner.#internal_events.notify({
-								eventName: 'error',
-								error,
-							});
-							owner._emitEvent('error', [error, null]);
-						}
+						owner._emitEvent('disconnect', [null, null]);
+						owner._accounts = [];
 					}
 				},
-				onMethodCall(call: org.walletconnect.Session.MethodCall) {
-					if (call instanceof org.walletconnect.Session.MethodCall.SessionUpdate) {
-						const owner = ref.get?.();
-						const params = call.getParams();
+			})
+		);
 
-						const ret = [];
-						const accounts = params?.getAccounts?.();
-						if (accounts) {
-							const size = accounts.size();
-							for (let i = 0; i < size; i++) {
-								ret.push(accounts.get(i));
-							}
+		this._client.setOnFailure(
+			new kotlin.jvm.functions.Function1({
+				invoke(error: java.lang.Throwable) {
+					const owner = ref.get?.();
+					if (owner) {
+						const err = WalletConnectError.fromNative(error, error.getMessage?.());
+						owner._internal_events.notify({
+							eventName: 'error',
+							err,
+						});
+						owner._emitEvent('error', [err, null]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnCustomRequest(
+			new kotlin.jvm.functions.Function2({
+				invoke(id: java.lang.Long, payload: string) {
+					const owner = ref.get?.();
+					if (owner) {
+						console.log('setOnCustomRequest', id, payload);
+						// const err = WalletConnectError.fromNative(error, error.getMessage?.());
+						// 		owner._internal_events.notify({
+						// 			eventName: 'error',
+						// 			err,
+						// 		});
+						// 		owner._emitEvent('error', [err, null]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnSessionRequest(
+			new kotlin.jvm.functions.Function2({
+				invoke(id: java.lang.Long, meta: com.trustwallet.walletconnect.models.WCPeerMeta) {
+					const owner = ref.get?.();
+					if (owner) {
+						const idValue = id?.longValue?.() || id;
+						const peerId = owner._client.getRemotePeerId?.();
+						const payload = {
+							id: idValue,
+							method: 'session_request',
+							params: [peerId, ClientMeta.fromNative(meta)],
+						};
+						owner._internal_events.notify({
+							eventName: 'session_request',
+							payload,
+						});
+						owner._emitEvent('session_request', [null, payload]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnGetAccounts(
+			new kotlin.jvm.functions.Function1({
+				invoke(id: java.lang.Long) {
+					const owner = ref.get?.();
+					if (owner) {
+						console.log('setOnGetAccounts', id);
+						// const err = WalletConnectError.fromNative(error, error.getMessage?.());
+						// 		owner._internal_events.notify({
+						// 			eventName: 'error',
+						// 			err,
+						// 		});
+						// 		owner._emitEvent('error', [err, null]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnEthSign(
+			new kotlin.jvm.functions.Function2({
+				invoke(id: java.lang.Long, message: com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage) {
+					const owner = ref.get?.();
+					if (owner) {
+						const idValue = id?.longValue?.() || id;
+						const payload = {
+							id: idValue,
+							method: '',
+							params: message.getRaw().toArray(),
+						};
+
+						switch (message.getType()) {
+							case com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType.MESSAGE:
+								payload.method = 'eth_sign';
+								break;
+							case com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType.PERSONAL_MESSAGE:
+								payload.method = 'personal_sign';
+								break;
+							case com.trustwallet.walletconnect.models.ethereum.WCEthereumSignMessage.WCSignType.TYPED_MESSAGE:
+								payload.method = 'eth_signTypedData';
+								break;
 						}
 
-						owner._emitEvent('session_update', [
-							null,
-							{
-								chainId: params.getChainId().longValue?.() || 0,
-								accounts: ret,
-							},
-						]);
-					} else if (call instanceof org.walletconnect.Session.MethodCall.SessionRequest) {
-						const owner = ref.get?.();
-						owner._emitEvent('call_request', [
-							null,
-							{
-								id: call.getId(),
-								topic: call.getPeer?.()?.getId?.(),
-							},
-						]);
+						owner._internal_events.notify({
+							eventName: 'call_request',
+							payload,
+						});
+						owner._emitEvent('call_request', [null, payload]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnEthSignTransaction(
+			new kotlin.jvm.functions.Function2({
+				invoke(id: java.lang.Long, transaction: com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction) {
+					const owner = ref.get?.();
+					if (owner) {
+						const idValue = id?.longValue?.() || id;
+						const tx = new EthereumTransaction(transaction);
+						const payload = {
+							id: idValue,
+							method: 'eth_signTransaction',
+							params: [tx],
+							transaction: tx,
+						};
+
+						owner._internal_events.notify({
+							eventName: 'call_request',
+							payload,
+						});
+						owner._emitEvent('call_request', [null, payload]);
+					}
+				},
+			})
+		);
+
+		this._client.setOnEthSendTransaction(
+			new kotlin.jvm.functions.Function2({
+				invoke(id: java.lang.Long, transaction: com.trustwallet.walletconnect.models.ethereum.WCEthereumTransaction) {
+					const owner = ref.get?.();
+					if (owner) {
+						const idValue = id?.longValue?.() || id;
+						const tx = new EthereumTransaction(transaction);
+						const payload = {
+							id: idValue,
+							method: 'eth_sendTransaction',
+							params: [tx],
+							transaction: tx,
+						};
+
+						owner._internal_events.notify({
+							eventName: 'call_request',
+							payload,
+						});
+						owner._emitEvent('call_request', [null, payload]);
 					}
 				},
 			})
@@ -253,107 +323,57 @@ export class WalletConnect implements IWalletConnect {
 	}
 
 	get accounts(): string[] {
-		const ret = [];
-		const accounts = this.#session?.approvedAccounts?.();
-		if (accounts) {
-			const size = accounts.size();
-			for (let i = 0; i < size; i++) {
-				ret.push(accounts.get(i));
-			}
-		}
-		return ret;
+		return this._accounts;
 	}
 
 	get uri() {
-		return this.#config?.toWCUri?.();
+		return this._session?.toUri?.() ?? '';
 	}
 
 	get bridge() {
-		return this.#config.getBridge?.();
+		return this._session?.getBridge?.() ?? '';
 	}
 
 	get clientId() {
-		return this.#clientId;
+		return this._clientId;
 	}
 
 	get handshakeId(): number {
-		return this.#currentSession.getHandshakeId?.().longValue?.() ?? 0;
+		return -1;
 	}
 
 	get handshakeTopic() {
-		return this.#config.getHandshakeTopic?.() ?? '';
+		return this._session?.getTopic?.() ?? '';
 	}
 
 	get connected() {
-		return this.#connected;
-	}
-
-	get #currentSession() {
-		try {
-			const items = this.#store.list();
-			let item: org.walletconnect.impls.WCSessionStore.State = null;
-			let size = items.size();
-			for (let i = 0; i < size; i++) {
-				const value = items.get(i) as org.walletconnect.impls.WCSessionStore.State;
-				if (value.getConfig().getKey() === this.#config.getKey()) {
-					item = value;
-					break;
-				}
-			}
-
-			return item;
-		} catch (error) {
-			return null;
-		}
+		return this._client?.isConnected?.() || false;
 	}
 
 	get chainId(): number {
-		try {
-			const item = this.#currentSession;
-			return item?.getChainId?.().longValue?.();
-		} catch (error) {
-			return 0;
-		}
+		const id = parseInt(this._client?.getChainId?.());
+		return isNaN(id) ? 0 : id;
 	}
 
 	get key() {
-		return this.#config.getKey?.();
+		return this._session.getKey?.() ?? '';
 	}
 
 	get clientMeta() {
-		try {
-			const item = this.#currentSession;
-			const meta = item?.getClientData?.().getMeta?.();
-			return ClientMeta.fromNative(meta);
-		} catch (error) {
-			return null;
-		}
+		return ClientMeta.fromNative(this._clientMeta);
 	}
 
 	get peerId() {
-		try {
-			const item = this.#currentSession;
-			const peerData = item?.getPeerData?.();
-			return peerData?.getId?.();
-		} catch (error) {
-			return '';
-		}
+		return this._client?.getPeerId?.() ?? '';
 	}
 
 	get peerMeta() {
-		try {
-			const item = this.#currentSession;
-			const meta = item?.getPeerData?.().getMeta?.();
-			return ClientMeta.fromNative(meta);
-			return {};
-		} catch (error) {
-			return null;
-		}
+		return ClientMeta.fromNative(this._client.getPeerMeta?.());
 	}
 
 	get session(): IWalletConnectSession {
 		return {
-			connected: this.#connected,
+			connected: this._connected,
 			accounts: this.accounts,
 			chainId: this.chainId,
 			bridge: this.bridge,
@@ -368,315 +388,93 @@ export class WalletConnect implements IWalletConnect {
 	}
 
 	_emitEvent(event: WalletEvent, data) {
-		if (event === 'connect') {
-			this.#events.connected.forEach((cb) => {
-				cb(...data);
-			});
-		} else if (event === 'disconnect') {
-			this.#events.disconnected.forEach((cb) => {
-				cb(...data);
-			});
-		} else if (event === 'error') {
-			this.#events.error.forEach((cb) => {
-				cb(...data);
-			});
-		} else if (event === 'session_update') {
-			this.#events.update.forEach((cb) => {
-				cb(...data);
-			});
-		} else if (event === 'call_request') {
-			this.#events.call_request.forEach((cb) => {
-				cb(...data);
-			});
-		}
-	}
-
-	#qrView: View;
-
-	connect(modal: 'default' | 'custom' = 'default', renderModal?: (qrCode: ImageSource) => View): Promise<{ chainId: number; accounts: string[] }> {
-		return new Promise((resolve, reject) => {
-			let on_connect_func = (args) => {
-				this.#internal_events.once('modal_close', modal_close);
-				const item = this.#currentSession;
-				this.#connected = true;
-				resolve({
-					accounts: this.accounts,
-					chainId: item.getChainId().longValue(),
+		switch (event) {
+			case 'connect':
+				this._events.connected.forEach((cb) => {
+					cb(...data);
 				});
-				this.#hideQr();
-			};
-
-			let on_connect = on_connect_func.bind(this);
-
-			let modal_close_func = (args) => {
-				this.#internal_events.off('connected', on_connect);
-				reject(new Error(ERROR_QRCODE_MODAL_USER_CLOSED));
-			};
-
-			let modal_close = modal_close_func.bind(this);
-			this.#internal_events.once('modal_close', modal_close);
-			this.#internal_events.once('connected', on_connect);
-
-			this.#session.offer();
-			if (modal === 'custom') {
-				this.#showQr(null, renderModal(Qr.generate(this.uri)));
-			} else {
-				this.#showQr();
-			}
-		});
+				break;
+			case 'disconnect':
+				this._events.disconnected.forEach((cb) => {
+					cb(...data);
+				});
+				break;
+			case 'error':
+				this._events.error.forEach((cb) => {
+					cb(...data);
+				});
+				break;
+			case 'session_update':
+				this._events.session_update.forEach((cb) => {
+					cb(...data);
+				});
+				break;
+			case 'session_request':
+				this._events.session_request.forEach((cb) => {
+					cb(...data);
+				});
+				break;
+			case 'call_request':
+				this._events.call_request.forEach((cb) => {
+					cb(...data);
+				});
+				break;
+		}
 	}
 
 	createSession(): Promise<{ chainId: number; accounts: string[] }> {
 		return new Promise((resolve, reject) => {
 			let on_connect_func = (args) => {
-				this.#connected = true;
-				const item = this.#currentSession;
+				this._connected = true;
 				resolve({
 					accounts: this.accounts,
-					chainId: item.getChainId().longValue(),
+					chainId: this.chainId,
 				});
 			};
 			let on_connect = on_connect_func.bind(this);
 
-			this.#internal_events.once('connected', on_connect);
+			this._internal_events.once('connected', on_connect);
 
 			let on_error_func = (args) => {
 				reject(args.error);
 			};
 			let on_error = on_error_func.bind(this);
-			this.#internal_events.once('error', on_error);
+			this._internal_events.once('error', on_error);
 
-			this.#session.offer();
-		});
-	}
-
-	#showQr(title: string = 'Scan QR code with compatible wallet', view?: View) {
-		let cv = view;
-		if (!cv) {
-			const grid = new GridLayout();
-			grid.paddingTop = 5;
-			grid.backgroundColor = 'white';
-			const titleView = new Label();
-			titleView.text = title;
-			titleView.textAlignment = 'center';
-			const imageView = new Image();
-			imageView.imageSource = Qr.generate(this.uri);
-
-			const titleRow = new ItemSpec(1, GridUnitType.AUTO);
-			grid.addRow(titleRow);
-			titleView.row = 0;
-
-			const qrRow = new ItemSpec(1, GridUnitType.STAR);
-			grid.addRow(qrRow);
-
-			imageView.row = 1;
-
-			grid.addChild(titleView);
-			grid.addChild(imageView);
-			cv = grid;
-		}
-		this.#qrView = Frame.topmost().showModal(cv, {
-			context: {},
-			closeCallback: (success) => {
-				if (!success) {
-					this.#internal_events.notify({
-						eventName: 'modal_close',
-					});
-				}
-			},
-		});
-	}
-
-	#hideQr() {
-		if (this.#qrView) {
-			this.#qrView.closeModal(true);
-			this.#qrView = null;
-		}
-	}
-
-	signTransaction(tx: TransactionConfig) {
-		return new Promise((resolve, reject) => {
-			const map = new java.util.HashMap();
-			map.put('from', tx.from);
-			if (tx.to) {
-				map.put('to', tx.to);
-			}
-			if (tx.nonce) {
-				map.put('nonce', tx.nonce);
-			}
-			if (tx.gasPrice) {
-				map.put('gasPrice', tx.gasPrice);
-			}
-			if (tx.to) {
-				map.put('gas', tx.gas);
-			}
-
-			map.put('value', tx.value);
-			map.put('data', tx.data);
-
-			const params = io.nstudio.plugins.walletconnect.Utils.mapToList(map);
-			const value = new org.walletconnect.Session.MethodCall.Custom(generateId(), 'eth_sendTransaction', params);
-			this.#session.performMethodCall(
-				value,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	sendTransaction(tx: TransactionConfig) {
-		return new Promise((resolve, reject) => {
-			const value = new org.walletconnect.Session.MethodCall.SendTransaction(generateId(), tx.from, tx.to ?? '', tx.nonce ?? '', tx.gasPrice ?? '', tx.gas ?? '', tx.value, tx.data);
-			this.#session.performMethodCall(
-				value,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	signMessage(params: any[]) {
-		return new Promise((resolve, reject) => {
-			const sign = new org.walletconnect.Session.MethodCall.SignMessage(generateId(), params[0], params[1]);
-			this.#session.performMethodCall(
-				sign,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	signPersonalMessage(params: any[]) {
-		return new Promise((resolve, reject) => {
-			const list = serialize(params);
-			const sign = new org.walletconnect.Session.MethodCall.Custom(generateId(), 'personal_sign', list);
-			this.#session.performMethodCall(
-				sign,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	signTypedData(params: any[]) {
-		return new Promise((resolve, reject) => {
-			const list = serialize(params);
-			const sign = new org.walletconnect.Session.MethodCall.Custom(generateId(), 'eth_signTypedData', list);
-			this.#session.performMethodCall(
-				sign,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	sendCustomRequest(request: { id: number; method: string; params: any[] }) {
-		return new Promise((resolve, reject) => {
-			const list = serialize(request.params);
-			const sign = new org.walletconnect.Session.MethodCall.Custom(generateId(), request.method, list);
-			this.#session.performMethodCall(
-				sign,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
-		});
-	}
-
-	sendRawTransaction(data: string) {
-		return new Promise((resolve, reject) => {
-			const params = java.util.Arrays.asList([data]);
-			const sign = new org.walletconnect.Session.MethodCall.Custom(generateId(), 'eth_sendRawTransaction', params);
-			this.#session.performMethodCall(
-				sign,
-				new kotlin.jvm.functions.Function1({
-					invoke(resp) {
-						const error = resp.getError();
-						if (error) {
-							reject(WalletConnectError.fromNative(error, error.getMessage()));
-						} else {
-							resolve(resp.toString());
-						}
-					},
-				})
-			);
+			this._client.connect(this._session, this._clientMeta, java.util.UUID.randomUUID().toString(), null);
 		});
 	}
 
 	approveSession(sessionStatus: { chainId: number; accounts: string[] }) {
-		const list = serialize(sessionStatus.accounts);
-		this.#session.approve(list, sessionStatus.chainId);
+		this._client.approveSession(java.util.Arrays.asList(sessionStatus.accounts), sessionStatus.chainId);
+		this._accounts = sessionStatus?.accounts ?? [];
+		this._internal_events.notify({
+			eventName: 'connected',
+		});
+		this._emitEvent('connect', [null, null]);
 	}
 
 	rejectSession(sessionError?: { message: string }) {
-		this.#session.reject();
+		this._client.rejectSession(sessionError?.message || 'Session Rejected');
 	}
 
 	killSession(sessionError?: { message: string }): Promise<void> {
 		return new Promise((resolve, reject) => {
-			this.#internal_events.once('closed', (args) => {
+			this._internal_events.once('closed', (args) => {
 				resolve();
 			});
-			this.#session.kill();
+			this._client.killSession();
 		});
 	}
 
 	updateSession(sessionStatus: { chainId: number; accounts: string[] }) {
 		return new Promise((resolve, reject) => {
-			const list = serialize(sessionStatus.accounts);
-			this.#session.update(list, sessionStatus.chainId);
+			this._client.updateSession(java.util.Arrays.asList(sessionStatus.accounts), java.lang.Integer.valueOf(sessionStatus.chainId), true);
 		});
 	}
 
 	approveRequest(response: { id: number; result: any }) {
-		this.#session.approveRequest(response.id, response.result);
+		this._client.approveRequest(response.id, response.result);
 	}
 
 	rejectRequest(response: {
@@ -686,7 +484,11 @@ export class WalletConnect implements IWalletConnect {
 			message?: string;
 		};
 	}) {
-		this.#session.rejectRequest(response.id, response?.error?.code || null, response?.error?.message || null);
+		this._client.rejectRequest(response.id, response?.error?.message || 'Reject by the user');
+	}
+
+	disconnect() {
+		this._client.disconnect();
 	}
 
 	on(event: WalletEvent, callback) {
@@ -696,47 +498,56 @@ export class WalletConnect implements IWalletConnect {
 		switch (event) {
 			case 'disconnect':
 				{
-					const has = this.#events.disconnected.find(callback);
+					const has = this._events.disconnected.find(callback);
 					if (has) {
 						return;
 					}
-					this.#events.disconnected.push(callback);
+					this._events.disconnected.push(callback);
 				}
 				break;
 			case 'connect':
 				{
-					const has = this.#events.connected.find(callback);
+					const has = this._events.connected.find(callback);
 					if (has) {
 						return;
 					}
-					this.#events.connected.push(callback);
+					this._events.connected.push(callback);
 				}
 				break;
 			case 'error':
 				{
-					const has = this.#events.error.find(callback);
+					const has = this._events.error.find(callback);
 					if (has) {
 						return;
 					}
-					this.#events.error.push(callback);
+					this._events.error.push(callback);
 				}
 				break;
 			case 'session_update':
 				{
-					const has = this.#events.update.find(callback);
+					const has = this._events.session_update.find(callback);
 					if (has) {
 						return;
 					}
-					this.#events.update.push(callback);
+					this._events.session_update.push(callback);
 				}
 				break;
 			case 'call_request':
 				{
-					const has = this.#events.update.find(callback);
+					const has = this._events.call_request.find(callback);
 					if (has) {
 						return;
 					}
-					this.#events.update.push(callback);
+					this._events.call_request.push(callback);
+				}
+				break;
+			case 'session_request':
+				{
+					const has = this._events.session_request.find(callback);
+					if (has) {
+						return;
+					}
+					this._events.session_request.push(callback);
 				}
 				break;
 		}
@@ -749,41 +560,49 @@ export class WalletConnect implements IWalletConnect {
 		switch (event) {
 			case 'disconnect':
 				{
-					const index = this.#events.disconnected.indexOf(callback);
+					const index = this._events.disconnected.indexOf(callback);
 					if (index > -1) {
-						this.#events.disconnected.splice(index, 1);
+						this._events.disconnected.splice(index, 1);
 					}
 				}
 				break;
 			case 'connect':
 				{
-					const index = this.#events.connected.indexOf(callback);
+					const index = this._events.connected.indexOf(callback);
 					if (index > -1) {
-						this.#events.connected.splice(index, 1);
+						this._events.connected.splice(index, 1);
 					}
 				}
 				break;
 			case 'error':
 				{
-					const index = this.#events.error.indexOf(callback);
+					const index = this._events.error.indexOf(callback);
 					if (index > -1) {
-						this.#events.error.splice(index, 1);
+						this._events.error.splice(index, 1);
 					}
 				}
 				break;
 			case 'session_update':
 				{
-					const index = this.#events.update.indexOf(callback);
+					const index = this._events.session_update.indexOf(callback);
 					if (index > -1) {
-						this.#events.update.splice(index, 1);
+						this._events.session_update.splice(index, 1);
 					}
 				}
 				break;
 			case 'call_request':
 				{
-					const index = this.#events.update.indexOf(callback);
+					const index = this._events.call_request.indexOf(callback);
 					if (index > -1) {
-						this.#events.update.splice(index, 1);
+						this._events.call_request.splice(index, 1);
+					}
+				}
+				break;
+			case 'session_request':
+				{
+					const index = this._events.session_request.indexOf(callback);
+					if (index > -1) {
+						this._events.session_request.splice(index, 1);
 					}
 				}
 				break;
