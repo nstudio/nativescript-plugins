@@ -3,5 +3,5 @@ repositories {
 }
 
 dependencies {
-  implementation "com.onfido.sdk.capture:onfido-capture-sdk:11.3.0"
+  implementation "com.onfido.sdk.capture:onfido-capture-sdk:13.2.0"
 }
