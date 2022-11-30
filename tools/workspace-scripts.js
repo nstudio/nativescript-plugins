@@ -262,6 +262,13 @@ module.exports = {
 					description: '@nstudio/nativescript-carousel: Build',
 				},
 			},
+			// @nstudio/nativescript-persona
+			'nativescript-persona': {
+				build: {
+					script: 'nx run nativescript-persona:build.all',
+					description: '@nstudio/nativescript-persona: Build',
+				}
+			},
 			// @nstudio/nativescript-walletconnect
 			'nativescript-walletconnect': {
 				build: {
@@ -366,6 +373,10 @@ module.exports = {
 			'nativescript-carousel': {
 				script: 'nx run nativescript-carousel:focus',
 				description: 'Focus on @nstudio/nativescript-carousel',
+			},
+			'nativescript-persona': {
+				script: 'nx run nativescript-persona:focus',
+				description: 'Focus on @nstudio/nativescript-persona',
 			},
 			'nativescript-walletconnect': {
 				script: 'nx run nativescript-walletconnect:focus',

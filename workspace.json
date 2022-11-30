@@ -24,6 +24,7 @@
 		"nativescript-intercom": "packages/nativescript-intercom",
 		"nativescript-loading-indicator": "packages/nativescript-loading-indicator",
 		"nativescript-onfido": "packages/nativescript-onfido",
+    "nativescript-persona": "packages/nativescript-persona",
 		"nativescript-plaid": "packages/nativescript-plaid",
 		"nativescript-qr": "packages/nativescript-qr",
 		"nativescript-tracking-transparency": "packages/nativescript-tracking-transparency",

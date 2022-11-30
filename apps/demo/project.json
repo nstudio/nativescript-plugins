@@ -24,7 +24,7 @@
 			"executor": "@nativescript/nx:build",
 			"options": {
 				"platform": "ios",
-				 "noHmr": true
+				"noHmr": true
 			},
 			"dependsOn": [
 				{

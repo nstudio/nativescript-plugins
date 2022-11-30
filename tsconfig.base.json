@@ -96,6 +96,9 @@
       "@nstudio/nativescript-tracking-transparency": [
         "packages/nativescript-tracking-transparency/index.d.ts"
       ],
+      "@nstudio/nativescript-persona": [
+        "packages/nativescript-persona/index.d.ts"
+      ],
       "@nstudio/nativescript-walletconnect": [
         "packages/nativescript-walletconnect/index.d.ts"
       ]

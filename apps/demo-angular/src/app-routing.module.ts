@@ -24,6 +24,7 @@ const routes: Routes = [
 	{ path: 'nativescript-intercom', loadChildren: () => import('./plugin-demos/nativescript-intercom.module').then(m => m.NativescriptIntercomModule) },
 	{ path: 'nativescript-loading-indicator', loadChildren: () => import('./plugin-demos/nativescript-loading-indicator.module').then(m => m.NativescriptLoadingIndicatorModule) },
 	{ path: 'nativescript-onfido', loadChildren: () => import('./plugin-demos/nativescript-onfido.module').then(m => m.NativescriptOnfidoModule) },
+	{ path: 'nativescript-persona', loadChildren: () => import('./plugin-demos/nativescript-persona.module').then(m => m.NativescriptPersonaModule) },
 	{ path: 'nativescript-plaid', loadChildren: () => import('./plugin-demos/nativescript-plaid.module').then(m => m.NativescriptPlaidModule) },
 	{ path: 'nativescript-qr', loadChildren: () => import('./plugin-demos/nativescript-qr.module').then(m => m.NativescriptQrModule) },
 	{ path: 'nativescript-tracking-transparency', loadChildren: () => import('./plugin-demos/nativescript-tracking-transparency.module').then(m => m.NativescriptTrackingTransparencyModule) },
