@@ -9,6 +9,6 @@ export default {
 	},
 	appPath: 'src',
 	cli: {
-		packageManager: 'npm'
-	}
+		packageManager: 'npm',
+	},
 } as NativeScriptConfig;

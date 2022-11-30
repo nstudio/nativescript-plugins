@@ -1,0 +1,10 @@
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+dependencies {
+    implementation 'com.github.freshdesk:freshchat-android:5.3.2'
+}

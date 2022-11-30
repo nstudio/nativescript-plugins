@@ -2,101 +2,101 @@
 @import 'nativescript-theme-core/scss/index';
 
 .flp-container .flp-list-container {
-  border-radius: 10;
-  background-color: white;
+	border-radius: 10;
+	background-color: white;
 }
 .flp-container .flp-heading-title {
-  font-size: 14;
-  color: gray;
-  text-align: center;
-  padding: 10;
+	font-size: 14;
+	color: gray;
+	text-align: center;
+	padding: 10;
 }
 .flp-container .flp-list-container .flp-listview {
-  background-color: white;
+	background-color: white;
 }
 
 .flp-container .flp-list-container .flp-listview .flp-row {
-  background-color: white;
-  padding: 10;
+	background-color: white;
+	padding: 10;
 }
 /* .flp-container .flp-list-container .flp-listview .flp-row .flp-row-container {
   padding: 10;
 } */
 .flp-container .flp-list-container .flp-listview .flp-row .flp-image {
-  margin: 10 0 10 5;
+	margin: 10 0 10 5;
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-title-container {
-  margin: 10 10 10 5;
-  /* margin: 0 10 0 10; */
+	margin: 10 10 10 5;
+	/* margin: 0 10 0 10; */
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-title-container .flp-title {
-  font-weight: bold; 
-  font-size: 16;
+	font-weight: bold;
+	font-size: 16;
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-title-container .flp-description {
-  color: gray; 
-  font-size: 13;
+	color: gray;
+	font-size: 13;
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-title-container .flp-no-title {
-  margin-left: 15; 
-  padding: 10 0;
+	margin-left: 15;
+	padding: 10 0;
 }
 .flp-container .flp-list-container .flp-listview .flp-row .flp-item-selected {
-  color: lightblue;
+	color: lightblue;
 }
 
 .flp-container .flp-hint-field {
-  padding: 10 15; 
-  height: 40; 
-  background-color: #E0E0E0; 
-  border-radius: 10;
+	padding: 10 15;
+	height: 40;
+	background-color: #e0e0e0;
+	border-radius: 10;
 }
 
 .flp-container .flp-cancel-container {
-  background-color: #E0E0E0; 
-  height: 40; 
-  border-radius: 0 0 10 10;
+	background-color: #e0e0e0;
+	height: 40;
+	border-radius: 0 0 10 10;
 }
 
 .flp-container .flp-cancel-container .flp-btn-cancel {
-  font-weight: bold; 
-  height: 40; 
-  background-color: transparent; 
-  border-color: transparent; 
-  border-width: 1; 
-  font-size: 12;
+	font-weight: bold;
+	height: 40;
+	background-color: transparent;
+	border-color: transparent;
+	border-width: 1;
+	font-size: 12;
 }
 
 CheckBox {
-  vertical-align: center;
-  color: white;
-  font-size: 20;
+	vertical-align: center;
+	color: white;
+	font-size: 20;
 }
 
 .listitem {
-  vertical-align: center;
-  horizontal-align: left;
-  margin-bottom: 10;
-  width: 100%;
-  background-color: transparent;
+	vertical-align: center;
+	horizontal-align: left;
+	margin-bottom: 10;
+	width: 100%;
+	background-color: transparent;
 }
 
 #slide1 {
-  background: linear-gradient(45deg, #eb3349, #f45c43);
-  vertical-align: center;
+	background: linear-gradient(45deg, #eb3349, #f45c43);
+	vertical-align: center;
 }
 
 #slide2 {
-  background: linear-gradient(-45deg, #1d976c, #93f9b9);
-  vertical-align: center;
+	background: linear-gradient(-45deg, #1d976c, #93f9b9);
+	vertical-align: center;
 }
 
 #slide3 {
-  background: linear-gradient(45deg, #1d2b64, #f8cdda);
-  vertical-align: center;
+	background: linear-gradient(45deg, #1d2b64, #f8cdda);
+	vertical-align: center;
 }
 
 #slide4 {
-  background: linear-gradient(tobottom, #003973, #e5e5be);
-  vertical-align: center;
+	background: linear-gradient(tobottom, #003973, #e5e5be);
+	vertical-align: center;
 }
