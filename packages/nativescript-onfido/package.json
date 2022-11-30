@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-onfido",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0",
   "description": "Onfido SDK for NativeScript",
   "main": "index",
   "typings": "index.d.ts",

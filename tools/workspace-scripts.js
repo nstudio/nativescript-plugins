@@ -267,6 +267,13 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-persona:build.all',
 					description: '@nstudio/nativescript-persona: Build',
+				}
+			},
+			// @nstudio/nativescript-walletconnect
+			'nativescript-walletconnect': {
+				build: {
+					script: 'nx run nativescript-walletconnect:build.all',
+					description: '@nstudio/nativescript-walletconnect: Build',
 				},
 			},
 			'build-all': {
@@ -370,6 +377,10 @@ module.exports = {
 			'nativescript-persona': {
 				script: 'nx run nativescript-persona:focus',
 				description: 'Focus on @nstudio/nativescript-persona',
+			},
+			'nativescript-walletconnect': {
+				script: 'nx run nativescript-walletconnect:focus',
+				description: 'Focus on @nstudio/nativescript-walletconnect',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

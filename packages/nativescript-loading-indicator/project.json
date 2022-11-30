@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-loading-indicator",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "packages/nativescript-loading-indicator",
 	"targets": {

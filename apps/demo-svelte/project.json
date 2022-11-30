@@ -1,5 +1,5 @@
 {
-	"root": "apps/demo-svelte/",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "apps/demo-svelte/app",
 	"projectType": "application",
 	"prefix": "demo",

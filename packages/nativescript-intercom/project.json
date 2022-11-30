@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-intercom",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "packages/nativescript-intercom",
 	"targets": {

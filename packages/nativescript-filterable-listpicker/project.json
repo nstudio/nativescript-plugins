@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-filterable-listpicker",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/nativescript-filterable-listpicker",
 	"projectType": "library",
 	"generators": {},

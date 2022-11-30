@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-exoplayer",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/nativescript-exoplayer",
 	"projectType": "library",
 	"generators": {},
