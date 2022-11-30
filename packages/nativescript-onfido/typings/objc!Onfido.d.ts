@@ -1,4 +1,11 @@
 
+declare class ActiveVideoStepConfiguration extends NSObject {
+
+	static alloc(): ActiveVideoStepConfiguration; // inherited from NSObject
+
+	static new(): ActiveVideoStepConfiguration; // inherited from NSObject
+}
+
 interface AutoCaptureConfig {
 
 	manualFallbackTimeInMilliseconds: number;
@@ -22,6 +29,10 @@ declare class Builder extends NSObject {
 	static new(): Builder; // inherited from NSObject
 
 	buildAndReturnError(): ONFaceStepVariantConfig;
+
+	withActiveVideoCapture(): Builder;
+
+	withMotion(): Builder;
 
 	withPhotoCaptureWithConfig(config: PhotoStepConfiguration): Builder;
 
@@ -53,6 +64,8 @@ declare class DocumentConfigBuilder extends NSObject {
 	static new(): DocumentConfigBuilder; // inherited from NSObject
 
 	buildAndReturnError(): ONDocumentTypeVariantConfig;
+
+	withDocumentStepWithSelectableDocumentTypes(selectableDocumentTypes: NSArray<any> | any[]): DocumentConfigBuilder;
 
 	withDrivingLicenceWithConfig(config: DrivingLicenceConfiguration): DocumentConfigBuilder;
 
@@ -115,7 +128,9 @@ declare const enum FaceResultVariant {
 
 	Photo = 0,
 
-	Video = 1
+	Video = 1,
+
+	Motion = 2
 }
 
 declare class GenericDocumentConfiguration extends BaseDocumentConfiguration {
@@ -123,24 +138,6 @@ declare class GenericDocumentConfiguration extends BaseDocumentConfiguration {
 	static alloc(): GenericDocumentConfiguration; // inherited from NSObject
 
 	static new(): GenericDocumentConfiguration; // inherited from NSObject
-}
-
-declare class GlareDetection extends NSObject {
-
-	static alloc(): GlareDetection; // inherited from NSObject
-
-	static new(): GlareDetection; // inherited from NSObject
-
-	detect(image: UIImage): boolean;
-}
-
-declare class MRZExtraction extends NSObject {
-
-	static alloc(): MRZExtraction; // inherited from NSObject
-
-	static new(): MRZExtraction; // inherited from NSObject
-
-	extractFromImageWithThreshold(image: UIImage, threshold: number): NSArray<any>;
 }
 
 declare class NationalIdentityConfiguration extends BaseDocumentConfiguration {
@@ -193,29 +190,27 @@ declare class ONAppearance extends NSObject {
 
 	static new(): ONAppearance; // inherited from NSObject
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; buttonCornerRadius: number; fontRegular: string; fontBold: string; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	bubbleErrorBackgroundColor: UIColor;
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; buttonCornerRadius: number; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	buttonCornerRadius: number;
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; fontRegular: string; fontBold: string; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	captureSuccessColors: ONCaptureSuccessColors;
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; secondaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	fontBold: string;
 
-	constructor(o: { primaryColor: UIColor; primaryTitleColor: UIColor; primaryBackgroundPressedColor: UIColor; supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	fontRegular: string;
 
-	constructor(o: { supportDarkMode: boolean; captureSuccessColors: ONCaptureSuccessColors; });
+	primaryBackgroundPressedColor: UIColor;
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorButtonCornerRadiusFontRegularFontBoldSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, buttonCornerRadius: number, fontRegular: string, fontBold: string, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+	primaryColor: UIColor;
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorButtonCornerRadiusSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, buttonCornerRadius: number, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+	primaryTitleColor: UIColor;
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorFontRegularFontBoldSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, fontRegular: string, fontBold: string, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+	secondaryBackgroundPressedColor: UIColor;
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSecondaryBackgroundPressedColorSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, secondaryBackgroundPressedColor: UIColor, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+	secondaryTitleColor: UIColor;
 
-	initWithPrimaryColorPrimaryTitleColorPrimaryBackgroundPressedColorSupportDarkModeCaptureSuccessColors(primaryColor: UIColor, primaryTitleColor: UIColor, primaryBackgroundPressedColor: UIColor, supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
-
-	initWithSupportDarkModeCaptureSuccessColors(supportDarkMode: boolean, captureSuccessColors: ONCaptureSuccessColors): this;
+	supportDarkMode: boolean;
 }
 
 declare class ONCaptureSuccessColors extends NSObject {
@@ -224,7 +219,11 @@ declare class ONCaptureSuccessColors extends NSObject {
 
 	static new(): ONCaptureSuccessColors; // inherited from NSObject
 
-	static readonly defaultColors: ONCaptureSuccessColors;
+	borderColor: UIColor;
+
+	tickViewBackgroundColor: UIColor;
+
+	tickViewImageTintColor: UIColor;
 }
 
 declare class ONCertificatePinningConfiguration extends NSObject {
@@ -289,10 +288,6 @@ declare class ONEnterpriseFeatures extends NSObject {
 	static builder(): ONEnterpriseFeaturesBuilder;
 
 	static new(): ONEnterpriseFeatures; // inherited from NSObject
-
-	constructor(o: { hideOnfidoLogo: boolean; });
-
-	initWithHideOnfidoLogo(hideOnfidoLogo: boolean): this;
 }
 
 declare class ONEnterpriseFeaturesBuilder extends NSObject {
@@ -379,13 +374,9 @@ declare class ONFlowConfigBuilder extends NSObject {
 
 	withAppearance(appearance: ONAppearance): void;
 
-	withApplicantId(applicantId: string): void;
-
 	withCanadianDrivingLicenceAutoCaptureBetaFeatureEnabled(): void;
 
 	withCertificatePinningConfiguration(configuration: ONCertificatePinningConfiguration): void;
-
-	withConsentStep(): void;
 
 	withCustomLocalization(): void;
 
@@ -403,38 +394,34 @@ declare class ONFlowConfigBuilder extends NSObject {
 
 	withFaceStepOfVariant(variant: ONFaceStepVariantConfig): void;
 
-	withPassportNFCReadBetaFeatureEnabled(): void;
+	withNFCReadBetaFeatureEnabled(): void;
+
+	withProofOfAddressStep(): void;
 
 	withSdkToken(sdkToken: string): void;
 
 	withSdkTokenExpireHandler(sdkToken: string, expireHandler: (p1: (p1: string) => void) => void): void;
-
-	withToken(token: string): void;
 
 	withWelcomeStep(): void;
 }
 
 declare const enum ONFlowConfigError {
 
-	MissingToken = 0,
+	MissingSDKToken = 0,
 
-	MissingSteps = 1,
+	InvalidSDKToken = 1,
 
-	MissingApplicant = 2,
+	MissingSteps = 2,
 
-	MutlipleTokenTypes = 3,
+	InvalidDocumentFormatAndCountryCombination = 3,
 
-	ApplicantProvidedWithSDKToken = 4,
+	InvalidCountryCode = 4,
 
-	InvalidDocumentFormatAndCountryCombination = 5,
+	EnterpriseFeaturesNotAuthorized = 5,
 
-	InvalidCountryCode = 6,
+	SelectedEnterpriseFeatureNotAuthorized = 6,
 
-	EnterpriseFeaturesNotAuthorized = 7,
-
-	SelectedEnterpriseFeatureNotAuthorized = 8,
-
-	EnterpriseFeatureProvidedWithMobileToken = 9
+	EnterpriseFeatureProvidedWithMobileToken = 7
 }
 
 declare const enum ONFlowError {
@@ -478,7 +465,9 @@ declare const enum ONFlowResultType {
 
 	Document = 0,
 
-	Face = 1
+	Face = 1,
+
+	ProofOfAddress = 2
 }
 
 declare class ONIdNumberResult extends NSObject {
@@ -494,62 +483,17 @@ declare class ONIdNumberResult extends NSObject {
 	readonly value: string;
 }
 
-declare class OnfidoBlurDetection extends NSObject {
+declare class ONProofOfAddressResult extends NSObject {
 
-	static alloc(): OnfidoBlurDetection; // inherited from NSObject
+	static alloc(): ONProofOfAddressResult; // inherited from NSObject
 
-	static new(): OnfidoBlurDetection; // inherited from NSObject
+	static new(): ONProofOfAddressResult; // inherited from NSObject
 
-	detectWithThreshold(image: UIImage, threshold: number): OnfidoBlurDetectionResult;
-}
+	readonly id: string;
 
-declare class OnfidoBlurDetectionResult extends NSObject {
+	readonly issuingCountry: string;
 
-	static alloc(): OnfidoBlurDetectionResult; // inherited from NSObject
-
-	static new(): OnfidoBlurDetectionResult; // inherited from NSObject
-
-	readonly blurScore: number;
-
-	readonly hasBlur: boolean;
-
-	readonly threshold: number;
-
-	constructor(o: { hasBlur: boolean; andBlurScore: number; andThreshold: number; });
-
-	initWithHasBlurAndBlurScoreAndThreshold(hasBlur: boolean, blurScore: number, threshold: number): this;
-}
-
-declare class OnfidoEdgeDetection extends NSObject {
-
-	static alloc(): OnfidoEdgeDetection; // inherited from NSObject
-
-	static new(): OnfidoEdgeDetection; // inherited from NSObject
-
-	detect(image: UIImage): OnfidoEdgeDetectionResults;
-
-	setBoundingBox(rect: CGRect): void;
-}
-
-declare class OnfidoEdgeDetectionResults extends NSObject {
-
-	static alloc(): OnfidoEdgeDetectionResults; // inherited from NSObject
-
-	static new(): OnfidoEdgeDetectionResults; // inherited from NSObject
-
-	readonly bottomEdgeDetected: boolean;
-
-	readonly leftEdgeDetected: boolean;
-
-	readonly rightEdgeDetected: boolean;
-
-	readonly topEdgeDetected: boolean;
-
-	constructor(o: { topEdgeDetected: boolean; andBottomEdge: boolean; andLeftEdge: boolean; andRightEdge: boolean; });
-
-	initWithTopEdgeDetectedAndBottomEdgeAndLeftEdgeAndRightEdge(topEdge: boolean, bottomEdge: boolean, leftEdge: boolean, rightEdge: boolean): this;
-
-	numberOfEdgesDetected(): number;
+	readonly type: string;
 }
 
 declare function OnfidoGenerateUUIDString(): string;
@@ -1578,6 +1522,17 @@ declare class ResidencePermitConfiguration extends BaseDocumentConfiguration {
 	constructor(o: { country: string; });
 
 	initWithCountry(country: string): this;
+}
+
+declare const enum SelectableDocumentType {
+
+	Passport = 0,
+
+	DrivingLicence = 1,
+
+	IdentityCard = 2,
+
+	ResidencePermit = 3
 }
 
 declare class VideoStepConfiguration extends NSObject {

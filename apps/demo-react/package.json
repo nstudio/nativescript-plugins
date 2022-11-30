@@ -1,32 +1,32 @@
 {
-  "main": "./src/app.ts",
-  "dependencies": {
-    "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nstudio/nativescript-intercom": "file:../../packages/nativescript-intercom",
-    "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
-    "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
-    "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
-    "@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms",
-    "@nstudio/nativescript-barcodescanner": "file:../../packages/nativescript-barcodescanner",
-    "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur",
-    "@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
-    "@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
-    "@nstudio/nativescript-dynatrace": "file:../../packages/nativescript-dynatrace",
-    "@nstudio/nativescript-embrace": "file:../../packages/nativescript-embrace",
-    "@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
-    "@nstudio/nativescript-fancyalert": "file:../../packages/nativescript-fancyalert",
-    "@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
-    "@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
-    "@nstudio/nativescript-loading-indicator": "file:../../packages/nativescript-loading-indicator",
-    "@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
-    "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
-    "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
-    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel",
+	"main": "./src/app.ts",
+	"dependencies": {
+		"@nativescript/core": "file:../../node_modules/@nativescript/core",
+		"@nstudio/nativescript-intercom": "file:../../packages/nativescript-intercom",
+		"@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
+		"@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
+		"@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
+		"@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms",
+		"@nstudio/nativescript-barcodescanner": "file:../../packages/nativescript-barcodescanner",
+		"@nstudio/nativescript-blur": "file:../../packages/nativescript-blur",
+		"@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
+		"@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
+		"@nstudio/nativescript-dynatrace": "file:../../packages/nativescript-dynatrace",
+		"@nstudio/nativescript-embrace": "file:../../packages/nativescript-embrace",
+		"@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
+		"@nstudio/nativescript-fancyalert": "file:../../packages/nativescript-fancyalert",
+		"@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
+		"@nstudio/nativescript-input-mask": "file:../../packages/nativescript-input-mask",
+		"@nstudio/nativescript-loading-indicator": "file:../../packages/nativescript-loading-indicator",
+		"@nstudio/nativescript-onfido": "file:../../packages/nativescript-onfido",
+		"@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
+		"@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
+		"@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
+		"@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel",
     "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
-  },
-  "devDependencies": {
-    "@nativescript/android": "~8.2.0",
-    "@nativescript/ios": "~8.2.0"
-  }
+	},
+	"devDependencies": {
+		"@nativescript/android": "~8.3.0",
+		"@nativescript/ios": "~8.3.0"
+	}
 }

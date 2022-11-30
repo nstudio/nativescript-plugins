@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-camera-plus",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/nativescript-camera-plus",
 	"projectType": "library",
 	"generators": {},

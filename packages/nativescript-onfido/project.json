@@ -1,5 +1,5 @@
 {
-	"root": "packages/nativescript-onfido",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"sourceRoot": "packages/nativescript-onfido",
 	"projectType": "library",
 	"generators": {},
