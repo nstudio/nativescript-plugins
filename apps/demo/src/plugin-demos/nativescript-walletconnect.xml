@@ -1,0 +1,20 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="nativescript-walletconnect" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ScrollView class="h-full">
+          <StackLayout>
+            <Label text="{{ state }}" />
+            <Label text="{{ accounts }}" />
+            <TextView text="{{ wcurl }}" hint="Enter WCURL"/>
+            <Button text="Create Session" tap="{{ createSession }}" class="btn btn-primary"/>
+            <Button text="Approve Session" tap="{{ approveSession }}" class="btn btn-primary"/>
+            <Button text="Open WCUrl" tap="{{ openWCUrl }}" class="btn btn-primary"/>
+            <Button text="Reject Session" tap="{{ rejectSession }}" class="btn btn-primary"/>
+            <Button text="Disconnect" tap="{{ killSession }}" class="btn btn-primary"/>
+          </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

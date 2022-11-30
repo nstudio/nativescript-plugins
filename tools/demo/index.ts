@@ -20,3 +20,4 @@ export * from './nativescript-onfido';
 export * from './nativescript-plaid';
 export * from './nativescript-qr';
 export * from './nativescript-tracking-transparency';
+export * from './nativescript-walletconnect';

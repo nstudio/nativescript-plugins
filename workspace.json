@@ -26,7 +26,8 @@
 		"nativescript-onfido": "packages/nativescript-onfido",
 		"nativescript-plaid": "packages/nativescript-plaid",
 		"nativescript-qr": "packages/nativescript-qr",
-		"nativescript-tracking-transparency": "packages/nativescript-tracking-transparency"
+		"nativescript-tracking-transparency": "packages/nativescript-tracking-transparency",
+    "nativescript-walletconnect": "packages/nativescript-walletconnect"
 	},
 	"$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

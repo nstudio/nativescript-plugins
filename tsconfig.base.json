@@ -1,51 +1,108 @@
 {
-	"compilerOptions": {
-		"rootDir": ".",
-		"sourceMap": true,
-		"declaration": true,
-		"moduleResolution": "node",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"noEmitHelpers": true,
-		"jsx": "react",
-		"target": "es2017",
-		"module": "esnext",
-		"lib": ["es2017", "dom"],
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
-		"baseUrl": ".",
-		"plugins": [
-			{
-				"transform": "@nativescript/webpack/dist/transformers/NativeClass",
-				"type": "raw"
-			}
-		],
-		"paths": {
-			"@demo/shared": ["tools/demo/index.ts"],
-			"@nstudio/nativescript-airship": ["packages/nativescript-airship/index.d.ts"],
-			"@nstudio/nativescript-airship-adm": ["packages/nativescript-airship-adm/index.ts"],
-			"@nstudio/nativescript-airship-fcm": ["packages/nativescript-airship-fcm/index.ts"],
-			"@nstudio/nativescript-airship-hms": ["packages/nativescript-airship-hms/index.ts"],
-			"@nstudio/nativescript-barcodescanner": ["packages/nativescript-barcodescanner/index.d.ts"],
-			"@nstudio/nativescript-blur": ["packages/nativescript-blur/index.d.ts"],
-			"@nstudio/nativescript-camera-plus": ["packages/nativescript-camera-plus/index.d.ts"],
-			"@nstudio/nativescript-camera-plus/angular": ["packages/nativescript-camera-plus/angular/index.ts"],
-			"@nstudio/nativescript-carousel": ["packages/nativescript-carousel/index.d.ts"],
-			"@nstudio/nativescript-checkbox": ["packages/nativescript-checkbox/index.d.ts"],
-			"@nstudio/nativescript-checkbox/angular": ["packages/nativescript-checkbox/angular/index.ts"],
-			"@nstudio/nativescript-dynatrace": ["packages/nativescript-dynatrace/index.d.ts"],
-			"@nstudio/nativescript-embrace": ["packages/nativescript-embrace/index.d.ts"],
-			"@nstudio/nativescript-exoplayer": ["packages/nativescript-exoplayer/index.d.ts"],
-			"@nstudio/nativescript-fancyalert": ["packages/nativescript-fancyalert/index.d.ts"],
-			"@nstudio/nativescript-filterable-listpicker": ["packages/nativescript-filterable-listpicker/index.d.ts"],
-			"@nstudio/nativescript-input-mask": ["packages/nativescript-input-mask/index.d.ts"],
-			"@nstudio/nativescript-intercom": ["packages/nativescript-intercom/index.d.ts"],
-			"@nstudio/nativescript-loading-indicator": ["packages/nativescript-loading-indicator/index.d.ts"],
-			"@nstudio/nativescript-onfido": ["packages/nativescript-onfido/index.d.ts"],
-			"@nstudio/nativescript-plaid": ["packages/nativescript-plaid/index.d.ts"],
-			"@nstudio/nativescript-qr": ["packages/nativescript-qr/index.d.ts"],
-			"@nstudio/nativescript-tracking-transparency": ["packages/nativescript-tracking-transparency/index.d.ts"]
-		}
-	},
-	"exclude": ["node_modules", "tmp"]
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": false,
+    "jsx": "react",
+    "target": "es2017",
+    "module": "esnext",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "plugins": [
+      {
+        "transform": "@nativescript/webpack/dist/transformers/NativeClass",
+        "type": "raw"
+      }
+    ],
+    "paths": {
+      "@demo/shared": [
+        "tools/demo/index.ts"
+      ],
+      "@nstudio/nativescript-airship": [
+        "packages/nativescript-airship/index.d.ts"
+      ],
+      "@nstudio/nativescript-airship-adm": [
+        "packages/nativescript-airship-adm/index.ts"
+      ],
+      "@nstudio/nativescript-airship-fcm": [
+        "packages/nativescript-airship-fcm/index.ts"
+      ],
+      "@nstudio/nativescript-airship-hms": [
+        "packages/nativescript-airship-hms/index.ts"
+      ],
+      "@nstudio/nativescript-barcodescanner": [
+        "packages/nativescript-barcodescanner/index.d.ts"
+      ],
+      "@nstudio/nativescript-blur": [
+        "packages/nativescript-blur/index.d.ts"
+      ],
+      "@nstudio/nativescript-camera-plus": [
+        "packages/nativescript-camera-plus/index.d.ts"
+      ],
+      "@nstudio/nativescript-camera-plus/angular": [
+        "packages/nativescript-camera-plus/angular/index.ts"
+      ],
+      "@nstudio/nativescript-carousel": [
+        "packages/nativescript-carousel/index.d.ts"
+      ],
+      "@nstudio/nativescript-checkbox": [
+        "packages/nativescript-checkbox/index.d.ts"
+      ],
+      "@nstudio/nativescript-checkbox/angular": [
+        "packages/nativescript-checkbox/angular/index.ts"
+      ],
+      "@nstudio/nativescript-dynatrace": [
+        "packages/nativescript-dynatrace/index.d.ts"
+      ],
+      "@nstudio/nativescript-embrace": [
+        "packages/nativescript-embrace/index.d.ts"
+      ],
+      "@nstudio/nativescript-exoplayer": [
+        "packages/nativescript-exoplayer/index.d.ts"
+      ],
+      "@nstudio/nativescript-fancyalert": [
+        "packages/nativescript-fancyalert/index.d.ts"
+      ],
+      "@nstudio/nativescript-filterable-listpicker": [
+        "packages/nativescript-filterable-listpicker/index.d.ts"
+      ],
+      "@nstudio/nativescript-input-mask": [
+        "packages/nativescript-input-mask/index.d.ts"
+      ],
+      "@nstudio/nativescript-intercom": [
+        "packages/nativescript-intercom/index.d.ts"
+      ],
+      "@nstudio/nativescript-loading-indicator": [
+        "packages/nativescript-loading-indicator/index.d.ts"
+      ],
+      "@nstudio/nativescript-onfido": [
+        "packages/nativescript-onfido/index.d.ts"
+      ],
+      "@nstudio/nativescript-plaid": [
+        "packages/nativescript-plaid/index.d.ts"
+      ],
+      "@nstudio/nativescript-qr": [
+        "packages/nativescript-qr/index.d.ts"
+      ],
+      "@nstudio/nativescript-tracking-transparency": [
+        "packages/nativescript-tracking-transparency/index.d.ts"
+      ],
+      "@nstudio/nativescript-walletconnect": [
+        "packages/nativescript-walletconnect/index.d.ts"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
