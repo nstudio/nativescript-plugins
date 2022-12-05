@@ -6,7 +6,11 @@
     <StackLayout class="p-20">
         <ScrollView class="h-full">
           <StackLayout>
-            <Button text="Test nativescript-freshchat" tap="{{ testIt }}" class="btn btn-primary"/>
+            <Button text="Init Fresh Chat" tap="{{ initFreshChat }}" class="btn btn-primary"/>
+            <Button text="Set User" tap="{{ setUser }}" class="btn btn-primary"/>
+            <Button text="Show Conversations" tap="{{ showConversations }}" class="btn btn-primary"/>
+            <Button text="Set External ID" tap="{{ setExternalID }}" class="btn btn-primary"/>
+            <Button text="Get Restore ID" tap="{{ getRestoreID }}" class="btn btn-primary"/>
 
           </StackLayout>
         </ScrollView>
