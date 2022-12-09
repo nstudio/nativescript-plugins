@@ -409,11 +409,15 @@ export class Video extends VideoBase {
 			this._openVideo();
 		} else if (this.playState === com.google.android.exoplayer2.Player.STATE_ENDED) {
 			this.eventPlaybackStart = false;
-			this.player.seekToDefaultPosition();
+			if (this.player) {
+				this.player.seekToDefaultPosition();
+			}
 		}
-		this.player.prepare();
-		this.player.setPlayWhenReady(true);
-		this.startCurrentTimer();
+		if (this.player) {
+			this.player.prepare();
+			this.player.setPlayWhenReady(true);
+			this.startCurrentTimer();
+		}
 	}
 
 	pause() {
@@ -546,14 +550,16 @@ export class Video extends VideoBase {
 	}
 
 	startCurrentTimer() {
-		console.log('[EXOPLAYER] startCurrentTimer');
+		// console.log('[EXOPLAYER] startCurrentTimer');
 		if (this.interval) {
 			return;
 		}
 		this.lastTimerUpdate = -1;
 		const that = new WeakRef(this);
 		this.interval = <any>setInterval(function () {
-			that.get().fireCurrentTimeEvent();
+			if (that?.get()) {
+				that.get().fireCurrentTimeEvent();
+			}
 		}, 200);
 	}
 
@@ -573,7 +579,7 @@ export class Video extends VideoBase {
 	}
 
 	stopCurrentTimer() {
-		if (this.interval) {
+		if (typeof this.interval === 'number') {
 			clearInterval(this.interval);
 			this.interval = null;
 		}
