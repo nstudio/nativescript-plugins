@@ -9,6 +9,11 @@ export * from './common';
 
 declare const ASBPlayerSubtitling;
 
+const rootVC = function () {
+	const appWindow = UIApplication.sharedApplication.keyWindow;
+	return Utils.ios.getVisibleViewController(appWindow.rootViewController);
+};
+
 export class Video extends VideoBase {
 	private _player: AVPlayer;
 	private _playerController: AVPlayerViewController;
@@ -52,7 +57,7 @@ export class Video extends VideoBase {
 
 		// showsPlaybackControls must be set to false on init to avoid any potential 'Unable to simultaneously satisfy constraints' errors
 		this._playerController.showsPlaybackControls = false;
-		this.nativeView = this._playerController.view;
+		//this.nativeView = this._playerController.view;
 		this._observer = PlayerObserverClass.new();
 		this._observer['_owner'] = this;
 		this._videoFinished = false;
@@ -63,6 +68,15 @@ export class Video extends VideoBase {
 
 			this._setupSubtitleLabel();
 		}
+	}
+
+	createNativeView() {
+		const vc = rootVC();
+		if (vc) {
+			vc.addChildViewController(this._playerController);
+			this._playerController.didMoveToParentViewController(vc);
+		}
+		return this._playerController.view;
 	}
 
 	[videoSourceProperty.setNative](value: AVPlayerItem) {
