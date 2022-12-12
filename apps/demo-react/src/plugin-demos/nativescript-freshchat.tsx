@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dialogs } from '@nativescript/core';
 import { StyleSheet } from "react-nativescript";
-import { DemoSharedNativescriptFreshchat } from '@demo/shared';
+import { DemoSharedFreshChatSDK } from '@demo/shared';
 import { } from '@nstudio/nativescript-freshchat';
 
 export function HomeScreen() {

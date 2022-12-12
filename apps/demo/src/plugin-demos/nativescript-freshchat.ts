@@ -1,5 +1,5 @@
 import { Observable, EventData, Page } from '@nativescript/core';
-import { DemoSharedNativescriptFreshchat } from '@demo/shared';
+import { DemoSharedFreshChatSDK } from '@demo/shared';
 import { } from '@nstudio/nativescript-freshchat';
 
 export function navigatingTo(args: EventData) {
@@ -7,6 +7,6 @@ export function navigatingTo(args: EventData) {
 	page.bindingContext = new DemoModel();
 }
 
-export class DemoModel extends DemoSharedNativescriptFreshchat {
+export class DemoModel extends DemoSharedFreshChatSDK {
 	
 }

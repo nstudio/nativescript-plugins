@@ -9,19 +9,19 @@ export interface FreshchatFAQOptions {
     title: string
     type: 'ARTICLE'|'CATEGORY'
   }
-  filterContactUsBytags?: {
+  filterContactUsByTags?: {
     tags: Array<any>
     title: string
   }
 }
 
-export class NativescriptFreshchatCommon extends Observable {
+export class FreshChatSDKCommon extends Observable {
   public static hasInit: boolean;
   public static hasntInitErrorMessage: string = 'You must call `init` before invoking this method.';
 
   public static checkInit(): boolean {
-    if (!NativescriptFreshchatCommon.hasInit) {
-      console.log(NativescriptFreshchatCommon.hasntInitErrorMessage);
+    if (!FreshChatSDKCommon.hasInit) {
+      console.log(FreshChatSDKCommon.hasntInitErrorMessage);
       return false
     } else {
       return true;

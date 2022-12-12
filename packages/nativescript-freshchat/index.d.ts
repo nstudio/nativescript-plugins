@@ -1,6 +1,6 @@
-import { FreshchatFAQOptions, NativescriptFreshchatCommon } from './common';
+import { FreshchatFAQOptions, FreshChatSDKCommon } from './common';
 
-export declare class NativescriptFreshchat extends NativescriptFreshchatCommon {
+export declare class FreshChatSDK extends FreshChatSDKCommon {
 
   public hasInit: boolean;
   public static init(appID: string, appKey: string, domain: string): boolean;

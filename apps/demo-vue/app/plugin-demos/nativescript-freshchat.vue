@@ -12,7 +12,7 @@
 
 <script lang="ts">
   import Vue from "nativescript-vue";
-  import { DemoSharedNativescriptFreshchat } from '@demo/shared';
+  import { DemoSharedFreshChatSDK } from '@demo/shared';
   import { } from '@nstudio/nativescript-freshchat';
 
   export default Vue.extend({

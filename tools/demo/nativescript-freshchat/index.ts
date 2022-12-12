@@ -1,17 +1,20 @@
 import { DemoSharedBase } from '../utils';
-import { NativescriptFreshchat } from '@nstudio/nativescript-freshchat';
+import { FreshChatSDK } from '@nstudio/nativescript-freshchat';
 
-export class DemoSharedNativescriptFreshchat extends DemoSharedBase {
+export class DemoSharedFreshChatSDK extends DemoSharedBase {
 
 
 
   initFreshChat() {
-    NativescriptFreshchat.init('c3873dc0-2997-4253-b976-841f7f7344bb', '3f151424-a3d8-4deb-8315-7e410c9949e9', 'msdk.freshchat.com');
+    let appID = 'YOURAPPID';
+    let appKey = 'YOURAPPKEY';
+    let domain = 'YOURDOMAIN.com'
+    FreshChatSDK.init(appID, appKey, domain);
     alert('Freshchat initted.')
   }
 
   setUser() {
-    let user = NativescriptFreshchat.setUser({
+    let user = FreshChatSDK.setUser({
       firstName: 'Dave',
       lastName: 'Coffin',
       email: 'dave@davecoffin.com',
@@ -23,11 +26,18 @@ export class DemoSharedNativescriptFreshchat extends DemoSharedBase {
   }
 
   resetUser() {
-    if (NativescriptFreshchat.resetUser()) alert('user reset');
+    if (FreshChatSDK.resetUser()) alert('user reset');
+  }
+
+  trackEvent() {
+    FreshChatSDK.trackEvent('tookPicture', {
+      time: new Date(),
+      foo: 'bar'
+    })
   }
 
   setUserProperties() {
-    let setProps = NativescriptFreshchat.setUserProperties({
+    let setProps = FreshChatSDK.setUserProperties({
       old: true,
       isCool: false
     })
@@ -38,33 +48,33 @@ export class DemoSharedNativescriptFreshchat extends DemoSharedBase {
     // You can pass in an array of "tags" to filter conversations.
     let tags;
     tags = ['foo', 'bar'];
-    NativescriptFreshchat.showConversations(tags);
+    FreshChatSDK.showConversations(tags);
   }
 
   setExternalID() {
-    let identified = NativescriptFreshchat.identifyUser('1234', null)
+    let identified = FreshChatSDK.identifyUser('1234', null)
     if (identified) alert('External ID set to 1234')
   }
 
   getRestoreID() {
     // save this ID in your backend, and you can use it along with your external ID to restore conversations across platforms.
-    alert(NativescriptFreshchat.getRestoreID());
+    alert(FreshChatSDK.getRestoreID());
   }
 
   sendMessage() {
     let msg = 'How do I win at chess?';
-    NativescriptFreshchat.sendMessage(msg, 'foo')
+    FreshChatSDK.sendMessage(msg, 'foo')
     this.showConversations();
   }
 
   getUnreadCount() {
-    NativescriptFreshchat.getUnreadCount((count) => {
+    FreshChatSDK.getUnreadCount((count) => {
       alert('Count is ' + count);
     })
   }
 
   showFAQs() {
-    NativescriptFreshchat.showFAQs({
+    FreshChatSDK.showFAQs({
       showContactUsOnAppBar: true,
       showFaqCategoriesAsGrid: true,
       filterByTags: {

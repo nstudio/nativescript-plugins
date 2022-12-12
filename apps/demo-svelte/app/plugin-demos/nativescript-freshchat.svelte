@@ -6,7 +6,7 @@
 </page>
 
 <script lang="typescript">
-    import { DemoSharedNativescriptFreshchat } from '@demo/shared';
+    import { DemoSharedFreshChatSDK } from '@demo/shared';
     import { } from '@nstudio/nativescript-freshchat';
 
     let message: string = "Test nativescript-freshchat"
