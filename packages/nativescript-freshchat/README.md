@@ -4,6 +4,10 @@
 ns plugin add @nstudio/nativescript-freshchat
 ```
 
+### Reference
+ios SDK: https://support.freshchat.com/en/support/solutions/articles/50000000048-freshchat-ios-sdk-integration-steps
+android sdk: https://support.freshchat.com/en/support/solutions/articles/50000000207-freshchat-android-sdk-integration-steps
+
 ## Usage
 
 The first step is to call the init method, I would recommend calling it as early as possible in your app life cycle. 
