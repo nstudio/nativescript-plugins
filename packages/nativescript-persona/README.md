@@ -1,7 +1,7 @@
 # @nstudio/nativescript-persona
 
 ```javascript
-ns plugin add @nstudio/nativescript-persona
+npm install @nstudio/nativescript-persona
 ```
 
 ## Usage

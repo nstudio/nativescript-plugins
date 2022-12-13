@@ -1,7 +1,7 @@
 # @nstudio/nativescript-walletconnect
 
 ```javascript
-ns plugin add @nstudio/nativescript-walletconnect
+npm install @nstudio/nativescript-walletconnect
 ```
 
 minSdk 23

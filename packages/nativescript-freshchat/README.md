@@ -1,7 +1,7 @@
 # @nstudio/nativescript-freshchat
 
 ```javascript
-ns plugin add @nstudio/nativescript-freshchat
+npm install @nstudio/nativescript-freshchat
 ```
 
 ### Reference
@@ -28,7 +28,7 @@ You can get basic user information at any point to give you more context on the 
 let user = FreshChatSDK.setUser({
   firstName: 'Dave',
   lastName: 'Coffin',
-  email: 'dave@davecoffin.com',
+  email: 'dave@hello.com',
   phoneCountryCode: '1',
   phoneNumber: '2075762034'
 })
