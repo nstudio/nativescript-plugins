@@ -75,6 +75,9 @@
       "@nstudio/nativescript-filterable-listpicker": [
         "packages/nativescript-filterable-listpicker/index.d.ts"
       ],
+      "@nstudio/nativescript-freshchat": [
+        "packages/nativescript-freshchat/index.d.ts"
+      ],
       "@nstudio/nativescript-input-mask": [
         "packages/nativescript-input-mask/index.d.ts"
       ],
@@ -87,6 +90,9 @@
       "@nstudio/nativescript-onfido": [
         "packages/nativescript-onfido/index.d.ts"
       ],
+      "@nstudio/nativescript-persona": [
+        "packages/nativescript-persona/index.d.ts"
+      ],
       "@nstudio/nativescript-plaid": [
         "packages/nativescript-plaid/index.d.ts"
       ],
@@ -95,9 +101,6 @@
       ],
       "@nstudio/nativescript-tracking-transparency": [
         "packages/nativescript-tracking-transparency/index.d.ts"
-      ],
-      "@nstudio/nativescript-persona": [
-        "packages/nativescript-persona/index.d.ts"
       ],
       "@nstudio/nativescript-walletconnect": [
         "packages/nativescript-walletconnect/index.d.ts"

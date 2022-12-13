@@ -276,6 +276,13 @@ module.exports = {
 					description: '@nstudio/nativescript-walletconnect: Build',
 				},
 			},
+			// @nstudio/nativescript-freshchat
+			'nativescript-freshchat': {
+				build: {
+					script: 'nx run nativescript-freshchat:build.all',
+					description: '@nstudio/nativescript-freshchat: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -381,6 +388,10 @@ module.exports = {
 			'nativescript-walletconnect': {
 				script: 'nx run nativescript-walletconnect:focus',
 				description: 'Focus on @nstudio/nativescript-walletconnect',
+			},
+			'nativescript-freshchat': {
+				script: 'nx run nativescript-freshchat:focus',
+				description: 'Focus on @nstudio/nativescript-freshchat',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

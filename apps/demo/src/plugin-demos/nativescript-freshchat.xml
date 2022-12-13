@@ -1,0 +1,22 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="nativescript-freshchat" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ScrollView class="h-full">
+          <StackLayout>
+            <Button text="Init Fresh Chat" tap="{{ initFreshChat }}" class="btn btn-primary"/>
+            <Button text="Set User" tap="{{ setUser }}" class="btn btn-primary"/>
+            <Button text="Set User Properties" tap="{{ setUserProperties }}" class="btn btn-primary"/>
+            <Button text="ReSet User" tap="{{ resetUser }}" class="btn btn-primary"/>
+            <Button text="Show Conversations" tap="{{ showConversations }}" class="btn btn-primary"/>
+            <Button text="Set External ID" tap="{{ setExternalID }}" class="btn btn-primary"/>
+            <Button text="Get Restore ID" tap="{{ getRestoreID }}" class="btn btn-primary"/>
+            <Button text="Send Message on Behalf of User" tap="{{ sendMessage }}" class="btn btn-primary"/>
+            <Button text="Get Unread Count" tap="{{ getUnreadCount }}" class="btn btn-primary"/>
+            <Button text="Show FAQs" tap="{{ showFAQs }}" class="btn btn-primary"/>
+          </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

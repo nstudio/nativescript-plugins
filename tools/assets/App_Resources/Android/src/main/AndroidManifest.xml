@@ -35,7 +35,6 @@
         tools:replace="android:value" />
 
 		<activity
-			android:exported="true"
 			android:name="com.tns.NativeScriptActivity"
 			android:label="@string/title_activity_kimera"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
