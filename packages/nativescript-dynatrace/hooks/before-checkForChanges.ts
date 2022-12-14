@@ -27,7 +27,7 @@ module.exports = function (androidResourcesMigrationService: IAndroidResourcesMi
 			let write = false;
 
 			if (buildGradleContent.indexOf('com.dynatrace.tools.android:gradle-plugin') === -1) {
-				buildGradleContent = buildGradleContent.replace(//\bdependencies\b\s*{/, dynatrace);
+				buildGradleContent = buildGradleContent.replace(/\bdependencies\b\s*{/, dynatrace);
 				write = true;
 			}
 
