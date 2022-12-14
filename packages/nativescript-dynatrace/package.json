@@ -1,57 +1,57 @@
 {
-	"name": "@nstudio/nativescript-dynatrace",
-	"version": "1.0.0-rc.1",
-	"description": "DynaTrace SDK for iOS/Android with NativeScript",
-	"main": "index",
-	"typings": "index.d.ts",
-	"nativescript": {
-		"platforms": {
-			"ios": "6.0.0",
-			"android": "6.0.0"
-		},
-		"hooks": [
-			{
-				"name": "nstudio-nativescript-dynatrace",
-				"type": "before-checkForChanges",
-				"script": "hooks/before-checkForChanges.js",
-				"inject": true
-			},
-			{
-				"name": "nstudio-nativescript-dynatrace",
-				"type": "before-watchPatterns",
-				"script": "hooks/before-watchPatterns.js",
-				"inject": true
-			}
-		]
-	},
-	"scripts": {
-		"preuninstall": "node preuninstall",
-		"postinstall": "node postinstall"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/nstudio/nativescript-plugins.git"
-	},
-	"keywords": [
-		"NativeScript",
-		"JavaScript",
-		"TypeScript",
-		"iOS",
-		"Android"
-	],
-	"author": {
-		"name": "nStudio",
-		"email": "oss@nstudio.io"
-	},
-	"bugs": {
-		"url": "https://github.com/nstudio/nativescript-plugins/issues"
-	},
-	"license": "Apache-2.0",
-	"homepage": "https://github.com/nstudio/nativescript-plugins",
-	"readmeFilename": "README.md",
-	"bootstrapper": "@nativescript/plugin-seed",
-	"dependencies": {
-		"nativescript-dev-xcode": "^0.3.0",
-		"@nativescript/hook": "^2.0.0"
-	}
+  "name": "@nstudio/nativescript-dynatrace",
+  "version": "1.0.1",
+  "description": "DynaTrace SDK for iOS/Android with NativeScript",
+  "main": "index",
+  "typings": "index.d.ts",
+  "nativescript": {
+    "platforms": {
+      "ios": "6.0.0",
+      "android": "6.0.0"
+    },
+    "hooks": [
+      {
+        "name": "nstudio-nativescript-dynatrace",
+        "type": "before-checkForChanges",
+        "script": "hooks/before-checkForChanges.js",
+        "inject": true
+      },
+      {
+        "name": "nstudio-nativescript-dynatrace",
+        "type": "before-watchPatterns",
+        "script": "hooks/before-watchPatterns.js",
+        "inject": true
+      }
+    ]
+  },
+  "scripts": {
+    "preuninstall": "node preuninstall",
+    "postinstall": "node postinstall"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nstudio/nativescript-plugins.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "JavaScript",
+    "TypeScript",
+    "iOS",
+    "Android"
+  ],
+  "author": {
+    "name": "nStudio",
+    "email": "oss@nstudio.io"
+  },
+  "bugs": {
+    "url": "https://github.com/nstudio/nativescript-plugins/issues"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/nstudio/nativescript-plugins",
+  "readmeFilename": "README.md",
+  "bootstrapper": "@nativescript/plugin-seed",
+  "dependencies": {
+    "nativescript-dev-xcode": "^0.3.0",
+    "@nativescript/hook": "^2.0.0"
+  }
 }
