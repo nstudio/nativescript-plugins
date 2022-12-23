@@ -29,7 +29,8 @@
     "nativescript-plaid": "packages/nativescript-plaid",
     "nativescript-qr": "packages/nativescript-qr",
     "nativescript-tracking-transparency": "packages/nativescript-tracking-transparency",
-    "nativescript-walletconnect": "packages/nativescript-walletconnect"
+    "nativescript-walletconnect": "packages/nativescript-walletconnect",
+    "nativescript-fullstory": "packages/nativescript-fullstory"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

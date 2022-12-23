@@ -14,6 +14,7 @@ export * from './nativescript-exoplayer';
 export * from './nativescript-fancyalert';
 export * from './nativescript-filterable-listpicker';
 export * from './nativescript-freshchat';
+export * from './nativescript-fullstory';
 export * from './nativescript-input-mask';
 export * from './nativescript-intercom';
 export * from './nativescript-loading-indicator';

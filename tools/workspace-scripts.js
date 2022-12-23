@@ -283,6 +283,13 @@ module.exports = {
 					description: '@nstudio/nativescript-freshchat: Build',
 				},
 			},
+			// @nstudio/nativescript-fullstory
+			'nativescript-fullstory': {
+				build: {
+					script: 'nx run nativescript-fullstory:build.all',
+					description: '@nstudio/nativescript-fullstory: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -392,6 +399,10 @@ module.exports = {
 			'nativescript-freshchat': {
 				script: 'nx run nativescript-freshchat:focus',
 				description: 'Focus on @nstudio/nativescript-freshchat',
+			},
+			'nativescript-fullstory': {
+				script: 'nx run nativescript-fullstory:focus',
+				description: 'Focus on @nstudio/nativescript-fullstory',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',
