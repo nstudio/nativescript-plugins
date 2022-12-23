@@ -299,7 +299,7 @@ export class FilterableListpickerCommon extends GridLayout {
     this.source = unfilteredSource.filter(item => {
       if (item.title) {
         return (
-          item.title.toLowerCase().indexOf(data.value.toLowerCase()) !== -1
+          item.title.toString().toLowerCase().indexOf(data.value.toLowerCase()) !== -1
         );
       } else {
         return item.toLowerCase().indexOf(data.value.toLowerCase()) !== -1;
