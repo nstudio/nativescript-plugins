@@ -1,4 +1,5 @@
 {
+	"name": "nativescript-qr",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "packages/nativescript-qr",
@@ -29,12 +30,12 @@
 			]
 		},
 		"build.all": {
-			"executor": "@nrwl/workspace:run-commands",
+			"executor": "nx:run-commands",
 			"options": {
 				"commands": ["node tools/scripts/build-finish.ts nativescript-qr"],
 				"parallel": false
 			},
-			"outputs": ["dist/packages/nativescript-qr"],
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-qr"],
 			"dependsOn": [
 				{
 					"target": "build.all",
@@ -47,43 +48,43 @@
 			]
 		},
 		"build.native.ios.framework.release": {
-			"outputs": ["dist/packages"],
+			"outputs": ["{workspaceRoot}/dist/packages"],
 			"options": {
 				"commands": ["sh qr-build-ios-framework.sh"],
 				"cwd": "tools/scripts",
 				"parallel": false
 			},
-			"executor": "@nrwl/workspace:run-commands"
+			"executor": "nx:run-commands"
 		},
 		"build.native.ios.framework.debug": {
-			"outputs": ["dist/packages"],
+			"outputs": ["{workspaceRoot}/dist/packages"],
 			"options": {
 				"commands": ["sh qr-build-ios-framework.sh"],
 				"cwd": "tools/scripts",
 				"parallel": false
 			},
-			"executor": "@nrwl/workspace:run-commands"
+			"executor": "nx:run-commands"
 		},
 		"build.native.ios.debug": {
-			"outputs": ["dist/packages"],
+			"outputs": ["{workspaceRoot}/dist/packages"],
 			"options": {
 				"commands": ["sh qr-build-ios-native.sh"],
 				"cwd": "tools/scripts",
 				"parallel": false
 			},
-			"executor": "@nrwl/workspace:run-commands"
+			"executor": "nx:run-commands"
 		},
 		"build.native.ios.release": {
-			"outputs": ["dist/packages"],
+			"outputs": ["{workspaceRoot}/dist/packages"],
 			"options": {
 				"commands": ["sh qr-build-ios-native.sh --release"],
 				"cwd": "tools/scripts",
 				"parallel": false
 			},
-			"executor": "@nrwl/workspace:run-commands"
+			"executor": "nx:run-commands"
 		},
 		"focus": {
-			"executor": "@nrwl/workspace:run-commands",
+			"executor": "nx:run-commands",
 			"options": {
 				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-qr"],
 				"parallel": false

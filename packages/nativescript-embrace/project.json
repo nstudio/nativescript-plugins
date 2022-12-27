@@ -1,4 +1,5 @@
 {
+	"name": "nativescript-embrace",
 	"$schema": "../../node_modules/nx/schemas/project-schema.json",
 	"projectType": "library",
 	"sourceRoot": "packages/nativescript-embrace",
@@ -31,12 +32,12 @@
 			]
 		},
 		"build.all": {
-			"executor": "@nrwl/workspace:run-commands",
+			"executor": "nx:run-commands",
 			"options": {
 				"commands": ["./node_modules/.bin/tsc -p packages/nativescript-embrace/hooks/tsconfig.json", "node tools/scripts/build-finish.ts nativescript-embrace"],
 				"parallel": false
 			},
-			"outputs": ["dist/packages/nativescript-embrace"],
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-embrace"],
 			"dependsOn": [
 				{
 					"target": "build.all",
@@ -49,7 +50,7 @@
 			]
 		},
 		"focus": {
-			"executor": "@nrwl/workspace:run-commands",
+			"executor": "nx:run-commands",
 			"options": {
 				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-embrace"],
 				"parallel": false
