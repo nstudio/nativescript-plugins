@@ -1,35 +1,35 @@
 {
-	"main": "./src/main.ts",
-	"dependencies": {
-		"@nativescript/core": "file:../../node_modules/@nativescript/core",
-		"@nstudio/nativescript-freshchat": "file:../../dist/packages/nativescript-freshchat",
-		"@nstudio/nativescript-airship": "file:../../dist/packages/nativescript-airship",
-		"@nstudio/nativescript-airship-adm": "file:../../dist/packages/nativescript-airship-adm",
-		"@nstudio/nativescript-airship-fcm": "file:../../dist/packages/nativescript-airship-fcm",
-		"@nstudio/nativescript-airship-hms": "file:../../dist/packages/nativescript-airship-hms",
-		"@nstudio/nativescript-barcodescanner": "file:../../dist/packages/nativescript-barcodescanner",
-		"@nstudio/nativescript-blur": "file:../../dist/packages/nativescript-blur",
-		"@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
-		"@nstudio/nativescript-carousel": "file:../../dist/packages/nativescript-carousel",
-		"@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
-		"@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
-		"@nstudio/nativescript-embrace": "file:../../dist/packages/nativescript-embrace",
-		"@nstudio/nativescript-exoplayer": "file:../../dist/packages/nativescript-exoplayer",
-		"@nstudio/nativescript-fancyalert": "file:../../dist/packages/nativescript-fancyalert",
-		"@nstudio/nativescript-filterable-listpicker": "file:../../dist/packages/nativescript-filterable-listpicker",
+  "main": "./src/main.ts",
+  "dependencies": {
+    "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "@nstudio/nativescript-fullstory": "file:../../dist/packages/nativescript-fullstory",
-		"@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
-		"@nstudio/nativescript-intercom": "file:../../dist/packages/nativescript-intercom",
-		"@nstudio/nativescript-loading-indicator": "file:../../dist/packages/nativescript-loading-indicator",
-		"@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
-		"@nstudio/nativescript-persona": "file:../../dist/packages/nativescript-persona",
-		"@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
-		"@nstudio/nativescript-qr": "file:../../dist/packages/nativescript-qr",
-		"@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency",
-		"@nstudio/nativescript-walletconnect": "file:../../dist/packages/nativescript-walletconnect"
-	},
-	"devDependencies": {
-		"@nativescript/android": "~8.4.0",
-		"@nativescript/ios": "~8.4.0"
-	}
+    "@nstudio/nativescript-airship": "file:../../dist/packages/nativescript-airship",
+    "@nstudio/nativescript-airship-adm": "file:../../dist/packages/nativescript-airship-adm",
+    "@nstudio/nativescript-airship-fcm": "file:../../dist/packages/nativescript-airship-fcm",
+    "@nstudio/nativescript-airship-hms": "file:../../dist/packages/nativescript-airship-hms",
+    "@nstudio/nativescript-barcodescanner": "file:../../dist/packages/nativescript-barcodescanner",
+    "@nstudio/nativescript-blur": "file:../../dist/packages/nativescript-blur",
+    "@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
+    "@nstudio/nativescript-carousel": "file:../../dist/packages/nativescript-carousel",
+    "@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
+    "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
+    "@nstudio/nativescript-embrace": "file:../../dist/packages/nativescript-embrace",
+    "@nstudio/nativescript-exoplayer": "file:../../dist/packages/nativescript-exoplayer",
+    "@nstudio/nativescript-fancyalert": "file:../../dist/packages/nativescript-fancyalert",
+    "@nstudio/nativescript-filterable-listpicker": "file:../../dist/packages/nativescript-filterable-listpicker",
+    "@nstudio/nativescript-freshchat": "file:../../dist/packages/nativescript-freshchat",
+    "@nstudio/nativescript-input-mask": "file:../../dist/packages/nativescript-input-mask",
+    "@nstudio/nativescript-intercom": "file:../../dist/packages/nativescript-intercom",
+    "@nstudio/nativescript-loading-indicator": "file:../../dist/packages/nativescript-loading-indicator",
+    "@nstudio/nativescript-onfido": "file:../../dist/packages/nativescript-onfido",
+    "@nstudio/nativescript-persona": "file:../../dist/packages/nativescript-persona",
+    "@nstudio/nativescript-plaid": "file:../../dist/packages/nativescript-plaid",
+    "@nstudio/nativescript-qr": "file:../../dist/packages/nativescript-qr",
+    "@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency",
+    "@nstudio/nativescript-walletconnect": "file:../../dist/packages/nativescript-walletconnect"
+  },
+  "devDependencies": {
+    "@nativescript/android": "~8.4.0",
+    "@nativescript/ios": "~8.4.0"
+  }
 }

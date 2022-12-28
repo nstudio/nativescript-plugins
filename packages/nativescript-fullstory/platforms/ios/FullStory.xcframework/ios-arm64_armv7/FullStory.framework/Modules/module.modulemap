@@ -1,0 +1,11 @@
+framework module FullStory {
+  umbrella header "FullStory.h"
+
+  export *
+  module * { export * }
+}
+
+module FullStory.Swift {
+    header "FullStory-Swift.h"
+    requires objc
+}
