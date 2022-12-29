@@ -321,7 +321,16 @@ export class LoadingIndicator {
 			const nativeView = options.android.view as android.view.View;
 			this._popOver.setWidth(nativeView.getWidth());
 			this._popOver.setHeight(nativeView.getHeight());
-			this._popOver.showAtLocation(nativeView, android.view.Gravity.CENTER, 0, 0);
+      try {
+          let point = Array.create("int", 2);
+          nativeView.getLocationInWindow(point);
+          let x = point[0] || 0;
+          let y = point[1] || 0;
+          this._popOver.showAtLocation(nativeView, android.view.Gravity.NO_GRAVITY, x, y);
+      }
+      catch(e) {
+          console.error("Loading Indicator Error:", e);
+      }
 		} else if (Frame.topmost() && (Frame.topmost().android || (Frame.topmost().currentPage && Frame.topmost().currentPage.android))) {
 			const view = Frame.topmost().android.rootViewGroup || Frame.topmost().currentPage.android;
 
