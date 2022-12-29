@@ -1,12 +1,30 @@
 # @nstudio/nativescript-fullstory
 
+[FullStory](https://www.fullstory.com/) Mobile SDK for NativeScript
+
 ```javascript
-ns plugin add @nstudio/nativescript-fullstory
+npm install @nstudio/nativescript-fullstory
 ```
 
 ## Usage
 
-// TODO
+```
+import { FullstorySDK } from '@nstudio/nativescript-fullstory';
+
+FullstorySDK.identify('123', {
+    name: 'William'
+});
+
+FullstorySDK.setUserVars({
+    email: 'william@company.com'
+});
+
+FullstorySDK.consent(true);
+
+FullstorySDK.shutdown();
+
+FullstorySDK.restart();
+```
 
 ## License
 
