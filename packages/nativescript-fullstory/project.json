@@ -13,6 +13,8 @@
         "assets": [
           "packages/nativescript-fullstory/*.md",
           "packages/nativescript-fullstory/index.d.ts",
+          "packages/nativescript-fullstory/postinstall.js",
+					"packages/nativescript-fullstory/preuninstall.js",
           "LICENSE",
           {
             "glob": "**/*",

@@ -3,7 +3,7 @@
   "description": "NativeScript Application",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nstudio/nativescript-fullstory": "file:../../packages/nativescript-fullstory",
+    "@nstudio/nativescript-fullstory": "file:../../dist/packages/nativescript-fullstory",
     "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
     "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
     "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
