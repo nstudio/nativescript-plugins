@@ -2,6 +2,13 @@ import { Observable } from '@nativescript/core';
 import { FullstorySDKCommon } from './common';
 export { FullStoryEvents } from './common';
 
+/**
+ * iOS Only
+ * FullStory delegate for events
+ */
+export declare class FSDelegateImpl extends NSObject {
+
+}
 export declare class FullstorySDK extends FullstorySDKCommon {
 	static Debug: boolean;
 	static Events(): Observable;

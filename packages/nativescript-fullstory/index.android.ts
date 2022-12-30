@@ -33,3 +33,6 @@ export class FullstorySDK extends FullstorySDKCommon {
 		com.fullstory.FS.restart();
 	}
 }
+
+// Empty: not needed on Android
+export class FSDelegateImpl {}
