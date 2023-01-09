@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-fullstory",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "FullStory for NativeScript",
   "main": "index",
   "typings": "index.d.ts",
