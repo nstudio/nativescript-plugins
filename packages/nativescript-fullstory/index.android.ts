@@ -1,4 +1,4 @@
-import { Utils } from '@nativescript/core';
+import { Utils, View } from '@nativescript/core';
 import { FullstorySDKCommon } from './common';
 
 export { FullStoryEvents } from './common';
@@ -31,6 +31,42 @@ export class FullstorySDK extends FullstorySDKCommon {
 	static restart() {
 		FullstorySDK.Log('restart');
 		com.fullstory.FS.restart();
+	}
+
+	static unmask(view: View) {
+		if (view?.android) {
+			com.fullstory.FS.unmask(view.android);
+		}
+	}
+
+	static unmaskWithConsent(view: View) {
+		if (view?.android) {
+			com.fullstory.FS.unmaskWithConsent(view.android);
+		}
+	}
+
+	static addClass(view: View, name: string): void {
+		if (view?.android) {
+			com.fullstory.FS.addClass(view.android, name);
+		}
+	}
+
+	static addClasses(view: View, names: Array<string>): void {
+		if (view?.android) {
+			com.fullstory.FS.addClasses(view.android, Utils.android.collections.stringArrayToStringSet(names));
+		}
+	}
+
+	static setAttribute(view: View, name: string, value: string) {
+		if (view?.android) {
+			com.fullstory.FS.setAttribute(view.android, name, value)
+		}
+	}
+
+	static removeAttribute(view: View, name: string) {
+		if (view?.android) {
+			com.fullstory.FS.removeAttribute(view.android, name)
+		}
 	}
 }
 

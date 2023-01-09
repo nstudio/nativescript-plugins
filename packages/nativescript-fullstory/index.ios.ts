@@ -1,4 +1,4 @@
-import { Utils } from '@nativescript/core';
+import { Utils, View } from '@nativescript/core';
 import { FullStoryEvents, FullstorySDKCommon } from './common';
 
 export { FullStoryEvents } from './common';
@@ -31,6 +31,54 @@ export class FullstorySDK extends FullstorySDKCommon {
 	static restart() {
 		FullstorySDK.Log('restart');
 		FS.restart();
+	}
+
+	static unmask(view: View) {
+		if (view?.ios) {
+			FS.unmask(view.ios);
+		}
+	}
+
+	static unmaskWithConsent(view: View) {
+		if (view?.ios) {
+			FS.unmaskWithConsent(view.ios);
+		}
+	}
+
+	static addClass(view: View, name: string): void {
+		if (view?.ios) {
+			FS.addClassClassName(view.ios, name);
+		}
+	}
+
+	static addClasses(view: View, names: Array<string>): void {
+		if (view?.ios) {
+			FS.addClassesClassNames(view.ios, names);
+		}
+	}
+
+	static removeClass(view: View, name: string): void {
+		if (view?.ios) {
+			FS.removeClassClassName(view.ios, name);
+		}
+	}
+
+	static removeClasses(view: View, names: Array<string>): void {
+		if (view?.ios) {
+			FS.removeClassesClassNames(view.ios, names);
+		}
+	}
+
+	static setAttribute(view: View, name: string, value: string) {
+		if (view?.ios) {
+			FS.setAttributeAttributeNameAttributeValue(view.ios, name, value)
+		}
+	}
+
+	static removeAttribute(view: View, name: string) {
+		if (view?.ios) {
+			FS.removeAttributeAttributeName(view.ios, name)
+		}
 	}
 }
 

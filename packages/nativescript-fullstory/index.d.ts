@@ -18,4 +18,10 @@ export declare class FullstorySDK extends FullstorySDKCommon {
 	static consent(consented: boolean);
 	static shutdown();
 	static restart();
+	static unmask(view: View): void;
+	static unmaskWithConsent(view: View): void;
+	static addClass(view: View, name: string): void;
+	static addClasses(view: View, names: Array<string>): void;
+	static setAttribute(view: View, name: string, value: string): void;
+	static removeAttribute(view: View, name: string): void;
 }
