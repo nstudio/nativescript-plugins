@@ -1,7 +1,66 @@
-declare class NSCClientMeta extends NSObject {
-	static alloc(): NSCClientMeta; // inherited from NSObject
+declare class NSCWalletConnectV2 extends NSObject {
 
-	static new(): NSCClientMeta; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2; // inherited from NSObject
+
+	static authRequestPublisher(callback: (p1: NSCWalletConnectV2AuthRequest) => void): NSCWalletConnectV2AnyCancellable;
+
+	static authResponsePublisher(callback: (p1: NSCWalletConnectV2RPCID, p2: NSCWalletConnectV2Cacao, p3: NSCWalletConnectV2AuthError) => void): NSCWalletConnectV2AnyCancellable;
+
+	static networkConnect(callback: (p1: NSError) => void): void;
+
+	static networkDisconnect(closeCode: NSURLSessionWebSocketCloseCode, callback: (p1: NSError) => void): void;
+
+	static new(): NSCWalletConnectV2; // inherited from NSObject
+
+	static pairConfigureWithMeta(meta: NSCWalletConnectV2AppMetadata): void;
+
+	static pairConfigureWithNameDescriptionUrlIconsRedirectNativeLinkRedirectUniversalLink(name: string, description: string, url: string, icons: NSArray<string> | string[], redirectNativeLink: string, redirectUniversalLink: string): void;
+
+	static pairCreate(callback: (p1: string, p2: NSError) => void): void;
+
+	static pairDisconnect(topic: string, callback: (p1: NSError) => void): void;
+
+	static pairGetPairings(): NSArray<NSCWalletConnectV2Pairing>;
+
+	static pairPairWithUri(uri: string, callback: (p1: NSError) => void): void;
+
+	static pingResponsePublisher(callback: (p1: string) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionDeletePublisher(callback: (p1: string, p2: NSCWalletConnectV2Reason) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionEventPublisher(callback: (p1: NSCWalletConnectV2SessionEvent, p2: string, p3: string) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionExtendPublisher(callback: (p1: string, p2: Date) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionProposalPublisher(callback: (p1: NSCWalletConnectV2SessionProposal) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionRejectionPublisher(callback: (p1: NSCWalletConnectV2SessionProposal, p2: NSCWalletConnectV2Reason) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionRequestPublisher(callback: (p1: NSCWalletConnectV2Request) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionResponsePublisher(callback: (p1: NSCWalletConnectV2Response) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionSettlePublisher(callback: (p1: NSCWalletConnectV2Session) => void): NSCWalletConnectV2AnyCancellable;
+
+	static sessionUpdatePublisher(callback: (p1: string, p2: NSDictionary<string, NSCWalletConnectV2SessionNamespace>) => void): NSCWalletConnectV2AnyCancellable;
+
+	static signSendRequestParamsChainId(topic: string, method: string, params: NSCWalletConnectV2Codable, chainId: string, callback: (p1: NSError) => void): void;
+}
+
+declare class NSCWalletConnectV2AnyCancellable extends NSObject {
+
+	static alloc(): NSCWalletConnectV2AnyCancellable; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2AnyCancellable; // inherited from NSObject
+
+	cancel(): void;
+}
+
+declare class NSCWalletConnectV2AppMetadata extends NSObject {
+
+	static alloc(): NSCWalletConnectV2AppMetadata; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2AppMetadata; // inherited from NSObject
 
 	readonly desc: string;
 
@@ -9,210 +68,262 @@ declare class NSCClientMeta extends NSObject {
 
 	readonly name: string;
 
-	scheme: string;
+	readonly redirectNativeLink: string;
+
+	readonly redirectUniversalLink: string;
 
 	readonly url: string;
 }
 
-declare class NSCWCEthereumTransaction extends NSObject {
-	static alloc(): NSCWCEthereumTransaction; // inherited from NSObject
+declare class NSCWalletConnectV2AuthError extends NSObject {
 
-	static new(): NSCWCEthereumTransaction; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2AuthError; // inherited from NSObject
 
-	readonly data: string;
+	static new(): NSCWalletConnectV2AuthError; // inherited from NSObject
 
-	readonly from: string;
+	readonly code: number;
 
-	readonly gas: string;
+	readonly message: string;
+}
 
-	readonly gasLimit: string;
+declare class NSCWalletConnectV2AuthPayload extends NSObject {
 
-	readonly gasPrice: string;
+	static alloc(): NSCWalletConnectV2AuthPayload; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2AuthPayload; // inherited from NSObject
+
+	readonly aud: string;
+
+	readonly chainId: string;
+
+	readonly domain: string;
+
+	readonly exp: string;
+
+	readonly iat: string;
+
+	readonly nbf: string;
 
 	readonly nonce: string;
 
-	readonly to: string;
+	readonly requestId: string;
 
-	readonly value: string;
+	readonly resources: NSArray<string>;
+
+	readonly statement: string;
+
+	readonly type: string;
+
+	readonly version: string;
 }
 
-declare class NSCWCOKExChainTransaction extends NSObject {
-	static alloc(): NSCWCOKExChainTransaction; // inherited from NSObject
+declare class NSCWalletConnectV2AuthRequest extends NSObject {
 
-	static new(): NSCWCOKExChainTransaction; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2AuthRequest; // inherited from NSObject
 
-	readonly accountNumber: string;
+	static new(): NSCWalletConnectV2AuthRequest; // inherited from NSObject
 
-	readonly contractAddress: string;
+	readonly id: NSCWalletConnectV2RPCID;
 
-	readonly data: string;
-
-	readonly decimalNum: string;
-
-	readonly from: string;
-
-	readonly gasLimit: string;
-
-	readonly gasPrice: string;
-
-	readonly memo: string;
-
-	readonly sequenceNumber: string;
-
-	readonly symbol: string;
-
-	readonly to: string;
-
-	readonly value: string;
+	readonly payload: NSCWalletConnectV2AuthPayload;
 }
 
-declare class NSCWCSessionRequestParam extends NSObject {
-	static alloc(): NSCWCSessionRequestParam; // inherited from NSObject
+declare class NSCWalletConnectV2Cacao extends NSObject {
 
-	static new(): NSCWCSessionRequestParam; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2Cacao; // inherited from NSObject
 
-	readonly chainId: number;
-
-	readonly peerId: string;
-
-	readonly peerMeta: NSCClientMeta;
+	static new(): NSCWalletConnectV2Cacao; // inherited from NSObject
 }
 
-declare class NSCWallectConnect extends NSObject {
-	static alloc(): NSCWallectConnect; // inherited from NSObject
+declare class NSCWalletConnectV2Codable extends NSObject {
 
-	static new(): NSCWallectConnect; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2Codable; // inherited from NSObject
 
-	static toHex(value: string): string;
+	static new(): NSCWalletConnectV2Codable; // inherited from NSObject
 
-	static hexToData(value: string): NSData;
+	static readonly Null: NSCWalletConnectV2Codable;
 
-	static createPrivateKeyWithData(data: NSData): interop.Pointer | interop.Reference<any>;
+	static readonly types: NSArray<any>;
 
-	static createPrivateKeyWithString(string: string): interop.Pointer | interop.Reference<any>;
+	constructor(o: { array: NSArray<NSCWalletConnectV2Codable> | NSCWalletConnectV2Codable[]; });
 
-	static deriveBitCoinAddress(key: interop.Pointer | interop.Reference<any>): string;
+	constructor(o: { bool: boolean; });
 
-	static deriveBnbAddress(key: interop.Pointer | interop.Reference<any>): string;
+	constructor(o: { float: number; });
 
-	static deriveEthAddress(key: interop.Pointer | interop.Reference<any>): string;
+	constructor(o: { int: number; });
 
-	static privateKeySignToHexWithKeyDataCurve(key: interop.Pointer | interop.Reference<any>, data: NSData, curve: TWCurve): string;
+	constructor(o: { object: NSDictionary<NSCWalletConnectV2Codable, NSCWalletConnectV2Codable>; });
 
-	static privateKeySignToHexWithKeyStringCurve(key: interop.Pointer | interop.Reference<any>, string: string, curve: TWCurve): string;
+	constructor(o: { string: string; });
 
-	static privateKeySignWithKeyDataCurve(key: interop.Pointer | interop.Reference<any>, data: NSData, curve: TWCurve): NSData;
+	constructor(o: { value: NSCWalletConnectV2Codable; });
 
-	static privateKeySignWithKeyStringCurve(key: interop.Pointer | interop.Reference<any>, string: string, curve: TWCurve): NSData;
+	initWithArray(array: NSArray<NSCWalletConnectV2Codable> | NSCWalletConnectV2Codable[]): this;
 
-	static createEthSigningSignature(string: string): NSData;
+	initWithBool(bool_: boolean): this;
 
-	static createEthSigningSignatureWithData(string: string): NSData;
+	initWithFloat(float_: number): this;
 
-	static sha256(data: NSData): NSData;
+	initWithInt(int_: number): this;
 
-	static keccak256(data: NSData): NSData;
+	initWithObject(object: NSDictionary<NSCWalletConnectV2Codable, NSCWalletConnectV2Codable>): this;
 
-	readonly accounts: NSArray<string>;
+	initWithString(string: string): this;
 
-	readonly bridge: string;
-
-	readonly chainId: number;
-
-	readonly clientMeta: NSCClientMeta;
-
-	readonly connected: boolean;
-
-	delegate: NSCWalletConnectDelegate;
-
-	readonly handshakeTopic: string;
-
-	readonly key: string;
-
-	readonly uri: string;
-
-	readonly url: string;
-
-	constructor(o: { configuration: NSCWalletConnectConfig });
-
-	approveBnbOrderWithIdSignatureCallback(id: number, signature: string, callback: (p1: NSError, p2: boolean) => void): void;
-
-	approveRequestWithIdResult(id: number, result: string, callback: (p1: NSError) => void): void;
-
-	approveSessionWithChainIdAccounts(chainId: number, accounts: NSArray<string> | string[], callback: (p1: NSError) => void): void;
-
-	connect(callback: (p1: NSError) => void): void;
-
-	disconnect(): void;
-
-	initWithConfiguration(configuration: NSCWalletConnectConfig): this;
-
-	killSession(callback: (p1: NSError) => void): void;
-
-	rejectRequestWithIdCallback(id: number, callback: (p1: NSError) => void): void;
-
-	rejectRequestWithIdErrorCodeErrorMessageCallback(id: number, errorCode: number, errorMessage: string, callback: (p1: NSError) => void): void;
-
-	rejectSession(callback: (p1: NSError) => void): void;
+	initWithValue(value: NSCWalletConnectV2Codable): this;
 }
 
-declare class NSCWalletConnectClientMetaConfig extends NSObject {
-	static alloc(): NSCWalletConnectClientMetaConfig; // inherited from NSObject
+declare class NSCWalletConnectV2Pairing extends NSObject {
 
-	static new(): NSCWalletConnectClientMetaConfig; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2Pairing; // inherited from NSObject
 
-	desc: string;
+	static new(): NSCWalletConnectV2Pairing; // inherited from NSObject
 
-	icons: NSArray<string>;
+	readonly expiryDate: Date;
 
-	name: string;
+	readonly peer: NSCWalletConnectV2AppMetadata;
 
-	url: string;
+	readonly topic: string;
 }
 
-declare class NSCWalletConnectConfig extends NSObject {
-	static alloc(): NSCWalletConnectConfig; // inherited from NSObject
+declare class NSCWalletConnectV2ProposalNamespace extends NSObject {
 
-	static new(): NSCWalletConnectConfig; // inherited from NSObject
+	static alloc(): NSCWalletConnectV2ProposalNamespace; // inherited from NSObject
 
-	bridge: string;
-
-	clientMeta: NSCWalletConnectClientMetaConfig;
-
-	key: string;
-
-	uri: string;
-
-	uuid: string;
+	static new(): NSCWalletConnectV2ProposalNamespace; // inherited from NSObject
 }
 
-interface NSCWalletConnectDelegate {
-	onBnbSignWithIdOrder(id: number, order: string): void;
+declare class NSCWalletConnectV2RPCID extends NSObject {
 
-	onConnect(): void;
+	static alloc(): NSCWalletConnectV2RPCID; // inherited from NSObject
 
-	onCustomRequestWithIdRequest(id: number, request: NSDictionary<string, any>): void;
+	static new(): NSCWalletConnectV2RPCID; // inherited from NSObject
 
-	onDisconnectWithReasonCode(reason: string, code: number): void;
+	readonly left: string;
 
-	onErrorWithError(error: NSError): void;
-
-	onEthPersonalSignWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
-
-	onEthSendTransactionWithIdTransaction(id: number, transaction: NSCWCEthereumTransaction): void;
-
-	onEthSignTransactionWithIdTransaction(id: number, transaction: NSCWCEthereumTransaction): void;
-
-	onEthSignTypeDataWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
-
-	onEthSignWithIdDataRaw(id: number, data: NSData, raw: NSArray<string> | string[]): void;
-
-	onOktSendTransactionWithIdTransaction(id: number, transaction: NSCWCOKExChainTransaction): void;
-
-	onOktSignTransactionWithIdTransaction(id: number, transaction: NSCWCOKExChainTransaction): void;
-
-	onSessionRequestWithIdPeerParam(id: number, peerParam: NSCWCSessionRequestParam): void;
+	readonly timestamp: Date;
 }
-declare var NSCWalletConnectDelegate: {
-	prototype: NSCWalletConnectDelegate;
-};
+
+declare class NSCWalletConnectV2Reason extends NSObject {
+
+	static alloc(): NSCWalletConnectV2Reason; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2Reason; // inherited from NSObject
+
+	readonly code: number;
+
+	readonly message: string;
+}
+
+declare class NSCWalletConnectV2Request extends NSObject {
+
+	static alloc(): NSCWalletConnectV2Request; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2Request; // inherited from NSObject
+
+	_params: NSCWalletConnectV2Codable;
+
+	readonly chainId: string;
+
+	readonly id: NSCWalletConnectV2RPCID;
+
+	readonly method: string;
+
+	readonly params: NSCWalletConnectV2Codable;
+
+	readonly topic: string;
+
+	constructor(o: { topic: string; method: string; params: NSCWalletConnectV2Codable; chainId: string; });
+
+	initWithTopicMethodParamsChainId(topic: string, method: string, params: NSCWalletConnectV2Codable, chainId: string): this;
+}
+
+declare class NSCWalletConnectV2Response extends NSObject {
+
+	static alloc(): NSCWalletConnectV2Response; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2Response; // inherited from NSObject
+
+	_result: NSCWalletConnectV2Codable;
+
+	readonly chainId: string;
+
+	readonly id: NSCWalletConnectV2RPCID;
+
+	readonly result: NSCWalletConnectV2Codable;
+
+	readonly topic: string;
+}
+
+declare class NSCWalletConnectV2Result extends NSObject {
+
+	static alloc(): NSCWalletConnectV2Result; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2Result; // inherited from NSObject
+}
+
+declare class NSCWalletConnectV2Session extends NSObject {
+
+	static alloc(): NSCWalletConnectV2Session; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2Session; // inherited from NSObject
+
+	readonly expiryDate: Date;
+
+	readonly namespaces: NSDictionary<string, NSCWalletConnectV2SessionNamespace>;
+
+	readonly peer: NSCWalletConnectV2AppMetadata;
+
+	readonly topic: string;
+}
+
+declare class NSCWalletConnectV2SessionEvent extends NSObject {
+
+	static alloc(): NSCWalletConnectV2SessionEvent; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2SessionEvent; // inherited from NSObject
+
+	_data: NSCWalletConnectV2Codable;
+
+	readonly data: NSCWalletConnectV2Codable;
+
+	readonly name: string;
+}
+
+declare class NSCWalletConnectV2SessionExtension extends NSObject {
+
+	static alloc(): NSCWalletConnectV2SessionExtension; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2SessionExtension; // inherited from NSObject
+
+	readonly events: NSSet<string>;
+
+	readonly methods: NSSet<string>;
+}
+
+declare class NSCWalletConnectV2SessionNamespace extends NSObject {
+
+	static alloc(): NSCWalletConnectV2SessionNamespace; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2SessionNamespace; // inherited from NSObject
+
+	readonly events: NSSet<string>;
+
+	readonly extensions: NSArray<NSCWalletConnectV2SessionExtension>;
+
+	readonly methods: NSSet<string>;
+}
+
+declare class NSCWalletConnectV2SessionProposal extends NSObject {
+
+	static alloc(): NSCWalletConnectV2SessionProposal; // inherited from NSObject
+
+	static new(): NSCWalletConnectV2SessionProposal; // inherited from NSObject
+
+	readonly id: string;
+
+	readonly proposer: NSCWalletConnectV2AppMetadata;
+
+	readonly requiredNamespaces: NSDictionary<string, NSCWalletConnectV2ProposalNamespace>;
+}
