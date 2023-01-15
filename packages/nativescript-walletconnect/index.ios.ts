@@ -1,17 +1,12 @@
-import {fromObject, Utils} from '@nativescript/core';
-//import {IClientMeta, IWalletConnect, IWalletConnectSession, WalletConnectConfig, WalletEvent} from '.';
-
-// export function toHex(value: string): string {
-// 	return NSCWallectConnect.toHex(value);
-// }
+import {fromObject, Observable, Utils} from '@nativescript/core';
 
 
-export class ClientMeta {
+export class AppMeta {
   private _meta: NSCWalletConnectV2AppMetadata;
 
   static fromNative(meta: NSCWalletConnectV2AppMetadata) {
     if (meta instanceof NSCWalletConnectV2AppMetadata) {
-      const ret = new ClientMeta();
+      const ret = new AppMeta();
       ret._meta = meta;
       return ret;
     }
@@ -105,6 +100,14 @@ export class Client {
     return pair;
   }
 
+  get sign() {
+    return sign;
+  }
+
+  get auth() {
+    return auth;
+  }
+
   static initialize(projectId: string,
                     relayUrl: string,
                     meta: {
@@ -129,7 +132,6 @@ export class Client {
 }
 
 let client = new Client();
-
 
 export class WalletConnectURI extends NSObject {
 
@@ -169,7 +171,214 @@ export class WalletConnectURI extends NSObject {
   }
 }
 
+export class ProposalNamespaceExtension {
+  private _native: NSCWalletConnectV2ProposalNamespaceExtension;
+
+  static fromNative(extension: NSCWalletConnectV2ProposalNamespaceExtension) {
+    if (extension instanceof NSCWalletConnectV2ProposalNamespaceExtension) {
+      const ret = new ProposalNamespaceExtension();
+      ret._native = extension;
+      return ret;
+    }
+    return null;
+  }
+
+  get native() {
+    return this._native;
+  }
+
+  get chains(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.chains)
+  }
+
+  get methods(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.methods)
+  }
+
+  get events(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.methods)
+  }
+
+  toJSON() {
+    return {
+      chains: this.chains,
+      methods: this.methods,
+      events: this.events
+    }
+  }
+}
+
+export class ProposalNamespace {
+  private _native: NSCWalletConnectV2ProposalNamespace;
+
+  static fromNative(ns: NSCWalletConnectV2ProposalNamespace) {
+    if (ns instanceof NSCWalletConnectV2ProposalNamespace) {
+      const ret = new ProposalNamespace();
+      ret._native = ns;
+      return ret;
+    }
+    return null;
+  }
+
+  get native() {
+    return this._native;
+  }
+
+  get chains(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.chains)
+  }
+
+  get methods(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.methods)
+  }
+
+  get events(): string[] {
+    return Utils.ios.collections.nsArrayToJSArray(this.native.methods)
+  }
+
+  get extensions() {
+    const ret = [];
+    const items = this.native.extensions;
+    if (!items) {
+      return ret;
+    }
+    const count = items.count;
+    for (let i = 0; i < count; i++) {
+      ret.push(
+        ProposalNamespaceExtension.fromNative(
+          items.objectAtIndex(i)
+        )
+      );
+    }
+    return ret;
+  }
+
+  toJSON() {
+    return {
+      chains: this.chains,
+      methods: this.methods,
+      events: this.events,
+      extensions: this.extensions
+    }
+  }
+}
+
+export class ProposalEvent {
+  private _native: NSCWalletConnectV2SessionProposal;
+
+  static fromNative(event: NSCWalletConnectV2SessionProposal) {
+    if (event instanceof NSCWalletConnectV2SessionProposal) {
+      const ret = new ProposalEvent();
+      ret._native = event;
+      return ret;
+    }
+    return null;
+  }
+
+  get native() {
+    return this._native;
+  }
+
+  get id() {
+    return this.native.id;
+  }
+
+  get expiry() {
+    return 0;
+  }
+
+  get proposer() {
+    return AppMeta.fromNative(this.native.proposer)
+  }
+
+  get requiredNamespaces() {
+    const items = {};
+    const requiredNamespaces = this.native.requiredNamespaces;
+    const keys = requiredNamespaces.allKeys;
+    const count = keys.count;
+    for (let i = 0; i < count; i++) {
+      const key = keys.objectAtIndex(i);
+      const value = requiredNamespaces.objectForKey(key);
+      items[key] = ProposalNamespace.fromNative(value);
+    }
+
+    return items;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      expiry: this.expiry,
+      proposer: this.proposer,
+      requiredNamespaces: this.requiredNamespaces
+    }
+  }
+
+}
+
+export class Sign extends Observable {
+  _sessionProposalPublisher: NSCWalletConnectV2AnyCancellable;
+
+
+  constructor() {
+    super();
+  }
+
+  on(eventNames: string, callback: (data: any) => void, thisArg?: any) {
+    super.on(eventNames, callback, thisArg);
+    if (!this._sessionProposalPublisher && eventNames === 'session_proposal') {
+      this._sessionProposalPublisher = NSCWalletConnectV2.sessionProposalPublisher((arg) => {
+        this.notify({
+          eventName: 'session_proposal',
+          event: ProposalEvent.fromNative(arg)
+        });
+      });
+    }
+  }
+
+  off(eventNames: string, callback?: any, thisArg?: any) {
+    super.off(eventNames, callback, thisArg);
+    if (eventNames === 'session_proposal' && !this.hasListeners('session_proposal')) {
+      this._sessionProposalPublisher.cancel();
+      this._sessionProposalPublisher = null;
+    }
+  }
+}
+
+export class Auth extends Observable {
+}
+
+export class Pairing {
+  private _native: NSCWalletConnectV2Pairing;
+
+  static fromNative(pairing: NSCWalletConnectV2Pairing) {
+    if (pairing instanceof NSCWalletConnectV2Pairing) {
+      const ret = new Pairing();
+      ret._native = pairing;
+      return ret;
+    }
+    return null;
+  }
+
+  get native() {
+    return this._native;
+  }
+
+  get expiryDate(): Date {
+    return this.native.expiryDate;
+  }
+
+  get peer(): AppMeta {
+    return AppMeta.fromNative(this.native.peer);
+  }
+
+  get topic(): string {
+    return this.native.topic;
+  }
+}
+
 export class Pair {
+
   create() {
     return new Promise((resolve, reject) => {
       NSCWalletConnectV2.pairCreate((uri, error) => {
@@ -199,6 +408,18 @@ export class Pair {
       resolve()
     });
   }
+
+  getPairings() {
+    const pairings = [];
+    const items = NSCWalletConnectV2.pairGetPairings();
+    const size = items.count;
+    for (let i = 0; i < size; i++) {
+      pairings.push(Pairing.fromNative(items.objectAtIndex(i)));
+    }
+    return pairings;
+  }
 }
 
-let pair = new Pair();
+const pair = new Pair();
+const auth = new Auth();
+const sign = new Sign();

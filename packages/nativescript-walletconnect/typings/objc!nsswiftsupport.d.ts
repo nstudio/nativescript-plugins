@@ -216,6 +216,27 @@ declare class NSCWalletConnectV2ProposalNamespace extends NSObject {
   static alloc(): NSCWalletConnectV2ProposalNamespace; // inherited from NSObject
 
   static new(): NSCWalletConnectV2ProposalNamespace; // inherited from NSObject
+
+  readonly chains: NSArray<string>;
+
+  readonly events: NSArray<string>;
+
+  readonly extensions: NSArray<NSCWalletConnectV2ProposalNamespaceExtension>;
+
+  readonly methods: NSArray<string>;
+}
+
+declare class NSCWalletConnectV2ProposalNamespaceExtension extends NSObject {
+
+  static alloc(): NSCWalletConnectV2ProposalNamespaceExtension; // inherited from NSObject
+
+  static new(): NSCWalletConnectV2ProposalNamespaceExtension; // inherited from NSObject
+
+  readonly chains: NSArray<string>;
+
+  readonly events: NSArray<string>;
+
+  readonly methods: NSArray<string>;
 }
 
 declare class NSCWalletConnectV2RPCID extends NSObject {

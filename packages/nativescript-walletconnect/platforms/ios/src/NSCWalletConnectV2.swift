@@ -475,7 +475,53 @@ public class NSCWalletConnectV2ProposalNamespace: NSObject {
     init(proposalNamespace: ProposalNamespace) {
         self.proposalNamespace = proposalNamespace
     }
+    
+    public var events: [String] {
+        return Array(proposalNamespace.events)
+    }
+    
+    public var methods: [String] {
+        return Array(proposalNamespace.methods)
+    }
+    
+    public var chains: [String]{
+        return proposalNamespace.chains.map { chain in
+            chain.absoluteString
+        }
+    }
+    
+    public var extensions: [NSCWalletConnectV2ProposalNamespaceExtension]?{
+        guard let extensions = proposalNamespace.extensions else {return nil}
+        return extensions.map { ext in
+            NSCWalletConnectV2ProposalNamespaceExtension(proposalNamespaceExtension: ext)
+        }
+    }
 }
+
+
+@objcMembers
+@objc(NSCWalletConnectV2ProposalNamespaceExtension)
+public class NSCWalletConnectV2ProposalNamespaceExtension: NSObject {
+    var proposalNamespaceExtension: ProposalNamespace.Extension
+    init(proposalNamespaceExtension: ProposalNamespace.Extension) {
+        self.proposalNamespaceExtension = proposalNamespaceExtension
+    }
+    
+    public var events: [String] {
+        return Array(proposalNamespaceExtension.events)
+    }
+    
+    public var methods: [String] {
+        return Array(proposalNamespaceExtension.methods)
+    }
+    
+    public var chains: [String]{
+        return proposalNamespaceExtension.chains.map { chain in
+            chain.absoluteString
+        }
+    }
+}
+
 
 
 @objcMembers
