@@ -872,13 +872,96 @@ public class NSCWalletConnectV2AuthError: NSObject {
     }
 }
 
+@objcMembers
+@objc(NSCWalletConnectV2RPCResult)
+public class NSCWalletConnectV2RPCResult: NSObject {
+    var result: RPCResult
+
+    init(result: RPCResult) {
+        self.result = result
+    }
+    
+    public init(response: NSCWalletConnectV2Codable) {
+        self.result = .response(AnyCodable(response))
+    }
+    
+    public init(error code: Int, message: String, data: NSCWalletConnectV2Codable?) {
+        var errorData: AnyCodable? = nil
+        if(data != nil){
+            errorData = AnyCodable(data!)
+        }
+        self.result = .error(JSONRPCError(code: code, message: message, data: errorData))
+    }
+}
+
+
+public enum NSCWalletConnectV2RejectionReason: Int32, RawRepresentable {
+    case userRejected
+    case userRejectedChains
+    case userRejectedMethods
+    case userRejectedEvents
+    
+    public typealias RawValue = Int32
+    
+    public init?(rawValue: Int32) {
+        switch(rawValue){
+        case 0:
+            self = .userRejected
+            break
+        case 1:
+            self = .userRejectedChains
+            break
+        case 2:
+            self = .userRejectedMethods
+            break
+        case 3:
+            self = .userRejectedEvents
+            break
+        default:
+            return nil
+        }
+    }
+    
+    public var rawValue: Int32 {
+        switch(self){
+        case .userRejected:
+            return 0
+        case .userRejectedChains:
+            return 1
+        case .userRejectedMethods:
+            return 2
+        case .userRejectedEvents:
+            return 3
+        }
+    }
+    
+    var toRejectionReason: RejectionReason {
+        switch(self){
+        case .userRejected:
+            return .userRejected
+        case .userRejectedChains:
+            return .userRejectedChains
+        case .userRejectedMethods:
+            return .userRejectedMethods
+        case .userRejectedEvents:
+            return .userRejectedEvents
+        }
+    }
+}
+
+
 
 @objcMembers
 @objc(NSCWalletConnectV2)
 public class NSCWalletConnectV2: NSObject {
     static var meta: AppMetadata? = nil
-    public static func networkConfigure(_ projectId: String, _ socketConnectionType: ConnectionType){
-        Networking.configure(projectId: projectId, socketFactory: SocketFactory(),socketConnectionType: socketConnectionType.toSocketConnectionType)
+    
+    public static func initialize(_ projectId: String, relayUrl: String?, meta: NSCWalletConnectV2AppMetadata, _ socketConnectionType: ConnectionType){
+        Networking.configure(relayHost: relayUrl ?? "relay.walletconnect.com", projectId: projectId, socketFactory: SocketFactory(),socketConnectionType: socketConnectionType.toSocketConnectionType)
+    
+        
+        Pair.configure(metadata: meta.appMetadata)
+        NSCWalletConnectV2.meta = meta.appMetadata
     }
     
     public static func networkConnect(_ callback: (Error?) -> Void){
@@ -899,11 +982,6 @@ public class NSCWalletConnectV2: NSObject {
         }
     }
     
-    
-    public static func pairConfigure(meta: NSCWalletConnectV2AppMetadata){
-        Pair.configure(metadata: meta.appMetadata)
-        NSCWalletConnectV2.meta = meta.appMetadata
-    }
     
     public static func pairConfigure(name: String,
                                      description: String,
@@ -969,7 +1047,7 @@ public class NSCWalletConnectV2: NSObject {
     }
     
     
-    public static func signSendRequest(_ topic: String, _ method: String, params: NSCWalletConnectV2Codable, chainId: String, _ callback: @escaping (Error?) -> Void){
+    public static func signRequest(_ topic: String, _ method: String, params: NSCWalletConnectV2Codable, chainId: String, _ callback: @escaping (Error?) -> Void){
         guard let blockChain = Blockchain(chainId) else {
             var info: [String: Any] = [:]
             info[NSLocalizedDescriptionKey] = "Invalid chainId"
@@ -984,6 +1062,102 @@ public class NSCWalletConnectV2: NSObject {
                 callback(nil)
             }catch {
                 callback(error)
+            }
+        }
+    }
+    
+    public static func signRespond(_ topic: String, _ requestId: NSCWalletConnectV2RPCID, result: NSCWalletConnectV2RPCResult, _ callback: @escaping (Error?) -> Void){
+
+        Task {
+            do {
+                try await Sign.instance.respond(topic: topic, requestId: requestId.id, response: result.result)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    
+    public static func signApproveSession(_ proposalId: String, _ namespaces: [String : NSCWalletConnectV2SessionNamespace], _ callback: @escaping (Error?) -> Void){
+
+        Task {
+            let values = namespaces.mapValues { value in
+                value.sessionNamespace
+            }
+            do {
+                try await Sign.instance.approve(proposalId: proposalId, namespaces: values)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signRejectSession(_ proposalId: String, _ reason: NSCWalletConnectV2RejectionReason, _ callback: @escaping (Error?) -> Void){
+        Task {
+            do {
+                try await Sign.instance.reject(proposalId: proposalId, reason: reason.toRejectionReason)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signUpdate(_ topic: String, _ namespaces: [String : NSCWalletConnectV2SessionNamespace], _ callback: @escaping (Error?) -> Void){
+        Task {
+            let values = namespaces.mapValues { value in
+                value.sessionNamespace
+            }
+            do {
+                try await Sign.instance.update(topic: topic, namespaces: values)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signConnect(_ requiredNamespaces: [String : NSCWalletConnectV2ProposalNamespace],_ topic: String, _ callback: @escaping (Error?) -> Void){
+        Task {
+            let values = requiredNamespaces.mapValues { value in
+                value.proposalNamespace
+            }
+            
+            do {
+                try await Sign.instance.connect(requiredNamespaces: values, topic: topic)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signDisconnect(_ topic: String, _ callback: @escaping (Error?) -> Void){
+        Task {
+            
+            do {
+                try await Sign.instance.disconnect(topic: topic)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signPing(_ topic: String, _ callback: @escaping (String?,Error?) -> Void){
+        Task {
+            do {
+               let cb = Sign.instance.pingResponsePublisher
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveValue: { ping in
+                        callback(ping,nil)
+                    })
+                
+                try await Sign.instance.ping(topic: topic)
+            }catch {
+                callback(nil,error)
             }
         }
     }
