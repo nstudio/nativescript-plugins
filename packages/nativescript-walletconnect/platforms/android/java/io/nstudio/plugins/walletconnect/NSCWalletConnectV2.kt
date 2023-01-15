@@ -280,12 +280,12 @@ class NSCWalletConnectV2 {
     }
 
     @JvmStatic
-    fun pairCreate(callback: (String?, Throwable?) -> Unit) {
+    fun pairCreate(callback: (Core.Model.Pairing?, Throwable?) -> Unit) {
       var error: Throwable? = null
       val pair = CoreClient.Pairing.create {
         error = it.throwable
       }
-      callback(pair?.uri, error)
+      callback(pair, error)
     }
 
     @JvmStatic

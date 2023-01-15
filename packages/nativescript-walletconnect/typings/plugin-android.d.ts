@@ -30,7 +30,7 @@ declare module io {
 					public static sessionSettlePublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.SettledSessionResponse>): void;
 					public static sessionRequestPublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.SessionRequest>): void;
 					public static signSendRequest(param0: string, param1: string, param2: string, param3: string, param4: kotlin.jvm.functions.Function1<java.lang.Throwable>): void;
-					public static pairCreate(param0: kotlin.jvm.functions.Function2<string,java.lang.Throwable>): void;
+					public static pairCreate(param0: kotlin.jvm.functions.Function2<com.walletconnect.android.Core.Model.Pairing,java.lang.Throwable>): void;
 					public static signRespond(param0: string, param1: com.walletconnect.android.sign.client.Sign.Model.JsonRpcResponse, param2: kotlin.jvm.functions.Function1<java.lang.Throwable>): void;
 					public static sessionRejectionPublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.RejectedSession>): void;
 					public static signSocketConnectionStatusPublisher(param0: kotlin.jvm.functions.Function1<io.nstudio.plugins.walletconnect.NSCWalletConnectV2.ConnectionStatus>): void;
@@ -69,7 +69,7 @@ declare module io {
             public  sessionSettlePublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.SettledSessionResponse>): void;
             public  sessionRequestPublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.SessionRequest>): void;
             public  signSendRequest(param0: string, param1: string, param2: string, param3: string, param4: kotlin.jvm.functions.Function1<java.lang.Throwable>): void;
-            public  pairCreate(param0: kotlin.jvm.functions.Function2<string,java.lang.Throwable>): void;
+            public  pairCreate(param0: kotlin.jvm.functions.Function2<com.walletconnect.android.Core.Model.Pairing,java.lang.Throwable>): void;
             public  signRespond(param0: string, param1: com.walletconnect.android.sign.client.Sign.Model.JsonRpcResponse, param2: kotlin.jvm.functions.Function1<java.lang.Throwable>): void;
             public  sessionRejectionPublisher(param0: kotlin.jvm.functions.Function1<com.walletconnect.android.Sign.Model.RejectedSession>): void;
             public  signSocketConnectionStatusPublisher(param0: kotlin.jvm.functions.Function1<io.nstudio.plugins.walletconnect.NSCWalletConnectV2.ConnectionStatus>): void;

@@ -1,27 +1,41 @@
-import { Observable, EventData, Page, Application, Dialogs } from '@nativescript/core';
-import { DemoSharedNativescriptWalletconnect } from '@demo/shared';
-import { toHex, WalletConnect } from '@nstudio/nativescript-walletconnect';
+import {Observable, EventData, Page, Application, Dialogs} from '@nativescript/core';
+import {DemoSharedNativescriptWalletconnect} from '@demo/shared';
+import {Client} from '@nstudio/nativescript-walletconnect';
 
-import { PrivateKey, CoinType, CoinTypeInstance, Utils } from '@nstudio/nativescript-walletconnect/utils';
+//import {PrivateKey, CoinType, CoinTypeInstance, Utils} from '@nstudio/nativescript-walletconnect/utils';
 
 export function navigatingTo(args: EventData) {
-	const page = <Page>args.object;
-	page.bindingContext = new DemoModel();
+  const page = <Page>args.object;
+  page.bindingContext = new DemoModel();
 }
 
 export class DemoModel extends DemoSharedNativescriptWalletconnect {
-	state: 'Disconnected';
-	wallet: WalletConnect;
-	wcurl: string = '';
-	accounts: string;
-	key: PrivateKey;
-	address: string;
-	constructor() {
-		super();
-		this.key = new PrivateKey('ba005cd605d8a02e3d5dfd04234cef3a3ee4f76bfbad2722d1fb5af8e12e6764');
+  state: 'Disconnected';
+  //wallet: Client;
+  wcurl: string = '';
+  accounts: string;
+  // key: PrivateKey;
+  address: string;
 
-		this.address = CoinType.getInstance(CoinTypeInstance.Ethereum).deriveAddress(this.key);
-	}
+  constructor() {
+    super();
+    Client.initialize('a296125a15cc255e4aa63fffdc421458', null, {
+      description: 'WalletConnect Developer App',
+      url: 'https://walletconnect.org',
+      icons: ['https://walletconnect.org/walletconnect-logo.png'],
+      name: 'WalletConnect',
+    });
+
+    Client.instance.pair.create();
+
+    Client.instance.pair.pair({uri: 'wc:81a793c47dec1950986986f47e7439452e64f4100314d0ea91008fc62a86291b@2?relay-protocol=irn&symKey=0245d5381a21a451c53a2a07da1617449a2ef21452f6ca198f8a4b55c426ea23'});
+
+    //	this.key = new PrivateKey('ba005cd605d8a02e3d5dfd04234cef3a3ee4f76bfbad2722d1fb5af8e12e6764');
+
+    //	this.address = CoinType.getInstance(CoinTypeInstance.Ethereum).deriveAddress(this.key);
+  }
+
+  /*
 
 	resetConnection() {
 		this.wallet = new WalletConnect({
@@ -179,4 +193,6 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 	rejectSession() {
 		this.wallet.rejectSession();
 	}
+
+  */
 }

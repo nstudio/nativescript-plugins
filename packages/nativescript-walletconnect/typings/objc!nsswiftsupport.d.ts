@@ -1,3 +1,4 @@
+
 declare class NSCWalletConnectV2 extends NSObject {
 
   static alloc(): NSCWalletConnectV2; // inherited from NSObject
@@ -5,6 +6,8 @@ declare class NSCWalletConnectV2 extends NSObject {
   static authRequestPublisher(callback: (p1: NSCWalletConnectV2AuthRequest) => void): NSCWalletConnectV2AnyCancellable;
 
   static authResponsePublisher(callback: (p1: NSCWalletConnectV2RPCID, p2: NSCWalletConnectV2Cacao, p3: NSCWalletConnectV2AuthError) => void): NSCWalletConnectV2AnyCancellable;
+
+  static initializeWithProjectIdRelayUrlMetaSocketConnectionType(projectId: string, relayUrl: string, meta: NSCWalletConnectV2AppMetadata, socketConnectionType: NSCWalletConnectV2ConnectionType): void;
 
   static networkConnect(callback: (p1: NSError) => void): void;
 
@@ -14,7 +17,7 @@ declare class NSCWalletConnectV2 extends NSObject {
 
   static pairConfigureWithNameDescriptionUrlIconsRedirectNativeLinkRedirectUniversalLink(name: string, description: string, url: string, icons: NSArray<string> | string[], redirectNativeLink: string, redirectUniversalLink: string): void;
 
-  static pairCreate(callback: (p1: string, p2: NSError) => void): void;
+  static pairCreate(callback: (p1: NSCWalletConnectV2WalletConnectURI, p2: NSError) => void): void;
 
   static pairDisconnect(topic: string, callback: (p1: NSError) => void): void;
 
@@ -83,6 +86,10 @@ declare class NSCWalletConnectV2AppMetadata extends NSObject {
   readonly redirectUniversalLink: string;
 
   readonly url: string;
+
+  constructor(o: { description: string; url: string; icons: NSArray<string> | string[]; name: string; redirect: string; redirectUniversal: string; });
+
+  initWithDescriptionUrlIconsNameRedirectRedirectUniversal(description: string, url: string, icons: NSArray<string> | string[], name: string, redirect: string, redirectUniversal: string): this;
 }
 
 declare class NSCWalletConnectV2AuthError extends NSObject {
@@ -184,6 +191,13 @@ declare class NSCWalletConnectV2Codable extends NSObject {
   initWithValue(value: NSCWalletConnectV2Codable): this;
 }
 
+declare const enum NSCWalletConnectV2ConnectionType {
+
+  Auto = 0,
+
+  Manual = 1
+}
+
 declare class NSCWalletConnectV2Pairing extends NSObject {
 
   static alloc(): NSCWalletConnectV2Pairing; // inherited from NSObject
@@ -241,13 +255,22 @@ declare class NSCWalletConnectV2Reason extends NSObject {
   readonly message: string;
 }
 
+declare class NSCWalletConnectV2RelayProtocolOptions extends NSObject {
+
+  static alloc(): NSCWalletConnectV2RelayProtocolOptions; // inherited from NSObject
+
+  static new(): NSCWalletConnectV2RelayProtocolOptions; // inherited from NSObject
+
+  readonly data: string;
+
+  readonly protocol: string;
+}
+
 declare class NSCWalletConnectV2Request extends NSObject {
 
   static alloc(): NSCWalletConnectV2Request; // inherited from NSObject
 
   static new(): NSCWalletConnectV2Request; // inherited from NSObject
-
-  _params: NSCWalletConnectV2Codable;
 
   readonly chainId: string;
 
@@ -269,8 +292,6 @@ declare class NSCWalletConnectV2Response extends NSObject {
   static alloc(): NSCWalletConnectV2Response; // inherited from NSObject
 
   static new(): NSCWalletConnectV2Response; // inherited from NSObject
-
-  _result: NSCWalletConnectV2Codable;
 
   readonly chainId: string;
 
@@ -308,8 +329,6 @@ declare class NSCWalletConnectV2SessionEvent extends NSObject {
   static alloc(): NSCWalletConnectV2SessionEvent; // inherited from NSObject
 
   static new(): NSCWalletConnectV2SessionEvent; // inherited from NSObject
-
-  _data: NSCWalletConnectV2Codable;
 
   readonly data: NSCWalletConnectV2Codable;
 
@@ -351,4 +370,19 @@ declare class NSCWalletConnectV2SessionProposal extends NSObject {
   readonly proposer: NSCWalletConnectV2AppMetadata;
 
   readonly requiredNamespaces: NSDictionary<string, NSCWalletConnectV2ProposalNamespace>;
+}
+
+declare class NSCWalletConnectV2WalletConnectURI extends NSObject {
+
+  static alloc(): NSCWalletConnectV2WalletConnectURI; // inherited from NSObject
+
+  static new(): NSCWalletConnectV2WalletConnectURI; // inherited from NSObject
+
+  readonly relay: NSCWalletConnectV2RelayProtocolOptions;
+
+  readonly symKey: string;
+
+  readonly topic: string;
+
+  readonly version: string;
 }
