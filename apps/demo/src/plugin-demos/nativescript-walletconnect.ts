@@ -29,11 +29,15 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 
     Client.instance.sign.on('session_proposal', args => {
       console.log(args);
-    })
+    });
+
+    Client.instance.sign.on('session_event', args => {
+      console.log(args);
+    });
 
     Client.instance.pair.create();
 
-    Client.instance.pair.pair({uri: 'wc:045e320a5f114499e0ca8b04dccf5227af2c3d23ad23d8164b6298fc3095ee44@2?relay-protocol=irn&symKey=ebafdf6b7b826c723c656a5d428fad47baf362ec5cf6836cd93cd1c600bb0a01'});
+    Client.instance.pair.pair({uri: 'wc:40c75fbd46f1ec026f80e8015896788673ef1173aa287d76e49a82a8a8c175a3@2?relay-protocol=irn&symKey=2db8d6fe9f347e56fb1e4b891fee221db88284f9619d5f1616dec5ef60cc8699'});
 
     Client.instance.pair.getPairings().forEach(item => {
       console.log(item.native, item.expiryDate, item.peer, item.topic);
