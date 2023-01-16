@@ -14,7 +14,7 @@ public enum NSCWalletConnectV2ConnectionType:Int32, RawRepresentable {
     case Auto
     case Manual
     public typealias RawValue = Int32
-
+    
     public init?(rawValue: Int32) {
         switch(rawValue){
         case 0:
@@ -27,7 +27,7 @@ public enum NSCWalletConnectV2ConnectionType:Int32, RawRepresentable {
             return nil
         }
     }
-
+    
     var toSocketConnectionType: SocketConnectionType {
         switch(self){
         case .Auto:
@@ -46,31 +46,31 @@ public class NSCWalletConnectV2AppMetadata: NSObject {
     init(appMetadata: AppMetadata) {
         self.appMetadata = appMetadata
     }
-
+    
     public var desc: String {
         return appMetadata.description
     }
-
+    
     public var url: String {
         return appMetadata.url
     }
-
+    
     public var name: String {
         return appMetadata.name
     }
-
+    
     public var icons: [String] {
         return appMetadata.icons
     }
-
+    
     public var redirectNativeLink: String? {
         return appMetadata.redirect?.native
     }
-
+    
     public var redirectUniversalLink: String? {
         return appMetadata.redirect?.universal
     }
-
+    
     public init(description: String,
                 url: String,
                 icons: [String],
@@ -78,11 +78,11 @@ public class NSCWalletConnectV2AppMetadata: NSObject {
                 redirect: String?,
                 redirectUniversal: String?) {
         var redirectValue: AppMetadata.Redirect? = nil
-
+        
         if(redirect != nil || redirectUniversal != nil){
             redirectValue = AppMetadata.Redirect(native: redirect, universal: redirectUniversal)
         }
-
+        
         appMetadata = AppMetadata(name: name, description: description, url: url, icons: icons,redirect: redirectValue)
     }
 }
@@ -94,20 +94,20 @@ public class NSCWalletConnectV2Pairing: NSObject {
     init(pairing: Pairing) {
         self.pairing = pairing
     }
-
+    
     var topic: String {
         return pairing.topic
     }
-
+    
     var expiryDate: Date {
         return pairing.expiryDate
     }
-
+    
     var peer: NSCWalletConnectV2AppMetadata? {
         guard let peer = pairing.peer else {return nil}
         return NSCWalletConnectV2AppMetadata(appMetadata: peer)
     }
-
+    
 }
 
 enum NSCWalletConnectV2CodableValue {
@@ -128,38 +128,38 @@ private struct DynamicCodingKeys: CodingKey {
         self.stringValue = stringValue
         codableKey = .init(string: stringValue)
     }
-
+    
     var intValue: Int?
     init?(intValue: Int) {
         self.intValue = intValue
         codableKey = .init(int: intValue)
     }
-
+    
     var boolValue: Bool?
     init?(boolValue: Bool) {
         self.boolValue = boolValue
         codableKey = .init(bool: boolValue)
     }
-
+    
     var floatValue: Float?
     init?(floatValue: Float) {
         self.floatValue = floatValue
         codableKey = .init(float: floatValue)
     }
-
+    
     var arrayValue: [NSCWalletConnectV2Codable]?
     init?(arrayValue: [NSCWalletConnectV2Codable]) {
         self.arrayValue = arrayValue
         codableKey = .init(array: arrayValue)
     }
-
-
+    
+    
     var objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]?
     init?(objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]) {
         self.objectValue = objectValue
         codableKey = .init(object: objectValue)
     }
-
+    
     init?(codableValue: NSCWalletConnectV2Codable) {
         self.codableKey = codableValue
         switch(codableValue.value){
@@ -179,7 +179,7 @@ private struct DynamicCodingKeys: CodingKey {
             return nil
         }
     }
-
+    
 }
 
 enum NSCWalletConnectV2CodableError:Error {
@@ -193,54 +193,154 @@ public class NSCWalletConnectV2AnyCancellable: NSObject {
     init(anyCancellable: AnyCancellable) {
         self.anyCancellable = anyCancellable
     }
-
+    
     public func cancel(){
         self.cancel()
     }
 }
 
+@objc(NSCWalletConnectV2CodableValueType)
+public enum NSCWalletConnectV2CodableValueType: Int32, RawRepresentable {
+    case String
+    case Int
+    case Float
+    case Bool
+    case Array
+    case Object
+    case Null
+    
+    public typealias RawValue = Int32
+    public init?(rawValue: Int32) {
+        switch(rawValue){
+        case 0:
+            self = .String
+            break
+        case 1:
+            self = .Int
+            break
+        case 2:
+            self = .Float
+            break
+        case 3:
+            self = .Bool
+            break
+        case 4:
+            self = .Array
+            break
+        case 5:
+            self = .Object
+            break
+        case 6:
+            self = .Null
+            break
+        default:
+            return nil
+        }
+    }
+    
+    public var rawValue: Int32 {
+        switch(self){case .String:
+            return 0
+        case .Int:
+            return 1
+        case .Float:
+            return 2
+        case .Bool:
+            return 3
+        case .Array:
+            return 4
+        case .Object:
+            return 5
+        case .Null:
+            return 6
+        }
+    }
+}
+
+
 @objcMembers
 @objc(NSCWalletConnectV2Codable)
 public class NSCWalletConnectV2Codable: NSObject, Codable {
     var value: NSCWalletConnectV2CodableValue = .Null
-
+    public private(set)var type: NSCWalletConnectV2CodableValueType = .Null
     public static let Null: NSCWalletConnectV2Codable = .init(value: .Null)
-
+    
+    
+    public private(set) var stringValue: String?
+    public private(set) var intValue: Int = 0
+    public private(set) var boolValue: Bool = false
+    public private(set) var floatValue: Float = 0
+    public private(set) var arrayValue: [NSCWalletConnectV2Codable]?
+    public private(set) var objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]?
+    
+    private func setCodableValue(codableValue: NSCWalletConnectV2Codable) {
+        switch(codableValue.value){
+        case .String(let string):
+            self.stringValue = string
+        case .Int(let int):
+            self.intValue = int
+        case .Float(let float):
+            self.floatValue = float
+        case .Bool(let bool):
+            self.boolValue = bool
+        case .Array(let array):
+            self.arrayValue = array
+        case .Object(let object):
+            self.objectValue = object
+        default:
+            break
+        }
+    }
+    
     public init(string: String){
+        type = .String
         super.init()
         self.value = .String(string)
+        stringValue = string
     }
-
+    
     public init(int: Int){
+        type = .Int
         super.init()
         self.value = .Int(int)
+        intValue = int
     }
-
+    
     public init(bool: Bool){
+        type = .Bool
         super.init()
         self.value = .Bool(bool)
+        boolValue = bool
     }
-
+    
     public init(float: Float){
+        type = .Float
         super.init()
         self.value = .Float(float)
+        floatValue = float
     }
-
+    
     public init(array: [NSCWalletConnectV2Codable]){
+        type = .Array
         super.init()
         self.value = .Array(array)
+        arrayValue = array
     }
-
+    
     public init(object: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]){
+        type = .Object
         super.init()
         self.value = .Object(object)
+        objectValue = object
     }
-
+    
     public init(value: NSCWalletConnectV2Codable){
+        type = value.type
         super.init()
         self.value = value.value
+        setCodableValue(codableValue: value)
     }
-
+    
     static fileprivate func encodeObject(object: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable], _ container: inout KeyedEncodingContainer<DynamicCodingKeys>) {
         for element in object.enumerated() {
             guard let key = DynamicCodingKeys(codableValue: element.element.key) else {continue}
@@ -265,9 +365,9 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
                 }
             } catch {}
         }
-
+        
     }
-
+    
     static fileprivate func encodeArray(array: [NSCWalletConnectV2Codable], _ container: inout UnkeyedEncodingContainer) {
         for item in array {
             do {
@@ -292,8 +392,8 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
             } catch {}
         }
     }
-
-
+    
+    
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         switch(self.value){
@@ -314,75 +414,75 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
         case .Null:
             try container.encodeNil()
         }
-
+        
     }
-
+    
     static let types = [String.self, Int.self, Float.self, Bool.self, Double.self, Array<NSCWalletConnectV2Codable>.self, [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable].self, NSNull.self] as [Any]
-
+    
     static func parseSingleValue(_ value: SingleValueDecodingContainer) -> NSCWalletConnectV2Codable? {
-
+        
         if let string = try? value.decode(String.self){
             return NSCWalletConnectV2Codable(string: string)
         }
-
+        
         if let int = try? value.decode(Int.self){
             return NSCWalletConnectV2Codable(int: int)
         }
-
+        
         if let float = try? value.decode(Float.self){
             return NSCWalletConnectV2Codable(float: float)
         }
-
+        
         if let bool = try? value.decode(Bool.self){
             return NSCWalletConnectV2Codable(bool: bool)
         }
-
+        
         return nil
     }
-
+    
     static fileprivate func parseObject(_ key: DynamicCodingKeys, _ container: inout KeyedDecodingContainer<DynamicCodingKeys>) -> NSCWalletConnectV2Codable? {
         if let string = try? container.decode(String.self, forKey: key) {
             return NSCWalletConnectV2Codable(string: string)
         }
-
+        
         if let int = try? container.decode(Int.self, forKey: key) {
             return NSCWalletConnectV2Codable(int: int)
         }
-
-
+        
+        
         if let float = try? container.decode(Float.self, forKey: key) {
             return NSCWalletConnectV2Codable(float: float)
         }
-
-
+        
+        
         if let bool = try? container.decode(Bool.self, forKey: key) {
             return NSCWalletConnectV2Codable(bool: bool)
         }
-
+        
         if var object = try? container.nestedContainer(keyedBy: DynamicCodingKeys.self, forKey: key) {
-
+            
             var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
             object.allKeys.forEach { key in
                 guard let parsed = NSCWalletConnectV2Codable.parseObject(key, &object) else {return}
                 values[key.codableKey] = parsed
             }
-
+            
             return NSCWalletConnectV2Codable(object: values)
-
+            
         }
-
-
+        
+        
         if var array = try? container.nestedUnkeyedContainer(forKey: key) {
             let parsedArray =  parseArray(&array)
             guard let value = parsedArray else {return nil}
             return NSCWalletConnectV2Codable(array: value)
         }
-
-
+        
+        
         return nil
-
+        
     }
-
+    
     static fileprivate func parseArray(_ container: inout UnkeyedDecodingContainer)-> [NSCWalletConnectV2Codable]?{
         let count = container.count ?? 0
         var values: [NSCWalletConnectV2Codable]? = []
@@ -393,50 +493,50 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
         }
         return values
     }
-
+    
     static fileprivate func parseArrayValue(_ container: inout UnkeyedDecodingContainer) -> NSCWalletConnectV2Codable? {
-
+        
         if let string = try? container.decode(String.self) {
             return NSCWalletConnectV2Codable(string: string)
         }
-
+        
         if let int = try? container.decode(Int.self) {
             return NSCWalletConnectV2Codable(int: int)
         }
-
-
+        
+        
         if let float = try? container.decode(Float.self) {
             return NSCWalletConnectV2Codable(float: float)
         }
-
-
+        
+        
         if let bool = try? container.decode(Bool.self) {
             return NSCWalletConnectV2Codable(bool: bool)
         }
-
+        
         if var object = try? container.nestedContainer(keyedBy: DynamicCodingKeys.self) {
             var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
             object.allKeys.forEach { key in
                 guard let parsed = NSCWalletConnectV2Codable.parseObject(key, &object) else {return}
                 values[key.codableKey] = parsed
             }
-
+            
             return NSCWalletConnectV2Codable(object: values)
-
+            
         }
-
+        
         if var array = try? container.nestedUnkeyedContainer() {
             let parsedArray =  parseArray(&array)
             guard let value = parsedArray else {return nil}
             return NSCWalletConnectV2Codable(array: value)
         }
-
+        
         return nil
     }
-
-
+    
+    
     public required init(from decoder: Decoder) throws {
-
+        
         if let single = try? decoder.singleValueContainer() {
             let parsed = NSCWalletConnectV2Codable.parseSingleValue(single)
             if(parsed != nil){
@@ -444,7 +544,7 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
                 return
             }
         }
-
+        
         if var object = try? decoder.container(keyedBy: DynamicCodingKeys.self) {
             var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
             object.allKeys.forEach { key in
@@ -454,7 +554,7 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
             self.value = .Object(values)
             return
         }
-
+        
         if var array = try? decoder.unkeyedContainer() {
             let value = NSCWalletConnectV2Codable.parseArray(&array)
             if(value != nil){
@@ -462,7 +562,7 @@ public class NSCWalletConnectV2Codable: NSObject, Codable {
                 return
             }
         }
-
+        
         throw NSCWalletConnectV2CodableError.missingValue
     }
 }
@@ -531,27 +631,27 @@ public class NSCWalletConnectV2SessionProposal: NSObject {
     init(proposal: Session.Proposal) {
         self.proposal = proposal
     }
-
+    
     public var id: String {
         get {
             return proposal.id
         }
     }
-
+    
     public var proposer: NSCWalletConnectV2AppMetadata {
         get {
             return NSCWalletConnectV2AppMetadata(appMetadata: proposal.proposer)
         }
     }
-
+    
     public var requiredNamespaces: [String: NSCWalletConnectV2ProposalNamespace]{
         get {
             var ret: [String: NSCWalletConnectV2ProposalNamespace] = [:]
-
+            
             proposal.requiredNamespaces.forEach { (key, value) in
                 ret[key] = NSCWalletConnectV2ProposalNamespace.init(proposalNamespace: value)
             }
-
+            
             return ret
         }
     }
@@ -564,28 +664,28 @@ public class NSCWalletConnectV2Request: NSObject {
     public init(topic: String, method: String, params: NSCWalletConnectV2Codable, chainId: String) {
         self.request = Request(topic: topic, method: method, params: AnyCodable(params), chainId: Blockchain(chainId)!)
     }
-
+    
     init(request: Request) {
         self.request = request
     }
-
+    
     public var id: NSCWalletConnectV2RPCID {
         get {return NSCWalletConnectV2RPCID(id: request.id)}
     }
-
+    
     public var topic: String {
         get {return request.topic}
     }
-
+    
     public var method: String {
         get {return request.method}
     }
-
+    
     public var chainId: String {
         get {return request.chainId.absoluteString}
     }
-
-
+    
+    
     @nonobjc var _params: NSCWalletConnectV2Codable? = nil
     public var params: NSCWalletConnectV2Codable {
         if(_params == nil){
@@ -598,12 +698,13 @@ public class NSCWalletConnectV2Request: NSObject {
     }
 }
 
+@objc(NSCWalletConnectV2SocketConnectionStatus)
 public enum NSCWalletConnectV2SocketConnectionStatus: Int32, RawRepresentable {
     case connected
     case disconnected
-
+    
     public typealias RawValue = Int32
-
+    
     init(status: SocketConnectionStatus){
         switch(status){
         case .connected:
@@ -612,7 +713,7 @@ public enum NSCWalletConnectV2SocketConnectionStatus: Int32, RawRepresentable {
             self = .disconnected
         }
     }
-
+    
     public var rawValue: Int32 {
         get {
             switch(self){
@@ -623,7 +724,7 @@ public enum NSCWalletConnectV2SocketConnectionStatus: Int32, RawRepresentable {
             }
         }
     }
-
+    
     public init?(rawValue: Int32) {
         switch(rawValue){
         case 0:
@@ -643,19 +744,19 @@ public enum NSCWalletConnectV2SocketConnectionStatus: Int32, RawRepresentable {
 @objc(NSCWalletConnectV2SessionExtension)
 public class NSCWalletConnectV2SessionExtension: NSObject {
     var sessionExtension: SessionNamespace.Extension
-
+    
     init(sessionExtension: SessionNamespace.Extension) {
         self.sessionExtension = sessionExtension
     }
-
+    
     public var accounts: Set<Account> {
         return sessionExtension.accounts
     }
-
+    
     public var events: Set<String> {
         return sessionExtension.events
     }
-
+    
     public var methods: Set<String> {
         return sessionExtension.methods
     }
@@ -665,33 +766,33 @@ public class NSCWalletConnectV2SessionExtension: NSObject {
 @objcMembers
 @objc(NSCWalletConnectV2SessionNamespace)
 public class NSCWalletConnectV2SessionNamespace: NSObject {
-
-
+    
+    
     var sessionNamespace: SessionNamespace
     init(sessionNamespace: SessionNamespace) {
         self.sessionNamespace = sessionNamespace
     }
-
+    
     public var accounts: Set<Account> {
         return sessionNamespace.accounts
     }
-
+    
     public var events: Set<String> {
         return sessionNamespace.events
     }
-
+    
     public var methods: Set<String> {
         return sessionNamespace.methods
     }
-
+    
     public var extensions: [NSCWalletConnectV2SessionExtension]? {
         guard let extensions  = sessionNamespace.extensions else {return nil}
-
+        
         return extensions.map { ext in
             NSCWalletConnectV2SessionExtension(sessionExtension: ext)
         }
     }
-
+    
 }
 
 
@@ -702,19 +803,19 @@ public class NSCWalletConnectV2Session: NSObject {
     init(session: Session) {
         self.session = session
     }
-
+    
     public var topic: String{
         return session.topic
     }
-
+    
     public var expiryDate: Date{
         return session.expiryDate
     }
-
+    
     public var peer: NSCWalletConnectV2AppMetadata{
         return NSCWalletConnectV2AppMetadata(appMetadata: session.peer)
     }
-
+    
     public var namespaces:  [String: NSCWalletConnectV2SessionNamespace]{
         var ret: [String: NSCWalletConnectV2SessionNamespace] = [:]
         session.namespaces.forEach { key,value in
@@ -729,15 +830,15 @@ public class NSCWalletConnectV2Session: NSObject {
 @objc(NSCWalletConnectV2Reason)
 public class NSCWalletConnectV2Reason: NSObject {
     var reason: Reason
-
+    
     init(reason: Reason) {
         self.reason = reason
     }
-
+    
     var code: Int {
         return reason.code
     }
-
+    
     var message: String {
         return reason.message
     }
@@ -749,23 +850,23 @@ public class NSCWalletConnectV2Reason: NSObject {
 @objc(NSCWalletConnectV2RPCID)
 public class NSCWalletConnectV2RPCID: NSObject {
     var id: RPCID
-
+    
     init(id: RPCID) {
         self.id = id
     }
-
+    
     public var left: String? {
         return id.left
     }
-
+    
     public var right: Int64? {
         return id.right
     }
-
+    
     public var timestamp: Date {
         return id.timestamp
     }
-
+    
 }
 
 
@@ -773,24 +874,24 @@ public class NSCWalletConnectV2RPCID: NSObject {
 @objc(NSCWalletConnectV2Response)
 public class NSCWalletConnectV2Response: NSObject {
     var response: Response
-
+    
     init(response: Response) {
         self.response = response
     }
-
+    
     public var id: NSCWalletConnectV2RPCID {
         get {return NSCWalletConnectV2RPCID(id: response.id)}
     }
-
+    
     public var topic: String {
         get {return response.topic}
     }
-
+    
     public var chainId: String? {
         get {return response.chainId}
     }
-
-
+    
+    
     @nonobjc var _result: NSCWalletConnectV2Codable? = nil
     public var result: NSCWalletConnectV2Codable {
         if(_result == nil){
@@ -810,11 +911,11 @@ public class NSCWalletConnectV2SessionEvent: NSObject {
     init(event: Session.Event) {
         self.event = event
     }
-
+    
     public var name: String {
         return event.name
     }
-
+    
     @nonobjc var _data: NSCWalletConnectV2Codable? = nil
     public var data: NSCWalletConnectV2Codable {
         if(_data == nil){
@@ -834,11 +935,11 @@ public class NSCWalletConnectV2AuthRequest: NSObject {
     init(authRequest: AuthRequest) {
         self.authRequest = authRequest
     }
-
+    
     public var id: NSCWalletConnectV2RPCID {
         return NSCWalletConnectV2RPCID(id: authRequest.id)
     }
-
+    
     public var payload: NSCWalletConnectV2AuthPayload {
         return NSCWalletConnectV2AuthPayload(payload: authRequest.payload)
     }
@@ -852,35 +953,35 @@ public class NSCWalletConnectV2AuthPayload: NSObject {
     init(payload: AuthPayload) {
         self.payload = payload
     }
-
+    
     public var chainId: String {
         return payload.chainId
     }
-
+    
     public var aud: String {
         return payload.aud
     }
-
+    
     public var domain: String {
         return payload.domain
     }
-
+    
     public var iat: String {
         return payload.iat
     }
-
+    
     public var nonce: String {
         return payload.nonce
     }
-
+    
     public var type: String {
         return payload.type
     }
-
+    
     public var version: String {
         return payload.version
     }
-
+    
     public var nbf: String? {
         return payload.nbf
     }
@@ -923,11 +1024,11 @@ public class NSCWalletConnectV2AuthError: NSObject {
     init(error: AuthError) {
         self.error = error
     }
-
+    
     public var code: Int {
         return error.code
     }
-
+    
     public var message: String {
         return error.message
     }
@@ -937,15 +1038,15 @@ public class NSCWalletConnectV2AuthError: NSObject {
 @objc(NSCWalletConnectV2RPCResult)
 public class NSCWalletConnectV2RPCResult: NSObject {
     var result: RPCResult
-
+    
     init(result: RPCResult) {
         self.result = result
     }
-
+    
     public init(response: NSCWalletConnectV2Codable) {
         self.result = .response(AnyCodable(response))
     }
-
+    
     public init(error code: Int, message: String, data: NSCWalletConnectV2Codable?) {
         var errorData: AnyCodable? = nil
         if(data != nil){
@@ -955,15 +1056,15 @@ public class NSCWalletConnectV2RPCResult: NSObject {
     }
 }
 
-
+@objc(NSCWalletConnectV2RejectionReason)
 public enum NSCWalletConnectV2RejectionReason: Int32, RawRepresentable {
     case userRejected
     case userRejectedChains
     case userRejectedMethods
     case userRejectedEvents
-
+    
     public typealias RawValue = Int32
-
+    
     public init?(rawValue: Int32) {
         switch(rawValue){
         case 0:
@@ -982,7 +1083,7 @@ public enum NSCWalletConnectV2RejectionReason: Int32, RawRepresentable {
             return nil
         }
     }
-
+    
     public var rawValue: Int32 {
         switch(self){
         case .userRejected:
@@ -995,7 +1096,7 @@ public enum NSCWalletConnectV2RejectionReason: Int32, RawRepresentable {
             return 3
         }
     }
-
+    
     var toRejectionReason: RejectionReason {
         switch(self){
         case .userRejected:
@@ -1051,14 +1152,14 @@ public class NSCWalletConnectV2WalletConnectURI: NSObject {
 @objc(NSCWalletConnectV2)
 public class NSCWalletConnectV2: NSObject {
     static var meta: AppMetadata? = nil
-
+    
     public static func initialize(projectId: String, relayUrl: String?, meta: NSCWalletConnectV2AppMetadata, socketConnectionType: NSCWalletConnectV2ConnectionType){
         Networking.configure(relayHost: relayUrl ?? "relay.walletconnect.com", projectId: projectId, socketFactory: SocketFactory(),socketConnectionType: socketConnectionType.toSocketConnectionType)
-
+        
         Pair.configure(metadata: meta.appMetadata)
         NSCWalletConnectV2.meta = meta.appMetadata
     }
-
+    
     public static func networkConnect(_ callback: (Error?) -> Void){
         do {
             try Networking.instance.connect()
@@ -1067,7 +1168,7 @@ public class NSCWalletConnectV2: NSObject {
             callback(error)
         }
     }
-
+    
     public static func networkDisconnect(_ closeCode: URLSessionWebSocketTask.CloseCode, _ callback: (Error?) -> Void){
         do {
             try Networking.instance.disconnect(closeCode: closeCode)
@@ -1076,8 +1177,8 @@ public class NSCWalletConnectV2: NSObject {
             callback(error)
         }
     }
-
-
+    
+    
     public static func pairConfigure(name: String,
                                      description: String,
                                      url: String,
@@ -1093,8 +1194,8 @@ public class NSCWalletConnectV2: NSObject {
             Pair.configure(metadata: meta!)
         }
     }
-
-
+    
+    
     public static func pairPair(uri: String, _ callback: @escaping (Error?)-> Void){
         Task {
             do {
@@ -1111,7 +1212,7 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func pairCreate(_ callback: @escaping (NSCWalletConnectV2WalletConnectURI?, Error?)-> Void){
         Task {
             do {
@@ -1122,14 +1223,14 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func pairGetPairings() -> [NSCWalletConnectV2Pairing]{
         let pairings = Pair.instance.getPairings()
         return pairings.map { pairing in
             return NSCWalletConnectV2Pairing(pairing: pairing)
         }
     }
-
+    
     public static func pairDisconnect(_ topic: String, _ callback:@escaping (Error?) -> Void){
         Task {
             do {
@@ -1140,13 +1241,13 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
-
+    
+    
     public static func signRequest(_ topic: String, _ method: String, params: NSCWalletConnectV2Codable, chainId: String, _ callback: @escaping (Error?) -> Void){
         guard let blockChain = Blockchain(chainId) else {
             var info: [String: Any] = [:]
             info[NSLocalizedDescriptionKey] = "Invalid chainId"
-
+            
             callback(NSError(domain: "NSCWalletConnectV2", code: 1000,userInfo: info) as Error)
             return
         }
@@ -1160,9 +1261,9 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signRespond(_ topic: String, _ requestId: NSCWalletConnectV2RPCID, result: NSCWalletConnectV2RPCResult, _ callback: @escaping (Error?) -> Void){
-
+        
         Task {
             do {
                 try await Sign.instance.respond(topic: topic, requestId: requestId.id, response: result.result)
@@ -1172,10 +1273,10 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
-
+    
+    
     public static func signApproveSession(_ proposalId: String, _ namespaces: [String : NSCWalletConnectV2SessionNamespace], _ callback: @escaping (Error?) -> Void){
-
+        
         Task {
             let values = namespaces.mapValues { value in
                 value.sessionNamespace
@@ -1188,7 +1289,7 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signRejectSession(_ proposalId: String, _ reason: NSCWalletConnectV2RejectionReason, _ callback: @escaping (Error?) -> Void){
         Task {
             do {
@@ -1199,7 +1300,7 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signUpdate(_ topic: String, _ namespaces: [String : NSCWalletConnectV2SessionNamespace], _ callback: @escaping (Error?) -> Void){
         Task {
             let values = namespaces.mapValues { value in
@@ -1213,13 +1314,13 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signConnect(_ requiredNamespaces: [String : NSCWalletConnectV2ProposalNamespace],_ topic: String, _ callback: @escaping (Error?) -> Void){
         Task {
             let values = requiredNamespaces.mapValues { value in
                 value.proposalNamespace
             }
-
+            
             do {
                 try await Sign.instance.connect(requiredNamespaces: values, topic: topic)
                 callback(nil)
@@ -1228,10 +1329,10 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signDisconnect(_ topic: String, _ callback: @escaping (Error?) -> Void){
         Task {
-
+            
             do {
                 try await Sign.instance.disconnect(topic: topic)
                 callback(nil)
@@ -1240,7 +1341,7 @@ public class NSCWalletConnectV2: NSObject {
             }
         }
     }
-
+    
     public static func signPing(_ topic: String, _ callback: @escaping (String?,Error?) -> Void){
         Task {
             do {
@@ -1249,15 +1350,15 @@ public class NSCWalletConnectV2: NSObject {
                     .sink(receiveValue: { ping in
                         callback(ping,nil)
                     })
-
+                
                 try await Sign.instance.ping(topic: topic)
             }catch {
                 callback(nil,error)
             }
         }
     }
-
-
+    
+    
     public static func sessionProposalPublisher(_ callback: @escaping (NSCWalletConnectV2SessionProposal)-> Void) -> NSCWalletConnectV2AnyCancellable {
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionProposalPublisher
             .receive(on: DispatchQueue.main)
@@ -1265,8 +1366,8 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2SessionProposal(proposal: proposal))
             })
     }
-
-
+    
+    
     public static func sessionRequestPublisher(_ callback: @escaping (NSCWalletConnectV2Request)-> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionRequestPublisher
             .receive(on: DispatchQueue.main)
@@ -1274,8 +1375,8 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2Request(request: request))
             }))
     }
-
-
+    
+    
     public static func signSocketConnectionStatusPublisher(_ callback: @escaping (NSCWalletConnectV2SocketConnectionStatus)-> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.socketConnectionStatusPublisher
             .receive(on: DispatchQueue.main)
@@ -1283,8 +1384,8 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2SocketConnectionStatus(status: status))
             }))
     }
-
-
+    
+    
     public static func sessionSettlePublisher(_ callback: @escaping (NSCWalletConnectV2Session) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionSettlePublisher
             .receive(on: DispatchQueue.main)
@@ -1292,7 +1393,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2Session(session: session))
             }))
     }
-
+    
     public static func sessionDeletePublisher(_ callback:@escaping (String, NSCWalletConnectV2Reason) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionDeletePublisher
             .receive(on: DispatchQueue.main)
@@ -1300,7 +1401,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(id, NSCWalletConnectV2Reason(reason: reason))
             }))
     }
-
+    
     public static func sessionResponsePublisher(_ callback: @escaping (NSCWalletConnectV2Response) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -1308,7 +1409,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2Response(response: response))
             }))
     }
-
+    
     public static func sessionRejectionPublisher(_ callback:@escaping (NSCWalletConnectV2SessionProposal, NSCWalletConnectV2Reason) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionRejectionPublisher
             .receive(on: DispatchQueue.main)
@@ -1316,7 +1417,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2SessionProposal(proposal: proposal), NSCWalletConnectV2Reason(reason: reason))
             }))
     }
-
+    
     public static func sessionUpdatePublisher(_ callback: @escaping (String, [String: NSCWalletConnectV2SessionNamespace]) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionUpdatePublisher
             .receive(on: DispatchQueue.main)
@@ -1328,7 +1429,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(sessionTopic,ret)
             }))
     }
-
+    
     public static func sessionEventPublisher(_ callback: @escaping (NSCWalletConnectV2SessionEvent, String, String?)->Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionEventPublisher
             .receive(on: DispatchQueue.main)
@@ -1336,7 +1437,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(NSCWalletConnectV2SessionEvent(event: event), sessionTopic, chainId?.absoluteString)
             }))
     }
-
+    
     public static func sessionExtendPublisher(_ callback:@escaping (String, Date) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionExtendPublisher
             .receive(on: DispatchQueue.main)
@@ -1344,7 +1445,7 @@ public class NSCWalletConnectV2: NSObject {
                 callback(sessionTopic, date)
             }))
     }
-
+    
     public static func pingResponsePublisher(_ callback: @escaping (String)-> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.pingResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -1352,17 +1453,17 @@ public class NSCWalletConnectV2: NSObject {
                 callback(ping)
             }))
     }
-
-
+    
+    
     public static func authRequestPublisher(_ callback: @escaping (NSCWalletConnectV2AuthRequest)-> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Auth.instance.authRequestPublisher
             .receive(on: DispatchQueue.main)
             .sink { authRequest in
                 callback(NSCWalletConnectV2AuthRequest(authRequest: authRequest))
             })
-
+        
     }
-
+    
     public static func authResponsePublisher(_ callback: @escaping (NSCWalletConnectV2RPCID, NSCWalletConnectV2Cacao?, NSCWalletConnectV2AuthError?)-> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Auth.instance.authResponsePublisher
             .receive(on: DispatchQueue.main)
@@ -1375,13 +1476,13 @@ public class NSCWalletConnectV2: NSObject {
                 }
             }))
     }
-
+    
     public static func authSocketConnectionStatusPublisher(_ callback: @escaping (NSCWalletConnectV2SocketConnectionStatus) -> Void) -> NSCWalletConnectV2AnyCancellable{
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Auth.instance.socketConnectionStatusPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { status in
                 callback(NSCWalletConnectV2SocketConnectionStatus(status: status))
             }))
-
+        
     }
 }

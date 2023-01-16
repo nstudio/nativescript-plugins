@@ -7,6 +7,8 @@ declare class NSCWalletConnectV2 extends NSObject {
 
   static authResponsePublisher(callback: (p1: NSCWalletConnectV2RPCID, p2: NSCWalletConnectV2Cacao, p3: NSCWalletConnectV2AuthError) => void): NSCWalletConnectV2AnyCancellable;
 
+  static authSocketConnectionStatusPublisher(callback: (p1: NSCWalletConnectV2SocketConnectionStatus) => void): NSCWalletConnectV2AnyCancellable;
+
   static initializeWithProjectIdRelayUrlMetaSocketConnectionType(projectId: string, relayUrl: string, meta: NSCWalletConnectV2AppMetadata, socketConnectionType: NSCWalletConnectV2ConnectionType): void;
 
   static networkConnect(callback: (p1: NSError) => void): void;
@@ -53,9 +55,13 @@ declare class NSCWalletConnectV2 extends NSObject {
 
   static signPing(topic: string, callback: (p1: string, p2: NSError) => void): void;
 
+  static signRejectSession(proposalId: string, reason: NSCWalletConnectV2RejectionReason, callback: (p1: NSError) => void): void;
+
   static signRequestParamsChainId(topic: string, method: string, params: NSCWalletConnectV2Codable, chainId: string, callback: (p1: NSError) => void): void;
 
   static signRespondResult(topic: string, requestId: NSCWalletConnectV2RPCID, result: NSCWalletConnectV2RPCResult, callback: (p1: NSError) => void): void;
+
+  static signSocketConnectionStatusPublisher(callback: (p1: NSCWalletConnectV2SocketConnectionStatus) => void): NSCWalletConnectV2AnyCancellable;
 
   static signUpdate(topic: string, namespaces: NSDictionary<string, NSCWalletConnectV2SessionNamespace>, callback: (p1: NSError) => void): void;
 }
@@ -158,6 +164,20 @@ declare class NSCWalletConnectV2Codable extends NSObject {
 
   static new(): NSCWalletConnectV2Codable; // inherited from NSObject
 
+  readonly arrayValue: NSArray<NSCWalletConnectV2Codable>;
+
+  readonly boolValue: boolean;
+
+  readonly floatValue: number;
+
+  readonly intValue: number;
+
+  readonly objectValue: NSDictionary<NSCWalletConnectV2Codable, NSCWalletConnectV2Codable>;
+
+  readonly stringValue: string;
+
+  readonly type: NSCWalletConnectV2CodableValueType;
+
   static readonly Null: NSCWalletConnectV2Codable;
 
   static readonly types: NSArray<any>;
@@ -189,6 +209,23 @@ declare class NSCWalletConnectV2Codable extends NSObject {
   initWithString(string: string): this;
 
   initWithValue(value: NSCWalletConnectV2Codable): this;
+}
+
+declare const enum NSCWalletConnectV2CodableValueType {
+
+  String = 0,
+
+  Int = 1,
+
+  Float = 2,
+
+  Bool = 3,
+
+  Array = 4,
+
+  Object = 5,
+
+  Null = 6
 }
 
 declare const enum NSCWalletConnectV2ConnectionType {
@@ -274,6 +311,17 @@ declare class NSCWalletConnectV2Reason extends NSObject {
   readonly code: number;
 
   readonly message: string;
+}
+
+declare const enum NSCWalletConnectV2RejectionReason {
+
+  UserRejected = 0,
+
+  UserRejectedChains = 1,
+
+  UserRejectedMethods = 2,
+
+  UserRejectedEvents = 3
 }
 
 declare class NSCWalletConnectV2RelayProtocolOptions extends NSObject {
@@ -391,6 +439,13 @@ declare class NSCWalletConnectV2SessionProposal extends NSObject {
   readonly proposer: NSCWalletConnectV2AppMetadata;
 
   readonly requiredNamespaces: NSDictionary<string, NSCWalletConnectV2ProposalNamespace>;
+}
+
+declare const enum NSCWalletConnectV2SocketConnectionStatus {
+
+  Connected = 0,
+
+  Disconnected = 1
 }
 
 declare class NSCWalletConnectV2WalletConnectURI extends NSObject {
