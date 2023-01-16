@@ -92,6 +92,7 @@ export class WalletConnectError extends Error {
 }
 
 export class Client {
+
   static get instance() {
     return client;
   }
@@ -130,8 +131,6 @@ export class Client {
     )
   }
 }
-
-let client = new Client();
 
 export class WalletConnectURI extends NSObject {
 
@@ -316,9 +315,99 @@ export class ProposalEvent {
 
 }
 
+
+function deserialize(data: NSCWalletConnectV2Codable): any {
+  const type = data.type;
+  switch (type) {
+    case NSCWalletConnectV2CodableValueType.Array: {
+      const array = data.arrayValue;
+      const items = [];
+      const count = array.count;
+      for (let i = 0; i < count; i++) {
+        items.push(deserialize(array.objectAtIndex(i)));
+      }
+      return items;
+    }
+    case NSCWalletConnectV2CodableValueType.Int:
+      return data.intValue;
+    case NSCWalletConnectV2CodableValueType.Bool:
+      return data.boolValue;
+    case NSCWalletConnectV2CodableValueType.Null:
+      return null;
+    case NSCWalletConnectV2CodableValueType.Object: {
+      const objects = data.objectValue;
+      const keys = objects.allKeys;
+      const count = keys.count;
+      const items = {};
+      for (let i = 0; i < count; i++) {
+        const key = keys.objectAtIndex(i);
+        const value = objects.objectForKey(key);
+        items[deserialize(key)] = deserialize(value);
+      }
+      return items;
+    }
+    case NSCWalletConnectV2CodableValueType.String:
+      return data.stringValue;
+    case NSCWalletConnectV2CodableValueType.Float:
+      return data.floatValue;
+  }
+}
+
+export class SessionEvent {
+  private _native: NSCWalletConnectV2SessionEvent;
+  private _topic: string;
+  private _chainId: string;
+
+  static fromNative(topic: string, chainId: string, event: NSCWalletConnectV2SessionEvent) {
+    if (event instanceof NSCWalletConnectV2SessionEvent) {
+      const ret = new SessionEvent();
+      ret._native = event;
+      ret._topic = topic;
+      ret._chainId = chainId;
+      return ret;
+    }
+    return null;
+  }
+
+  get native() {
+    return this._native;
+  }
+
+  id: number;
+
+  get topic(): string {
+    return this._topic;
+  }
+
+  private _params: {
+    event: { name: string; data: any };
+    chainId: string;
+  };
+
+
+  get params() {
+    if (!this._params) {
+      this._params = {
+        event: {name: this.native.name, data: deserialize(this.native.data)},
+        chainId: this._chainId
+      };
+    }
+
+    return this._params;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      topic: this.topic,
+      params: this.params
+    }
+  }
+}
+
 export class Sign extends Observable {
   _sessionProposalPublisher: NSCWalletConnectV2AnyCancellable;
-
+  _sessionEventPublisher: NSCWalletConnectV2AnyCancellable;
 
   constructor() {
     super();
@@ -334,6 +423,15 @@ export class Sign extends Observable {
         });
       });
     }
+
+    if (!this._sessionProposalPublisher && eventNames === 'session_event') {
+      this._sessionEventPublisher = NSCWalletConnectV2.sessionEventPublisher((event, topic, chainId) => {
+        this.notify({
+          eventName: 'session_event',
+          event: SessionEvent.fromNative(topic, chainId, event)
+        });
+      });
+    }
   }
 
   off(eventNames: string, callback?: any, thisArg?: any) {
@@ -341,6 +439,11 @@ export class Sign extends Observable {
     if (eventNames === 'session_proposal' && !this.hasListeners('session_proposal')) {
       this._sessionProposalPublisher.cancel();
       this._sessionProposalPublisher = null;
+    }
+
+    if (eventNames === 'session_event' && !this.hasListeners('session_event')) {
+      this._sessionEventPublisher.cancel();
+      this._sessionEventPublisher = null;
     }
   }
 }
@@ -419,6 +522,8 @@ export class Pair {
     return pairings;
   }
 }
+
+const client = new Client();
 
 const pair = new Pair();
 const auth = new Auth();
