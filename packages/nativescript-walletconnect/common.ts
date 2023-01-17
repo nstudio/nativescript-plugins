@@ -3,3 +3,4 @@ export function generateId() {
 	const extraPart = Math.floor(Math.random() * Math.pow(10, 3));
 	return datePart + extraPart;
 }
+

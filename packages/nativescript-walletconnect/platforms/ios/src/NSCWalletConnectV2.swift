@@ -576,6 +576,14 @@ public class NSCWalletConnectV2ProposalNamespace: NSObject {
         self.proposalNamespace = proposalNamespace
     }
     
+    public init(events: Set<String>, methods: Set<String>, chains: Set<String>, extensions: [NSCWalletConnectV2ProposalNamespaceExtension]?) {
+        self.proposalNamespace = ProposalNamespace.init(chains: Set(chains.map { chain in
+            Blockchain(chain)!
+        }), methods: methods, events: events,extensions: extensions?.map({ ext in
+            ext.proposalNamespaceExtension
+        }))
+    }
+    
     public var events: [String] {
         return Array(proposalNamespace.events)
     }
@@ -606,6 +614,13 @@ public class NSCWalletConnectV2ProposalNamespaceExtension: NSObject {
     init(proposalNamespaceExtension: ProposalNamespace.Extension) {
         self.proposalNamespaceExtension = proposalNamespaceExtension
     }
+    
+    public init(events: Set<String>, methods: Set<String>, chains: Set<String>) {
+        self.proposalNamespaceExtension = ProposalNamespace.Extension(chains: Set(chains.map { chain in
+            Blockchain(chain)!
+        }), methods: methods, events: events)
+    }
+    
     
     public var events: [String] {
         return Array(proposalNamespaceExtension.events)
@@ -741,24 +756,32 @@ public enum NSCWalletConnectV2SocketConnectionStatus: Int32, RawRepresentable {
 
 
 @objcMembers
-@objc(NSCWalletConnectV2SessionExtension)
-public class NSCWalletConnectV2SessionExtension: NSObject {
-    var sessionExtension: SessionNamespace.Extension
+@objc(NSCWalletConnectV2SessionNamespaceExtension)
+public class NSCWalletConnectV2SessionNamespaceExtension: NSObject {
+    var sessionNamespaceExtension: SessionNamespace.Extension
     
-    init(sessionExtension: SessionNamespace.Extension) {
-        self.sessionExtension = sessionExtension
+    init(sessionNamespaceExtension: SessionNamespace.Extension) {
+        self.sessionNamespaceExtension = sessionNamespaceExtension
+    }
+    public init(accounts: Set<String>, events: Set<String>, methods: Set<String>) {
+        self.sessionNamespaceExtension = SessionNamespace.Extension(accounts: Set(accounts.map({ account in
+            Account(account)!
+        })), methods: methods, events: events)
     }
     
-    public var accounts: Set<Account> {
-        return sessionExtension.accounts
+    
+    public var accounts: Set<String> {
+        return Set(sessionNamespaceExtension.accounts.map { account in
+            account.absoluteString
+        })
     }
     
     public var events: Set<String> {
-        return sessionExtension.events
+        return sessionNamespaceExtension.events
     }
     
     public var methods: Set<String> {
-        return sessionExtension.methods
+        return sessionNamespaceExtension.methods
     }
 }
 
@@ -767,14 +790,23 @@ public class NSCWalletConnectV2SessionExtension: NSObject {
 @objc(NSCWalletConnectV2SessionNamespace)
 public class NSCWalletConnectV2SessionNamespace: NSObject {
     
-    
     var sessionNamespace: SessionNamespace
     init(sessionNamespace: SessionNamespace) {
         self.sessionNamespace = sessionNamespace
     }
     
-    public var accounts: Set<Account> {
-        return sessionNamespace.accounts
+    public init(accounts: Set<String>, events: Set<String>, methods: Set<String>, extensions: [NSCWalletConnectV2SessionNamespaceExtension]?) {
+        self.sessionNamespace = SessionNamespace(accounts: Set(accounts.map({ account in
+            Account(account)!
+        })), methods: methods, events: events, extensions: extensions?.map({ ext in
+            ext.sessionNamespaceExtension
+        }))
+    }
+    
+    public var accounts: Set<String> {
+        return Set(sessionNamespace.accounts.map { account in
+            account.absoluteString
+        })
     }
     
     public var events: Set<String> {
@@ -785,11 +817,11 @@ public class NSCWalletConnectV2SessionNamespace: NSObject {
         return sessionNamespace.methods
     }
     
-    public var extensions: [NSCWalletConnectV2SessionExtension]? {
+    public var extensions: [NSCWalletConnectV2SessionNamespaceExtension]? {
         guard let extensions  = sessionNamespace.extensions else {return nil}
         
         return extensions.map { ext in
-            NSCWalletConnectV2SessionExtension(sessionExtension: ext)
+            NSCWalletConnectV2SessionNamespaceExtension(sessionNamespaceExtension: ext)
         }
     }
     
@@ -1006,6 +1038,14 @@ public class NSCWalletConnectV2Cacao: NSObject {
     init(cacao: Cacao) {
         self.cacao = cacao
     }
+    
+    public func json() throws -> String {
+        return try cacao.json()
+    }
+    
+    public func asJSONEncodedString() throws -> String {
+        return try cacao.asJSONEncodedString()
+    }
 }
 
 @objcMembers
@@ -1144,8 +1184,102 @@ public class NSCWalletConnectV2WalletConnectURI: NSObject {
     
 }
 
+@objcMembers
+@objc(NSCWalletConnectV2RequestParams)
+public class NSCWalletConnectV2RequestParams: NSObject {
+    let params: RequestParams
+    
+    init(params: RequestParams) {
+        self.params = params
+    }
+    
+    public init(_ domain: String, _ chainId: String, _ nonce: String, _ aud: String, _ nbf: String?, _ exp: String?, _ statement: String?, _ requestId: String,_ resources: [String]?) {
+        self.params = RequestParams(domain: domain, chainId: chainId, nonce: nonce, aud: aud, nbf: nbf, exp: exp, statement: statement, requestId: requestId, resources: resources)
+    }
+    
+    
+    public var domain: String {
+        return params.domain
+    }
+    public var chainId: String {
+        return params.chainId
+    }
+    public var nonce: String {
+        return params.nonce
+    }
+    public var aud: String {
+        return params.aud
+    }
+    public var nbf: String? {
+        return params.nbf
+    }
+    public var exp: String? {
+        return params.exp
+    }
+    public var statement: String? {
+        return params.statement
+    }
+    public var requestId: String? {
+        return params.requestId
+    }
+    public var resources: [String]? {
+        return params.resources
+    }
+}
+
+@objc(NSCWalletConnectV2CacaoSignatureType)
+public enum NSCWalletConnectV2CacaoSignatureType: Int32, RawRepresentable {
+    case eip191
+    case eip1271
+    
+    public typealias RawValue = Int32
+    
+    public init?(rawValue: Int32) {
+        switch(rawValue){
+        case 0:
+            self = .eip191
+            break
+        case 1:
+            self = .eip1271
+            break
+        default:
+            return nil
+        }
+    }
+    
+    public var rawValue: Int32{
+        switch(self){
+        case .eip191:
+            return 0
+        case .eip1271:
+            return 1
+        }
+    }
+    
+    var intoCacaoSignatureType: CacaoSignatureType {
+        switch(self){
+        case .eip191:
+            return .eip191
+        case .eip1271:
+            return .eip1271
+        }
+    }
+}
 
 
+@objcMembers
+@objc(NSCWalletConnectV2CacaoSignature)
+public class NSCWalletConnectV2CacaoSignature: NSObject {
+    let signature: CacaoSignature
+    
+    init(signature: CacaoSignature) {
+        self.signature = signature
+    }
+    
+    public init(t: NSCWalletConnectV2CacaoSignatureType, s: String, m: String?) {
+        self.signature = CacaoSignature(t: t.intoCacaoSignatureType, s: s,m: m)
+    }
+}
 
 
 @objcMembers
@@ -1332,7 +1466,6 @@ public class NSCWalletConnectV2: NSObject {
     
     public static func signDisconnect(_ topic: String, _ callback: @escaping (Error?) -> Void){
         Task {
-            
             do {
                 try await Sign.instance.disconnect(topic: topic)
                 callback(nil)
@@ -1485,4 +1618,56 @@ public class NSCWalletConnectV2: NSObject {
             }))
         
     }
+    
+    public static func authFormatMessage(_ payload: NSCWalletConnectV2AuthPayload,_ address: String) throws -> String {
+        return try Auth.instance.formatMessage(payload: payload.payload, address: address)
+    }
+    
+    public static func getPendingRequests(_ account: String) throws -> [NSCWalletConnectV2AuthRequest]{
+        let requests = try Auth.instance.getPendingRequests(account: Account(account)!)
+        return requests.map { request in
+            NSCWalletConnectV2AuthRequest(authRequest: request)
+        }
+    }
+    
+    public static func authRequest(_ topic: String, params: NSCWalletConnectV2RequestParams, _ callback: @escaping (Error?) -> Void){
+        Task {
+            do {
+                try await Auth.instance.request(params.params, topic: topic)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func authRespond(_ requestId: NSCWalletConnectV2RPCID, signature: NSCWalletConnectV2CacaoSignature, _ account: String, _ callback: @escaping (Error?) -> Void){
+        Task {
+            do {
+                try await Auth.instance.respond(requestId: requestId.id, signature: signature.signature, from: Account(account)!)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func authReject(_ requestId: NSCWalletConnectV2RPCID, _ callback: @escaping (Error?) -> Void){
+        Task {
+            do {
+                try await Auth.instance.reject(requestId: requestId.id)
+                callback(nil)
+            }catch {
+                callback(error)
+            }
+        }
+    }
+    
+    public static func signerSign(_ payload: NSCWalletConnectV2AuthPayload, _ address: String, _ privateKey: String, _ type: NSCWalletConnectV2CacaoSignatureType) throws -> NSCWalletConnectV2CacaoSignature{
+        let signed = try MessageSignerFactory(signerFactory: AuthSignerFactory())
+            .create()
+            .sign(payload: payload.payload, address: address, privateKey: privateKey.data(using: .utf8)!, type: type.intoCacaoSignatureType)
+        return NSCWalletConnectV2CacaoSignature(signature: signed)
+    }
+    
 }

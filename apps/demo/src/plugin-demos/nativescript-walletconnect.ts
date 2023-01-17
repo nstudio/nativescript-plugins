@@ -1,6 +1,6 @@
 import {Observable, EventData, Page, Application, Dialogs} from '@nativescript/core';
 import {DemoSharedNativescriptWalletconnect} from '@demo/shared';
-import {Client} from '@nstudio/nativescript-walletconnect';
+import {Client, Namespaces} from '@nstudio/nativescript-walletconnect';
 
 //import {PrivateKey, CoinType, CoinTypeInstance, Utils} from '@nstudio/nativescript-walletconnect/utils';
 
@@ -29,6 +29,14 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 
     Client.instance.sign.on('session_proposal', args => {
       console.log(args);
+      // 0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb
+      //Client.instance.sign.ap
+    /*  const ns: Namespaces = {
+        '': {}
+      };
+      Client.instance.sign.approve({id: args.event.id, namespaces:args.event.requiredNamespaces})
+ 
+     */
     });
 
     Client.instance.sign.on('session_event', args => {
@@ -37,7 +45,7 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 
     Client.instance.pair.create();
 
-    Client.instance.pair.pair({uri: 'wc:40c75fbd46f1ec026f80e8015896788673ef1173aa287d76e49a82a8a8c175a3@2?relay-protocol=irn&symKey=2db8d6fe9f347e56fb1e4b891fee221db88284f9619d5f1616dec5ef60cc8699'});
+    Client.instance.pair.pair({uri: 'wc:967e8c41c02ec5b153e853509a8166e856280f16fcd2862f9cc40292e2cd15d2@2?relay-protocol=irn&symKey=6096d9ddbdf57d75fbcba4d5f672777bb30685d9efb6379b3edf9aa1b8bdce5f'});
 
     Client.instance.pair.getPairings().forEach(item => {
       console.log(item.native, item.expiryDate, item.peer, item.topic);
