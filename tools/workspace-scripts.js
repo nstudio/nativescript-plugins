@@ -283,6 +283,13 @@ module.exports = {
 					description: '@nstudio/nativescript-freshchat: Build',
 				},
 			},
+			// @nstudio/nativescript-cardview
+			'nativescript-cardview': {
+				build: {
+					script: 'nx run nativescript-cardview:build.all',
+					description: '@nstudio/nativescript-cardview: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -392,6 +399,10 @@ module.exports = {
 			'nativescript-freshchat': {
 				script: 'nx run nativescript-freshchat:focus',
 				description: 'Focus on @nstudio/nativescript-freshchat',
+			},
+			'nativescript-cardview': {
+				script: 'nx run nativescript-cardview:focus',
+				description: 'Focus on @nstudio/nativescript-cardview',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',
