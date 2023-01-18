@@ -6,6 +6,7 @@ export * from './nativescript-airship-hms';
 export * from './nativescript-barcodescanner';
 export * from './nativescript-blur';
 export * from './nativescript-camera-plus';
+export * from './nativescript-cardview';
 export * from './nativescript-carousel';
 export * from './nativescript-checkbox';
 export * from './nativescript-dynatrace';

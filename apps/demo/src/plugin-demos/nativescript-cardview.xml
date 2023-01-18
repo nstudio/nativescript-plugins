@@ -1,0 +1,63 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:Card="@nstudio/nativescript-cardview">
+    <Page.actionBar>
+        <ActionBar title="nativescript-cardview" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <scroll-view>
+        <stack-layout>
+            <Card:CardView ripple="true" margin="5" loaded="{{ cardLoaded }}" id="batCard" class="whiteCard">
+                <grid-layout rows="200, auto, auto" columns="*, *">
+                    <image src="https://upload.wikimedia.org/wikipedia/en/c/c7/Batman_Infobox.jpg" stretch="aspectFill" margin="10" colSpan="2" row="0" />
+                    <label text="Batman wants to be friends?" class="info" textWrap="true" row="1" colSpan="2" />
+                    <button text="Decline" tap="{{ goAway }}" class="blue" row="2" col="0" />
+                    <button text="Accept" tap="{{ goAway }}" class="blue" row="2" col="1" />
+                </grid-layout>
+            </Card:CardView>
+            <grid-layout rows="*" columns="*, *">
+                <Card:CardView class="blueCard" margin="10" col="0" elevation="20">
+                    <grid-layout rows="120, auto" columns="*, *, *">
+                        <image src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg" stretch="aspectFill" colSpan="3" row="0" />
+                        <button text="&#xE55F;" class="Material info clear-btn gray" row="1" col="0" />
+                        <button text="&#xE559;" class="Material info clear-btn gray" row="1" col="1" />
+                        <button text="&#xE80D;" class="Material info clear-btn gray" row="1" col="2" />
+                    </grid-layout>
+                </Card:CardView>
+                <Card:CardView backgroundColor="red" radius="30" margin="10" col="1" elevation="20">
+                    <grid-layout rows="120, auto" columns="*, *, *">
+                        <image src="https://upload.wikimedia.org/wikipedia/commons/3/3f/P-51_Mustang_edit1.jpg" stretch="aspectFill" colSpan="3" row="0" />
+                        <button text="&#xE55F;" class="Material info clear-btn gray" row="1" col="0" />
+                        <button text="&#xE559;" class="Material info clear-btn gray" row="1" col="1" />
+                        <button text="&#xE80D;" class="Material info clear-btn gray" row="1" col="2" />
+                    </grid-layout>
+                </Card:CardView>
+            </grid-layout>
+            <Card:CardView margin="10" class="whiteCard">
+                <grid-layout rows="auto" columns="*" padding="5">
+                    <label text="The following display options:" class="info" textWrap="true" row="0" col="0" />
+                </grid-layout>
+            </Card:CardView>
+            <Card:CardView margin="10" id="jokerCard" class="jokerCard" elevation="50" shadowColor="#FE00FC" shadowOpacity="1">
+                <grid-layout rows="200, auto, auto" columns="auto, auto, *">
+                    <image src="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/HeathJoker.png/220px-HeathJoker.png" stretch="aspectFill" colSpan="3" row="0" />
+                    <label text="Joker wants to talk?" class="info" textWrap="true" row="1" colSpan="3" />
+                    <button text="DECLINE" tap="{{ goAwayJoker }}" class="clear-btn blue" row="2" col="0" />
+                    <button text="ACCEPT" class="clear-btn blue" row="2" col="1" />
+                </grid-layout>
+            </Card:CardView>
+            <grid-layout rows="*" columns="*, *">
+                <Card:CardView col="0" margin="10" radius="20" class="whiteCard">
+                    <grid-layout rows="auto, auto" columns="auto" padding="8">
+                        <label text="Budget" textWrap="true" class="size16" row="0" />
+                        <label text="123.4M" textWrap="true" class="title" row="1" />
+                    </grid-layout>
+                </Card:CardView>
+                <Card:CardView col="1" margin="10" elevation="25" class="whiteCard">
+                    <grid-layout rows="auto, auto" columns="auto">
+                        <label text="Sales" textWrap="true" class="size16" row="0" />
+                        <label text="345.8M" textWrap="true" class="title" row="1" />
+                    </grid-layout>
+                </Card:CardView>
+            </grid-layout>
+        </stack-layout>
+    </scroll-view>
+</Page>

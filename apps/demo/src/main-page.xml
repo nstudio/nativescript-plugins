@@ -12,6 +12,7 @@
         <Button text="nativescript-barcodescanner" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-blur" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-camera-plus" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-cardview" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-carousel" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-checkbox" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-dynatrace" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
