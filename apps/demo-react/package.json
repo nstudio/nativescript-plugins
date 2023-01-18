@@ -2,7 +2,7 @@
   "main": "./src/app.ts",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect",
+    "@nstudio/nativescript-cardview": "file:../../packages/nativescript-cardview",
     "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
     "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
     "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
@@ -25,7 +25,8 @@
     "@nstudio/nativescript-persona": "file:../../packages/nativescript-persona",
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
-    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency"
+    "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
+    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
   },
   "devDependencies": {
     "@nativescript/android": "~8.4.0",

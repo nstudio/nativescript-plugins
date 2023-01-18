@@ -28,6 +28,9 @@ export class HomeComponent {
 		name: 'nativescript-camera-plus'
 	},
 	{
+		name: 'nativescript-cardview'
+	},
+	{
 		name: 'nativescript-carousel'
 	},
 	{
