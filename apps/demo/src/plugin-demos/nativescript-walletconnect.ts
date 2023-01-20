@@ -1,65 +1,165 @@
-import {Observable, EventData, Page, Application, Dialogs} from '@nativescript/core';
-import {DemoSharedNativescriptWalletconnect} from '@demo/shared';
-import {Client, Namespaces} from '@nstudio/nativescript-walletconnect';
+import { Observable, EventData, Page, Application, Dialogs } from '@nativescript/core';
+import { DemoSharedNativescriptWalletconnect } from '@demo/shared';
+import { Client, Namespaces, PrivateKey, eth_signTypedData, eth_personalSign, eth_sendTransaction, eth_sign, eth_signTransaction } from '@nstudio/nativescript-walletconnect';
 
 //import {PrivateKey, CoinType, CoinTypeInstance, Utils} from '@nstudio/nativescript-walletconnect/utils';
 
 export function navigatingTo(args: EventData) {
-  const page = <Page>args.object;
-  page.bindingContext = new DemoModel();
+	const page = <Page>args.object;
+	page.bindingContext = new DemoModel();
 }
 
 export class DemoModel extends DemoSharedNativescriptWalletconnect {
-  state: 'Disconnected';
-  //wallet: Client;
-  wcurl: string = '';
-  accounts: string;
-  // key: PrivateKey;
-  address: string;
+	state: 'Disconnected';
+	//wallet: Client;
+	wcurl: string = '';
+	accounts: string[];
+	key = new PrivateKey('0xe56da0e170b5e09a8bb8f1b693392c7d56c3739a9c75740fbc558a2877868540');
+	constructor() {
+		super();
 
-  constructor() {
-    super();
-    Client.initialize('a296125a15cc255e4aa63fffdc421458', null, {
-      description: 'WalletConnect Developer App',
-      url: 'https://walletconnect.org',
-      icons: ['https://walletconnect.org/walletconnect-logo.png'],
-      name: 'WalletConnect',
-    });
+		Client.initialize('a296125a15cc255e4aa63fffdc421458', null, {
+			description: 'WalletConnect Developer App',
+			url: 'https://walletconnect.org',
+			icons: ['https://walletconnect.org/walletconnect-logo.png'],
+			name: 'WalletConnect',
+		});
 
+		Client.instance.sign.on('session_settle', (args) => {
+			const event = args.event;
+			const namespaces = event.namespaces;
+			const firstNs = Object.keys(namespaces)[0];
+			this.accounts = namespaces[firstNs].accounts;
+		});
 
-    Client.instance.sign.on('session_proposal', args => {
-      console.log(args);
-      // 0xab16a96d359ec26a11e2c2b3d8f8b8942d5bfcdb
-      //Client.instance.sign.ap
-    /*  const ns: Namespaces = {
-        '': {}
-      };
-      Client.instance.sign.approve({id: args.event.id, namespaces:args.event.requiredNamespaces})
- 
-     */
-    });
+		Client.instance.sign.on('session_proposal', (args) => {
+			const meta = args.event.proposer;
+			Dialogs.confirm({
+				title: `Connect to ${meta.name}`,
+				message: `${meta.description}\n${meta.url}`,
+				okButtonText: 'Approve',
+				cancelButtonText: 'Reject',
+			}).then((done) => {
+				if (done) {
+					const proposed = args.event.requiredNamespaces;
+					const ns: Namespaces = {};
 
-    Client.instance.sign.on('session_event', args => {
-      console.log(args);
-    });
+					Object.keys(proposed).forEach((key) => {
+						const value = proposed[key];
+						const accounts = value.chains.map((id) => {
+							return `${id}:${this.key.address.hex(id.indexOf('eip55') > -1)}`;
+						});
+						this.accounts = accounts;
+						ns[key] = {
+							accounts,
+							methods: value.methods,
+							chains: value.chains,
+							events: value.events,
+							extension: value.extensions.map((item) => {
+								return { ...item, accounts };
+							}),
+						};
+					});
 
-    Client.instance.pair.create();
+					Client.instance.sign.approve({ id: args.event.id, namespaces: ns });
+				} else {
+					Client.instance.sign.reject({ id: args.event.id, reason: 'rejected' });
+				}
+			});
+		});
 
-    Client.instance.pair.pair({uri: 'wc:967e8c41c02ec5b153e853509a8166e856280f16fcd2862f9cc40292e2cd15d2@2?relay-protocol=irn&symKey=6096d9ddbdf57d75fbcba4d5f672777bb30685d9efb6379b3edf9aa1b8bdce5f'});
+		Client.instance.sign.on('session_event', (args) => {
+			console.log('session_event', args.event);
+		});
 
-    Client.instance.pair.getPairings().forEach(item => {
-      console.log(item.native, item.expiryDate, item.peer, item.topic);
-      Client.instance.pair.disconnect({topic: item.topic})
-    });
+		Client.instance.sign.on('session_ping', (args) => {
+			console.log('session_ping', args.event?.topic);
+		});
 
-    console.log(Client.instance.pair.getPairings());
+		Client.instance.sign.on('session_request', (args) => {
+			const event = args.event;
+			const request = event.request;
+			const method = request.method;
+			const isTransaction = method === 'eth_signTransaction' || method === 'eth_sendTransaction';
 
-    //	this.key = new PrivateKey('ba005cd605d8a02e3d5dfd04234cef3a3ee4f76bfbad2722d1fb5af8e12e6764');
+			console.log(request.params);
 
-    //	this.address = CoinType.getInstance(CoinTypeInstance.Ethereum).deriveAddress(this.key);
-  }
+			const message = JSON.stringify(request?.params);
 
-  /*
+			Dialogs.confirm({
+				title: method,
+				message,
+				okButtonText: isTransaction ? 'Approve' : 'Sign',
+				cancelButtonText: isTransaction ? 'Deny' : 'Cancel',
+			}).then((done) => {
+				if (done) {
+					let value;
+
+					if (!this.accounts) {
+						const first = Client.instance.sign.getSessions()[0];
+						const namespaces = first?.namespaces;
+						const firstNs = Object.keys(namespaces)[0];
+						this.accounts = namespaces[firstNs].accounts;
+					}
+
+					if (!isTransaction) {
+						switch (method) {
+							case 'eth_sign':
+								value = eth_sign(this.key, request.params);
+								break;
+							case 'personal_sign':
+								value = eth_personalSign(this.key, request.params);
+								break;
+							case 'eth_signTypedData':
+								value = eth_signTypedData(this.key, request.params);
+								break;
+						}
+					} else {
+						if (method === 'eth_signTransaction') {
+							value = eth_signTransaction(this.key, request.params);
+							console.log(value);
+						} else {
+							value = eth_sendTransaction(this.key, request.params);
+						}
+					}
+
+					Client.instance.sign.respond({ topic: event.topic, id: request.id, response: value });
+				} else {
+					Client.instance.sign.respond({
+						id: event.request.id,
+						topic: event.topic,
+						response: {
+							code: 1000,
+							message: 'User Rejected Session Request',
+						},
+					});
+				}
+			});
+		});
+
+		Client.instance.sign.on('session_update', (args) => {
+			console.log(args.event.namespaces);
+			console.log('session_update', args.event);
+		});
+
+		Client.instance.sign.on('session_delete', (args) => {
+			console.log('session_delete', args.event);
+		});
+
+		//	this.key = new PrivateKey('ba005cd605d8a02e3d5dfd04234cef3a3ee4f76bfbad2722d1fb5af8e12e6764');
+
+		//	this.address = CoinType.getInstance(CoinTypeInstance.Ethereum).deriveAddress(this.key);
+	}
+
+	pair() {
+		Client.instance.pair.pair({ uri: this.wcurl });
+
+		Client.instance.pair.getPairings().forEach((item) => {
+			Client.instance.pair.disconnect({ topic: item.topic });
+		});
+	}
+
+	/*
 
 	resetConnection() {
 		this.wallet = new WalletConnect({
@@ -220,3 +320,30 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 
   */
 }
+
+/*
+[
+	{
+		types: {
+			EIP712Domain: [
+				{ name: 'name', type: 'string' },
+				{ name: 'version', type: 'string' },
+				{ name: 'chainId', type: 'uint256' },
+				{ name: 'verifyingContract', type: 'address' },
+			],
+			Person: [
+				{ name: 'name', type: 'string' },
+				{ name: 'wallet', type: 'address' },
+			],
+			Mail: [
+				{ name: 'from', type: 'Person' },
+				{ name: 'to', type: 'Person' },
+				{ name: 'contents', type: 'string' },
+			],
+		},
+		primaryType: 'Mail',
+		domain: { name: 'Ether Mail', version: '1', chainId: 1, verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC' },
+		message: { from: { name: 'Cow', wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826' }, to: { name: 'Bob', wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB' }, contents: 'Hello, Bob!' },
+	},
+];
+*/
