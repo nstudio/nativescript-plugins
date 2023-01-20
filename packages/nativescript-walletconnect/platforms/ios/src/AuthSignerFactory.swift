@@ -40,4 +40,10 @@ public struct Web3Signer: EthereumSigner {
         let hash = digest.calculate(for: [UInt8](data))
         return Data(hash)
     }
+    
+    public func keccak256(_ data: [UInt8]) -> Data {
+        let digest = SHA3(variant: .keccak256)
+        let hash = digest.calculate(for: data)
+        return Data(hash)
+    }
 }

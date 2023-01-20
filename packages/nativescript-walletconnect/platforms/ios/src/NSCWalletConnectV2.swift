@@ -8,6 +8,171 @@
 import Foundation
 import WalletConnectSwiftV2
 import Combine
+import Web3
+
+@objcMembers
+@objc(NSCWalletConnectV2ETHSigner)
+public class NSCWalletConnectV2ETHSigner: NSObject {
+   
+    public static func personalSign(_ privateKey: NSCWalletConnectV2EthereumPrivateKey,_ params: NSCWalletConnectV2Codable) -> NSCWalletConnectV2Codable {
+        let params = try! AnyCodable(params).get([String].self)
+        let messageToSign = params[0]
+        let dataToHash = dataToHash(messageToSign)
+        let (v, r, s) = try! privateKey.key.sign(message: .init(hex: dataToHash.toHexString()))
+        let result = "0x" + r.toHexString() + s.toHexString() + String(v + 27, radix: 16)
+        return NSCWalletConnectV2Codable(string: result)
+    }
+    
+    
+
+    public static func ethSign(_ privateKey: NSCWalletConnectV2EthereumPrivateKey,_ params: NSCWalletConnectV2Codable) -> NSCWalletConnectV2Codable {
+        let params = try! AnyCodable(params).get([String].self)
+        let messageToSign = params[1]
+        let dataToHash = dataToHash(messageToSign)
+        let (v, r, s) = try! privateKey.key.sign(message: .init(hex: dataToHash.toHexString()))
+        let result = "0x" + r.toHexString() + s.toHexString() + String(v + 27, radix: 16)
+        return NSCWalletConnectV2Codable(string: result)
+    }
+    
+    public static func signTransaction(_ privateKey: NSCWalletConnectV2EthereumPrivateKey,_ params: NSCWalletConnectV2Codable) -> NSCWalletConnectV2Codable {
+        let params = try! params.value.get([EthereumTransaction].self)
+        let transaction = params[0]
+        let signedTx = try! transaction.sign(with: privateKey.key, chainId: 4)
+        let (r, s, v) = (signedTx.r, signedTx.s, signedTx.v)
+        let result = r.hex() + s.hex().dropFirst(2) + String(v.quantity, radix: 16)
+        return NSCWalletConnectV2Codable(string: result)
+    }
+    
+    
+    public static func sendTransaction(_ privateKey: NSCWalletConnectV2EthereumPrivateKey,_ params: NSCWalletConnectV2Codable) -> NSCWalletConnectV2Codable {
+        let params = try! AnyCodable(params).get([EthereumTransaction].self)
+        let transaction = params[0]
+        let signedTx = try! transaction.sign(with: privateKey.key, chainId: 4)
+        let (r, s, v) = (signedTx.r, signedTx.s, signedTx.v)
+        let result = r.hex() + s.hex().dropFirst(2) + String(v.quantity, radix: 16)
+        return NSCWalletConnectV2Codable(string: result)
+    }
+    
+    static func dataToHash(_ message: String) -> Bytes {
+        let prefix = "\u{19}Ethereum Signed Message:\n"
+        let messageData = Data(hex: message)
+        let prefixData = (prefix + String(messageData.count)).data(using: .utf8)!
+        let prefixedMessageData = prefixData + messageData
+        let dataToHash: Bytes = .init(hex: prefixedMessageData.toHexString())
+        return dataToHash
+    }
+    
+    static func dataToPrefix(_ data: Data) -> Bytes {
+        let prefix = "\u{19}Ethereum Signed Message:\n"
+        let prefixData = (prefix + String(data.count)).data(using: .utf8)!
+        let prefixedMessageData = prefixData + data
+        let dataToHash: Bytes = .init(hex: prefixedMessageData.toHexString())
+        return dataToHash
+    }
+}
+
+@objcMembers
+@objc(NSCWalletConnectV2EthereumPublicKey)
+public class NSCWalletConnectV2EthereumPublicKey: NSObject {
+    let key: EthereumPublicKey
+    init(key: EthereumPublicKey) {
+        self.key = key
+    }
+    public var address: NSCWalletConnectV2EthereumAddress {
+        return NSCWalletConnectV2EthereumAddress(address: key.address)
+    }
+    
+    public var rawPublicKey: Bytes{
+        return key.rawPublicKey
+    }
+    public func hex() -> String {
+        return key.hex()
+    }
+}
+
+@objcMembers
+@objc(NSCWalletConnectV2EthereumAddress)
+public class NSCWalletConnectV2EthereumAddress: NSObject {
+    let address: EthereumAddress
+    init(address: EthereumAddress) {
+        self.address = address
+    }
+    
+    public var rawAddress: Bytes {
+        return address.rawAddress
+    }
+    
+    public func hex(eip55: Bool) -> String {
+        return address.hex(eip55: eip55)
+    }
+}
+
+@objcMembers
+@objc(NSCWalletConnectV2EthereumPrivateKeySignResult)
+public class NSCWalletConnectV2EthereumPrivateKeySignResult: NSObject {
+    public let v: UInt
+    public let r: Bytes
+    public let s: Bytes
+    init(v: UInt, r: Bytes, s: Bytes) {
+        self.v = v
+        self.r = r
+        self.s = s
+    }
+}
+
+@objcMembers
+@objc(NSCWalletConnectV2EthereumPrivateKey)
+public class NSCWalletConnectV2EthereumPrivateKey: NSObject {
+    let key: EthereumPrivateKey
+    init(key: EthereumPrivateKey) {
+        self.key = key
+    }
+    
+    public static func generateKey() throws -> NSCWalletConnectV2EthereumPrivateKey {
+        return NSCWalletConnectV2EthereumPrivateKey(key: try EthereumPrivateKey())
+    }
+    
+    public init(bytes: Data) throws {
+        key = try EthereumPrivateKey([UInt8](bytes))
+    }
+    
+    public init(hexPrivateKey: String) throws {
+        key = try EthereumPrivateKey(hexPrivateKey: hexPrivateKey)
+    }
+    
+    public var address: NSCWalletConnectV2EthereumAddress {
+        return NSCWalletConnectV2EthereumAddress(address: key.address)
+    }
+    
+    public var publicKey: NSCWalletConnectV2EthereumPublicKey {
+        return NSCWalletConnectV2EthereumPublicKey(key: key.publicKey)
+    }
+    
+    public var rawPrivateKey: [UInt8] {
+        return key.rawPrivateKey
+    }
+    public func sign(data message: Data) throws -> NSCWalletConnectV2EthereumPrivateKeySignResult {
+        return try sign(message: [UInt8](message))
+    }
+    
+    public func sign(message: [UInt8]) throws -> NSCWalletConnectV2EthereumPrivateKeySignResult {
+        let result = try key.sign(message: message)
+        return NSCWalletConnectV2EthereumPrivateKeySignResult(v: result.v, r: result.r, s: result.s)
+    }
+    
+    public func sign(dataHash _hash: Data) throws -> NSCWalletConnectV2EthereumPrivateKeySignResult {
+        return try sign(hash: [UInt8](_hash))
+    }
+    
+    public func sign(hash _hash: Array<UInt8>) throws -> NSCWalletConnectV2EthereumPrivateKeySignResult {
+        let result = try key.sign(hash: _hash)
+        return NSCWalletConnectV2EthereumPrivateKeySignResult(v: result.v, r: result.r, s: result.s)
+    }
+    
+    public func hex() -> String {
+        return key.hex()
+    }
+}
 
 @objc(NSCWalletConnectV2ConnectionType)
 public enum NSCWalletConnectV2ConnectionType:Int32, RawRepresentable {
@@ -110,77 +275,6 @@ public class NSCWalletConnectV2Pairing: NSObject {
     
 }
 
-enum NSCWalletConnectV2CodableValue {
-    case String(String)
-    case Int(Int)
-    case Float(Float)
-    case Bool(Bool)
-    case Array([NSCWalletConnectV2Codable])
-    case Object([NSCWalletConnectV2Codable: NSCWalletConnectV2Codable])
-    case Null
-}
-
-
-private struct DynamicCodingKeys: CodingKey {
-    var codableKey: NSCWalletConnectV2Codable
-    var stringValue: String = ""
-    init?(stringValue: String) {
-        self.stringValue = stringValue
-        codableKey = .init(string: stringValue)
-    }
-    
-    var intValue: Int?
-    init?(intValue: Int) {
-        self.intValue = intValue
-        codableKey = .init(int: intValue)
-    }
-    
-    var boolValue: Bool?
-    init?(boolValue: Bool) {
-        self.boolValue = boolValue
-        codableKey = .init(bool: boolValue)
-    }
-    
-    var floatValue: Float?
-    init?(floatValue: Float) {
-        self.floatValue = floatValue
-        codableKey = .init(float: floatValue)
-    }
-    
-    var arrayValue: [NSCWalletConnectV2Codable]?
-    init?(arrayValue: [NSCWalletConnectV2Codable]) {
-        self.arrayValue = arrayValue
-        codableKey = .init(array: arrayValue)
-    }
-    
-    
-    var objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]?
-    init?(objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]) {
-        self.objectValue = objectValue
-        codableKey = .init(object: objectValue)
-    }
-    
-    init?(codableValue: NSCWalletConnectV2Codable) {
-        self.codableKey = codableValue
-        switch(codableValue.value){
-        case .String(let string):
-            self.stringValue = string
-        case .Int(let int):
-            self.intValue = int
-        case .Float(let float):
-            self.floatValue = float
-        case .Bool(let bool):
-            self.boolValue = bool
-        case .Array(let array):
-            self.arrayValue = array
-        case .Object(let object):
-            self.objectValue = object
-        case .Null:
-            return nil
-        }
-    }
-    
-}
 
 enum NSCWalletConnectV2CodableError:Error {
     case missingValue
@@ -202,8 +296,7 @@ public class NSCWalletConnectV2AnyCancellable: NSObject {
 @objc(NSCWalletConnectV2CodableValueType)
 public enum NSCWalletConnectV2CodableValueType: Int32, RawRepresentable {
     case String
-    case Int
-    case Float
+    case Number
     case Bool
     case Array
     case Object
@@ -216,21 +309,18 @@ public enum NSCWalletConnectV2CodableValueType: Int32, RawRepresentable {
             self = .String
             break
         case 1:
-            self = .Int
+            self = .Number
             break
         case 2:
-            self = .Float
-            break
-        case 3:
             self = .Bool
             break
-        case 4:
+        case 3:
             self = .Array
             break
-        case 5:
+        case 4:
             self = .Object
             break
-        case 6:
+        case 5:
             self = .Null
             break
         default:
@@ -239,20 +329,19 @@ public enum NSCWalletConnectV2CodableValueType: Int32, RawRepresentable {
     }
     
     public var rawValue: Int32 {
-        switch(self){case .String:
+        switch(self){
+        case .String:
             return 0
-        case .Int:
+        case .Number:
             return 1
-        case .Float:
-            return 2
         case .Bool:
-            return 3
+            return 2
         case .Array:
-            return 4
+            return 3
         case .Object:
-            return 5
+            return 4
         case .Null:
-            return 6
+            return 5
         }
     }
 }
@@ -261,310 +350,103 @@ public enum NSCWalletConnectV2CodableValueType: Int32, RawRepresentable {
 @objcMembers
 @objc(NSCWalletConnectV2Codable)
 public class NSCWalletConnectV2Codable: NSObject, Codable {
-    var value: NSCWalletConnectV2CodableValue = .Null
-    public private(set)var type: NSCWalletConnectV2CodableValueType = .Null
-    public static let Null: NSCWalletConnectV2Codable = .init(value: .Null)
+
+    var value: AnyCodable
     
-    
-    public private(set) var stringValue: String?
-    public private(set) var intValue: Int = 0
-    public private(set) var boolValue: Bool = false
-    public private(set) var floatValue: Float = 0
-    public private(set) var arrayValue: [NSCWalletConnectV2Codable]?
-    public private(set) var objectValue: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]?
-    
-    private func setCodableValue(codableValue: NSCWalletConnectV2Codable) {
-        switch(codableValue.value){
-        case .String(let string):
-            self.stringValue = string
-        case .Int(let int):
-            self.intValue = int
-        case .Float(let float):
-            self.floatValue = float
-        case .Bool(let bool):
-            self.boolValue = bool
-        case .Array(let array):
-            self.arrayValue = array
-        case .Object(let object):
-            self.objectValue = object
-        default:
-            break
+    private static func getTypeFromCodable(codable: AnyCodable) -> NSCWalletConnectV2CodableValueType{
+        if((codable.value as? String? ) != nil){
+            return .String
+        }else if((codable.value as? Double? ) != nil){
+            return  .Number
+        }else if((codable.value as? Int? ) != nil){
+            return .Number
+        }else if((codable.value as? Bool? ) != nil){
+            return  .String
+        }else if((codable.value as? NSDictionary? ) != nil){
+            return  .Object
+        }else if((codable.value as? NSArray? ) != nil){
+            return  .Array
+        }else {
+            return  .Null
         }
+    }
+    
+    public var codableValue: Any {
+        return value.value
+    }
+    
+    public private(set)var type: NSCWalletConnectV2CodableValueType
+
+    public func json() -> String?{
+        do {
+            return try value.json()
+        }catch{
+            return nil
+        }
+    }
+    
+    init(value: AnyCodable) {
+        self.value = value
+        type = NSCWalletConnectV2Codable.getTypeFromCodable(codable: value)
+        super.init()
+    }
+    
+    init(value: Codable) {
+        let val = AnyCodable(value)
+        type = NSCWalletConnectV2Codable.getTypeFromCodable(codable: val)
+        self.value = val
+        super.init()
+    }
+    
+    public required init(from decoder: Decoder) throws {
+        value = try AnyCodable(from: decoder)
+        type = NSCWalletConnectV2Codable.getTypeFromCodable(codable: value)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        try value.encode(to: encoder)
+    }
+    
+    public func get<T: Codable>(_ type: T.Type) throws -> T {
+        return try value.get(type)
     }
     
     public init(string: String){
+        value = AnyCodable(string)
         type = .String
         super.init()
-        self.value = .String(string)
-        stringValue = string
     }
     
-    public init(int: Int){
-        type = .Int
+    public init(number: Double){
+        value = AnyCodable(number)
+        type = .Number
         super.init()
-        self.value = .Int(int)
-        intValue = int
     }
     
     public init(bool: Bool){
+        value = AnyCodable(bool)
         type = .Bool
         super.init()
-        self.value = .Bool(bool)
-        boolValue = bool
-    }
-    
-    public init(float: Float){
-        type = .Float
-        super.init()
-        self.value = .Float(float)
-        floatValue = float
     }
     
     public init(array: [NSCWalletConnectV2Codable]){
+        value = AnyCodable(array)
         type = .Array
         super.init()
-        self.value = .Array(array)
-        arrayValue = array
     }
     
     public init(object: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable]){
+        value = AnyCodable(object)
         type = .Object
         super.init()
-        self.value = .Object(object)
-        objectValue = object
     }
     
     public init(value: NSCWalletConnectV2Codable){
-        type = value.type
-        super.init()
         self.value = value.value
-        setCodableValue(codableValue: value)
+        self.type = value.type
+        super.init()
     }
     
-    static fileprivate func encodeObject(object: [NSCWalletConnectV2Codable:NSCWalletConnectV2Codable], _ container: inout KeyedEncodingContainer<DynamicCodingKeys>) {
-        for element in object.enumerated() {
-            guard let key = DynamicCodingKeys(codableValue: element.element.key) else {continue}
-            do {
-                switch(element.element.value.value){
-                case .String(let string):
-                    try container.encode(string, forKey: key)
-                case .Int(let int):
-                    try container.encode(int, forKey: key)
-                case .Float(let float):
-                    try container.encode(float, forKey: key)
-                case .Bool(let bool):
-                    try container.encode(bool, forKey: key)
-                case .Array(let array):
-                    var arrayContainer = container.nestedUnkeyedContainer(forKey: key)
-                    encodeArray(array: array, &arrayContainer)
-                case .Object(let object):
-                    var objectContainer = container.nestedContainer(keyedBy: DynamicCodingKeys.self, forKey: key)
-                    encodeObject(object: object, &objectContainer)
-                case .Null:
-                    try container.encodeNil(forKey: key)
-                }
-            } catch {}
-        }
-        
-    }
-    
-    static fileprivate func encodeArray(array: [NSCWalletConnectV2Codable], _ container: inout UnkeyedEncodingContainer) {
-        for item in array {
-            do {
-                switch(item.value){
-                case .String(let string):
-                    try container.encode(string)
-                case .Int(let int):
-                    try container.encode(int)
-                case .Float(let float):
-                    try container.encode(float)
-                case .Bool(let bool):
-                    try container.encode(bool)
-                case .Array(let array):
-                    var arrayContainer = container.nestedUnkeyedContainer()
-                    encodeArray(array: array, &arrayContainer)
-                case .Object(let object):
-                    var objectContainer = container.nestedContainer(keyedBy: DynamicCodingKeys.self)
-                    encodeObject(object: object, &objectContainer)
-                case .Null:
-                    try container.encodeNil()
-                }
-            } catch {}
-        }
-    }
-    
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        switch(self.value){
-        case .String(let string):
-            try container.encode(string)
-        case .Int(let int):
-            try container.encode(int)
-        case .Float(let float):
-            try container.encode(float)
-        case .Bool(let bool):
-            try container.encode(bool)
-        case .Array(let array):
-            var arrayContainer = encoder.unkeyedContainer()
-            NSCWalletConnectV2Codable.encodeArray(array: array, &arrayContainer)
-        case .Object(let object):
-            var objectContainer = encoder.container(keyedBy: DynamicCodingKeys.self)
-            NSCWalletConnectV2Codable.encodeObject(object: object, &objectContainer)
-        case .Null:
-            try container.encodeNil()
-        }
-        
-    }
-    
-    static let types = [String.self, Int.self, Float.self, Bool.self, Double.self, Array<NSCWalletConnectV2Codable>.self, [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable].self, NSNull.self] as [Any]
-    
-    static func parseSingleValue(_ value: SingleValueDecodingContainer) -> NSCWalletConnectV2Codable? {
-        
-        if let string = try? value.decode(String.self){
-            return NSCWalletConnectV2Codable(string: string)
-        }
-        
-        if let int = try? value.decode(Int.self){
-            return NSCWalletConnectV2Codable(int: int)
-        }
-        
-        if let float = try? value.decode(Float.self){
-            return NSCWalletConnectV2Codable(float: float)
-        }
-        
-        if let bool = try? value.decode(Bool.self){
-            return NSCWalletConnectV2Codable(bool: bool)
-        }
-        
-        return nil
-    }
-    
-    static fileprivate func parseObject(_ key: DynamicCodingKeys, _ container: inout KeyedDecodingContainer<DynamicCodingKeys>) -> NSCWalletConnectV2Codable? {
-        if let string = try? container.decode(String.self, forKey: key) {
-            return NSCWalletConnectV2Codable(string: string)
-        }
-        
-        if let int = try? container.decode(Int.self, forKey: key) {
-            return NSCWalletConnectV2Codable(int: int)
-        }
-        
-        
-        if let float = try? container.decode(Float.self, forKey: key) {
-            return NSCWalletConnectV2Codable(float: float)
-        }
-        
-        
-        if let bool = try? container.decode(Bool.self, forKey: key) {
-            return NSCWalletConnectV2Codable(bool: bool)
-        }
-        
-        if var object = try? container.nestedContainer(keyedBy: DynamicCodingKeys.self, forKey: key) {
-            
-            var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
-            object.allKeys.forEach { key in
-                guard let parsed = NSCWalletConnectV2Codable.parseObject(key, &object) else {return}
-                values[key.codableKey] = parsed
-            }
-            
-            return NSCWalletConnectV2Codable(object: values)
-            
-        }
-        
-        
-        if var array = try? container.nestedUnkeyedContainer(forKey: key) {
-            let parsedArray =  parseArray(&array)
-            guard let value = parsedArray else {return nil}
-            return NSCWalletConnectV2Codable(array: value)
-        }
-        
-        
-        return nil
-        
-    }
-    
-    static fileprivate func parseArray(_ container: inout UnkeyedDecodingContainer)-> [NSCWalletConnectV2Codable]?{
-        let count = container.count ?? 0
-        var values: [NSCWalletConnectV2Codable]? = []
-        for _ in 0...count {
-            let value = parseArrayValue(&container)
-            guard let value = value else {continue}
-            values?.append(value)
-        }
-        return values
-    }
-    
-    static fileprivate func parseArrayValue(_ container: inout UnkeyedDecodingContainer) -> NSCWalletConnectV2Codable? {
-        
-        if let string = try? container.decode(String.self) {
-            return NSCWalletConnectV2Codable(string: string)
-        }
-        
-        if let int = try? container.decode(Int.self) {
-            return NSCWalletConnectV2Codable(int: int)
-        }
-        
-        
-        if let float = try? container.decode(Float.self) {
-            return NSCWalletConnectV2Codable(float: float)
-        }
-        
-        
-        if let bool = try? container.decode(Bool.self) {
-            return NSCWalletConnectV2Codable(bool: bool)
-        }
-        
-        if var object = try? container.nestedContainer(keyedBy: DynamicCodingKeys.self) {
-            var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
-            object.allKeys.forEach { key in
-                guard let parsed = NSCWalletConnectV2Codable.parseObject(key, &object) else {return}
-                values[key.codableKey] = parsed
-            }
-            
-            return NSCWalletConnectV2Codable(object: values)
-            
-        }
-        
-        if var array = try? container.nestedUnkeyedContainer() {
-            let parsedArray =  parseArray(&array)
-            guard let value = parsedArray else {return nil}
-            return NSCWalletConnectV2Codable(array: value)
-        }
-        
-        return nil
-    }
-    
-    
-    public required init(from decoder: Decoder) throws {
-        
-        if let single = try? decoder.singleValueContainer() {
-            let parsed = NSCWalletConnectV2Codable.parseSingleValue(single)
-            if(parsed != nil){
-                self.value = parsed!.value
-                return
-            }
-        }
-        
-        if var object = try? decoder.container(keyedBy: DynamicCodingKeys.self) {
-            var values: [NSCWalletConnectV2Codable: NSCWalletConnectV2Codable] = [:]
-            object.allKeys.forEach { key in
-                guard let parsed = NSCWalletConnectV2Codable.parseObject(key, &object) else {return}
-                values[key.codableKey] = parsed
-            }
-            self.value = .Object(values)
-            return
-        }
-        
-        if var array = try? decoder.unkeyedContainer() {
-            let value = NSCWalletConnectV2Codable.parseArray(&array)
-            if(value != nil){
-                self.value = .Array(value!)
-                return
-            }
-        }
-        
-        throw NSCWalletConnectV2CodableError.missingValue
-    }
 }
 
 
@@ -704,12 +586,10 @@ public class NSCWalletConnectV2Request: NSObject {
     @nonobjc var _params: NSCWalletConnectV2Codable? = nil
     public var params: NSCWalletConnectV2Codable {
         if(_params == nil){
-            do {
-                let decoder = try JSONEncoder().encode(request.params)
-                _params = try JSONDecoder().decode(NSCWalletConnectV2Codable.self, from: decoder)
-            }catch {}
+            _params = NSCWalletConnectV2Codable(value: request.params)
         }
-        return _params ?? .Null
+        
+        return _params!
     }
 }
 
@@ -927,12 +807,9 @@ public class NSCWalletConnectV2Response: NSObject {
     @nonobjc var _result: NSCWalletConnectV2Codable? = nil
     public var result: NSCWalletConnectV2Codable {
         if(_result == nil){
-            do {
-                let decoder = try JSONEncoder().encode(response.result.value)
-                _result = try JSONDecoder().decode(NSCWalletConnectV2Codable.self, from: decoder)
-            }catch {}
+            _result = NSCWalletConnectV2Codable(value: response.result.value)
         }
-        return _result ?? .Null
+        return _result!
     }
 }
 
@@ -951,12 +828,9 @@ public class NSCWalletConnectV2SessionEvent: NSObject {
     @nonobjc var _data: NSCWalletConnectV2Codable? = nil
     public var data: NSCWalletConnectV2Codable {
         if(_data == nil){
-            do {
-                let decoder = try JSONEncoder().encode(event.data)
-                _data = try JSONDecoder().decode(NSCWalletConnectV2Codable.self, from: decoder)
-            }catch {}
+            _data = NSCWalletConnectV2Codable(value: event.data)
         }
-        return _data ?? .Null
+        return _data!
     }
 }
 
@@ -1376,6 +1250,11 @@ public class NSCWalletConnectV2: NSObject {
         }
     }
     
+    public static func signGetSessions() -> [NSCWalletConnectV2Session]{
+        return Sign.instance.getSessions().map { session in
+            return NSCWalletConnectV2Session(session: session)
+        }
+    }
     
     public static func signRequest(_ topic: String, _ method: String, params: NSCWalletConnectV2Codable, chainId: String, _ callback: @escaping (Error?) -> Void){
         guard let blockChain = Blockchain(chainId) else {
