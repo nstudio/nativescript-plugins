@@ -1,6 +1,4 @@
-allprojects {
-  repositories {
+repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
   }
-}
