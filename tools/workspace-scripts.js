@@ -290,6 +290,13 @@ module.exports = {
 					description: '@nstudio/nativescript-cardview: Build',
 				},
 			},
+			// @nstudio/nativescript-splitsheet
+			'nativescript-splitsheet': {
+				build: {
+					script: 'nx run nativescript-splitsheet:build.all',
+					description: '@nstudio/nativescript-splitsheet: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -403,6 +410,10 @@ module.exports = {
 			'nativescript-cardview': {
 				script: 'nx run nativescript-cardview:focus',
 				description: 'Focus on @nstudio/nativescript-cardview',
+			},
+			'nativescript-splitsheet': {
+				script: 'nx run nativescript-splitsheet:focus',
+				description: 'Focus on @nstudio/nativescript-splitsheet',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

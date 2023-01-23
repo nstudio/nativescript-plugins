@@ -21,6 +21,7 @@
 - [@nstudio/nativescript-persona](packages/nativescript-persona/README.md)
 - [@nstudio/nativescript-plaid](packages/nativescript-plaid/README.md)
 - [@nstudio/nativescript-qr](packages/nativescript-qr/README.md)
+- [@nstudio/nativescript-splitsheet](packages/nativescript-splitsheet/README.md)
 - [@nstudio/nativescript-tracking-transparency](packages/nativescript-tracking-transparency/README.md)
 - [@nstudio/nativescript-walletconnect](packages/nativescript-walletconnect/README.md)
 

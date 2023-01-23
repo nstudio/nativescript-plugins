@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SplitSheet_Layout">
+        <attr name="sheet_position" format="enum">
+            <enum name="undefined" value="-1" />
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

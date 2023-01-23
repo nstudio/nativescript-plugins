@@ -107,6 +107,9 @@
       ],
       "@nstudio/nativescript-cardview": [
         "packages/nativescript-cardview/index.d.ts"
+      ],
+      "@nstudio/nativescript-splitsheet": [
+        "packages/nativescript-splitsheet/index.d.ts"
       ]
     }
   },

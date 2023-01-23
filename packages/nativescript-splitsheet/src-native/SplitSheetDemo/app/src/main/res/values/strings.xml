@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">SplitSheetDemo</string>
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ante ultricies, feugiat felis id, facilisis
+        magna. Vestibulum ut risus libero. Morbi porta sed quam non bibendum. In quis neque nisi. Nam id lectus risus.
+        Maecenas vulputate neque id odio semper, sit amet molestie mauris suscipit. Vivamus auctor turpis purus, nec
+        luctus metus lobortis vel. Vivamus eget metus felis. Nulla facilisi. In hac habitasse platea dictumst. Cras nunc
+        felis, scelerisque quis justo ac, gravida feugiat ipsum. Sed efficitur efficitur risus in porta. Praesent
+        commodo faucibus risus, eget tempus nulla ornare ac. Vivamus fermentum eu ex accumsan scelerisque. Phasellus at
+        auctor magna, ut bibendum nulla. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent id
+        venenatis leo, suscipit tincidunt nisi. Nam maximus, lacus ut congue suscipit, quam ante finibus mi, eu gravida
+        sapien felis a purus. Vestibulum in tempor mi, eget gravida ipsum. Vivamus sit amet velit ut mauris placerat
+        molestie. Donec eget sem efficitur, vestibulum felis vitae, maximus urna. Praesent lacus velit, consectetur et
+        purus vel, imperdiet laoreet quam. Nam aliquet, ante id volutpat iaculis, tortor libero pulvinar eros, eleifend
+        aliquam sem ligula vel neque. Praesent mollis hendrerit felis, ac vulputate dui varius ut. Nulla ac augue nec
+        tortor porttitor facilisis. In vulputate vitae lorem vitae eleifend. Fusce dui urna, tincidunt et justo a,
+        vehicula tempus purus. Sed viverra ultricies ipsum at suscipit. Class aptent taciti sociosqu ad litora torquent
+        per conubia nostra, per inceptos himenaeos. Integer interdum eget tortor quis venenatis. Aliquam consequat enim
+        quam, eget blandit eros fringilla vitae. Aenean justo magna, luctus non euismod at, venenatis at sapien. Quisque
+        id semper leo. Maecenas et suscipit est, nec molestie nulla. Duis nulla ante, auctor quis rutrum a, finibus non
+        est. Suspendisse vitae tempor metus, vel commodo augue. Aliquam vitae eros ornare, dignissim libero ac,
+        convallis metus. Nunc ultricies lobortis augue, a egestas turpis. Praesent eu odio faucibus, efficitur augue a,
+        laoreet leo. Proin scelerisque ex sit amet vulputate condimentum. Praesent eu mauris vitae tortor tempor
+        convallis sed eget ex. Sed vel augue ac eros fermentum fermentum. Maecenas eget felis posuere, accumsan ipsum a,
+        aliquet sem. Suspendisse sodales rhoncus imperdiet. Phasellus rhoncus elit vitae eros sagittis, mattis auctor
+        felis interdum. Curabitur eget tortor fermentum, scelerisque libero non, rutrum metus. Nam mattis in ante vel
+        volutpat. Nunc vulputate eu purus quis condimentum. Cras imperdiet tortor vel neque tristique, a egestas sapien
+        malesuada. Suspendisse ac elit consectetur, vestibulum metus nec, egestas magna. Aliquam placerat lacus ac
+        varius consectetur. Sed purus nulla, pellentesque volutpat consequat nec, faucibus eu nulla. Nam eu ante non
+        purus sodales tristique et sit amet justo. Fusce eleifend ipsum leo, et iaculis sapien facilisis eu. Vestibulum
+        sit amet cursus leo. Maecenas vestibulum elit sapien, id posuere lorem bibendum non. Fusce mi nisi, accumsan ac
+        egestas eget, venenatis vitae ipsum. Maecenas ex lectus, consectetur at arcu ut, ullamcorper congue nunc. Nullam
+        sed purus vehicula, porttitor diam in, tempor augue. Nam non ipsum felis. Pellentesque nulla justo, faucibus
+        volutpat viverra gravida, finibus at mi. Aenean bibendum purus nec nisi porttitor, et congue sapien volutpat.
+        Proin nec diam eu neque porttitor pulvinar id at massa. Nullam nec pellentesque odio, in rhoncus mi. Donec a
+        diam ipsum. Fusce sapien nisi, facilisis nec nulla at, sollicitudin sodales sem.
+    </string>
+</resources>
