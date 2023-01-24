@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-walletconnect",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.0",
   "description": "WalletConnect SDK for NativeScript",
   "main": "index",
   "typings": "index.d.ts",

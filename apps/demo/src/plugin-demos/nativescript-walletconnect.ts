@@ -4,6 +4,8 @@ import { Client, Namespaces, PrivateKey, eth_signTypedData, eth_personalSign, et
 
 //import {PrivateKey, CoinType, CoinTypeInstance, Utils} from '@nstudio/nativescript-walletconnect/utils';
 
+declare const io;
+
 export function navigatingTo(args: EventData) {
 	const page = <Page>args.object;
 	page.bindingContext = new DemoModel();
@@ -18,18 +20,12 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 	constructor() {
 		super();
 
-		Client.initialize('a296125a15cc255e4aa63fffdc421458', null, {
-			description: 'WalletConnect Developer App',
-			url: 'https://walletconnect.org',
-			icons: ['https://walletconnect.org/walletconnect-logo.png'],
-			name: 'WalletConnect',
-		});
-
 		Client.instance.sign.on('session_settle', (args) => {
 			const event = args.event;
 			const namespaces = event.namespaces;
 			const firstNs = Object.keys(namespaces)[0];
 			this.accounts = namespaces[firstNs].accounts;
+			console.log('session_settle', event);
 		});
 
 		Client.instance.sign.on('session_proposal', (args) => {
@@ -55,15 +51,20 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 							methods: value.methods,
 							chains: value.chains,
 							events: value.events,
-							extension: value.extensions.map((item) => {
-								return { ...item, accounts };
-							}),
+							extension:
+								value?.extensions?.map?.((item) => {
+									return { ...item, accounts };
+								}) ?? undefined,
 						};
 					});
 
-					Client.instance.sign.approve({ id: args.event.id, namespaces: ns });
+					Client.instance.sign.approve({ id: args.event.id, namespaces: ns }).catch((e) => {
+						console.log('session_proposal', 'approve', 'error', e);
+					});
 				} else {
-					Client.instance.sign.reject({ id: args.event.id, reason: 'rejected' });
+					Client.instance.sign.reject({ id: args.event.id, reason: 'rejected' }).catch((e) => {
+						console.log('session_proposal', 'reject', 'error', e);
+					});
 				}
 			});
 		});
@@ -122,6 +123,9 @@ export class DemoModel extends DemoSharedNativescriptWalletconnect {
 							value = eth_sendTransaction(this.key, request.params);
 						}
 					}
+					console.log('aaa', value);
+
+					console.log({ topic: event.topic, id: request.id, response: value });
 
 					Client.instance.sign.respond({ topic: event.topic, id: request.id, response: value });
 				} else {

@@ -1370,6 +1370,14 @@ public class NSCWalletConnectV2: NSObject {
         }
     }
     
+    public static func sessionsPublisher(_ callback: @escaping (NSCWalletConnectV2Session)-> Void) -> NSCWalletConnectV2AnyCancellable {
+        return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionSettlePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { session in
+                callback(NSCWalletConnectV2Session(session: session))
+            })
+    }
+    
     
     public static func sessionProposalPublisher(_ callback: @escaping (NSCWalletConnectV2SessionProposal)-> Void) -> NSCWalletConnectV2AnyCancellable {
         return NSCWalletConnectV2AnyCancellable(anyCancellable: Sign.instance.sessionProposalPublisher

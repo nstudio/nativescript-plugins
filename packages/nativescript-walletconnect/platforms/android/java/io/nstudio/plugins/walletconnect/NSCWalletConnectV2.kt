@@ -6,14 +6,183 @@ import com.walletconnect.android.CoreClient
 import com.walletconnect.android.relay.ConnectionType
 import com.walletconnect.auth.client.Auth
 import com.walletconnect.auth.client.AuthClient
+import com.walletconnect.auth.signature.toCacaoSignature
+import com.walletconnect.auth.signature.toSignature
 import com.walletconnect.sign.client.Sign
 import com.walletconnect.sign.client.SignClient
+import com.walletconnect.web3.wallet.client.Wallet
+import com.walletconnect.web3.wallet.client.Web3Wallet
+import org.web3j.crypto.ECKeyPair
+import org.web3j.crypto.StructuredDataEncoder
+import org.web3j.crypto.Keys
+import java.math.BigInteger
+import java.nio.ByteBuffer
 import java.util.UUID
 
 import java.util.WeakHashMap
+import kotlin.experimental.and
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
+
+fun String.decodeHex(): ByteArray {
+  check(length % 2 == 0) { "Must have an even length" }
+
+  return removePrefix("0x")
+    .chunked(2)
+    .map { it.toInt(16).toByte() }
+    .toByteArray()
+}
+
+
+fun String.hexStringToByteArray(): ByteArray {
+  val HEX_CHARS = "0123456789ABCDEF"
+  val result = ByteArray(length / 2)
+  for (i in 0 until length step 2) {
+    val firstIndex = HEX_CHARS.indexOf(this[i].toUpperCase());
+    val secondIndex = HEX_CHARS.indexOf(this[i + 1].toUpperCase());
+    val octet = firstIndex.shl(4).or(secondIndex)
+    result.set(i.shr(1), octet.toByte())
+  }
+  return result
+}
 
 
 class NSCWalletConnectV2 {
+
+  class Address internal constructor(address: String) {
+    private val address: String
+
+    internal constructor(address: BigInteger) : this(Keys.getAddress(address))
+
+    internal constructor(pair: ECKeyPair) : this(Keys.getAddress(pair))
+
+    init {
+      this.address = address
+    }
+
+    val rawAddress: ByteArray
+      get() {
+        return org.web3j.utils.Numeric.hexStringToByteArray(address)
+      }
+
+    fun hex(eip55: Boolean): String {
+      if (eip55) {
+        return Keys.toChecksumAddress(address)
+      }
+      return "0x$address"
+    }
+  }
+
+  class PublicKey internal constructor(private val pair: ECKeyPair) {
+
+    val address: Address
+
+    init {
+      address = Address(pair.publicKey)
+    }
+
+    val rawPublicKey: ByteArray
+      get() {
+        return pair.publicKey.toByteArray()
+      }
+
+
+    val hex: String
+      get() {
+        return org.web3j.utils.Numeric.toHexStringWithPrefix(pair.publicKey)
+      }
+
+  }
+
+  class PrivateKey {
+    val pair: ECKeyPair
+    val address: Address
+    val publicKey: PublicKey
+
+    constructor() {
+      pair = Keys.createEcKeyPair()
+      address = Address(pair)
+      publicKey = PublicKey(pair)
+    }
+
+    constructor(hex: String) {
+      pair = ECKeyPair.create(hex.decodeHex())
+      address = Address(pair)
+      publicKey = PublicKey(pair)
+    }
+
+    constructor(bytes: ByteArray) {
+      pair = ECKeyPair.create(bytes)
+      Keys.getAddress(pair)
+      address = Address(pair)
+      publicKey = PublicKey(pair)
+    }
+
+    val rawPrivateKey: ByteArray
+      get() {
+        return pair.privateKey.toByteArray()
+      }
+
+    fun signTypedData(
+      data: String,
+      privateKey: PrivateKey,
+      needToHash: Boolean
+    ): String {
+      val struct = StructuredDataEncoder(data)
+      return sign(
+        struct.hashStructuredData(), privateKey, needToHash
+      )
+    }
+
+    fun parseTypedData(data: String): StructuredDataEncoder {
+      return StructuredDataEncoder(data)
+    }
+
+    fun sign(
+      message: String,
+      privateKey: PrivateKey,
+      needToHash: Boolean
+    ): String {
+      val msg = org.web3j.utils.Numeric.hexStringToByteArray(message)
+
+      val signed = org.web3j.crypto.Sign.signMessage(
+        msg, privateKey.pair, needToHash
+      )
+
+      val r = org.web3j.utils.Numeric.toHexString(signed.r)
+      val s = org.web3j.utils.Numeric.toHexString(signed.s)
+      val v = org.web3j.utils.Numeric.toHexString(signed.v)
+
+      return "0x$r$s$v"
+    }
+
+    fun sign(
+      message: ByteArray,
+      privateKey: PrivateKey,
+      needToHash: Boolean
+    ): String {
+      val signed = org.web3j.crypto.Sign.signMessage(
+        message, privateKey.pair, needToHash
+      )
+
+      val r = org.web3j.utils.Numeric.toHexString(signed.r)
+      val s = org.web3j.utils.Numeric.toHexString(signed.s)
+      val v = org.web3j.utils.Numeric.toHexString(signed.v)
+
+      return "0x$r$s$v"
+    }
+
+    fun getEthereumMessageHash(message: ByteArray): ByteArray {
+      return org.web3j.crypto.Sign.getEthereumMessageHash(message)
+    }
+
+    val hex: String
+      get() {
+        return org.web3j.utils.Numeric.toHexStringWithPrefix(pair.privateKey)
+      }
+
+  }
 
   enum class RejectionReason(val value: String) {
     userRejectedRequest("User rejected request"),
@@ -22,7 +191,6 @@ class NSCWalletConnectV2 {
     userRejectedMethods("User disapproved requested json-rpc methods"),
     userRejectedEvents("User disapproved requested event types")
   }
-
 
   enum class ConnectionStatus {
     connected,
@@ -61,6 +229,47 @@ class NSCWalletConnectV2 {
   }
 
   companion object {
+
+    // fixes No such algorithm: ECDSA for provider BC
+
+    // https://github.com/web3j/web3j/issues/915
+    @JvmStatic
+    fun setupBouncyCastle() {
+      val provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME)
+        ?: // Web3j will set up the provider lazily when it's first used.
+        return
+      if (provider.javaClass == BouncyCastleProvider::class.java) {
+        // BC with same package name, shouldn't happen in real life.
+        return
+      }
+      // Android registers its own BC provider. As it might be outdated and might not include
+      // all needed ciphers, we substitute it with a known BC bundled in the app.
+      // Android's BC has its package rewritten to "com.android.org.bouncycastle" and because
+      // of that it's possible to have another BC implementation loaded in VM.
+      Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
+      Security.insertProviderAt(BouncyCastleProvider(), 1)
+    }
+
+    @JvmStatic
+    fun createEthSigningSignature(text: String): ByteArray {
+      val buf = text.decodeHex()
+      val prefix = "\\u{19}Ethereum Signed Message:\n\\($buf)".encodeToByteArray()
+      return prefix + buf
+    }
+
+    @JvmStatic
+    fun eth_hash(message: String): ByteArray {
+      val buf = message.decodeHex()
+      val prefix = "\\u{19}Ethereum Signed Message:\n${buf.size}".encodeToByteArray()
+      return prefix + buf
+    }
+
+    @JvmStatic
+    fun eth_prefix_hex(buf: ByteArray): ByteArray {
+      val prefix = "\\u{19}Ethereum Signed Message:\n${buf.size}".encodeToByteArray()
+      return prefix + buf
+    }
+
     private val sessionProposalPublishers: WeakHashMap<String, Cancellable<Sign.Model.SessionProposal>> =
       WeakHashMap()
 
@@ -82,7 +291,7 @@ class NSCWalletConnectV2 {
     private val sessionRejectionPublishers: WeakHashMap<String, Cancellable<Sign.Model.RejectedSession>> =
       WeakHashMap()
 
-    private val sessionUpdatePublishers: WeakHashMap<String, Cancellable<Sign.Model.UpdatedSession>> =
+    private val sessionUpdateDapp: WeakHashMap<String, Cancellable<Sign.Model.UpdatedSession>> =
       WeakHashMap()
 
     private val sessionEventPublishers: WeakHashMap<String, Cancellable<Sign.Model.SessionEvent>> =
@@ -91,6 +300,14 @@ class NSCWalletConnectV2 {
     private val sessionExtendPublishers: WeakHashMap<String, Cancellable<Sign.Model.Session>> =
       WeakHashMap()
 
+    private val sessionUpdateWallet: WeakHashMap<String, Cancellable<Sign.Model.SessionUpdateResponse>> =
+      WeakHashMap()
+
+    private val sessionsPublisher: WeakHashMap<String, Cancellable<Sign.Model.ApprovedSession>> =
+      WeakHashMap()
+
+    private val signError: WeakHashMap<String, Cancellable<Sign.Model.Error>> =
+      WeakHashMap()
 
     private val authRequestPublishers: WeakHashMap<String, Cancellable<Auth.Event.AuthRequest>> =
       WeakHashMap()
@@ -98,16 +315,12 @@ class NSCWalletConnectV2 {
     private val authResponsePublishers: WeakHashMap<String, Cancellable<Auth.Event.AuthResponse>> =
       WeakHashMap()
 
-
     private val authSocketConnectionStatusPublishers: WeakHashMap<String, Cancellable<Auth.Event.ConnectionStateChange>> =
       WeakHashMap()
 
+    private val authError: WeakHashMap<String, Cancellable<Auth.Event.Error>> =
+      WeakHashMap()
 
-    private val clientCoreDelegate = object : CoreClient.CoreDelegate {
-      override fun onPairingDelete(deletedPairing: Core.Model.DeletedPairing) {
-        TODO("Not yet implemented")
-      }
-    }
 
     private val signInWalletDelegate = object : SignClient.WalletDelegate {
       override fun onConnectionStateChange(state: Sign.Model.ConnectionState) {
@@ -117,7 +330,9 @@ class NSCWalletConnectV2 {
       }
 
       override fun onError(error: Sign.Model.Error) {
-        TODO("Not yet implemented")
+        signError.forEach {
+          it.value.onSuccess(error)
+        }
       }
 
       override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
@@ -145,7 +360,9 @@ class NSCWalletConnectV2 {
       }
 
       override fun onSessionUpdateResponse(sessionUpdateResponse: Sign.Model.SessionUpdateResponse) {
-
+        sessionUpdateWallet.forEach {
+          it.value.onSuccess(sessionUpdateResponse)
+        }
       }
     }
 
@@ -157,11 +374,15 @@ class NSCWalletConnectV2 {
       }
 
       override fun onError(error: Sign.Model.Error) {
-        TODO("Not yet implemented")
+        signError.forEach {
+          it.value.onSuccess(error)
+        }
       }
 
       override fun onSessionApproved(approvedSession: Sign.Model.ApprovedSession) {
-
+        sessionsPublisher.forEach {
+          it.value.onSuccess(approvedSession)
+        }
       }
 
       override fun onSessionDelete(deletedSession: Sign.Model.DeletedSession) {
@@ -195,7 +416,7 @@ class NSCWalletConnectV2 {
       }
 
       override fun onSessionUpdate(updatedSession: Sign.Model.UpdatedSession) {
-        sessionUpdatePublishers.forEach {
+        sessionUpdateDapp.forEach {
           it.value.onSuccess(updatedSession)
         }
       }
@@ -223,18 +444,12 @@ class NSCWalletConnectV2 {
         }
 
         override fun onError(error: Auth.Event.Error) {
-
-          TODO("Not yet implemented")
+          authError.forEach {
+            it.value.onSuccess(error)
+          }
         }
       }
 
-    init {
-      CoreClient.setDelegate(clientCoreDelegate)
-      SignClient.setWalletDelegate(signInWalletDelegate)
-      SignClient.setDappDelegate(signInDappDelegate)
-      AuthClient.setResponderDelegate(authRequesterResponderDelegate)
-      AuthClient.setRequesterDelegate(authRequesterResponderDelegate)
-    }
 
     @JvmStatic
     @JvmOverloads
@@ -243,12 +458,65 @@ class NSCWalletConnectV2 {
       relayUrl: String = "relay.walletconnect.com",
       meta: Core.Model.AppMetaData,
       socketConnectionType: ConnectionType,
-      application: Application
+      application: Application,
+      callback: (Throwable?) -> Unit = {}
     ) {
       val url = "wss://$relayUrl?projectId=${projectId}"
       CoreClient.initialize(meta, url, socketConnectionType, application, null) {
-        TODO()
+        callback(it.throwable)
       }
+
+      val signInit = Sign.Params.Init(core = CoreClient)
+
+      SignClient.initialize(signInit) {
+        callback(it.throwable)
+      }
+
+      val authInit = Auth.Params.Init(core = CoreClient)
+
+      AuthClient.initialize(authInit) {
+        callback(it.throwable)
+      }
+
+      val walletInit = Wallet.Params.Init(core = CoreClient)
+
+      Web3Wallet.initialize(walletInit) {
+        callback(it.throwable)
+      }
+
+
+      SignClient.setWalletDelegate(signInWalletDelegate)
+      SignClient.setDappDelegate(signInDappDelegate)
+      AuthClient.setResponderDelegate(authRequesterResponderDelegate)
+      AuthClient.setRequesterDelegate(authRequesterResponderDelegate)
+
+    }
+
+    @JvmOverloads
+    @JvmStatic
+    fun toHexString(value: ByteArray, withPrefix: Boolean = true): String {
+      val stringBuilder = StringBuilder()
+      if (withPrefix) {
+        stringBuilder.append("0x")
+      }
+      for (element in value) {
+        stringBuilder.append(String.format("%02x", element and 0xFF.toByte()))
+      }
+      return stringBuilder.toString()
+    }
+
+    @JvmStatic
+    fun bufferToBytes(buffer: ByteBuffer): ByteArray {
+      if (buffer.isDirect) {
+        val position = buffer.position()
+        buffer.rewind()
+        val bytes = ByteArray(buffer.remaining())
+        buffer.get(bytes)
+        buffer.position(position)
+        return bytes
+      }
+
+      return buffer.array()
     }
 
     @JvmStatic
@@ -268,7 +536,6 @@ class NSCWalletConnectV2 {
       }
       callback(error)
     }
-
 
     @JvmStatic
     fun pairPair(uri: String, callback: (Throwable?) -> Unit) {
@@ -346,6 +613,7 @@ class NSCWalletConnectV2 {
       response: Sign.Model.JsonRpcResponse,
       callback: (Throwable?) -> Unit
     ) {
+
       var error: Throwable? = null
       SignClient.respond(
         Sign.Params.Response(topic, response)
@@ -441,7 +709,6 @@ class NSCWalletConnectV2 {
       ) {
         error = it.throwable
       }
-
       callback(error)
     }
 
@@ -462,6 +729,87 @@ class NSCWalletConnectV2 {
           }
         }
       )
+    }
+
+    /* Errors */
+
+    @JvmStatic
+    fun signError(callback: (Sign.Model.Error) -> Unit) {
+      val cb = Cancellable<Sign.Model.Error>()
+      cb.store = signError
+      cb.onSuccess = callback
+      signError[cb.id] = cb
+    }
+
+    @JvmStatic
+    fun authError(callback: (Auth.Event.Error) -> Unit) {
+      val cb = Cancellable<Auth.Event.Error>()
+      cb.store = authError
+      cb.onSuccess = callback
+      authError[cb.id] = cb
+    }
+
+    /* Errors */
+
+    @JvmStatic
+    fun authReject(
+      requestId: Long,
+      callback: (Throwable?) -> Unit
+    ) {
+      var error: Throwable? = null
+      AuthClient.respond(
+        Auth.Params.Respond.Error(requestId, 14001, "Auth request rejected by user")
+      ) {
+        error = it.throwable
+      }
+      callback(error)
+    }
+
+    @JvmStatic
+    fun authRespond(
+      requestId: Long,
+      signature: Auth.Model.Cacao.Signature,
+      account: String,
+      callback: (Throwable?) -> Unit
+    ) {
+      var error: Throwable? = null
+
+      AuthClient.respond(
+        Auth.Params.Respond.Result(
+          requestId, signature,
+          account
+        )
+      ) {
+        error = it.throwable
+      }
+      callback(error)
+    }
+
+    @JvmStatic
+    fun authRequest(
+      request: Auth.Params.Request,
+      callback: (Throwable?) -> Unit
+    ) {
+      var error: Throwable? = null
+
+      AuthClient.request(
+        request,
+        {
+          callback(null)
+        },
+        {
+          callback(it.throwable)
+        }
+      )
+    }
+
+
+    @JvmStatic
+    fun sessionsPublisher(callback: (Sign.Model.ApprovedSession) -> Unit) {
+      val cb = Cancellable<Sign.Model.ApprovedSession>()
+      cb.store = sessionsPublisher
+      cb.onSuccess = callback
+      sessionsPublisher[cb.id] = cb
     }
 
     @JvmStatic
@@ -521,11 +869,19 @@ class NSCWalletConnectV2 {
     }
 
     @JvmStatic
-    fun sessionUpdatePublisher(callback: (Sign.Model.UpdatedSession) -> Unit) {
+    fun sessionUpdateDapp(callback: (Sign.Model.UpdatedSession) -> Unit) {
       val cb = Cancellable<Sign.Model.UpdatedSession>()
-      cb.store = sessionUpdatePublishers
+      cb.store = sessionUpdateDapp
       cb.onSuccess = callback
-      sessionUpdatePublishers[cb.id] = cb
+      sessionUpdateDapp[cb.id] = cb
+    }
+
+    @JvmStatic
+    fun sessionUpdateWallet(callback: (Sign.Model.SessionUpdateResponse) -> Unit) {
+      val cb = Cancellable<Sign.Model.SessionUpdateResponse>()
+      cb.store = sessionUpdateWallet
+      cb.onSuccess = callback
+      sessionUpdateWallet[cb.id] = cb
     }
 
     @JvmStatic
@@ -566,6 +922,70 @@ class NSCWalletConnectV2 {
       cb.store = authSocketConnectionStatusPublishers
       cb.onSuccess = callback
       authSocketConnectionStatusPublishers[cb.id] = cb
+    }
+  }
+
+
+  object Numeric {
+
+    fun containsHexPrefix(input: String): Boolean {
+      return input.length > 1 && input[0] == '0' && input[1] == 'x'
+    }
+
+    fun cleanHexPrefix(input: String): String {
+      return if (containsHexPrefix(input)) {
+        input.substring(2)
+      } else {
+        input
+      }
+    }
+
+    fun hexStringToByteArray(input: String): ByteArray {
+      val cleanInput = cleanHexPrefix(input)
+
+      val len = cleanInput.length
+
+      if (len == 0) {
+        return byteArrayOf()
+      }
+
+      val data: ByteArray
+      val startIdx: Int
+      if (len % 2 != 0) {
+        data = ByteArray(len / 2 + 1)
+        data[0] = Character.digit(cleanInput.get(0), 16).toByte()
+        startIdx = 1
+      } else {
+        data = ByteArray(len / 2)
+        startIdx = 0
+      }
+
+      var i = startIdx
+      while (i < len) {
+        data[(i + 1) / 2] =
+          ((Character.digit(cleanInput.get(i), 16) shl 4) + Character.digit(
+            cleanInput.get(i + 1),
+            16
+          )).toByte()
+        i += 2
+      }
+      return data
+    }
+
+    fun toHexString(input: ByteArray?, offset: Int, length: Int, withPrefix: Boolean): String {
+      val stringBuilder = StringBuilder()
+      if (withPrefix) {
+        stringBuilder.append("0x")
+      }
+      for (i in offset until offset + length) {
+        stringBuilder.append(String.format("%02x", input!![i] and 0xFF.toByte()))
+      }
+
+      return stringBuilder.toString()
+    }
+
+    fun toHexString(input: ByteArray?): String {
+      return toHexString(input, 0, input!!.size, true)
     }
   }
 }

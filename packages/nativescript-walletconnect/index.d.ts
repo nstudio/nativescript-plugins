@@ -1,5 +1,7 @@
 import { fromObject, ItemEventData, Observable, Utils } from '@nativescript/core';
 
+export function init();
+
 export function eth_personalSign(privateKey: PrivateKey, message: any): any;
 
 export function eth_sign(privateKey: PrivateKey, message: any): any;

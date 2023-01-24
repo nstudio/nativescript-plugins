@@ -34,8 +34,6 @@ public extension NSCWalletConnectV2ETHSigner {
   
         let result = "0x" + r.toHexString() + s.toHexString() + String(v + 27, radix: 16)
         
-        print("result",result)
-        
         return NSCWalletConnectV2Codable(string: result)
         
     }

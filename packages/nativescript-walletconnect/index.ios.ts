@@ -1,4 +1,6 @@
-import { fromObject, Observable, Utils } from '@nativescript/core';
+import { Observable, Utils } from '@nativescript/core';
+
+export function init() {}
 
 function toCodable(value: { value: any; type: 'number' | 'string' | 'boolean' | 'array' | 'object' | 'null' }) {
 	switch (value.type) {
@@ -209,6 +211,8 @@ export class Client {
 		return wallet;
 	}
 
+	// initialize earlier
+	// https://github.com/WalletConnect/WalletConnectKotlinV2/issues/507
 	static initialize(
 		projectId: string,
 		relayUrl: string,

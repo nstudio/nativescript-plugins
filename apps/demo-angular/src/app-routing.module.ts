@@ -20,7 +20,7 @@ const routes: Routes = [
 	{ path: 'nativescript-exoplayer', loadChildren: () => import('./plugin-demos/nativescript-exoplayer.module').then(m => m.NativescriptExoplayerModule) },
 	{ path: 'nativescript-fancyalert', loadChildren: () => import('./plugin-demos/nativescript-fancyalert.module').then(m => m.NativescriptFancyalertModule) },
 	{ path: 'nativescript-filterable-listpicker', loadChildren: () => import('./plugin-demos/nativescript-filterable-listpicker.module').then(m => m.NativescriptFilterableListpickerModule) },
-	{ path: 'nativescript-freshchat', loadChildren: () => import('./plugin-demos/nativescript-freshchat.module').then(m => m.FreshChatSDKModule) },
+	{ path: 'nativescript-freshchat', loadChildren: () => import('./plugin-demos/nativescript-freshchat.module').then(m => m.NativescriptFreshchatModule) },
 	{ path: 'nativescript-input-mask', loadChildren: () => import('./plugin-demos/nativescript-input-mask.module').then(m => m.NativescriptInputMaskModule) },
 	{ path: 'nativescript-intercom', loadChildren: () => import('./plugin-demos/nativescript-intercom.module').then(m => m.NativescriptIntercomModule) },
 	{ path: 'nativescript-loading-indicator', loadChildren: () => import('./plugin-demos/nativescript-loading-indicator.module').then(m => m.NativescriptLoadingIndicatorModule) },
