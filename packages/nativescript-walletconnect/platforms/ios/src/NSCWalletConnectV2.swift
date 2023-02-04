@@ -289,7 +289,7 @@ public class NSCWalletConnectV2AnyCancellable: NSObject {
     }
     
     public func cancel(){
-        self.cancel()
+        self.anyCancellable.cancel()
     }
 }
 
