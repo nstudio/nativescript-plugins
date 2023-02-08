@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        val metrics = resources.displayMetrics
         setContentView(R.layout.activity_main)
         imageView = findViewById(R.id.imageView)
         splitsheet = findViewById(R.id.splitSheet)
@@ -30,26 +31,27 @@ class MainActivity : AppCompatActivity() {
         splitsheet.mainViewElevation = false
         splitsheet.displaceContent = false
         splitsheet.showHandle = false
-        splitsheet.closedSheetHeight = 50F
+//        splitsheet.closedSheetHeight = 50F
+//        splitsheet.minimumSheetHeight = 200F
 
-        val metrics = resources.displayMetrics
+
         splitsheet.eventListener = object : SplitSheet.Events {
             override fun event(name: String, value: Any?) {
                 Log.d("MainActivity", "event: $name $value")
             }
         }
-        executor.execute {
-            try {
-                val url =
-                    URL("https://picsum.photos/${metrics.widthPixels}/${metrics.heightPixels}")
-                val bm = BitmapFactory.decodeStream(url.openStream())
-                runOnUiThread {
-                    imageView.setImageBitmap(bm)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+//        executor.execute {
+//            try {
+//                val url =
+//                    URL("https://picsum.photos/${metrics.widthPixels}/${metrics.heightPixels}")
+//                val bm = BitmapFactory.decodeStream(url.openStream())
+//                runOnUiThread {
+//                    imageView.setImageBitmap(bm)
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
     }
 
     fun toggleContent(view: View) {

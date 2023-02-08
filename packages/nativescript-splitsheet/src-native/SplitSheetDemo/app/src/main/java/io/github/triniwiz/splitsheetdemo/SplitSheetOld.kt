@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.SparseArray
 import android.util.TypedValue
 import android.view.*
@@ -21,7 +20,7 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
-class SplitSheet : NestedScrollView {
+class SplitSheetOld : NestedScrollView {
 
     constructor(context: Context) : super(context)
 
