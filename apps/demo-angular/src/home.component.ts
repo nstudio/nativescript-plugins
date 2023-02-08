@@ -76,6 +76,9 @@ export class HomeComponent {
 		name: 'nativescript-qr'
 	},
 	{
+		name: 'nativescript-splitsheet'
+	},
+	{
 		name: 'nativescript-tracking-transparency'
 	},
 	{

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".MainActivity">
+
+  <io.github.triniwiz.splitsheet.SplitSheet
+    android:id="@+id/splitSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:sheet_position="top">
+
+      <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:scaleType="fitCenter"
+        android:src="@drawable/sample_image" />
+    </LinearLayout>
+
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:sheet_position="bottom">
+
+      <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum" />
+
+    </LinearLayout>
+
+
+  </io.github.triniwiz.splitsheet.SplitSheet>
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="@+id/splitSheet"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintHorizontal_bias="0"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <Button
+      android:id="@+id/button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:onClick="toggleContent"
+      android:text="Toggle Content" />
+
+    <Button
+      android:id="@+id/button2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:onClick="toggleCollapse"
+      android:text="Toggle Collapse Mode" />
+
+    <Button
+      android:id="@+id/button3"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:onClick="toggleHandle"
+      android:text="Toggle Handle" />
+
+    <Button
+      android:id="@+id/button4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:onClick="toggleScroll"
+      android:text="Toggle Scroll" />
+  </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

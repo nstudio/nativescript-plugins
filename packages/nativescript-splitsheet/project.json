@@ -1,0 +1,73 @@
+{
+  "name": "nativescript-splitsheet",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/nativescript-splitsheet",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/nativescript-splitsheet",
+        "tsConfig": "packages/nativescript-splitsheet/tsconfig.json",
+        "packageJson": "packages/nativescript-splitsheet/package.json",
+        "main": "packages/nativescript-splitsheet/index.d.ts",
+        "assets": [
+          "packages/nativescript-splitsheet/*.md",
+          "packages/nativescript-splitsheet/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/nativescript-splitsheet/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node tools/scripts/build-finish.ts nativescript-splitsheet"
+        ],
+        "parallel": false
+      },
+      "outputs": [
+        "dist/packages/nativescript-splitsheet"
+      ],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx g @nativescript/plugin-tools:focus-packages nativescript-splitsheet"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/nativescript-splitsheet/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
