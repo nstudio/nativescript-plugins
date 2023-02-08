@@ -40,18 +40,18 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MainActivity", "event: $name $value")
             }
         }
-        executor.execute {
-            try {
-                val url =
-                    URL("https://picsum.photos/${metrics.widthPixels}/${metrics.heightPixels}")
-                val bm = BitmapFactory.decodeStream(url.openStream())
-                runOnUiThread {
-                    imageView.setImageBitmap(bm)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
+//        executor.execute {
+//            try {
+//                val url =
+//                    URL("https://picsum.photos/${metrics.widthPixels}/${metrics.heightPixels}")
+//                val bm = BitmapFactory.decodeStream(url.openStream())
+//                runOnUiThread {
+//                    imageView.setImageBitmap(bm)
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
     }
 
     fun toggleContent(view: View) {

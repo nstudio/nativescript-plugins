@@ -244,7 +244,6 @@ class SplitSheet @JvmOverloads constructor(
       type: Int,
       consumed: IntArray
     ) {
-
       super.onNestedScroll(
         coordinatorLayout,
         child,
@@ -266,7 +265,8 @@ class SplitSheet @JvmOverloads constructor(
           val newValue = it.binding.appbar.measuredHeight + abs(dxConsumed)
 
           // layout size can be changed here
-          
+          this.height = newValue
+
 
           if (dyConsumed < 0) {
             // expanding
@@ -274,16 +274,17 @@ class SplitSheet @JvmOverloads constructor(
             // this.height = newValue
             //  targetToScale!!.translationY = dyUnconsumed.toFloat()
 
-
           } else if (dyConsumed > 0) {
             // collapsing
 
-            //  this.height = newValue
+//              this.height = newValue
             //   targetToScale!!.translationY = dyUnconsumed.toFloat()
 
-            //if (newValue >= it.minimumSheetHeight) {
-            //   this.height = newValue
-            // }
+            if (newValue >= it.minimumSheetHeight) {
+              // this.height = newValue
+            } else {
+              //this.height = it.minimumSheetHeight.toInt()
+            }
 
           }
 
@@ -325,11 +326,12 @@ class SplitSheet @JvmOverloads constructor(
 
     toolbar.minimumHeight = (metrics.density * minimumSheetHeight).toInt()
 
-    val params = toolbar.layoutParams as AppBarLayout.LayoutParams
-    params.scrollFlags =
-      AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
-    //params.height = 1000
-    toolbar.layoutParams = params
+    toolbar.updateLayoutParams<AppBarLayout.LayoutParams> {
+      this.scrollFlags =
+        AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+      // this.height = minimumSheetHeight.toInt()
+      this.height = toolbar.minimumHeight
+    }
 
     val behavior =
       (binding.scrollView.layoutParams as CoordinatorLayout.LayoutParams).behavior as CustomScrollBehavior
@@ -344,6 +346,11 @@ class SplitSheet @JvmOverloads constructor(
       override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         if (verticalOffset != lastVerticalOffset) {
           lastVerticalOffset = verticalOffset
+          binding.mainContainerOverlay.updateLayoutParams<FrameLayout.LayoutParams> {
+//            this.height = binding.mainContainer.measuredHeight + verticalOffset
+//            this.topMargin = -verticalOffset
+            this.height = binding.mainContainer.measuredHeight + verticalOffset
+          }
 
 //          binding.mainContainer.layoutParams.height = 1000 - verticalOffset;
 //          binding.mainContainer.requestLayout()
@@ -370,6 +377,8 @@ class SplitSheet @JvmOverloads constructor(
 
           //     }
         }
+
+        return;
 
         if (verticalOffset == 0) {
           if (showing) {
@@ -447,6 +456,21 @@ class SplitSheet @JvmOverloads constructor(
     return super.dispatchTouchEvent(event)
   }
 
+  override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+    super.onLayout(changed, left, top, right, bottom)
+
+    if(!changed) {
+      return
+    }
+    val w = binding.mainContainer.measuredWidth
+    val h = binding.mainContainer.measuredHeight
+
+    binding.mainContainerOverlay.updateLayoutParams<FrameLayout.LayoutParams> {
+      this.width = w
+      this.height = h
+    }
+  }
+
 //  override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 //    super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 //
@@ -454,13 +478,13 @@ class SplitSheet @JvmOverloads constructor(
 //
 //    val height =
 //      measuredHeight //MeasureSpec.makeMeasureSpec(heightMeasureSpec, MeasureSpec.EXACTLY)
-////    val toolbar = binding.appbar.getChildAt(0) as CollapsingToolbarLayout
-////
-////    toolbar.minimumHeight =
-////      (height - toPx(minimumSheetHeight)).toInt() //(height - toPx(closedSheetHeight)).toInt()
+//    val toolbar = binding.appbar.getChildAt(0) as CollapsingToolbarLayout
 //
-////    binding.scrollView.minimumHeight = toPx(minimumSheetHeight).roundToInt()
-////    binding.sheetView.minimumHeight = toPx(minimumSheetHeight).roundToInt()
+//    toolbar.minimumHeight =
+//      (height - toPx(minimumSheetHeight)).toInt() //(height - toPx(closedSheetHeight)).toInt()
+//
+//    binding.scrollView.minimumHeight = toPx(minimumSheetHeight).roundToInt()
+//    binding.sheetView.minimumHeight = toPx(minimumSheetHeight).roundToInt()
 //
 //    binding.appbar.measure(
 //      widthMeasureSpec,
@@ -485,7 +509,8 @@ class SplitSheet @JvmOverloads constructor(
 
 
     mainView?.let {
-      binding.mainContainer.addView(mainView)
+      binding.mainContainerOverlay.addView(mainView)
+//      binding.mainContainer.addView(mainView)
     }
 
 
@@ -549,7 +574,7 @@ class SplitSheet @JvmOverloads constructor(
 
   override fun generateDefaultLayoutParams(): LayoutParams {
     return LayoutParams(
-      ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+      ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
     )
   }
 
