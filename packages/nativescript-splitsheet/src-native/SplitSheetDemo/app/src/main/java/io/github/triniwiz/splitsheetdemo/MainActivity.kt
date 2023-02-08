@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         splitsheet.mainViewElevation = false
         splitsheet.displaceContent = false
         splitsheet.showHandle = false
-        splitsheet.closedSheetHeight = 50F
-        splitsheet.minimumSheetHeight = 200F
+//        splitsheet.closedSheetHeight = 50F
+//        splitsheet.minimumSheetHeight = 200F
 
 
         splitsheet.eventListener = object : SplitSheet.Events {
