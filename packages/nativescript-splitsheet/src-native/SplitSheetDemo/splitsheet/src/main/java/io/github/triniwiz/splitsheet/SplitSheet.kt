@@ -15,17 +15,21 @@ import android.view.*
 import android.view.ViewGroup.LayoutParams
 import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.os.postDelayed
 import androidx.core.view.ViewCompat
 import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.Behavior.DragCallback
 import com.google.android.material.appbar.AppBarLayout.ChildScrollEffect
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import io.github.triniwiz.splitsheet.databinding.SplitsheetBinding
+import java.lang.ref.WeakReference
+import java.util.Arrays
 import kotlin.math.abs
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -68,6 +72,13 @@ class SplitSheet @JvmOverloads constructor(
 
   /// The minimum sheet height.
   var minimumSheetHeight = 400F
+    set(value) {
+      field = value
+
+      val toolbar = binding.appbar.getChildAt(0) as CollapsingToolbarLayout
+
+      toolbar.minimumHeight = (metrics.density * value).toInt()
+    }
 
   /// Enforce a sheet height which always shows when in "not showing" state
   var closedSheetHeight = 90F
@@ -182,6 +193,123 @@ class SplitSheet @JvmOverloads constructor(
   private val detents =
     arrayOf(Pair(0F, Detents.Hidden), Pair(0F, Detents.Hidden), Pair(0F, Detents.Hidden))
 
+
+  class CustomScrollBehavior(context: Context?, attrs: AttributeSet?) :
+    AppBarLayout.ScrollingViewBehavior(context, attrs) {
+
+    var targetToScale: LinearLayout? = null
+    var splitsheet: WeakReference<SplitSheet>? = null
+
+    override fun onLayoutChild(
+      parent: CoordinatorLayout,
+      child: View,
+      layoutDirection: Int
+    ): Boolean {
+      val layout = super.onLayoutChild(parent, child, layoutDirection)
+      if (targetToScale == null) {
+        targetToScale = parent.findViewById(R.id.mainContainer)
+      }
+
+      return layout
+    }
+
+    override fun layoutDependsOn(
+      parent: CoordinatorLayout,
+      child: View,
+      dependency: View
+    ): Boolean {
+      return dependency is AppBarLayout
+    }
+
+    override fun onStartNestedScroll(
+      coordinatorLayout: CoordinatorLayout,
+      child: View,
+      directTargetChild: View,
+      target: View,
+      axes: Int,
+      type: Int
+    ): Boolean {
+      return true
+    }
+
+
+    override fun onNestedScroll(
+      coordinatorLayout: CoordinatorLayout,
+      child: View,
+      target: View,
+      dxConsumed: Int,
+      dyConsumed: Int,
+      dxUnconsumed: Int,
+      dyUnconsumed: Int,
+      type: Int,
+      consumed: IntArray
+    ) {
+
+      super.onNestedScroll(
+        coordinatorLayout,
+        child,
+        target,
+        dxConsumed,
+        dyConsumed,
+        dxUnconsumed,
+        dyUnconsumed,
+        type,
+        consumed
+      )
+
+
+      // dyUnconsumed < 0 // expanding
+      // dyUnconsumed > 0 // collapsing
+      splitsheet?.get()?.let {
+        targetToScale?.updateLayoutParams<CollapsingToolbarLayout.LayoutParams> {
+
+          val newValue = it.binding.appbar.measuredHeight + abs(dxConsumed)
+
+          // layout size can be changed here
+          
+
+          if (dyConsumed < 0) {
+            // expanding
+
+            // this.height = newValue
+            //  targetToScale!!.translationY = dyUnconsumed.toFloat()
+
+
+          } else if (dyConsumed > 0) {
+            // collapsing
+
+            //  this.height = newValue
+            //   targetToScale!!.translationY = dyUnconsumed.toFloat()
+
+            //if (newValue >= it.minimumSheetHeight) {
+            //   this.height = newValue
+            // }
+
+          }
+
+        }
+      }
+    }
+
+    override fun onStopNestedScroll(
+      coordinatorLayout: CoordinatorLayout,
+      child: View,
+      target: View,
+      type: Int
+    ) {
+      super.onStopNestedScroll(coordinatorLayout, child, target, type)
+
+      splitsheet?.get()?.let {
+        targetToScale?.updateLayoutParams<CollapsingToolbarLayout.LayoutParams> {
+          Log.d(
+            "com.test",
+            "appbar ${it.binding.appbar.measuredHeight} ${it.binding.mainContainer.measuredHeight}"
+          )
+        }
+      }
+    }
+  }
+
   init {
     val inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     binding = SplitsheetBinding.inflate(inflator, this, false)
@@ -195,30 +323,52 @@ class SplitSheet @JvmOverloads constructor(
 
     val toolbar = binding.appbar.getChildAt(0) as CollapsingToolbarLayout
 
-    toolbar.minimumHeight = 200;
+    toolbar.minimumHeight = (metrics.density * minimumSheetHeight).toInt()
 
     val params = toolbar.layoutParams as AppBarLayout.LayoutParams
     params.scrollFlags =
       AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
-    params.height = 1000
+    //params.height = 1000
     toolbar.layoutParams = params
+
+    val behavior =
+      (binding.scrollView.layoutParams as CoordinatorLayout.LayoutParams).behavior as CustomScrollBehavior
+
+    behavior.splitsheet = WeakReference(this)
 
     binding.appbar.addOnOffsetChangedListener(object : OnOffsetChangedListener {
       private var didEmit = false
       private var didInit = false
-      private var lastVerticalOffset = 0;
+      private var lastVerticalOffset = 0
+
       override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
-        if (verticalOffset !== lastVerticalOffset) {
+        if (verticalOffset != lastVerticalOffset) {
           lastVerticalOffset = verticalOffset
 
 //          binding.mainContainer.layoutParams.height = 1000 - verticalOffset;
 //          binding.mainContainer.requestLayout()
 
-//          handler.postDelayed({
-          binding.mainContainer.updateLayoutParams<CollapsingToolbarLayout.LayoutParams> {
-            this.topMargin = -verticalOffset
-          }
-//          }, 200)
+
+          // binding.mainContainer.updatePadding(bottom = appBarLayout.totalScrollRange + verticalOffset)
+
+//           binding.mainContainer.updateLayoutParams<CollapsingToolbarLayout.LayoutParams> {
+//            // this.topMargin = -verticalOffset
+//              height -= verticalOffset
+//            }
+
+
+          //  handler.post {
+
+//
+//            toolbar.updateLayoutParams<AppBarLayout.LayoutParams> {
+//              height += verticalOffset
+//            }
+//            binding.t.updateLayoutParams<CollapsingToolbarLayout.LayoutParams> {
+//            // this.topMargin = -verticalOffset
+//              height =-verticalOffset
+//            }
+
+          //     }
         }
 
         if (verticalOffset == 0) {

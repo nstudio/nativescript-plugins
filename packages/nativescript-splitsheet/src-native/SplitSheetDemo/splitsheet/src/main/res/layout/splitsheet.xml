@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="@color/transparent"
-            app:layout_scrollFlags="scroll | exitUntilCollapsed |snap"
+            app:layout_scrollFlags="scroll |exitUntilCollapsed |snap"
             app:layout_scrollInterpolator="@android:anim/decelerate_interpolator"
             app:toolbarId="@+id/toolbar">
 
@@ -39,12 +40,12 @@
         android:visibility="invisible"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="center_horizontal|bottom" />
-
+<!--  app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="io.github.triniwiz.splitsheet.SplitSheet$CustomScrollBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
