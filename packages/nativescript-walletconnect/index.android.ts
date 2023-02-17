@@ -992,11 +992,13 @@ export class Sign extends Observable {
 				map,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1026,11 +1028,14 @@ export class Sign extends Observable {
 				reason,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1058,11 +1063,14 @@ export class Sign extends Observable {
 				new com.walletconnect.android.Core.Model.Pairing(params.topic, long(0), null, '', null, '', false, ''),
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1075,11 +1083,14 @@ export class Sign extends Observable {
 				params.chainId,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1099,11 +1110,14 @@ export class Sign extends Observable {
 				result,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1334,11 +1348,14 @@ export class Auth extends Observable {
 				params.id.native,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
@@ -1363,12 +1380,14 @@ export class Auth extends Observable {
 				request,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-
-			resolve();
 		});
 	}
 
@@ -1380,11 +1399,14 @@ export class Auth extends Observable {
 				params.account,
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
-						reject(WalletConnectError.fromNative(param0));
+						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
+						} else {
+							resolve();
+						}
 					},
 				})
 			);
-			resolve();
 		});
 	}
 
