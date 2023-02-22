@@ -1,0 +1,73 @@
+{
+  "name": "nativescript-azure-notificationhubs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/nativescript-azure-notificationhubs",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/nativescript-azure-notificationhubs",
+        "tsConfig": "packages/nativescript-azure-notificationhubs/tsconfig.json",
+        "packageJson": "packages/nativescript-azure-notificationhubs/package.json",
+        "main": "packages/nativescript-azure-notificationhubs/index.d.ts",
+        "assets": [
+          "packages/nativescript-azure-notificationhubs/*.md",
+          "packages/nativescript-azure-notificationhubs/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/nativescript-azure-notificationhubs/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node tools/scripts/build-finish.ts nativescript-azure-notificationhubs"
+        ],
+        "parallel": false
+      },
+      "outputs": [
+        "dist/packages/nativescript-azure-notificationhubs"
+      ],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx g @nativescript/plugin-tools:focus-packages nativescript-azure-notificationhubs"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/nativescript-azure-notificationhubs/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

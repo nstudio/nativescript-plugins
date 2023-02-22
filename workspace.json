@@ -30,7 +30,8 @@
     "nativescript-qr": "packages/nativescript-qr",
     "nativescript-tracking-transparency": "packages/nativescript-tracking-transparency",
     "nativescript-walletconnect": "packages/nativescript-walletconnect",
-    "nativescript-cardview": "packages/nativescript-cardview"
+    "nativescript-cardview": "packages/nativescript-cardview",
+    "nativescript-azure-notificationhubs": "packages/nativescript-azure-notificationhubs"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

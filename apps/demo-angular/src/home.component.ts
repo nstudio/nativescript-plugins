@@ -19,6 +19,9 @@ export class HomeComponent {
 		name: 'nativescript-airship-hms'
 	},
 	{
+		name: 'nativescript-azure-notificationhubs'
+	},
+	{
 		name: 'nativescript-barcodescanner'
 	},
 	{

@@ -290,6 +290,13 @@ module.exports = {
 					description: '@nstudio/nativescript-cardview: Build',
 				},
 			},
+			// @nstudio/nativescript-azure-notificationhubs
+			'nativescript-azure-notificationhubs': {
+				build: {
+					script: 'nx run nativescript-azure-notificationhubs:build.all',
+					description: '@nstudio/nativescript-azure-notificationhubs: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -403,6 +410,10 @@ module.exports = {
 			'nativescript-cardview': {
 				script: 'nx run nativescript-cardview:focus',
 				description: 'Focus on @nstudio/nativescript-cardview',
+			},
+			'nativescript-azure-notificationhubs': {
+				script: 'nx run nativescript-azure-notificationhubs:focus',
+				description: 'Focus on @nstudio/nativescript-azure-notificationhubs',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

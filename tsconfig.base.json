@@ -107,6 +107,9 @@
       ],
       "@nstudio/nativescript-cardview": [
         "packages/nativescript-cardview/index.d.ts"
+      ],
+      "@nstudio/nativescript-azure-notificationhubs": [
+        "packages/nativescript-azure-notificationhubs/index.d.ts"
       ]
     }
   },

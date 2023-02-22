@@ -2,6 +2,7 @@
 - [@nstudio/nativescript-airship-adm](packages/nativescript-airship-adm/README.md)
 - [@nstudio/nativescript-airship-fcm](packages/nativescript-airship-fcm/README.md)
 - [@nstudio/nativescript-airship-hms](packages/nativescript-airship-hms/README.md)
+- [@nstudio/nativescript-azure-notificationhubs](packages/nativescript-azure-notificationhubs/README.md)
 - [@nstudio/nativescript-barcodescanner](packages/nativescript-barcodescanner/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
 - [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
