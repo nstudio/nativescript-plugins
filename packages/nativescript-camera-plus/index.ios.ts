@@ -793,6 +793,26 @@ export class CameraPlus extends CameraPlusBase {
 		this._cropByPreview = value;
 	}
 
+	// @ts-ignore
+	public get pinchToZoom() {
+		return (this._swifty as SwiftyCamViewController)?.pinchToZoom ?? false;
+	}
+	public set pinchToZoom(value: boolean) {
+		if (this._swifty) {
+			(this._swifty as SwiftyCamViewController).pinchToZoom = value;
+		}
+	}
+
+	// @ts-ignore
+	public get tapToFocus() {
+		return (this._swifty as SwiftyCamViewController)?.tapToFocus ?? false;
+	}
+	public set tapToFocus(value: boolean) {
+		if (this._swifty) {
+			(this._swifty as SwiftyCamViewController).tapToFocus = value;
+		}
+	}
+
 	_updatePhotoQuality() {
 		if (this._swifty) {
 			switch (this._pictureQuality) {

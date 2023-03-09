@@ -148,6 +148,26 @@ export class CameraPlus extends CameraPlusBase {
 	}
 
 	// @ts-ignore
+	public get pinchToZoom() {
+		return this._camera?.getEnablePinchZoom() ?? false;
+	}
+	public set pinchToZoom(value: boolean) {
+		if (this._camera) {
+			this._camera.setEnablePinchZoom(value);
+		}
+	}
+
+	// @ts-ignore
+	public get tapToFocus() {
+		return this._camera?.getEnableTapToFocus() ?? false;
+	}
+	public set tapToFocus(value: boolean) {
+		if (this._camera) {
+			this._camera.setEnableTapToFocus(value);
+		}
+	}
+
+	// @ts-ignore
 	set whiteBalance(value: WhiteBalance | string) {
 		if (this._camera) {
 			switch (value) {
