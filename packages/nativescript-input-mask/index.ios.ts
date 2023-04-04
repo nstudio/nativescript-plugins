@@ -1,104 +1,114 @@
 import { EventData, TextField } from '@nativescript/core';
 import { textProperty } from '@nativescript/core/ui/text-base';
-import { completedProperty, extractedValueProperty, InputMaskBase, maskProperty } from './common';
+import { completedProperty, maskedValueProperty, InputMaskBase, maskProperty } from './common';
 
-@NativeClass()
-class ListenerImpl extends NSObject implements MaskedTextFieldDelegateListener {
-	public static ObjCProtocols = [MaskedTextFieldDelegateListener];
-
-	public static initWithOwner(owner: WeakRef<InputMask>) {
-		const listener = ListenerImpl.new() as ListenerImpl;
-		listener._owner = owner;
-		return listener;
-	}
-
-	public _owner: WeakRef<InputMask>;
-
-	public textFieldDidFillMandatoryCharactersDidExtractValue(textField: UITextField, complete: boolean, value: string): void {
-		const owner = this._owner.get();
-		if (owner) {
-			completedProperty.nativeValueChange(owner, complete);
-			extractedValueProperty.nativeValueChange(owner, value);
-		}
-	}
-}
-
-@NativeClass()
-class InputMaskDelegateImpl extends MaskedTextFieldDelegate {
+@NativeClass
+class MaskedUITextFieldDelegateListener extends NSObject implements UITextFieldDelegate {
 	public static ObjCProtocols = [UITextFieldDelegate];
 
-	public static initWithOwnerAndDefault(owner: WeakRef<InputMask>, defaultImpl: UITextFieldDelegate): InputMaskDelegateImpl {
-		const delegate = <InputMaskDelegateImpl>InputMaskDelegateImpl.new();
-		delegate._defaultImpl = defaultImpl;
+	/**
+	 * Set type to any as core does not expose typings for needed methods.
+	 */
+	private _owner: WeakRef<any>;
+
+	public static initWithOwner(owner: WeakRef<TextField>): MaskedUITextFieldDelegateListener {
+		const delegate = <MaskedUITextFieldDelegateListener>MaskedUITextFieldDelegateListener.new();
 		delegate._owner = owner;
+
 		return delegate;
 	}
 
-	_owner: WeakRef<InputMask>;
-	_defaultImpl: UITextFieldDelegate;
-
 	public textFieldShouldBeginEditing(textField: UITextField): boolean {
-		return this._defaultImpl.textFieldShouldBeginEditing(textField);
+		const owner = this._owner?.deref();
+		if (owner) {
+			return owner.textFieldShouldBeginEditing(textField);
+		}
+
+		return true;
+	}
+
+	public textFieldDidBeginEditing(textField: UITextField): void {
+		const owner = this._owner?.deref();
+		if (owner) {
+			owner.textFieldDidBeginEditing(textField);
+		}
 	}
 
 	public textFieldDidEndEditing(textField: UITextField) {
-		return this._defaultImpl.textFieldDidEndEditing(textField);
+		const owner = this._owner?.deref();
+		if (owner) {
+			owner.textFieldDidEndEditing(textField);
+		}
 	}
 
 	public textFieldShouldClear(textField: UITextField) {
-		return this._defaultImpl.textFieldShouldClear(textField);
+		const owner = this._owner?.deref();
+		if (owner) {
+			return owner.textFieldShouldClear(textField);
+		}
+
+		return true;
 	}
 
 	public textFieldShouldReturn(textField: UITextField): boolean {
-		return this._defaultImpl.textFieldShouldReturn(textField);
-	}
-
-	public textFieldShouldChangeCharactersInRangeReplacementString(textField: UITextField, range: NSRange, replacementString: string): boolean {
-		const owner = this._owner.get();
-		super.textFieldShouldChangeCharactersInRangeReplacementString(textField, range, replacementString);
+		// Called when the user presses the return button.
+		const owner = this._owner?.deref();
 		if (owner) {
-			textProperty.nativeValueChange(owner, textField.text);
-			const eventData: EventData = {
-				eventName: 'textChangeEvent',
-				object: owner,
-			};
-
-			owner.notify(eventData);
+			return owner.textFieldShouldReturn(textField);
 		}
-		return false;
+
+		return true;
+	}
+}
+
+function onMaskedTextChanged(nativeView: UITextField, value: string, complete: boolean) {
+	const owner = this.deref();
+	if (owner) {
+		completedProperty.nativeValueChange(owner, complete);
+		if (nativeView) {
+			maskedValueProperty.nativeValueChange(owner, nativeView.text);
+		}
+		textProperty.nativeValueChange(owner, value);
 	}
 }
 
 export class InputMask extends InputMaskBase {
-	private _delegate: InputMaskDelegateImpl;
-	private _ios: UITextField;
-	private _listener: ListenerImpl;
+	private _delegate: MaskedTextFieldDelegate;
+	private _listener: MaskedUITextFieldDelegateListener;
 
-	constructor() {
-		super();
+	public initNativeView() {
+		super.initNativeView();
+
 		const owner = new WeakRef(this);
-		this._delegate = InputMaskDelegateImpl.initWithOwnerAndDefault(owner, this._delegate);
-		this._listener = ListenerImpl.initWithOwner(owner);
-		this._delegate.listener = this._listener;
+		this._delegate = MaskedTextFieldDelegate.new();
+		this._listener = MaskedUITextFieldDelegateListener.initWithOwner(owner);
+
+		InputMaskUtils.setListenerWithMaskedTextFieldDelegate(this._delegate, this._listener);
+		InputMaskUtils.setMaskedTextChangedCallbackWithMaskedTextFieldDelegate(this._delegate, onMaskedTextChanged.bind(owner));
+
+		this.nativeViewProtected.delegate = this._delegate;
+	}
+
+	public disposeNativeView() {
+		super.disposeNativeView();
+		this._listener = null;
+		this._delegate = null;
 	}
 
 	[completedProperty.setNative](completed: boolean) {
 		// Should not be manually set
 	}
 
-	[extractedValueProperty.setNative](value: string) {
+	[maskedValueProperty.setNative](value: string) {
 		// Should not be manually set
 	}
 
 	[maskProperty.setNative](mask: string) {
-		this._delegate.maskFormat = mask;
+		this._delegate.primaryMaskFormat = mask;
 		this[textProperty.setNative](this.text);
 	}
 
 	[textProperty.setNative](text: string) {
-		if (this._delegate && this._delegate.putWithTextInto) {
-			// TODO: this does not seem to work as of 12/28/2020
-			this._delegate.putWithTextInto(text, this._ios);
-		}
+		InputMaskUtils.putWithMaskedTextFieldDelegateTextIntoAutocomplete(this._delegate, text, this.nativeViewProtected, false);
 	}
 }

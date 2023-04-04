@@ -1,5 +1,5 @@
 import { EventData } from '@nativescript/core';
-import { completedProperty, extractedValueProperty, InputMaskBase, maskProperty } from './common';
+import { completedProperty, maskedValueProperty, InputMaskBase, maskProperty } from './common';
 
 // @Interfaces(com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener)
 export class ValueListener implements com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener {
@@ -13,7 +13,7 @@ export class ValueListener implements com.redmadrobot.inputmask.MaskedTextChange
 				const owner = this.owner.get() as InputMask;
 				if (owner) {
 					completedProperty.nativeValueChange(owner, maskFilled);
-					extractedValueProperty.nativeValueChange(owner, extractedValue);
+					maskedValueProperty.nativeValueChange(owner, extractedValue);
 
 					const eventData: EventData = {
 						eventName: 'textChangeEvent',
@@ -54,12 +54,7 @@ export class InputMask extends InputMaskBase {
 		// Should not be set manually
 	}
 
-	[extractedValueProperty.setNative]() {
-		// Should not be set manually
-	}
-
-	[extractedValueProperty.getDefault]() {
-		return '';
+	[maskedValueProperty.setNative]() {
 		// Should not be set manually
 	}
 
@@ -72,9 +67,5 @@ export class InputMask extends InputMaskBase {
 		editText.addTextChangedListener(this.maskedTextChangedListener);
 		editText.setOnFocusChangeListener(this.maskedTextChangedListener);
 		this.maskedTextChangedListener.setText(this.text);
-	}
-
-	[maskProperty.getDefault](): string {
-		return '';
 	}
 }
