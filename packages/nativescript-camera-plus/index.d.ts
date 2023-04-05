@@ -186,6 +186,16 @@ export declare class CameraPlus extends ContentView {
 	autoFocus: boolean;
 
 	/**
+	 * *ANDROID ONLY* Enables or disables tap to focus
+	 */
+	public tapToFocus: boolean;
+
+	/**
+	 * Enables or disables pinch to zoom
+	 */
+	public pinchToZoom: boolean;
+
+	/**
 	 * Toggles the device camera (front/back).
 	 */
 	toggleCamera(): void;

@@ -115,6 +115,18 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	public pictureSize: string = '0x0';
 
 	/**
+	 * *ANDROID ONLY* Enables or disables tap to focus
+	 */
+	@GetSetProperty()
+	public tapToFocus: boolean;
+
+	/**
+	 * Enables or disables pinch to zoom
+	 */
+	@GetSetProperty()
+	public pinchToZoom: boolean;
+
+	/**
 	 * @param ratio string
 	 * @returns returns an array of supported picture sizes supported by the current camera
 	 */

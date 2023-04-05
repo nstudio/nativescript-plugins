@@ -1,3 +1,5 @@
+/// <reference path="android-declarations.d.ts"/>
+
 declare module io {
 	export module github {
 		export module triniwiz {
@@ -88,6 +90,7 @@ declare module io {
 					public setPictureSize(param0: string): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
+					public setZoomRatio(param0: number): void;
 					public getMaxVideoBitrate(): number;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
 					public getCamera(): globalAndroid.hardware.Camera;
@@ -100,8 +103,10 @@ declare module io {
 					public getAvailablePictureSizes(param0: string): androidNative.Array<io.github.triniwiz.fancycamera.Size>;
 					public setAutoFocus(param0: boolean): void;
 					public setDisplayRatio(param0: string): void;
+					public getEnableTapToFocus(): boolean;
 					public getEnablePinchZoom(): boolean;
 					public toggleCamera(): void;
+					public setEnableTapToFocus(param0: boolean): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet, param2: number);
 					public stopRecording(): void;
 					public getPause(): boolean;
@@ -110,6 +115,7 @@ declare module io {
 					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
 					public getDb(): number;
+					public getZoomRatio(): number;
 				}
 				export module Camera {
 					export class WhenMappings {
@@ -130,6 +136,7 @@ declare module io {
 					public getDisplayRatio(): string;
 					public cameraRecording(): boolean;
 					public setPause(param0: boolean): void;
+					public getMinZoomRatio(): number;
 					public getRetrieveLatestImage(): boolean;
 					public getAllowExifRotation(): boolean;
 					public setEnablePinchZoom(param0: boolean): void;
@@ -170,11 +177,14 @@ declare module io {
 					public setRetrieveLatestImage(param0: boolean): void;
 					public setPictureSize(param0: string): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
+					public getMaxZoomRatio(): number;
 					public setDb(param0: number): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
+					public setZoomRatio(param0: number): void;
 					public getMaxVideoBitrate(): number;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
 					public getDetectorType(): io.github.triniwiz.fancycamera.DetectorType;
+					public setStoredZoomRatio(param0: number): void;
 					public getMaxVideoFrameRate(): number;
 					public takePhoto(): void;
 					public getPreviewSurface(): any;
@@ -182,9 +192,13 @@ declare module io {
 					public getZoom(): number;
 					public getAvailablePictureSizes(param0: string): androidNative.Array<io.github.triniwiz.fancycamera.Size>;
 					public setAutoFocus(param0: boolean): void;
+					public getStoredZoom(): number;
 					public setDisplayRatio(param0: string): void;
+					public getEnableTapToFocus(): boolean;
 					public getEnablePinchZoom(): boolean;
+					public setStoredZoom(param0: number): void;
 					public toggleCamera(): void;
+					public setEnableTapToFocus(param0: boolean): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet, param2: number);
 					public stopRecording(): void;
 					public getPause(): boolean;
@@ -192,8 +206,9 @@ declare module io {
 					public constructor(param0: globalAndroid.content.Context);
 					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
-					public getRecorderQuality$fancycamera_release(param0: io.github.triniwiz.fancycamera.Quality): androidx.camera.video.Quality;
+					public getStoredZoomRatio(): number;
 					public getDb(): number;
+					public getZoomRatio(): number;
 				}
 				export module Camera2 {
 					export class WhenMappings {
@@ -279,6 +294,7 @@ declare module io {
 					public setAutoFocus(param0: boolean): void;
 					public convertToExifDateTime$fancycamera_release(param0: number): string;
 					public setOnFacesDetectedListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+					public getEnableTapToFocus(): boolean;
 					public setProcessEveryNthFrame(param0: number): void;
 					public getEnablePinchZoom(): boolean;
 					public setImageLabelingOptions(param0: any): void;
@@ -350,6 +366,7 @@ declare module io {
 					public setEnableAudio(param0: boolean): void;
 					public setImageLabelingOptions$fancycamera_release(param0: any): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
+					public setZoomRatio(param0: number): void;
 					public convertFromExifDateTime$fancycamera_release(param0: string): java.util.Date;
 					public hasPermission(): boolean;
 					public setOnSelfieSegmentationListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
@@ -360,6 +377,7 @@ declare module io {
 					public setDisplayRatio(param0: string): void;
 					public requestStoragePermission(): void;
 					public toggleCamera(): void;
+					public setEnableTapToFocus(param0: boolean): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet, param2: number);
 					public getPause(): boolean;
 					public setOnPoseDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
@@ -370,6 +388,7 @@ declare module io {
 					public getCurrentOrientation(): number;
 					public setOnFacesDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getSelfieSegmentationOptions$fancycamera_release(): any;
+					public getZoomRatio(): number;
 				}
 				export module CameraBase {
 					export class Companion {
@@ -561,13 +580,16 @@ declare module io {
 					public static Selfie: io.github.triniwiz.fancycamera.DetectorType;
 					public static None: io.github.triniwiz.fancycamera.DetectorType;
 					public toString(): string;
+					public static fromName(param0: string): io.github.triniwiz.fancycamera.DetectorType;
 					public static valueOf(param0: string): io.github.triniwiz.fancycamera.DetectorType;
 					public static values(): androidNative.Array<io.github.triniwiz.fancycamera.DetectorType>;
+					public static fromInt(param0: number): io.github.triniwiz.fancycamera.DetectorType;
 				}
 				export module DetectorType {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.DetectorType.Companion>;
 						public fromInt(param0: number): io.github.triniwiz.fancycamera.DetectorType;
+						public fromName(param0: string): io.github.triniwiz.fancycamera.DetectorType;
 					}
 				}
 			}
@@ -611,7 +633,7 @@ declare module io {
 	export module github {
 		export module triniwiz {
 			export module fancycamera {
-				export class FancyCamera {
+				export class FancyCamera extends globalAndroid.view.View {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.FancyCamera>;
 					public setFaceDetectionOptions(param0: any): void;
 					public setPause(param0: boolean): void;
@@ -639,6 +661,7 @@ declare module io {
 					public setRetrieveLatestImage(param0: boolean): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
 					public setSelfieSegmentationOptions(param0: any): void;
+					public getProcessEveryNthFrame(): number;
 					public getDuration(): number;
 					public requestAudioPermission(): void;
 					public hasAudioPermission(): boolean;
@@ -651,6 +674,8 @@ declare module io {
 					public takePhoto(): void;
 					public getAvailablePictureSizes(param0: string): androidNative.Array<io.github.triniwiz.fancycamera.Size>;
 					public setAutoFocus(param0: boolean): void;
+					public getEnableTapToFocus(): boolean;
+					public setProcessEveryNthFrame(param0: number): void;
 					public getEnablePinchZoom(): boolean;
 					public setImageLabelingOptions(param0: any): void;
 					public stopRecording(): void;
@@ -664,6 +689,7 @@ declare module io {
 					public setEnableAudioLevels(param0: boolean): void;
 					public setBarcodeScannerOptions(param0: any): void;
 					public static setForceV1(param0: boolean): void;
+					public setDetectorWithName(param0: string): void;
 					public getRetrieveLatestImage(): boolean;
 					public getCameraOrientation(): io.github.triniwiz.fancycamera.CameraOrientation;
 					public setEnablePinchZoom(param0: boolean): void;
@@ -706,6 +732,7 @@ declare module io {
 					public requestStoragePermission(): void;
 					public setRatio(param0: string): void;
 					public toggleCamera(): void;
+					public setEnableTapToFocus(param0: boolean): void;
 					public getPause(): boolean;
 					public setOnPoseDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getPreviewView(): any;
