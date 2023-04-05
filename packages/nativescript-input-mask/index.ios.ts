@@ -3,8 +3,8 @@ import { textProperty } from '@nativescript/core/ui/text-base';
 import { completedProperty, maskedValueProperty, InputMaskBase, maskProperty } from './common';
 
 @NativeClass
-class MaskedUITextFieldDelegateListener extends NSObject implements UITextFieldDelegate {
-	public static ObjCProtocols = [UITextFieldDelegate];
+class MaskedUITextFieldDelegateListener extends NSObject implements MaskedTextFieldDelegateListener {
+	public static ObjCProtocols = [MaskedTextFieldDelegateListener];
 
 	/**
 	 * Set type to any as core does not expose typings for needed methods.

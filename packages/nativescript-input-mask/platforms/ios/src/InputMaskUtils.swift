@@ -1,5 +1,6 @@
 import InputMask
 
+// This class ensures access to properties and methods that are not portable to obj-c
 @objcMembers
 @objc(InputMaskUtils)
 class InputMaskUtils: NSObject {
