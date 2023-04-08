@@ -1,53 +1,43 @@
-import { EventData } from '@nativescript/core';
+import { textProperty } from '@nativescript/core/ui/text-base';
 import { completedProperty, maskedValueProperty, InputMaskBase, maskProperty } from './common';
 
-// @Interfaces(com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener)
-export class ValueListener implements com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener {
-	owner: WeakRef<InputMask>;
-
-	// Using the @Interfaces decorator and extending java.lang.Object is not working with the ValueListener interface.
-	// Causes a runtime error when instantiating inputmask.MaskedTextChangedListener
-	static initWithOwner(owner: WeakRef<InputMask>): ValueListener {
-		const valueListener = new com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener({
-			onTextChanged: function (maskFilled: boolean, extractedValue: string) {
-				const owner = this.owner.get() as InputMask;
-				if (owner) {
-					completedProperty.nativeValueChange(owner, maskFilled);
-					maskedValueProperty.nativeValueChange(owner, extractedValue);
-
-					const eventData: EventData = {
-						eventName: 'textChangeEvent',
-						object: owner,
-					};
-
-					owner.notify(eventData);
-				}
-			},
-		});
-		(valueListener as any).owner = owner;
-		return valueListener as ValueListener;
-	}
-
-	textChanged(maskFilled: boolean, extractedValue: string): void {}
-}
-
 export class InputMask extends InputMaskBase {
-	valueListener: ValueListener;
-	maskedTextChangedListener: com.redmadrobot.inputmask.MaskedTextChangedListener;
-
-	constructor() {
-		super();
-		this.valueListener = ValueListener.initWithOwner(new WeakRef(this));
-	}
+	private valueListener: com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener;
+	private maskedTextChangedListener: com.redmadrobot.inputmask.MaskedTextChangedListener;
 
 	initNativeView() {
 		super.initNativeView();
+
+		const owner = new WeakRef<InputMask>(this);
+
+		this.valueListener = new com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener({
+			onTextChanged(maskFilled: boolean, extractedValue: string, formattedValue: string): void {
+				const owner = this.owner.deref() as InputMask;
+				if (owner) {
+					completedProperty.nativeValueChange(owner, maskFilled);
+					maskedValueProperty.nativeValueChange(owner, formattedValue);
+					textProperty.nativeValueChange(owner, extractedValue);
+				}
+			}
+		});
+		(this.valueListener as any).owner = owner;
+
+		this.maskedTextChangedListener = new com.redmadrobot.inputmask.MaskedTextChangedListener(this.mask, this.nativeViewProtected);
+		this.maskedTextChangedListener.setListener(this.nativeViewProtected.listener);
+		this.maskedTextChangedListener.setValueListener(this.valueListener);
+
+		this.nativeViewProtected.removeTextChangedListener(this.nativeViewProtected.listener);
+		this.nativeViewProtected.addTextChangedListener(this.maskedTextChangedListener);
 	}
 
-	createNativeView() {
-		const editText = super.createNativeView() as android.widget.EditText;
-		editText.removeTextChangedListener((editText as any).listener);
-		return editText;
+	public disposeNativeView(): void {
+		super.disposeNativeView();
+
+		this.nativeViewProtected.removeTextChangedListener(this.maskedTextChangedListener);
+		
+		this.maskedTextChangedListener = null;
+		(this.valueListener as any).owner = null;
+		this.valueListener = null;
 	}
 
 	[completedProperty.setNative]() {
@@ -58,14 +48,12 @@ export class InputMask extends InputMaskBase {
 		// Should not be set manually
 	}
 
-	[maskProperty.setNative](mask: string): void {
-		const editText = this.nativeView;
-		if (this.maskedTextChangedListener) {
-			editText.removeTextChangedListener(this.maskedTextChangedListener);
-		}
-		this.maskedTextChangedListener = new com.redmadrobot.inputmask.MaskedTextChangedListener(mask, this.autocorrect, editText, (editText as any).listener, this.valueListener);
-		editText.addTextChangedListener(this.maskedTextChangedListener);
-		editText.setOnFocusChangeListener(this.maskedTextChangedListener);
-		this.maskedTextChangedListener.setText(this.text);
+	[maskProperty.setNative](value: string) {
+		this.maskedTextChangedListener.setPrimaryFormat(value);
+		this[textProperty.setNative](this.text);
+	}
+
+	[textProperty.setNative](value: string) {
+		this.maskedTextChangedListener.setText(value, this.nativeViewProtected, java.lang.Boolean.FALSE);
 	}
 }

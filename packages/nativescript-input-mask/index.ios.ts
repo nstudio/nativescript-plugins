@@ -1,4 +1,4 @@
-import { EventData, TextField } from '@nativescript/core';
+import { TextField } from '@nativescript/core';
 import { textProperty } from '@nativescript/core/ui/text-base';
 import { completedProperty, maskedValueProperty, InputMaskBase, maskProperty } from './common';
 
@@ -95,20 +95,21 @@ export class InputMask extends InputMaskBase {
 		this._delegate = null;
 	}
 
-	[completedProperty.setNative](completed: boolean) {
+	[completedProperty.setNative]() {
 		// Should not be manually set
 	}
 
-	[maskedValueProperty.setNative](value: string) {
+	
+	[maskedValueProperty.setNative]() {
 		// Should not be manually set
 	}
 
-	[maskProperty.setNative](mask: string) {
-		this._delegate.primaryMaskFormat = mask;
+	[maskProperty.setNative](value: string) {
+		this._delegate.primaryMaskFormat = value;
 		this[textProperty.setNative](this.text);
 	}
 
-	[textProperty.setNative](text: string) {
-		InputMaskUtils.putWithMaskedTextFieldDelegateTextIntoAutocomplete(this._delegate, text, this.nativeViewProtected, false);
+	[textProperty.setNative](value: string) {
+		InputMaskUtils.putWithMaskedTextFieldDelegateTextIntoAutocomplete(this._delegate, value, this.nativeViewProtected, false);
 	}
 }
