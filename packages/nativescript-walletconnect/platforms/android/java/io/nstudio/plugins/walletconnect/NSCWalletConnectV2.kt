@@ -610,13 +610,13 @@ class NSCWalletConnectV2 {
     @JvmStatic
     fun signRespond(
       topic: String,
-      response: Sign.Model.JsonRpcResponse,
+      response: Any,
       callback: (Throwable?) -> Unit
     ) {
 
       var error: Throwable? = null
       SignClient.respond(
-        Sign.Params.Response(topic, response)
+        Sign.Params.Response(topic, response as Sign.Model.JsonRpcResponse)
       ) {
         error = it.throwable
       }
