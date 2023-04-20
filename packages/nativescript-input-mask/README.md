@@ -10,6 +10,11 @@ This plugin makes the native libraries [InputMask(Android)](https://github.com/R
 npm install @nstudio/nativescript-input-mask
 ```
 
+If you were using 0.1.x, please note the following breaking changes in 1.0.0 release:
+
+- Removed property `extractedValue`. Property text will keep that value from now on.
+- Added property `maskedValue` for retrieving the value with mask format.
+
 ## Usage
 
 Use by adding a `mask` property to an `InputMask` field. Masks can be changed on the fly, which causes the current text value to be re-applied to the new mask. Any characters that do not meet the mask criteria will be dropped.
