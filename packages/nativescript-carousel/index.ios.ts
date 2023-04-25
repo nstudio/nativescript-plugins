@@ -17,7 +17,6 @@ import {
 export * from './common';
 
 export class Carousel extends CarouselCommon {
-  public nativeView;
   public items;
   public itemTemplate;
   public selectedPage;

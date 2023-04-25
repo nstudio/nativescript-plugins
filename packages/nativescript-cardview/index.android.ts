@@ -27,7 +27,6 @@ import {
   
   export class CardView extends CardViewCommon {
     private _androidViewId: number;
-    nativeView;
   
     // @ts-ignore
     get android(): any {

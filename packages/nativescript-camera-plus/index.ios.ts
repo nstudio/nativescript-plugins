@@ -1,7 +1,7 @@
 /**********************************************************************************
  * (c) 2017, nStudio, LLC & LiveShopper, LLC
  *
- * Version 1.1.0                                                    team@nStudio.io
+ * Version 1.1.0                                                    team@nstudio.io
  **********************************************************************************/
 
 import { Color, Device, File, ImageAsset, knownFolders, path, Utils, View } from '@nativescript/core';

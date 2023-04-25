@@ -47,7 +47,6 @@ export class Video extends VideoBase {
 	private _videoPlaying: boolean;
 	private _videoFinished: boolean;
 	private enableSubtitles: boolean = false;
-	public nativeView: any;
 
 	constructor() {
 		super();

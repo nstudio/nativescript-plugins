@@ -249,7 +249,7 @@ export declare class CameraPlus extends ContentView {
 	/**
 	 * * ANDROID ONLY * - Returns true if the application has permission to use the device camera.
 	 */
-	hasCameraPermission(): boolean;
+	hasCameraPermission(): Promise<boolean>;
 
 	/**
 	 * * ANDROID ONLY * - will prompt the user for runtime permission to record audio.
@@ -260,7 +260,7 @@ export declare class CameraPlus extends ContentView {
 	 * ANDROID ONLY
 	 * Returns true if the application has permission to record audio.
 	 */
-	hasAudioPermission(): boolean;
+	hasAudioPermission(): Promise<boolean>;
 
 	/**
 	 * ANDROID ONLY
@@ -272,7 +272,7 @@ export declare class CameraPlus extends ContentView {
 	 * ANDROID ONLY
 	 * Returns true if the application has permission to READ/WRITE STORAGE.
 	 */
-	hasStoragePermissions(): boolean;
+	hasStoragePermissions(): Promise<boolean>;
 
 	/**
 	 * ANDROID ONLY
@@ -284,7 +284,7 @@ export declare class CameraPlus extends ContentView {
 	 * ANDROID ONLY
 	 * Returns true if the application has permission to WRITE STORAGE and RECORD_AUDIO for videos.
 	 */
-	hasVideoRecordingPermissions(): boolean;
+	hasVideoRecordingPermissions(): Promise<boolean>;
 
 	/**
 	 * ANDROID ONLY
