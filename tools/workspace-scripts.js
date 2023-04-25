@@ -290,6 +290,13 @@ module.exports = {
 					description: '@nstudio/nativescript-cardview: Build',
 				},
 			},
+			// @nstudio/nativescript-aptabase
+			'nativescript-aptabase': {
+				build: {
+					script: 'nx run nativescript-aptabase:build.all',
+					description: '@nstudio/nativescript-aptabase: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -403,6 +410,10 @@ module.exports = {
 			'nativescript-cardview': {
 				script: 'nx run nativescript-cardview:focus',
 				description: 'Focus on @nstudio/nativescript-cardview',
+			},
+			'nativescript-aptabase': {
+				script: 'nx run nativescript-aptabase:focus',
+				description: 'Focus on @nstudio/nativescript-aptabase',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',
