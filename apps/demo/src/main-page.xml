@@ -9,6 +9,7 @@
         <Button text="nativescript-airship-adm" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-airship-fcm" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-airship-hms" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-aptabase" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-barcodescanner" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-blur" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-camera-plus" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>

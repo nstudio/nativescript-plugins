@@ -3,6 +3,7 @@ export * from './nativescript-airship';
 export * from './nativescript-airship-adm';
 export * from './nativescript-airship-fcm';
 export * from './nativescript-airship-hms';
+export * from './nativescript-aptabase';
 export * from './nativescript-barcodescanner';
 export * from './nativescript-blur';
 export * from './nativescript-camera-plus';

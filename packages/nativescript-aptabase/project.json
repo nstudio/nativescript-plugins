@@ -1,0 +1,73 @@
+{
+  "name": "nativescript-aptabase",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/nativescript-aptabase",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/nativescript-aptabase",
+        "tsConfig": "packages/nativescript-aptabase/tsconfig.json",
+        "packageJson": "packages/nativescript-aptabase/package.json",
+        "main": "packages/nativescript-aptabase/index.d.ts",
+        "assets": [
+          "packages/nativescript-aptabase/*.md",
+          "packages/nativescript-aptabase/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/nativescript-aptabase/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node tools/scripts/build-finish.ts nativescript-aptabase"
+        ],
+        "parallel": false
+      },
+      "outputs": [
+        "dist/packages/nativescript-aptabase"
+      ],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx g @nativescript/plugin-tools:focus-packages nativescript-aptabase"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/nativescript-aptabase/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
