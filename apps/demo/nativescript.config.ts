@@ -11,4 +11,14 @@ export default {
 	cli: {
 		packageManager: 'npm',
 	},
+	ios: {
+		SPMPackages: [
+			{
+				name: 'Aptabase',
+				libs: ['Aptabase'],
+				repositoryURL: 'https://github.com/aptabase/aptabase-swift.git',
+				version: '0.0.4'
+			}
+		]
+	}
 } as NativeScriptConfig;

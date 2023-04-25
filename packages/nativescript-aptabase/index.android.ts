@@ -1,5 +1,11 @@
-import { NativescriptAptabaseCommon } from './common';
+import { AptabaseCommon } from "./common";
 
-export class NativescriptAptabase extends NativescriptAptabaseCommon {
+export class Aptabase extends AptabaseCommon {
+    static initialize(appKey: string) {
+        console.log('Not supported on Android yet.')
+    }
 
+    static track(name: string, properties?: any) {
+        console.log('Not supported on Android yet.')
+    }
 }

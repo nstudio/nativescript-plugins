@@ -1,5 +1,11 @@
-import { NativescriptAptabaseCommon } from './common';
+import { AptabaseCommon } from './common';
 
-export class NativescriptAptabase extends NativescriptAptabaseCommon {
-    
+export class Aptabase extends AptabaseCommon {
+    static initialize(appKey: string) {
+        NSCAptabase.initializeWithAppKey(appKey);
+    }
+
+    static track(name: string, properties?: any) {
+        NSCAptabase.trackWithNameProperties(name, properties);
+    }
 }

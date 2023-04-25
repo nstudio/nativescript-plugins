@@ -1,9 +1,19 @@
 import { DemoSharedBase } from '../utils';
-import {  } from '@nstudio/nativescript-aptabase';
+import { Aptabase } from '@nstudio/nativescript-aptabase';
 
 export class DemoSharedNativescriptAptabase extends DemoSharedBase {
 
-  testIt() {
-    console.log('test nativescript-aptabase!');
+  init() {
+    Aptabase.initialize('<api-key>')
+  }
+
+  trackEvent() {
+    Aptabase.track('Hello Aptabase')
+  }
+
+  trackEventWithData() {
+    Aptabase.track('Hello Aptabase', { 
+      from: 'NativeScript'
+    })
   }
 }
