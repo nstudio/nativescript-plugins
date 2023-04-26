@@ -958,9 +958,12 @@ export class Sign extends Observable {
 			});
 
 			NSCWalletConnectV2.signApproveSession(params.id, dictionary, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -985,9 +988,12 @@ export class Sign extends Observable {
 					break;
 			}
 			NSCWalletConnectV2.signRejectSession(params.id, reason, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -1016,18 +1022,24 @@ export class Sign extends Observable {
 			});
 
 			NSCWalletConnectV2.signConnect(namespaces, params.topic, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
 	request(params: { topic: string; chainId: string; request: { method: string; params: any } }) {
 		return new Promise<void>((resolve, reject) => {
 			NSCWalletConnectV2.signRequestParamsChainId(params.topic, params.request.method, toCodable(serialize(params.request.params)), params.chainId, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -1042,9 +1054,12 @@ export class Sign extends Observable {
 			}
 
 			NSCWalletConnectV2.signRespondResult(params.topic, params.id.native, result, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -1130,37 +1145,37 @@ export class Sign extends Observable {
 	off(eventNames: string, callback?: any, thisArg?: any) {
 		super.off(eventNames, callback, thisArg);
 
-		if (eventNames === 'session_settle' && !this.hasListeners('session_settle')) {
+		if (this._sessionSettlePublisher && eventNames === 'session_settle' && !this.hasListeners('session_settle')) {
 			this._sessionSettlePublisher.cancel();
 			this._sessionSettlePublisher = null;
 		}
 
-		if (eventNames === 'session_proposal' && !this.hasListeners('session_proposal')) {
+		if (this._sessionProposalPublisher && eventNames === 'session_proposal' && !this.hasListeners('session_proposal')) {
 			this._sessionProposalPublisher.cancel();
 			this._sessionProposalPublisher = null;
 		}
 
-		if (eventNames === 'session_event' && !this.hasListeners('session_event')) {
+		if (this._sessionEventPublisher && eventNames === 'session_event' && !this.hasListeners('session_event')) {
 			this._sessionEventPublisher.cancel();
 			this._sessionEventPublisher = null;
 		}
 
-		if (eventNames === 'session_request' && !this.hasListeners('session_request')) {
+		if (this._sessionRequestPublisher && eventNames === 'session_request' && !this.hasListeners('session_request')) {
 			this._sessionRequestPublisher.cancel();
 			this._sessionRequestPublisher = null;
 		}
 
-		if (eventNames === 'session_ping' && !this.hasListeners('session_ping')) {
+		if (this._pingResponsePublisher && eventNames === 'session_ping' && !this.hasListeners('session_ping')) {
 			this._pingResponsePublisher.cancel();
 			this._pingResponsePublisher = null;
 		}
 
-		if (eventNames === 'session_delete' && !this.hasListeners('session_delete')) {
+		if (this._sessionDeletePublisher && eventNames === 'session_delete' && !this.hasListeners('session_delete')) {
 			this._sessionDeletePublisher.cancel();
 			this._sessionDeletePublisher = null;
 		}
 
-		if (eventNames === 'session_update' && !this.hasListeners('session_update')) {
+		if (this._sessionUpdatePublisher && eventNames === 'session_update' && !this.hasListeners('session_update')) {
 			this._sessionUpdatePublisher.cancel();
 			this._sessionUpdatePublisher = null;
 		}
@@ -1204,9 +1219,12 @@ export class Auth extends Observable {
 	reject(params: { id: RPCID }) {
 		return new Promise<void>((resolve, reject) => {
 			NSCWalletConnectV2.authReject(params.id.native, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -1227,18 +1245,25 @@ export class Auth extends Observable {
 		return new Promise<void>((resolve, reject) => {
 			const request = NSCWalletConnectV2RequestParams.alloc().init(params.params.domain, params.params.chainId, params.params.nonce, params.params.aud, params.params.nbf || null, params.params.exp || null, params.params.statement || null, params.params.requestId || null, params.params.resources || null);
 			NSCWalletConnectV2.authRequestParams(params.topic, request, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
+			
 		});
 	}
 
 	respond(params: { id: RPCID; signature: CacaoSignature; account: string }) {
 		return new Promise<void>((resolve, reject) => {
 			NSCWalletConnectV2.authRespondSignature(params.id.native, params.signature.native, params.account, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
@@ -1282,12 +1307,12 @@ export class Auth extends Observable {
 
 	off(eventNames: string, callback?: any, thisArg?: any) {
 		super.off(eventNames, callback, thisArg);
-		if (eventNames === 'auth_request' && !this.hasListeners('auth_request')) {
+		if (this._authRequestPublisher && eventNames === 'auth_request' && !this.hasListeners('auth_request')) {
 			this._authRequestPublisher.cancel();
 			this._authRequestPublisher = null;
 		}
 
-		if (eventNames === 'auth_response' && !this.hasListeners('auth_response')) {
+		if (this._authResponsePublisher && eventNames === 'auth_response' && !this.hasListeners('auth_response')) {
 			this._authResponsePublisher.cancel();
 			this._authResponsePublisher = null;
 		}
@@ -1339,18 +1364,25 @@ export class Pair {
 	pair(params: { uri: string }) {
 		return new Promise<void>((resolve, reject) => {
 			NSCWalletConnectV2.pairPairWithUri(params.uri, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
 		});
 	}
 
 	disconnect(params: { topic: string }) {
 		return new Promise<void>((resolve, reject) => {
 			NSCWalletConnectV2.pairDisconnect(params.topic, (error) => {
-				reject(WalletConnectError.fromNative(error));
+				if (error) {
+					reject(WalletConnectError.fromNative(error));
+				} else {
+					resolve();
+				}
 			});
-			resolve();
+			
 		});
 	}
 
