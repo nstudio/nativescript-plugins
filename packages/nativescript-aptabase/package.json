@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-aptabase",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Aptabase Analytics for Apps. Privacy-First. Simple.",
   "main": "index",
   "typings": "index.d.ts",
