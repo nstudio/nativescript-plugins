@@ -338,8 +338,9 @@ export class WalletConnectURI {
 export class ProposalNamespaceExtension {
 	private _native: com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension;
 
-	static fromNative(extension: com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension) {
-		if (extension instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension) {
+	static fromNative(extension: any) {
+		// if (extension instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension) {
+		if (extension?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$Namespace$Proposal$Extension') {
 			const ret = new ProposalNamespaceExtension();
 			ret._native = extension;
 			return ret;
@@ -375,8 +376,9 @@ export class ProposalNamespaceExtension {
 export class ProposalNamespace {
 	private _native: com.walletconnect.sign.client.Sign.Model.Namespace.Proposal;
 
-	static fromNative(ns: com.walletconnect.sign.client.Sign.Model.Namespace.Proposal) {
-		if (ns instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Proposal) {
+	static fromNative(ns: any) {
+		// if (ns instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Proposal) {
+		if (ns?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$Namespace$Proposal') {
 			const ret = new ProposalNamespace();
 			ret._native = ns;
 			return ret;
@@ -427,7 +429,8 @@ export class ProposalEvent {
 	private _native: com.walletconnect.sign.client.Sign.Model.SessionProposal;
 
 	static fromNative(event) {
-		if (event instanceof com.walletconnect.sign.client.Sign.Model.SessionProposal) {
+		// if (event instanceof com.walletconnect.sign.client.Sign.Model.SessionProposal) {
+		if (event?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$SessionProposal') {
 			const ret = new ProposalEvent();
 			ret._native = event;
 			return ret;
@@ -473,8 +476,9 @@ export class ProposalEvent {
 export class SessionNamespaceExtension {
 	private _native: com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension;
 
-	static fromNative(extension: com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension) {
-		if (extension instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension) {
+	static fromNative(extension: any) {
+		// if (extension instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension) {
+		if (extension?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$Namespace$Session$Extension') {
 			const ret = new SessionNamespaceExtension();
 			ret._native = extension;
 			return ret;
@@ -510,8 +514,9 @@ export class SessionNamespaceExtension {
 export class SessionNamespace {
 	private _native: com.walletconnect.sign.client.Sign.Model.Namespace.Session;
 
-	static fromNative(ns: com.walletconnect.sign.client.Sign.Model.Namespace.Session) {
-		if (ns instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Session) {
+	static fromNative(ns: any) {
+		if (ns?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$Namespace$Session') {
+		// if (ns instanceof com.walletconnect.sign.client.Sign.Model.Namespace.Session) {
 			const ret = new SessionNamespace();
 			ret._native = ns;
 			return ret;
@@ -644,8 +649,9 @@ export class SessionEvent {
 	private _topic: string;
 	private _chainId: string;
 
-	static fromNative(event: com.walletconnect.sign.client.Sign.Model.SessionEvent) {
-		if (event instanceof com.walletconnect.sign.client.Sign.Model.SessionEvent) {
+	static fromNative(event: any) {
+		if (event?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$SessionEvent') {
+		// if (event instanceof com.walletconnect.sign.client.Sign.Model.SessionEvent) {
 			const ret = new SessionEvent();
 			ret._native = event;
 			return ret;
@@ -714,8 +720,9 @@ type ProposalNamespaces = Record<string, ProposalNamespacesNamespace>;
 export class RequestParams {
 	private _native: com.walletconnect.sign.client.Sign.Model.SessionRequest;
 
-	static fromNative(request: com.walletconnect.sign.client.Sign.Model.SessionRequest) {
-		if (request instanceof com.walletconnect.sign.client.Sign.Model.SessionRequest) {
+	static fromNative(request: any) {
+		if (request?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$SessionRequest') {
+		// if (request instanceof com.walletconnect.sign.client.Sign.Model.SessionRequest) {
 			const ret = new RequestParams();
 			ret._native = request;
 			return ret;
@@ -901,8 +908,9 @@ export class AuthPayload {
 export class Session {
 	_native: com.walletconnect.sign.client.Sign.Model.Session;
 
-	static fromNative(session: com.walletconnect.sign.client.Sign.Model.Session) {
-		if (session instanceof com.walletconnect.sign.client.Sign.Model.Session) {
+	static fromNative(session: any) {
+		if (session?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$Session') {
+		// if (session instanceof com.walletconnect.sign.client.Sign.Model.Session) {
 			const ret = new Session();
 			ret._native = session;
 			return ret;
@@ -951,9 +959,93 @@ export class Session {
 	}
 }
 
+let SignModelNamespaceSessionExtensionClass;
+let SignModelNamespaceSessionExtensionCtor;
+
+
+let SignModelNamespaceSessionClass;
+let SignModelNamespaceSessionCtor;
+
+
+let SignModelNamespaceProposalExtensionClass;
+let SignModelNamespaceProposalExtensionCtor;
+
+
+let SignModelNamespaceProposalClass;
+let SignModelNamespaceProposalCtor;
+
+
+let SignModelJsonRpcResponseJsonRpcErrorClass;
+let SignModelJsonRpcResponseJsonRpcErrorCtor;
+
+let SignModelJsonRpcResponseJsonRpcResultClass;
+let SignModelJsonRpcResponseJsonRpcResultCtor;
+
 export class Sign extends Observable {
 	constructor() {
 		super();
+		if (!SignModelNamespaceSessionExtensionClass || !SignModelNamespaceSessionExtensionCtor) {
+            try {
+                SignModelNamespaceSessionExtensionClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$Namespace$Session$Extension');
+                const strLst = java.lang.Class.forName('java.util.List')
+                SignModelNamespaceSessionExtensionCtor = SignModelNamespaceSessionExtensionClass.getConstructor([
+                    strLst, strLst, strLst
+                ]);
+            } catch (error) { }
+        }
+
+        if (!SignModelNamespaceSessionClass || !SignModelNamespaceSessionCtor) {
+            try {
+                SignModelNamespaceSessionClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$Namespace$Session');
+                const strLst = java.lang.Class.forName('java.util.List');
+                const exts = java.lang.Class.forName('java.util.List');
+                SignModelNamespaceSessionCtor = SignModelNamespaceSessionClass.getConstructor([
+                    strLst, strLst, strLst, exts
+                ]);
+            } catch (error) { }
+        }
+
+        if (!SignModelNamespaceProposalExtensionClass || !SignModelNamespaceProposalExtensionCtor) {
+            try {
+                SignModelNamespaceProposalExtensionClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$Namespace$Proposal$Extension');
+                const strLst = java.lang.Class.forName('java.util.List');
+                SignModelNamespaceProposalExtensionCtor = SignModelNamespaceProposalExtensionClass.getConstructor([
+                    strLst, strLst, strLst
+                ]);
+            } catch (error) { }
+        }
+
+
+        if (!SignModelNamespaceProposalClass || !SignModelNamespaceProposalCtor) {
+            try {
+                SignModelNamespaceProposalClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$Namespace$Proposal');
+                const strLst = java.lang.Class.forName('java.util.List');
+                const exts = java.lang.Class.forName('java.util.List');
+                SignModelNamespaceProposalCtor = SignModelNamespaceProposalClass.getConstructor([
+                    strLst, strLst, strLst, exts
+                ]);
+            } catch (error) { }
+        }
+
+
+        if (!SignModelJsonRpcResponseJsonRpcErrorClass || !SignModelJsonRpcResponseJsonRpcErrorCtor) {
+            try {
+                SignModelJsonRpcResponseJsonRpcErrorClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$JsonRpcResponse$JsonRpcError');
+                SignModelJsonRpcResponseJsonRpcErrorCtor = SignModelJsonRpcResponseJsonRpcErrorClass.getConstructor([
+                    java.lang.Long.TYPE, java.lang.Integer.TYPE, java.lang.String.class
+                ]);
+            } catch (error) { }
+        }
+
+
+        if (!SignModelJsonRpcResponseJsonRpcResultClass || !SignModelJsonRpcResponseJsonRpcResultCtor) {
+            try {
+                SignModelJsonRpcResponseJsonRpcResultClass = java.lang.Class.forName('com.walletconnect.sign.client.Sign$Model$JsonRpcResponse$JsonRpcResult');
+                SignModelJsonRpcResponseJsonRpcResultCtor = SignModelJsonRpcResponseJsonRpcResultClass.getConstructor([
+                    java.lang.Long.TYPE, java.lang.String.class
+                ]);
+            } catch (error) { }
+        }
 	}
 
 	getSessions(): Session[] {
@@ -978,11 +1070,13 @@ export class Sign extends Observable {
 				if (Array.isArray(value.extension)) {
 					extensions = new java.util.ArrayList();
 					value.extension.forEach((ext) => {
-						extensions.add(new com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension(java.util.Arrays.asList(ext.accounts), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)));
+						// extensions.add(new com.walletconnect.sign.client.Sign.Model.Namespace.Session.Extension(java.util.Arrays.asList(ext.accounts), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)));
+						extensions.add(SignModelNamespaceSessionExtensionCtor.newInstance([java.util.Arrays.asList(ext.accounts), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)]));
 					});
 				}
 
-				const session = new com.walletconnect.sign.client.Sign.Model.Namespace.Session(java.util.Arrays.asList(value.accounts), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions);
+				// const session = new com.walletconnect.sign.client.Sign.Model.Namespace.Session(java.util.Arrays.asList(value.accounts), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions);
+				const session = SignModelNamespaceSessionCtor.newInstance([java.util.Arrays.asList(value.accounts), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions]);
 
 				map.put(key, session);
 			});
@@ -993,6 +1087,7 @@ export class Sign extends Observable {
 				new kotlin.jvm.functions.Function1({
 					invoke(param0) {
 						if (param0) {
+							reject(WalletConnectError.fromNative(param0));
 						} else {
 							resolve();
 						}
@@ -1049,11 +1144,13 @@ export class Sign extends Observable {
 
 				if (Array.isArray(value.extension)) {
 					value.extension.forEach((ext) => {
-						extensions.add(new com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension(java.util.Arrays.asList(ext.chains), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)));
+						extensions.add(SignModelNamespaceProposalExtensionCtor.newInstance([java.util.Arrays.asList(ext.chains), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)]));
+						// extensions.add(new com.walletconnect.sign.client.Sign.Model.Namespace.Proposal.Extension(java.util.Arrays.asList(ext.chains), java.util.Arrays.asList(ext.methods), java.util.Arrays.asList(ext.events)));
 					});
 				}
 
-				const session = new com.walletconnect.sign.client.Sign.Model.Namespace.Proposal(java.util.Arrays.asList(value.chains), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions);
+				const session = SignModelNamespaceProposalCtor.newInstance([java.util.Arrays.asList(value.chains), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions]);
+				// const session = new com.walletconnect.sign.client.Sign.Model.Namespace.Proposal(java.util.Arrays.asList(value.chains), java.util.Arrays.asList(value.methods), java.util.Arrays.asList(value.events), extensions);
 
 				map.put(key, session);
 			});
@@ -1100,9 +1197,11 @@ export class Sign extends Observable {
 			let result;
 
 			if (response && typeof response === 'object' && typeof response.code === 'number' && typeof response.message === 'string') {
-				result = new com.walletconnect.sign.client.Sign.Model.JsonRpcResponse.JsonRpcError(params.id.native, response.code, response.message);
+				result = SignModelJsonRpcResponseJsonRpcErrorCtor.newInstance([params.id.native, response.code, response.message]);
+				// result = new com.walletconnect.sign.client.Sign.Model.JsonRpcResponse.JsonRpcError(params.id.native, response.code, response.message);
 			} else {
-				result = result = new com.walletconnect.sign.client.Sign.Model.JsonRpcResponse.JsonRpcResult(params.id.native, JSON.stringify(params.response));
+				result = SignModelJsonRpcResponseJsonRpcResultCtor.newInstance([params.id.native, JSON.stringify(params.response)]);
+				// result = new com.walletconnect.sign.client.Sign.Model.JsonRpcResponse.JsonRpcResult(params.id.native, JSON.stringify(params.response));
 			}
 
 			io.nstudio.plugins.walletconnect.NSCWalletConnectV2.signRespond(
@@ -1137,8 +1236,9 @@ export class Sign extends Observable {
 
 		if (!this._sessionSettlePublisher && eventNames === 'session_settle') {
 			this._sessionSettlePublisher = new kotlin.jvm.functions.Function1<com.walletconnect.sign.client.Sign.Model.SettledSessionResponse>({
-				invoke(param0) {
-					if (param0 instanceof com.walletconnect.sign.client.Sign.Model.SettledSessionResponse.Result) {
+				invoke(param0: any) {
+					if (param0?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign.Model$SettledSessionResponse$Result') {
+					// if (param0 instanceof com.walletconnect.sign.client.Sign.Model.SettledSessionResponse.Result) {
 						const owner = ref.get();
 						owner?.notify?.({
 							eventName: 'session_settle',
@@ -1166,8 +1266,9 @@ export class Sign extends Observable {
 
 		if (!this._sessionEventPublisher && eventNames === 'session_event') {
 			this._sessionUpdatePublisherWallet = new kotlin.jvm.functions.Function1({
-				invoke(param0) {
-					if (param0 instanceof com.walletconnect.sign.client.Sign.Model.SessionUpdateResponse.Result) {
+				invoke(param0: any) {
+					if (param0?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$SessionUpdateResponse$Result') {
+					// if (param0 instanceof com.walletconnect.sign.client.Sign.Model.SessionUpdateResponse.Result) {
 						const items = {};
 						const namespaces = param0.getNamespaces();
 						const keys = namespaces.keySet().toArray();
@@ -1228,8 +1329,9 @@ export class Sign extends Observable {
 
 		if (!this._sessionDeletePublisher && eventNames === 'session_delete') {
 			this._sessionDeletePublisher = new kotlin.jvm.functions.Function1({
-				invoke(param0) {
-					if (param0 instanceof com.walletconnect.sign.client.Sign.Model.DeletedSession.Success) {
+				invoke(param0: any) {
+					if (param0?.getClass?.()?.getName?.() === 'com.walletconnect.sign.client.Sign$Model$DeletedSession$Success') {
+					// if (param0 instanceof com.walletconnect.sign.client.Sign.Model.DeletedSession.Success) {
 						const reason = param0.getReason();
 						const owner = ref.get();
 						owner?.notify?.({
