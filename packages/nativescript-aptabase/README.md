@@ -65,3 +65,8 @@ A few important notes:
    - Because of this, it's generally recommended to at least track an event at startup
 3. You do not need to await the `track` function, it'll run in the background.
 4. Only strings and numbers values are allowed on custom properties
+
+## License
+
+Apache License Version 2.0
+
