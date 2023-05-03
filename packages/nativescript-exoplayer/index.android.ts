@@ -122,28 +122,28 @@ export class Video extends VideoBase {
 	}
 
 	// private _setupTextureSurface() {
-    //     if (!this.textureSurface) {
-    //         if (!this._textureView.isAvailable()) {
-    //             return;
-    //         }
-    //         this.textureSurface = new android.view.Surface(this._textureView.getSurfaceTexture());
-    //     }
-    //     if (this.textureSurface) {
-    //         if (!this.mediaPlayer) {
-    //             return;
-    //         }
-    //         if (!this.textureSurfaceSet) {
-    //             this.mediaPlayer.setVideoSurface(this.textureSurface);
-    //             this.mediaState = SURFACE_READY;
-    //         }
-    //         else {
-    //             this.mediaState = SURFACE_WAITING;
-    //         }
-    //         if (!this.videoOpened) {
-    //             this._openVideo();
-    //         }
-    //     }
-    // }
+	//     if (!this.textureSurface) {
+	//         if (!this._textureView.isAvailable()) {
+	//             return;
+	//         }
+	//         this.textureSurface = new android.view.Surface(this._textureView.getSurfaceTexture());
+	//     }
+	//     if (this.textureSurface) {
+	//         if (!this.mediaPlayer) {
+	//             return;
+	//         }
+	//         if (!this.textureSurfaceSet) {
+	//             this.mediaPlayer.setVideoSurface(this.textureSurface);
+	//             this.mediaState = SURFACE_READY;
+	//         }
+	//         else {
+	//             this.mediaState = SURFACE_WAITING;
+	//         }
+	//         if (!this.videoOpened) {
+	//             this._openVideo();
+	//         }
+	//     }
+	// }
 
 	_setupMediaPlayerListeners = function () {
 		const that = new WeakRef(this);
@@ -397,7 +397,7 @@ export class Video extends VideoBase {
 		// 		}
 		// 	},
 		// 	onPositionDiscontinuity: function () {
-				
+
 		// 		////console.log("onPositionDiscontinuity");
 
 		// 	},
@@ -426,7 +426,7 @@ export class Video extends VideoBase {
 
 		// 					var metaRetriever = new android.media.MediaMetadataRetriever();
 		// 					metaRetriever.setDataSource(this.owner._src);
-						   
+
 		// 					var metaDuration = metaRetriever.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
 
 		// 					if (Math.abs(metaDuration - duration) > 1000) {
@@ -449,7 +449,7 @@ export class Video extends VideoBase {
 		// //this.mediaPlayer.setVideoListener(vidListener);
 		// this.mediaPlayer.addVideoListener(vidListener);
 		// this.mediaPlayer.addListener(evtListener);
-		 
+
 		// var analyticsListener = new com.google.android.exoplayer2.analytics.AnalyticsListener({
 		// 	get owner() {
 		// 		return that.get();
@@ -458,46 +458,46 @@ export class Video extends VideoBase {
 		// 		//console.log("onPlayerStateChanged playbackState: " + playbackState);
 		// 	},
 		// 	onPlaybackStateChanged: function (eventTime, state) {
-				
+
 		// 	},
 		// 	onPlayWhenReadyChanged: function (eventTime, playWhenReady, reason) {
-				
+
 		// 	},
 		// 	onPlaybackSuppressionReasonChanged: function (eventTime, playbackSuppressionReason) {
-				
+
 		// 	},
 		// 	onIsPlayingChanged: function (eventTime, isPlaying) {
-				
+
 		// 	},
 		// 	onTimelineChanged: function (eventTime, reason) {
 		// 		//console.log("onTimelineChanged eventTime: " + eventTime);
 		// 	},
 		// 	onMediaItemTransition: function (eventTime, mediaItem, reason) {
-				
+
 		// 	},
 		// 	onPositionDiscontinuity: function (eventTime, reason) {
-				
+
 		// 	},
 		// 	onSeekStarted: function (eventTime) {
-				
+
 		// 	},
 		// 	onPlaybackParametersChanged: function (eventTime, playbackParameters) {
-				
+
 		// 	},
 		// 	onRepeatModeChanged: function (eventTime, repeatMode) {
-				
+
 		// 	},
 		// 	onShuffleModeChanged: function (eventTime, shuffleModeEnabled) {
-				
+
 		// 	},
 		// 	onIsLoadingChanged: function (eventTime, isLoading) {
-				
+
 		// 	},
 		// 	onPlayerError: function (eventTime, error) {
-				
+
 		// 	},
 		// 	onTracksChanged: function (eventTime, trackGroups, trackSelections) {
-				
+
 		// 	},
 		// 	onStaticMetadataChanged: function (eventTime, metadataList) {
 		// 		////console.log("onStaticMetadataChanged");
@@ -506,62 +506,62 @@ export class Video extends VideoBase {
 		// 		////console.log("onLoadStarted");
 		// 	},
 		// 	onLoadCompleted: function (eventTime, loadEventInfo, mediaLoadData) {
-				
+
 		// 	},
 		// 	onLoadCanceled: function (eventTime, loadEventInfo, mediaLoadData) {
-				
+
 		// 	},
 		// 	onLoadError: function (eventTime, loadEventInfo, mediaLoadData, error, wasCanceled) {
 		// 		////console.log("onLoadError");
 		// 	},
 		// 	onDownstreamFormatChanged: function (eventTime, mediaLoadData) {
-				
+
 		// 	},
 		// 	onUpstreamDiscarded: function (eventTime, mediaLoadData) {
-				
+
 		// 	},
 		// 	onBandwidthEstimate: function (eventTime, totalLoadTimeMs, totalBytesLoaded, bitrateEstimate) {
-				
+
 		// 	},
 		// 	onMetadata: function (eventTime, metadata) {
 		// 		//console.log("onMetadata");
 		// 		//console.dir(metadata);
 		// 	},
 		// 	onAudioEnabled: function (eventTime, counters) {
-				
+
 		// 	},
 		// 	onAudioDecoderInitialized: function (eventTime, decoderName, initializationDurationMs) {
-				
+
 		// 	},
 		// 	onAudioInputFormatChanged: function (eventTime, format, decoderReuseEvaluation) {
-				
+
 		// 	},
 		// 	onAudioPositionAdvancing: function (eventTime, playoutStartSystemTimeMs) {
-				
+
 		// 	},
 		// 	onAudioUnderrun: function (eventTime, bufferSize, bufferSizeMs, elapsedSinceLastFeedMs) {
-				
+
 		// 	},
 		// 	onAudioDecoderReleased: function (eventTime, decoderName) {
-				
+
 		// 	},
 		// 	onAudioDisabled: function (eventTime, counters) {
 		// 		//console.log("onAudioDisabled");
 		// 	},
 		// 	onAudioSessionIdChanged: function (eventTime, audioSessionId) {
-				
+
 		// 	},
 		// 	onAudioAttributesChanged: function (eventTime, audioAttributes) {
-				
+
 		// 	},
 		// 	onSkipSilenceEnabledChanged: function (eventTime, skipSilenceEnabled) {
-				
+
 		// 	},
 		// 	onAudioSinkError: function (eventTime, audioSinkError) {
-				
+
 		// 	},
 		// 	onVolumeChanged: function (eventTime, volume) {
-				
+
 		// 	},
 		// 	onVideoEnabled: function (eventTime, counters) {
 		// 	   // console.log("onVideoEnabled");
@@ -614,13 +614,13 @@ export class Video extends VideoBase {
 		// 		//console.log("onDroppedVideoFrames");
 		// 	},
 		// 	onVideoDecoderReleased: function (eventTime, decoderName) {
-				
+
 		// 	},
 		// 	onVideoDisabled: function (eventTime, counters) {
 		// 		//console.log("onVideoDisabled");
 		// 	},
 		// 	onVideoFrameProcessingOffset: function (eventTime, totalProcessingOffsetUs, frameCount) {
-				
+
 		// 	},
 		// 	onRenderedFirstFrame: function (eventTime, surface) {
 		// 		//console.log("onRenderedFirstFrame A surface: " + surface + " this.owner.width: " + this.owner.width + " this.owner.height: " + this.owner.height);
@@ -629,10 +629,8 @@ export class Video extends VideoBase {
 		// 		var aspectRatio = width / height;
 		// 		if (aspectRatio > (16 / 9)) { // Widescreen
 
-
 		// 		}
 		// 		else { // SD 4:3
-
 
 		// 		}
 		// 		*/
@@ -651,10 +649,10 @@ export class Video extends VideoBase {
 		// 		this.owner._emit(videoplayer_common_1.Video.videoSizeChangedEvent);
 		// 	},
 		// 	onSurfaceSizeChanged: function (eventTime, width, height) {
-				
+
 		// 	},
 		// 	onPlayerReleased: function (eventTime) {
-				
+
 		// 	},
 		// 	onEvents: function (player, events) {
 		// 		//console.log("onEvents");
@@ -668,7 +666,7 @@ export class Video extends VideoBase {
 		// 		}
 		// 	},
 		// 	onDecoderInputFormatChanged: function (eventTime, trackType, format) {
-				
+
 		// 	},
 		// 	onDecoderDisabled: function (eventTime, trackType, decoderCounters) {
 		// 		//console.log("onDecoderDisabled: " + decoderCounters);
@@ -676,7 +674,7 @@ export class Video extends VideoBase {
 		// });
 
 		// this.mediaPlayer.addAnalyticsListener(analyticsListener);
-	   
+
 		// var audioRendererEventListener = new com.google.android.exoplayer2.audio.AudioRendererEventListener({
 		// 	get owner() {
 		// 		return that.get();
@@ -731,7 +729,7 @@ export class Video extends VideoBase {
 		this.nativeView.setUseController(!!this.controls);
 
 		// CUSTOM:
-        // var that = new WeakRef(this);
+		// var that = new WeakRef(this);
 		// if (this.surface) {
 		// 	this._textureView.setSurfaceTextureListener(new android.view.TextureView.SurfaceTextureListener({
 		// 		get owner() {
@@ -772,9 +770,9 @@ export class Video extends VideoBase {
 				return this.TYPE.OTHER;
 			}
 
-			if (uri.toString().indexOf("mode=hls") !== -1 || uri.toString().indexOf("m3u8") !== -1) {
-                return this.TYPE.HLS;
-            }
+			if (uri.toString().indexOf('mode=hls') !== -1 || uri.toString().indexOf('m3u8') !== -1) {
+				return this.TYPE.HLS;
+			}
 		}
 		const type = com.google.android.exoplayer2.util.Util.inferContentType(uri as android.net.Uri);
 		switch (type) {
@@ -793,59 +791,59 @@ export class Video extends VideoBase {
 		return new com.google.android.exoplayer2.upstream.DataSink.Factory({
 			createDataSink: function () {
 				return new com.google.android.exoplayer2.upstream.crypto.AesCipherDataSink(secretKey, cacheSink, scratch);
-			}
-		})
+			},
+		});
 	}
 	cacheReadDataSource(secretKey, file) {
 		return new com.google.android.exoplayer2.upstream.DataSource.Factory({
 			createDataSource: function () {
 				return new com.google.android.exoplayer2.upstream.crypto.AesCipherDataSource(secretKey, file);
-			}
-		})
+			},
+		});
 	}
 	private _hex2bytes(hexString: string) {
 		if (hexString == null || hexString.length === 0) {
 			return null;
 		}
 		var kl = hexString.length;
-		var key = Array.create("byte", kl / 2);
+		var key = Array.create('byte', kl / 2);
 		for (var i = 0, j = 0; i < kl; i += 2, j++) {
 			key[j] = parseInt(hexString.substring(i, 2), 16);
 		}
 		return key;
 	}
 	private _setupEncryptedDataSource(url, encryption, bm) {
-		if (encryption.toUpperCase() !== "CTR") {
+		if (encryption.toUpperCase() !== 'CTR') {
 			// TODO: AES/CBC and AES/CFB also support parallelizable decryption which means random seek ability
 			// TODO: see https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
-			throw new Error("Unknown Decryption type, CTR is current only supported");
+			throw new Error('Unknown Decryption type, CTR is current only supported');
 		}
 
 		const key = this._hex2bytes(this.encryptionKey);
 		const iv = this._hex2bytes(this.encryptionIV);
 
-		const keySpec = new javax.crypto.spec.SecretKeySpec(key, "AES");
+		const keySpec = new javax.crypto.spec.SecretKeySpec(key, 'AES');
 		const ivSpec = new javax.crypto.spec.IvParameterSpec(iv);
 
 		let cipher;
 		switch (encryption.toUpperCase()) {
 			case 'CFB':
-				cipher = javax.crypto.Cipher.getInstance("AES/CFB/NoPadding");
+				cipher = javax.crypto.Cipher.getInstance('AES/CFB/NoPadding');
 				break;
 
 			case 'CBC':
-				cipher = javax.crypto.Cipher.getInstance("AES/CBC/NoPadding");
+				cipher = javax.crypto.Cipher.getInstance('AES/CBC/NoPadding');
 				break;
 
 			case 'CTR':
 			default:
-			cipher = javax.crypto.Cipher.getInstance("AES/CTR/NoPadding");
+				cipher = javax.crypto.Cipher.getInstance('AES/CTR/NoPadding');
 		}
-		cipher.init(javax.crypto.Cipher.DECRYPT_MODE,keySpec, ivSpec);
+		cipher.init(javax.crypto.Cipher.DECRYPT_MODE, keySpec, ivSpec);
 
 		return new (<any>global).io.nstudio.plugins.exoplayer.EncryptedFileDataSourceFactory(cipher, keySpec, ivSpec, bm);
 
-        // console.log("_setupEncryptedDataSource: " + this.encryptionKey);
+		// console.log("_setupEncryptedDataSource: " + this.encryptionKey);
 		// var key = this._hex2bytes(this.encryptionKey);
 		// var iv = this._hex2bytes(this.encryptionIV);
 		// var keySpec = new javax.crypto.spec.SecretKeySpec(key, "AES");
@@ -853,7 +851,7 @@ export class Video extends VideoBase {
 		// var cipher = javax.crypto.Cipher.getInstance("AES/CTR/NoPadding");
 		// cipher.init(javax.crypto.Cipher.DECRYPT_MODE, keySpec, ivSpec);
 		// return new global.io.nstudio.plugins.exoplayer.EncryptedFileDataSourceFactory(cipher, keySpec, ivSpec, bm);
-	};
+	}
 
 	_openVideo() {
 		if (this._src === null) {
@@ -962,73 +960,73 @@ export class Video extends VideoBase {
 		}
 
 		// var am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
-        // am.requestAudioFocus(null, android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN);
-        
-        // try {
+		// am.requestAudioFocus(null, android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN);
+
+		// try {
 		//     const bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter.Builder(this._context).build();
-            
-        //     if (typeof nsApp.defaultBandwidthMeter === "undefined") {
+
+		//     if (typeof nsApp.defaultBandwidthMeter === "undefined") {
 		// 		nsApp.defaultBandwidthMeter = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter();
 		// 	}
 
-		// 	var trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory(nsApp.defaultBandwidthMeter); 
+		// 	var trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory(nsApp.defaultBandwidthMeter);
 		// 	var trackSelector = new com.google.android.exoplayer2.trackselection.DefaultTrackSelector(trackSelection);
 
-        //     if (this.silent) {
-            
-        //         trackSelector.setParameters(trackSelector
-        //             .buildUponParameters()
-        //             .setMaxVideoSize(1920, 1080)
-        //             .setRendererDisabled(1, true)
-        //         );
+		//     if (this.silent) {
 
-        //     }
-        //     else if (this.minStream) {
+		//         trackSelector.setParameters(trackSelector
+		//             .buildUponParameters()
+		//             .setMaxVideoSize(1920, 1080)
+		//             .setRendererDisabled(1, true)
+		//         );
 
-        //         var maxWidth = 320;
-        //         var maxHeight = 180;
+		//     }
+		//     else if (this.minStream) {
 
-        //         trackSelector.setParameters(trackSelector
-        //                     .buildUponParameters()
-        //                     .setMaxVideoSizeSd()
-        //                     .setMaxVideoBitrate(200000)
-        //                     .setMaxVideoSize(maxWidth, maxHeight)
-        //                     .setRendererDisabled(1, true)
-        //         );
+		//         var maxWidth = 320;
+		//         var maxHeight = 180;
 
-        //     }
-        //     else {
+		//         trackSelector.setParameters(trackSelector
+		//                     .buildUponParameters()
+		//                     .setMaxVideoSizeSd()
+		//                     .setMaxVideoBitrate(200000)
+		//                     .setMaxVideoSize(maxWidth, maxHeight)
+		//                     .setRendererDisabled(1, true)
+		//         );
 
-        //         trackSelector.setParameters(trackSelector
-        //             .buildUponParameters()
-        //             .setMaxVideoSize(1920, 1080)
-        //         );
+		//     }
+		//     else {
 
-        //     }
+		//         trackSelector.setParameters(trackSelector
+		//             .buildUponParameters()
+		//             .setMaxVideoSize(1920, 1080)
+		//         );
 
-        //     let uri = android.net.Uri.parse(this._src);
+		//     }
 
-        //     console.log("this.encrypted: " + this.encrypted);
+		//     let uri = android.net.Uri.parse(this._src);
+
+		//     console.log("this.encrypted: " + this.encrypted);
 
 		//     let dsf;
-        //     if (this.encrypted) {
+		//     if (this.encrypted) {
 		// 		   dsf = this._setupEncryptedDataSource(this._src, this.encryption, bm);
 
-        //     }
-        //     else {
+		//     }
+		//     else {
 		//         dsf = new com.google.android.exoplayer2.upstream.DefaultDataSourceFactory(this._context, "NativeScript", bm);
 
-        //     }
+		//     }
 
-        //     if (this.live || this.partialBuffer || this.isTablet) {
+		//     if (this.live || this.partialBuffer || this.isTablet) {
 
-        //         var minBufferMs = 6000;
+		//         var minBufferMs = 6000;
 		// 		var maxBufferMs = 20000;
 		// 		var bufferForPlaybackMs = 1200;
 		// 		var bufferForPlaybackAfterRebufferMs = 6000;
 
 		// 		var loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder().setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs, bufferForPlaybackAfterRebufferMs).createDefaultLoadControl();
-                
+
 		// 	}
 		// 	else {
 
@@ -1037,58 +1035,58 @@ export class Video extends VideoBase {
 		// 		var bufferForPlaybackMs = 1200;
 		// 		var bufferForPlaybackAfterRebufferMs = 6000;
 
-        //         var loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder().setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs, bufferForPlaybackAfterRebufferMs).createDefaultLoadControl();
+		//         var loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder().setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs, bufferForPlaybackAfterRebufferMs).createDefaultLoadControl();
 
-        //     }
+		//     }
 
-        //     var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
-            
-        //     if (this.encrypted) {
+		//     var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
 
-        //         let ef = new com.google.android.exoplayer2.extractor.DefaultExtractorsFactory();
-        //         var mediaSource = new com.google.android.exoplayer2.source.ExtractorMediaSource(uri, dataSourceFactory, ef, null, null, null);
-            
-        //     }
-        //     else if (this._src instanceof String || typeof this._src === "string") {
+		//     if (this.encrypted) {
+
+		//         let ef = new com.google.android.exoplayer2.extractor.DefaultExtractorsFactory();
+		//         var mediaSource = new com.google.android.exoplayer2.source.ExtractorMediaSource(uri, dataSourceFactory, ef, null, null, null);
+
+		//     }
+		//     else if (this._src instanceof String || typeof this._src === "string") {
 
 		// 		var mediaType = this.type && this.type === "hls" ? this.TYPE.HLS : this._detectTypeFromSrc(uri);
 
-        //         switch (mediaType) {
+		//         switch (mediaType) {
 
-        //             case this.TYPE.HLS:
+		//             case this.TYPE.HLS:
 
-        //                 var mediaSource = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
+		//                 var mediaSource = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
 
-        //             break;
+		//             break;
 
-        //             default:
+		//             default:
 
-        //                 var mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
+		//                 var mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
 
-        //             break;
+		//             break;
 
-        //         }
+		//         }
 
-        //     }
+		//     }
 
-        //     if (this.silent || (typeof this._src === "string" && this._src.indexOf("http") !== 0)) {
+		//     if (this.silent || (typeof this._src === "string" && this._src.indexOf("http") !== 0)) {
 
-        //         this._gaudioProcessor = this.createGaudioProcessor(this._src);
-        //         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, new com.loop.gaudio.ProcessorFactory(this._context, this._gaudioProcessor), trackSelector, loadControl);
+		//         this._gaudioProcessor = this.createGaudioProcessor(this._src);
+		//         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, new com.loop.gaudio.ProcessorFactory(this._context, this._gaudioProcessor), trackSelector, loadControl);
 
-        //     }
-        //     else {
+		//     }
+		//     else {
 
-        //         var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
-        //         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, renderersFactory, trackSelector, loadControl);
+		//         var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
+		//         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, renderersFactory, trackSelector, loadControl);
 
-        //     }
-            
-        //     this.mediaPlayer.prepare(mediaSource, true, true);
+		//     }
 
-        //     this._setupMediaPlayerListeners();
+		//     this.mediaPlayer.prepare(mediaSource, true, true);
 
-        //     if (this.surface) {
+		//     this._setupMediaPlayerListeners();
+
+		//     if (this.surface) {
 
 		// 		if (this.textureSurface && !this.textureSurfaceSet) {
 		// 			this.textureSurfaceSet = true;
@@ -1099,19 +1097,19 @@ export class Video extends VideoBase {
 		// 		}
 
 		// 	}
-            
-        //     if (this.autoplay === true) {
+
+		//     if (this.autoplay === true) {
 
 		// 		this.mediaPlayer.setPlayWhenReady(true);
 
 		// 	}
 
-        //     if (this.speed) {
+		//     if (this.speed) {
 
-        //         var playbackParameters = new com.google.android.exoplayer2.PlaybackParameters(this.speed);
-        //         this.mediaPlayer.setPlaybackParameters(playbackParameters);
+		//         var playbackParameters = new com.google.android.exoplayer2.PlaybackParameters(this.speed);
+		//         this.mediaPlayer.setPlaybackParameters(playbackParameters);
 
-        //     }
+		//     }
 
 		// 	if (this.preSeekTime > 0) {
 
@@ -1120,11 +1118,11 @@ export class Video extends VideoBase {
 
 		// 	}
 
-        //     this.mediaState = SURFACE_READY;
-        // }
-        // catch (ex) {
-        //     console.log("Error:", ex, ex.stack);
-        // }
+		//     this.mediaState = SURFACE_READY;
+		// }
+		// catch (ex) {
+		//     console.log("Error:", ex, ex.stack);
+		// }
 	}
 
 	_setNativeVideo(nativeVideo) {
@@ -1159,17 +1157,17 @@ export class Video extends VideoBase {
 		}
 
 		// if (!this.mediaPlayer || this.mediaState === SURFACE_WAITING) {
-        //     this._openVideo();
-        // }
-        // else if (this.playState === STATE_ENDED) {
-        //     this.eventPlaybackStart = false;
-        //     this.mediaPlayer.seekToDefaultPosition();
-        //     this.startCurrentTimer();
-        // }
-        // else {
-        //     this.mediaPlayer.setPlayWhenReady(true);
-        //     this.startCurrentTimer();
-        // }
+		//     this._openVideo();
+		// }
+		// else if (this.playState === STATE_ENDED) {
+		//     this.eventPlaybackStart = false;
+		//     this.mediaPlayer.seekToDefaultPosition();
+		//     this.startCurrentTimer();
+		// }
+		// else {
+		//     this.mediaPlayer.setPlayWhenReady(true);
+		//     this.startCurrentTimer();
+		// }
 	}
 
 	pause() {
@@ -1225,7 +1223,8 @@ export class Video extends VideoBase {
 	}
 
 	getDuration() {
-		if (!this.player) {// || this.mediaState === SURFACE_WAITING || this.playState === STATE_IDLE) {
+		if (!this.player) {
+			// || this.mediaState === SURFACE_WAITING || this.playState === STATE_IDLE) {
 			return 0;
 		}
 		const duration = this.player.getDuration();
@@ -1252,12 +1251,12 @@ export class Video extends VideoBase {
 	destroy() {
 		this.release();
 		this.src = null;
-        // this._textureView = null;
-        // this.player = null;
-        // this.mediaController = null;
-        if (this._gaudioProcessor) {
-            this._gaudioProcessor.destroyCore();
-        }
+		// this._textureView = null;
+		// this.player = null;
+		// this.mediaController = null;
+		if (this._gaudioProcessor) {
+			this._gaudioProcessor.destroyCore();
+		}
 	}
 
 	release() {
@@ -1283,15 +1282,15 @@ export class Video extends VideoBase {
 
 		// CUSTOM:
 		// if (this.mediaPlayer !== null) {
-        //     this.mediaState = SURFACE_WAITING;
-        //     this.mediaPlayer.release();
-        //     this.mediaPlayer = null;
-        //     if (this.mediaController && this.mediaController.isVisible()) {
-        //         this.mediaController.hide();
-        //     }
-        //     var am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
-        //     am.abandonAudioFocus(null);
-        // }
+		//     this.mediaState = SURFACE_WAITING;
+		//     this.mediaPlayer.release();
+		//     this.mediaPlayer = null;
+		//     if (this.mediaController && this.mediaController.isVisible()) {
+		//         this.mediaController.hide();
+		//     }
+		//     var am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
+		//     am.abandonAudioFocus(null);
+		// }
 	}
 
 	suspendEvent() {
@@ -1357,29 +1356,29 @@ export class Video extends VideoBase {
 	}
 
 	createGaudioProcessor(src) {
-        const uri = this.getUri(src);
-        const filePath = uri.getPath();
-        const solPath = filePath.replace(/\.[^/.]+$/, '.sol');
+		const uri = this.getUri(src);
+		const filePath = uri.getPath();
+		const solPath = filePath.replace(/\.[^/.]+$/, '.sol');
 
-        console.log("createGaudioProcessor");
-        console.log("filePath: " + filePath + " exists: " + File.exists(filePath));
-        console.log("solPath: " + solPath + " exists: " + File.exists(solPath));
+		console.log('createGaudioProcessor');
+		console.log('filePath: ' + filePath + ' exists: ' + File.exists(filePath));
+		console.log('solPath: ' + solPath + ' exists: ' + File.exists(solPath));
 
-        const videoFilePath = new java.util.ArrayList();
-        videoFilePath.add(filePath);
-        const solFilePath = new java.util.ArrayList();
-        solFilePath.add(solPath);
-        this._mInfo = new (<any>global).com.loop.gaudio.PlaybackInformation(videoFilePath, solFilePath);
-        return new (<any>global).com.loop.gaudio.GaudioProcessor(this._mInfo);
-    }
+		const videoFilePath = new java.util.ArrayList();
+		videoFilePath.add(filePath);
+		const solFilePath = new java.util.ArrayList();
+		solFilePath.add(solPath);
+		this._mInfo = new (<any>global).com.loop.gaudio.PlaybackInformation(videoFilePath, solFilePath);
+		return new (<any>global).com.loop.gaudio.GaudioProcessor(this._mInfo);
+	}
 
 	getUri(src) {
-        if (src instanceof String || typeof src === "string") {
-            return android.net.Uri.parse(<string>src);
-        }
-        if (typeof this._src.typeSource === "number") {
-            return android.net.Uri.parse(src.url);
-        }
-        return src;
-    };
+		if (src instanceof String || typeof src === 'string') {
+			return android.net.Uri.parse(<string>src);
+		}
+		if (typeof this._src.typeSource === 'number') {
+			return android.net.Uri.parse(src.url);
+		}
+		return src;
+	}
 }
