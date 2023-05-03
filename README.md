@@ -29,7 +29,9 @@
 
 This workspace manages the suite of plugins listed above.
 
-In general, when in doubt with what to do, just `npm start`.
+Before running anything, always run `npm run setup` (or `yarn setup`) first.
+
+After that in general, just `npm start` to see the interactive options.
 
 ## How to add a new package to workspace?
 
