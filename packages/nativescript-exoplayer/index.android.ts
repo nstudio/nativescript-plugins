@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 
 import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty } from './common';
-import { Application, Utils } from '@nativescript/core';
+import { Application, File, Utils } from '@nativescript/core';
 
 export * from './common';
 
 // States from Exo Player
 const SURFACE_WAITING: number = 0;
 const SURFACE_READY: number = 1;
+// const STATE_IDLE = 1;
+// const STATE_BUFFERING = 2;
+// const STATE_READY = 3;
+// const STATE_ENDED = 4;
+// const UA = "Dalvik/2.1.0 (Linux; U; Android 6.0.1; MIBOX3 Build/MHC19J)";
 
 export class Video extends VideoBase {
 	private _textureView: android.widget.VideoView;
@@ -36,6 +41,8 @@ export class Video extends VideoBase {
 
 	public TYPE = { DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4 };
 	public player: com.google.android.exoplayer2.ExoPlayer;
+	private _mInfo;
+	private _gaudioProcessor;
 
 	constructor() {
 		super();
@@ -85,6 +92,17 @@ export class Video extends VideoBase {
 		if (this.enableSubtitles) {
 		}
 		return nativeView;
+
+		// if (this.surface) {
+		// 	var nativeView = new android.widget.RelativeLayout(this._context);
+		// 	this._textureView = new android.view.TextureView(this._context);
+		// 	nativeView.addView(this._textureView);
+		// 	return nativeView;
+		// }
+		// else {
+		// 	this._textureView = new android.view.SurfaceView(this._context);
+		// 	return this._textureView;
+		// }
 	}
 
 	initNativeView() {
@@ -102,6 +120,30 @@ export class Video extends VideoBase {
 		Application.off(Application.suspendEvent, this._boundStop);
 		Application.off(Application.resumeEvent, this._boundStart);
 	}
+
+	// private _setupTextureSurface() {
+    //     if (!this.textureSurface) {
+    //         if (!this._textureView.isAvailable()) {
+    //             return;
+    //         }
+    //         this.textureSurface = new android.view.Surface(this._textureView.getSurfaceTexture());
+    //     }
+    //     if (this.textureSurface) {
+    //         if (!this.mediaPlayer) {
+    //             return;
+    //         }
+    //         if (!this.textureSurfaceSet) {
+    //             this.mediaPlayer.setVideoSurface(this.textureSurface);
+    //             this.mediaState = SURFACE_READY;
+    //         }
+    //         else {
+    //             this.mediaState = SURFACE_WAITING;
+    //         }
+    //         if (!this.videoOpened) {
+    //             this._openVideo();
+    //         }
+    //     }
+    // }
 
 	_setupMediaPlayerListeners = function () {
 		const that = new WeakRef(this);
@@ -253,10 +295,473 @@ export class Video extends VideoBase {
 		if (that.get().player) {
 			that.get().player.addListener(playerListener);
 		}
+
+		// CUSTOM:
+
+		// var vidListener = new com.google.android.exoplayer2.video.VideoListener({
+		// 	get owner() {
+		// 		return that.get();
+		// 	},
+		// 	onRenderedFirstFrame: function () {
+		// 		console.log("onRenderedFirstFrame " + this.owner._src);
+		// 		if (this.owner && !this.owner.eventPlaybackReady) {
+		// 			this.owner.eventPlaybackReady = true;
+		// 			this.owner._emit(videoplayer_common_1.Video.playbackReadyEvent);
+		// 		}
+		// 		if (this.owner) {
+		// 			this.owner._emit(videoplayer_common_1.Video.renderedFirstFrameEvent);
+		// 		}
+		// 	},
+		// 	onSurfaceSizeChanged: function (width, height) {
+
+		// 	},
+		// 	onVideoSizeChanged: function (width, height) {
+		// 		if (this.owner) {
+		// 			this.owner.videoWidth = width;
+		// 			this.owner.videoHeight = height;
+		// 			if (this.owner.fill !== videoplayer_common_1.VideoFill.aspectFill) {
+		// 				//this.owner._setupAspectRatio();
+		// 			}
+		// 		}
+		// 	}
+		// });
+
+		// var evtListener = new com.google.android.exoplayer2.Player.EventListener({
+		// 	get owner() {
+		// 		return that.get();
+		// 	},
+		// 	onLoadingChanged: function () { },
+		// 	onPlaybackParametersChanged: function () { },
+		// 	onPlayerError: function (error) {
+		// 		if (!this.owner) {
+		// 			return;
+		// 		}
+		// 		console.error("PlayerError", error);
+		// 		var exception = null;
+		// 		switch (error.type) {
+		// 			case com.google.android.exoplayer2.ExoPlaybackException.TYPE_RENDERER:
+		// 				console.log("PlayerError TYPE_RENDERER");
+		// 				exception = error.getRendererException();
+		// 			break;
+		// 			case com.google.android.exoplayer2.ExoPlaybackException.TYPE_SOURCE:
+		// 				console.log("PlayerError TYPE_SOURCE");
+		// 				exception = error.getSourceException();
+		// 			break;
+		// 			case com.google.android.exoplayer2.ExoPlaybackException.TYPE_UNEXPECTED:
+		// 				console.log("PlayerError TYPE_UNEXPECTED");
+		// 				exception = error.getUnexpectedException();
+		// 			break;
+		// 		}
+		// 		if (exception) {
+		// 			console.error("PlayerError", exception.getMessage());
+		// 			console.log(this.owner._src);
+		// 		}
+		// 		this.owner._emit(videoplayer_common_1.Video.playbackErrorEvent);
+		// 	},
+		// 	onPlayerStateChanged: function (playWhenReady, playbackState) {
+		// 		if (!this.owner) {
+		// 			return;
+		// 		}
+		// 		//console.log("playbackState: " + playbackState);
+		// 		if (playbackState === STATE_READY) {
+		// 			if (!this.owner.textureSurfaceSet && !this.owner.eventPlaybackReady) {
+		// 				this.owner.eventPlaybackReady = true;
+		// 				this.owner._emit(videoplayer_common_1.Video.playbackReadyEvent);
+		// 			}
+		// 			if (this.owner._onReadyEmitEvent.length) {
+		// 				do {
+		// 					this.owner._emit(this.owner._onReadyEmitEvent.shift());
+		// 				} while (this.owner._onReadyEmitEvent.length);
+		// 			}
+		// 			if (playWhenReady && !this.owner.eventPlaybackStart) {
+		// 				this.owner.eventPlaybackStart = true;
+		// 			}
+		// 			var duration = this.owner.getDuration();
+		// 			if (isNaN(duration)) {
+		// 				//console.log("playbackState duration isNaN");
+		// 			}
+		// 			else {
+		// 				//console.log("playbackState duration " + duration);
+		// 			}
+		// 		} else if (playbackState === STATE_ENDED) {
+		// 			if (!this.owner.loop) {
+		// 				this.owner.eventPlaybackStart = false;
+		// 				this.owner.stopCurrentTimer();
+		// 			}
+		// 			this.owner._emit(videoplayer_common_1.Video.finishedEvent);
+		// 			if (this.owner.loop) {
+		// 				this.owner.play();
+		// 			}
+		// 		} else if (playbackState === STATE_BUFFERING) {
+		// 			this.owner._emit(videoplayer_common_1.Video.bufferingEvent);
+		// 		}
+		// 	},
+		// 	onPositionDiscontinuity: function () {
+				
+		// 		////console.log("onPositionDiscontinuity");
+
+		// 	},
+		// 	onRepeatModeChanged: function () { },
+		// 	onSeekProcessed: function () { },
+		// 	onShuffleModeEnabledChanged: function () { },
+		// 	onTimelineChanged: function (timeline, reason) {
+		// 		if (!this.owner) {
+		// 			return;
+		// 		}
+		// 		this.owner.timeline = timeline;
+		// 		this.owner._emit(videoplayer_common_1.Video.playbackTimelineChangedEvent);
+		// 		//console.log("onTimelineChanged");
+		// 		var duration = this.owner.getDuration();
+		// 		if (isNaN(duration)) {
+		// 			//console.log("onTimelineChanged duration isNaN");
+		// 		}
+		// 		else {
+		// 			//console.log("onTimelineChanged duration " + duration);
+		// 			try {
+		// 				if (duration && duration > (60000 * 16)) { // 15 mins
+		// 					//console.log("Video too long");
+		// 					this.owner._emit(videoplayer_common_1.Video.killVideoEvent);
+		// 				}
+		// 				else if (duration && duration > 0 && this.owner._src.indexOf("http") !== 0) {
+
+		// 					var metaRetriever = new android.media.MediaMetadataRetriever();
+		// 					metaRetriever.setDataSource(this.owner._src);
+						   
+		// 					var metaDuration = metaRetriever.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+
+		// 					if (Math.abs(metaDuration - duration) > 1000) {
+
+		// 						console.log("killVideoEvent metaDuration: " + metaDuration + " duration: " + duration + " this.owner._src: " + this.owner._src);
+		// 						this.owner._emit(videoplayer_common_1.Video.killVideoEvent);
+
+		// 					}
+
+		// 				}
+		// 			}
+		// 			catch (error) {
+		// 				console.log("onTimelineChanged error " + error);
+		// 			}
+		// 		}
+		// 	},
+		// 	onTracksChanged: function () { }
+		// });
+
+		// //this.mediaPlayer.setVideoListener(vidListener);
+		// this.mediaPlayer.addVideoListener(vidListener);
+		// this.mediaPlayer.addListener(evtListener);
+		 
+		// var analyticsListener = new com.google.android.exoplayer2.analytics.AnalyticsListener({
+		// 	get owner() {
+		// 		return that.get();
+		// 	},
+		// 	onPlayerStateChanged: function (eventTime, playWhenReady, playbackState) {
+		// 		//console.log("onPlayerStateChanged playbackState: " + playbackState);
+		// 	},
+		// 	onPlaybackStateChanged: function (eventTime, state) {
+				
+		// 	},
+		// 	onPlayWhenReadyChanged: function (eventTime, playWhenReady, reason) {
+				
+		// 	},
+		// 	onPlaybackSuppressionReasonChanged: function (eventTime, playbackSuppressionReason) {
+				
+		// 	},
+		// 	onIsPlayingChanged: function (eventTime, isPlaying) {
+				
+		// 	},
+		// 	onTimelineChanged: function (eventTime, reason) {
+		// 		//console.log("onTimelineChanged eventTime: " + eventTime);
+		// 	},
+		// 	onMediaItemTransition: function (eventTime, mediaItem, reason) {
+				
+		// 	},
+		// 	onPositionDiscontinuity: function (eventTime, reason) {
+				
+		// 	},
+		// 	onSeekStarted: function (eventTime) {
+				
+		// 	},
+		// 	onPlaybackParametersChanged: function (eventTime, playbackParameters) {
+				
+		// 	},
+		// 	onRepeatModeChanged: function (eventTime, repeatMode) {
+				
+		// 	},
+		// 	onShuffleModeChanged: function (eventTime, shuffleModeEnabled) {
+				
+		// 	},
+		// 	onIsLoadingChanged: function (eventTime, isLoading) {
+				
+		// 	},
+		// 	onPlayerError: function (eventTime, error) {
+				
+		// 	},
+		// 	onTracksChanged: function (eventTime, trackGroups, trackSelections) {
+				
+		// 	},
+		// 	onStaticMetadataChanged: function (eventTime, metadataList) {
+		// 		////console.log("onStaticMetadataChanged");
+		// 	},
+		// 	onLoadStarted: function (eventTime, loadEventInfo, mediaLoadData) {
+		// 		////console.log("onLoadStarted");
+		// 	},
+		// 	onLoadCompleted: function (eventTime, loadEventInfo, mediaLoadData) {
+				
+		// 	},
+		// 	onLoadCanceled: function (eventTime, loadEventInfo, mediaLoadData) {
+				
+		// 	},
+		// 	onLoadError: function (eventTime, loadEventInfo, mediaLoadData, error, wasCanceled) {
+		// 		////console.log("onLoadError");
+		// 	},
+		// 	onDownstreamFormatChanged: function (eventTime, mediaLoadData) {
+				
+		// 	},
+		// 	onUpstreamDiscarded: function (eventTime, mediaLoadData) {
+				
+		// 	},
+		// 	onBandwidthEstimate: function (eventTime, totalLoadTimeMs, totalBytesLoaded, bitrateEstimate) {
+				
+		// 	},
+		// 	onMetadata: function (eventTime, metadata) {
+		// 		//console.log("onMetadata");
+		// 		//console.dir(metadata);
+		// 	},
+		// 	onAudioEnabled: function (eventTime, counters) {
+				
+		// 	},
+		// 	onAudioDecoderInitialized: function (eventTime, decoderName, initializationDurationMs) {
+				
+		// 	},
+		// 	onAudioInputFormatChanged: function (eventTime, format, decoderReuseEvaluation) {
+				
+		// 	},
+		// 	onAudioPositionAdvancing: function (eventTime, playoutStartSystemTimeMs) {
+				
+		// 	},
+		// 	onAudioUnderrun: function (eventTime, bufferSize, bufferSizeMs, elapsedSinceLastFeedMs) {
+				
+		// 	},
+		// 	onAudioDecoderReleased: function (eventTime, decoderName) {
+				
+		// 	},
+		// 	onAudioDisabled: function (eventTime, counters) {
+		// 		//console.log("onAudioDisabled");
+		// 	},
+		// 	onAudioSessionIdChanged: function (eventTime, audioSessionId) {
+				
+		// 	},
+		// 	onAudioAttributesChanged: function (eventTime, audioAttributes) {
+				
+		// 	},
+		// 	onSkipSilenceEnabledChanged: function (eventTime, skipSilenceEnabled) {
+				
+		// 	},
+		// 	onAudioSinkError: function (eventTime, audioSinkError) {
+				
+		// 	},
+		// 	onVolumeChanged: function (eventTime, volume) {
+				
+		// 	},
+		// 	onVideoEnabled: function (eventTime, counters) {
+		// 	   // console.log("onVideoEnabled");
+		// 	},
+		// 	onVideoDecoderInitialized: function (eventTime, decoderName, initializationDurationMs) {
+		// 		//console.log("onVideoDecoderInitialized: " + decoderName);
+		// 	},
+		// 	onVideoInputFormatChanged: function (eventTime, format) {
+		// 		//console.log("Native onVideoInputFormatChanged format: " + format);
+		// 		//format.rotationDegrees = 90;
+		// 		//console.log("format.rotationDegrees: " + format.rotationDegrees);
+		// 		if (format && typeof format.height !== "undefined") {
+		// 			//console.log("onVideoInputFormatChanged A format.height: " + format.height);
+		// 			var width = parseInt(format.width, 10);
+		// 			var height = parseInt(format.height, 10);
+		// 			this.owner.videoWidth = width;
+		// 			this.owner.videoHeight = height;
+		// 			//console.log("onVideoInputFormatChanged B width: " + width + " height: " + height);
+		// 			if (!isNaN(height) && height > 1080) {
+		// 				console.log("TOOOOOOOOO HIGH FOR DECODER B width: " + width + " height: " + height);
+		// 				this.owner._emit(videoplayer_common_1.Video.killVideoEvent);
+		// 			}
+		// 			else {
+		// 				//this.owner._emit(videoplayer_common_1.Video.videoSizeChangedEvent);
+		// 			}
+		// 			/*
+		// 			if (this.owner && typeof this.owner.width !== "undefined") {
+		// 				var wsRatio = 16 / 9;
+		// 				var oldRatio = this.owner.width / this.owner.height;
+		// 				var newRatio = width / height;
+		// 				//console.log("oldRatio: " + oldRatio + " newRatio: " + newRatio + " surfaceView: " + this.owner.surfaceView);
+		// 				var txform = new android.graphics.Matrix();
+		// 				this.owner.surfaceView.getTransform(txform);
+		// 				if (newRatio > wsRatio) { // Widescreen
+
+		// 					txform.setScale(wsRatio - newRatio, 1);
+
+		// 				}
+		// 				else { // SD 4:3
+
+		// 					txform.setScale(1, newRatio - wsRatio);
+
+		// 				}
+		// 				this.owner.surfaceView.setTransform(txform);
+		// 			}
+		// 			*/
+		// 		}
+		// 	},
+		// 	onDroppedVideoFrames: function (eventTime, droppedFrames, elapsedMs) {
+		// 		//console.log("onDroppedVideoFrames");
+		// 	},
+		// 	onVideoDecoderReleased: function (eventTime, decoderName) {
+				
+		// 	},
+		// 	onVideoDisabled: function (eventTime, counters) {
+		// 		//console.log("onVideoDisabled");
+		// 	},
+		// 	onVideoFrameProcessingOffset: function (eventTime, totalProcessingOffsetUs, frameCount) {
+				
+		// 	},
+		// 	onRenderedFirstFrame: function (eventTime, surface) {
+		// 		//console.log("onRenderedFirstFrame A surface: " + surface + " this.owner.width: " + this.owner.width + " this.owner.height: " + this.owner.height);
+		// 		//this.owner.surfaceView = surface;
+		// 		/*
+		// 		var aspectRatio = width / height;
+		// 		if (aspectRatio > (16 / 9)) { // Widescreen
+
+
+		// 		}
+		// 		else { // SD 4:3
+
+
+		// 		}
+		// 		*/
+		// 	},
+		// 	onVideoSizeChanged: function (eventTime, width, height, unappliedRotationDegrees, pixelWidthHeightRatio) {
+		// 		this.owner.mediaPlayer.setVideoScalingMode(com.google.android.exoplayer2.C.VIDEO_SCALING_MODE_SCALE_TO_FIT);
+		// 		var width = parseInt(width, 10);
+		// 		var height = parseInt(height, 10);
+		// 		//console.log("onVideoSizeChanged A width: " + width + " height: " + height + " pixelWidthHeightRatio: " + pixelWidthHeightRatio);
+		// 		if (!isNaN(height) && height > 1080) {
+		// 			console.log("TOOOOOOOOO HIGH FOR DECODER A");
+		// 			this.owner._emit(videoplayer_common_1.Video.killVideoEvent);
+		// 		}
+		// 		this.owner.width = width;
+		// 		this.owner.height = height;
+		// 		this.owner._emit(videoplayer_common_1.Video.videoSizeChangedEvent);
+		// 	},
+		// 	onSurfaceSizeChanged: function (eventTime, width, height) {
+				
+		// 	},
+		// 	onPlayerReleased: function (eventTime) {
+				
+		// 	},
+		// 	onEvents: function (player, events) {
+		// 		//console.log("onEvents");
+		// 	},
+		// 	onDecoderEnabled: function (eventTime, trackType, decoderCounters) {
+		// 		//console.log("onDecoderEnabled: " + decoderCounters);
+		// 	},
+		// 	onDecoderInitialized: function (eventTime, trackType, decoderName, initializationDurationMs) {
+		// 		if (trackType === 2) {
+		// 			console.log("onDecoderInitialized: " + decoderName);
+		// 		}
+		// 	},
+		// 	onDecoderInputFormatChanged: function (eventTime, trackType, format) {
+				
+		// 	},
+		// 	onDecoderDisabled: function (eventTime, trackType, decoderCounters) {
+		// 		//console.log("onDecoderDisabled: " + decoderCounters);
+		// 	}
+		// });
+
+		// this.mediaPlayer.addAnalyticsListener(analyticsListener);
+	   
+		// var audioRendererEventListener = new com.google.android.exoplayer2.audio.AudioRendererEventListener({
+		// 	get owner() {
+		// 		return that.get();
+		// 	},
+		// 	onAudioDecoderInitialized: function (decoderName, initializedTimestampMs, initializationDurationMs) {
+		// 		//console.log("onAudioDecoderInitialized decoderName: " + decoderName);
+		// 	},
+		// 	onAudioDisabled: function (counters) {
+		// 		//console.log("onAudioDisabled");
+		// 	},
+		// 	onAudioEnabled: function (counters) {
+		// 		//console.log("onAudioEnabled");
+		// 	},
+		// 	onAudioInputFormatChanged: function (format) {
+		// 		//console.log("onAudioInputFormatChanged format: " + format);
+		// 	},
+		// 	onAudioSessionId: function (audioSessionId) {
+
+		// 		this.owner.audioSessionId = audioSessionId;
+
+		// 		//console.log("onAudioSessionId audioSessionId: " + this.owner.audioSessionId);
+
+		// 		/*
+		// 		try {
+
+		// 			var loudnessEnhancer = new android.media.audiofx.LoudnessEnhancer(this.audioSessionId);
+		// 			//console.log("loudnessEnhancer: " + loudnessEnhancer);
+
+		// 			loudnessEnhancer.setTargetGain(-100000);
+		// 			loudnessEnhancer.setEnabled(true);
+
+		// 			//console.log("loudnessEnhancer.getTargetGain: " + loudnessEnhancer.getTargetGain());
+
+		// 		}
+		// 		catch (error) {
+
+		// 			//console.log("loudnessEnhancer error: " + error);
+
+		// 		}
+		// 		*/
+
+		// 	},
+		// 	onAudioSinkUnderrun: function (bufferSize, bufferSizeMs, elapsedSinceLastFeedMs) {
+		// 		//console.log("onAudioSinkUnderrun");
+		// 	}
+		// });
+
+		//this.mediaPlayer.setAudioDebugListener(audioRendererEventListener);
 	};
 
 	_setupMediaController() {
 		this.nativeView.setUseController(!!this.controls);
+
+		// CUSTOM:
+        // var that = new WeakRef(this);
+		// if (this.surface) {
+		// 	this._textureView.setSurfaceTextureListener(new android.view.TextureView.SurfaceTextureListener({
+		// 		get owner() {
+		// 			return that.get();
+		// 		},
+		// 		onSurfaceTextureSizeChanged: function (surface, width, height) {
+		// 			//console.log("SurfaceTexutureSizeChange", width, height);
+		// 			//this.owner._setupAspectRatio();
+		// 		},
+		// 		onSurfaceTextureAvailable: function () {
+		// 			if (this.owner) {
+		// 				this.owner._setupTextureSurface();
+		// 			}
+		// 		},
+		// 		onSurfaceTextureDestroyed: function () {
+		// 			if (!this.owner) {
+		// 				return true;
+		// 			}
+		// 			if (this.owner.textureSurface !== null) {
+		// 				this.owner.textureSurfaceSet = false;
+		// 				this.owner.textureSurface.release();
+		// 				this.owner.textureSurface = null;
+		// 			}
+		// 			this.owner.release();
+		// 			return true;
+		// 		},
+		// 		onSurfaceTextureUpdated: function () {
+		// 		}
+		// 	}));
+		// }
 	}
 
 	_detectTypeFromSrc(uri: android.net.Uri | string) {
@@ -266,6 +771,10 @@ export class Video extends VideoBase {
 			} else if (uri.indexOf('.mp4') > -1) {
 				return this.TYPE.OTHER;
 			}
+
+			if (uri.toString().indexOf("mode=hls") !== -1 || uri.toString().indexOf("m3u8") !== -1) {
+                return this.TYPE.HLS;
+            }
 		}
 		const type = com.google.android.exoplayer2.util.Util.inferContentType(uri as android.net.Uri);
 		switch (type) {
@@ -279,6 +788,72 @@ export class Video extends VideoBase {
 				return this.TYPE.OTHER;
 		}
 	}
+
+	cacheWriteDataSink(secretKey, cacheSink, scratch) {
+		return new com.google.android.exoplayer2.upstream.DataSink.Factory({
+			createDataSink: function () {
+				return new com.google.android.exoplayer2.upstream.crypto.AesCipherDataSink(secretKey, cacheSink, scratch);
+			}
+		})
+	}
+	cacheReadDataSource(secretKey, file) {
+		return new com.google.android.exoplayer2.upstream.DataSource.Factory({
+			createDataSource: function () {
+				return new com.google.android.exoplayer2.upstream.crypto.AesCipherDataSource(secretKey, file);
+			}
+		})
+	}
+	private _hex2bytes(hexString: string) {
+		if (hexString == null || hexString.length === 0) {
+			return null;
+		}
+		var kl = hexString.length;
+		var key = Array.create("byte", kl / 2);
+		for (var i = 0, j = 0; i < kl; i += 2, j++) {
+			key[j] = parseInt(hexString.substring(i, 2), 16);
+		}
+		return key;
+	}
+	private _setupEncryptedDataSource(url, encryption, bm) {
+		if (encryption.toUpperCase() !== "CTR") {
+			// TODO: AES/CBC and AES/CFB also support parallelizable decryption which means random seek ability
+			// TODO: see https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation
+			throw new Error("Unknown Decryption type, CTR is current only supported");
+		}
+
+		const key = this._hex2bytes(this.encryptionKey);
+		const iv = this._hex2bytes(this.encryptionIV);
+
+		const keySpec = new javax.crypto.spec.SecretKeySpec(key, "AES");
+		const ivSpec = new javax.crypto.spec.IvParameterSpec(iv);
+
+		let cipher;
+		switch (encryption.toUpperCase()) {
+			case 'CFB':
+				cipher = javax.crypto.Cipher.getInstance("AES/CFB/NoPadding");
+				break;
+
+			case 'CBC':
+				cipher = javax.crypto.Cipher.getInstance("AES/CBC/NoPadding");
+				break;
+
+			case 'CTR':
+			default:
+			cipher = javax.crypto.Cipher.getInstance("AES/CTR/NoPadding");
+		}
+		cipher.init(javax.crypto.Cipher.DECRYPT_MODE,keySpec, ivSpec);
+
+		return new (<any>global).io.nstudio.plugins.exoplayer.EncryptedFileDataSourceFactory(cipher, keySpec, ivSpec, bm);
+
+        // console.log("_setupEncryptedDataSource: " + this.encryptionKey);
+		// var key = this._hex2bytes(this.encryptionKey);
+		// var iv = this._hex2bytes(this.encryptionIV);
+		// var keySpec = new javax.crypto.spec.SecretKeySpec(key, "AES");
+		// var ivSpec = new javax.crypto.spec.IvParameterSpec(iv);
+		// var cipher = javax.crypto.Cipher.getInstance("AES/CTR/NoPadding");
+		// cipher.init(javax.crypto.Cipher.DECRYPT_MODE, keySpec, ivSpec);
+		// return new global.io.nstudio.plugins.exoplayer.EncryptedFileDataSourceFactory(cipher, keySpec, ivSpec, bm);
+	};
 
 	_openVideo() {
 		if (this._src === null) {
@@ -385,6 +960,171 @@ export class Video extends VideoBase {
 		} catch (ex) {
 			console.log('Error:', ex, ex.stack);
 		}
+
+		// var am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
+        // am.requestAudioFocus(null, android.media.AudioManager.STREAM_MUSIC, android.media.AudioManager.AUDIOFOCUS_GAIN);
+        
+        // try {
+		//     const bm = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter.Builder(this._context).build();
+            
+        //     if (typeof nsApp.defaultBandwidthMeter === "undefined") {
+		// 		nsApp.defaultBandwidthMeter = new com.google.android.exoplayer2.upstream.DefaultBandwidthMeter();
+		// 	}
+
+		// 	var trackSelection = new com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.Factory(nsApp.defaultBandwidthMeter); 
+		// 	var trackSelector = new com.google.android.exoplayer2.trackselection.DefaultTrackSelector(trackSelection);
+
+        //     if (this.silent) {
+            
+        //         trackSelector.setParameters(trackSelector
+        //             .buildUponParameters()
+        //             .setMaxVideoSize(1920, 1080)
+        //             .setRendererDisabled(1, true)
+        //         );
+
+        //     }
+        //     else if (this.minStream) {
+
+        //         var maxWidth = 320;
+        //         var maxHeight = 180;
+
+        //         trackSelector.setParameters(trackSelector
+        //                     .buildUponParameters()
+        //                     .setMaxVideoSizeSd()
+        //                     .setMaxVideoBitrate(200000)
+        //                     .setMaxVideoSize(maxWidth, maxHeight)
+        //                     .setRendererDisabled(1, true)
+        //         );
+
+        //     }
+        //     else {
+
+        //         trackSelector.setParameters(trackSelector
+        //             .buildUponParameters()
+        //             .setMaxVideoSize(1920, 1080)
+        //         );
+
+        //     }
+
+        //     let uri = android.net.Uri.parse(this._src);
+
+        //     console.log("this.encrypted: " + this.encrypted);
+
+		//     let dsf;
+        //     if (this.encrypted) {
+		// 		   dsf = this._setupEncryptedDataSource(this._src, this.encryption, bm);
+
+        //     }
+        //     else {
+		//         dsf = new com.google.android.exoplayer2.upstream.DefaultDataSourceFactory(this._context, "NativeScript", bm);
+
+        //     }
+
+        //     if (this.live || this.partialBuffer || this.isTablet) {
+
+        //         var minBufferMs = 6000;
+		// 		var maxBufferMs = 20000;
+		// 		var bufferForPlaybackMs = 1200;
+		// 		var bufferForPlaybackAfterRebufferMs = 6000;
+
+		// 		var loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder().setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs, bufferForPlaybackAfterRebufferMs).createDefaultLoadControl();
+                
+		// 	}
+		// 	else {
+
+		// 		var minBufferMs = 60000 * 3; // 3 Minutes
+		// 		var maxBufferMs = 60000 * 3; // 3 Minutes
+		// 		var bufferForPlaybackMs = 1200;
+		// 		var bufferForPlaybackAfterRebufferMs = 6000;
+
+        //         var loadControl = new com.google.android.exoplayer2.DefaultLoadControl.Builder().setBufferDurationsMs(minBufferMs, maxBufferMs, bufferForPlaybackMs, bufferForPlaybackAfterRebufferMs).createDefaultLoadControl();
+
+        //     }
+
+        //     var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
+            
+        //     if (this.encrypted) {
+
+        //         let ef = new com.google.android.exoplayer2.extractor.DefaultExtractorsFactory();
+        //         var mediaSource = new com.google.android.exoplayer2.source.ExtractorMediaSource(uri, dataSourceFactory, ef, null, null, null);
+            
+        //     }
+        //     else if (this._src instanceof String || typeof this._src === "string") {
+
+		// 		var mediaType = this.type && this.type === "hls" ? this.TYPE.HLS : this._detectTypeFromSrc(uri);
+
+        //         switch (mediaType) {
+
+        //             case this.TYPE.HLS:
+
+        //                 var mediaSource = new com.google.android.exoplayer2.source.hls.HlsMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
+
+        //             break;
+
+        //             default:
+
+        //                 var mediaSource = new com.google.android.exoplayer2.source.ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(android.net.Uri.parse(this._src));
+
+        //             break;
+
+        //         }
+
+        //     }
+
+        //     if (this.silent || (typeof this._src === "string" && this._src.indexOf("http") !== 0)) {
+
+        //         this._gaudioProcessor = this.createGaudioProcessor(this._src);
+        //         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, new com.loop.gaudio.ProcessorFactory(this._context, this._gaudioProcessor), trackSelector, loadControl);
+
+        //     }
+        //     else {
+
+        //         var renderersFactory = new com.google.android.exoplayer2.DefaultRenderersFactory(this._context);
+        //         this.mediaPlayer = com.google.android.exoplayer2.ExoPlayerFactory.newSimpleInstance(this._context, renderersFactory, trackSelector, loadControl);
+
+        //     }
+            
+        //     this.mediaPlayer.prepare(mediaSource, true, true);
+
+        //     this._setupMediaPlayerListeners();
+
+        //     if (this.surface) {
+
+		// 		if (this.textureSurface && !this.textureSurfaceSet) {
+		// 			this.textureSurfaceSet = true;
+		// 			this.mediaPlayer.setVideoSurface(this.textureSurface);
+		// 		}
+		// 		else {
+		// 			this._setupTextureSurface();
+		// 		}
+
+		// 	}
+            
+        //     if (this.autoplay === true) {
+
+		// 		this.mediaPlayer.setPlayWhenReady(true);
+
+		// 	}
+
+        //     if (this.speed) {
+
+        //         var playbackParameters = new com.google.android.exoplayer2.PlaybackParameters(this.speed);
+        //         this.mediaPlayer.setPlaybackParameters(playbackParameters);
+
+        //     }
+
+		// 	if (this.preSeekTime > 0) {
+
+		// 		this.mediaPlayer.seekTo(this.preSeekTime);
+		// 		this.preSeekTime = -1;
+
+		// 	}
+
+        //     this.mediaState = SURFACE_READY;
+        // }
+        // catch (ex) {
+        //     console.log("Error:", ex, ex.stack);
+        // }
 	}
 
 	_setNativeVideo(nativeVideo) {
@@ -417,6 +1157,19 @@ export class Video extends VideoBase {
 			this.player.setPlayWhenReady(true);
 			this.startCurrentTimer();
 		}
+
+		// if (!this.mediaPlayer || this.mediaState === SURFACE_WAITING) {
+        //     this._openVideo();
+        // }
+        // else if (this.playState === STATE_ENDED) {
+        //     this.eventPlaybackStart = false;
+        //     this.mediaPlayer.seekToDefaultPosition();
+        //     this.startCurrentTimer();
+        // }
+        // else {
+        //     this.mediaPlayer.setPlayWhenReady(true);
+        //     this.startCurrentTimer();
+        // }
 	}
 
 	pause() {
@@ -472,7 +1225,7 @@ export class Video extends VideoBase {
 	}
 
 	getDuration() {
-		if (!this.player) {
+		if (!this.player) {// || this.mediaState === SURFACE_WAITING || this.playState === STATE_IDLE) {
 			return 0;
 		}
 		const duration = this.player.getDuration();
@@ -499,6 +1252,12 @@ export class Video extends VideoBase {
 	destroy() {
 		this.release();
 		this.src = null;
+        // this._textureView = null;
+        // this.player = null;
+        // this.mediaController = null;
+        if (this._gaudioProcessor) {
+            this._gaudioProcessor.destroyCore();
+        }
 	}
 
 	release() {
@@ -521,6 +1280,18 @@ export class Video extends VideoBase {
 				am.abandonAudioFocus(null);
 			}
 		}
+
+		// CUSTOM:
+		// if (this.mediaPlayer !== null) {
+        //     this.mediaState = SURFACE_WAITING;
+        //     this.mediaPlayer.release();
+        //     this.mediaPlayer = null;
+        //     if (this.mediaController && this.mediaController.isVisible()) {
+        //         this.mediaController.hide();
+        //     }
+        //     var am = nsUtils.ad.getApplicationContext().getSystemService(android.content.Context.AUDIO_SERVICE);
+        //     am.abandonAudioFocus(null);
+        // }
 	}
 
 	suspendEvent() {
@@ -584,4 +1355,31 @@ export class Video extends VideoBase {
 		}
 		this.fireCurrentTimeEvent();
 	}
+
+	createGaudioProcessor(src) {
+        const uri = this.getUri(src);
+        const filePath = uri.getPath();
+        const solPath = filePath.replace(/\.[^/.]+$/, '.sol');
+
+        console.log("createGaudioProcessor");
+        console.log("filePath: " + filePath + " exists: " + File.exists(filePath));
+        console.log("solPath: " + solPath + " exists: " + File.exists(solPath));
+
+        const videoFilePath = new java.util.ArrayList();
+        videoFilePath.add(filePath);
+        const solFilePath = new java.util.ArrayList();
+        solFilePath.add(solPath);
+        this._mInfo = new (<any>global).com.loop.gaudio.PlaybackInformation(videoFilePath, solFilePath);
+        return new (<any>global).com.loop.gaudio.GaudioProcessor(this._mInfo);
+    }
+
+	getUri(src) {
+        if (src instanceof String || typeof src === "string") {
+            return android.net.Uri.parse(<string>src);
+        }
+        if (typeof this._src.typeSource === "number") {
+            return android.net.Uri.parse(src.url);
+        }
+        return src;
+    };
 }
