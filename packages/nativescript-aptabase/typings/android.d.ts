@@ -6,12 +6,12 @@ declare module com {
 			public static class: java.lang.Class<com.aptabase.Aptabase>;
 			public trackEvent(param0: string, param1: java.util.Map<string, any>): void;
 			public initialize(param0: globalAndroid.content.Context, param1: string): void;
-			public static getShared(): com.aptabase.Aptabase;
+			public static getInstance(): com.aptabase.Aptabase;
 		}
 		export module Aptabase {
 			export class Companion {
 				public static class: java.lang.Class<com.aptabase.Aptabase.Companion>;
-				public getShared(): com.aptabase.Aptabase;
+				public getInstance(): com.aptabase.Aptabase;
 			}
 		}
 	}
