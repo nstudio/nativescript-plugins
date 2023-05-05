@@ -47,7 +47,7 @@ Aptabase.initialize('<YOUR_APP_KEY>'); // 👈 this is where you enter your App 
 Afterwards you can start tracking events with `track`:
 
 ```js
-import { Aptabase } from "@aptabase/web";
+import { Aptabase } from '@nstudio/nativescript-aptabase';
 
 // Track an event
 Aptabase.track("connect_click");
