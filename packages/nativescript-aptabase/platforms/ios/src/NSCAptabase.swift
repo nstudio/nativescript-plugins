@@ -1,8 +1,8 @@
 import Foundation
 import Aptabase
 
-@objc public class InitOptions: NSObject {
-    @objc let host: String?
+@objc open class NSCInitOptions: NSObject {
+    @objc public let host: String?
 
     @objc public init(host: String? = nil) {
         self.host = host
@@ -10,8 +10,12 @@ import Aptabase
 }
 
 @objc open class NSCAptabase: NSObject {
-    @objc static public func initialize(appKey: String, opts: InitOptions? = nil) {
-        Aptabase.shared.initialize(appKey: appKey, opts: opts)
+    @objc static public func initialize(appKey: String, opts: NSCInitOptions? = nil) {
+        var initOptions: InitOptions?
+        if let opts = opts {
+            initOptions = InitOptions(host: opts.host)
+        }
+        Aptabase.shared.initialize(appKey: appKey, with: initOptions)
     }
 
     @objc static public func track(name: String, properties: [String : Any]?) {
