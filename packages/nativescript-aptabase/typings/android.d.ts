@@ -5,26 +5,14 @@ declare module com {
 		export class Aptabase {
 			public static class: java.lang.Class<com.aptabase.Aptabase>;
 			public trackEvent(param0: string, param1: java.util.Map<string, any>): void;
-			public initialize(param0: globalAndroid.content.Context, param1: string): void;
 			public static getInstance(): com.aptabase.Aptabase;
+			public initialize(param0: globalAndroid.content.Context, param1: string, param2: com.aptabase.InitOptions): void;
 		}
 		export module Aptabase {
 			export class Companion {
 				public static class: java.lang.Class<com.aptabase.Aptabase.Companion>;
 				public getInstance(): com.aptabase.Aptabase;
 			}
-		}
-	}
-}
-
-declare module com {
-	export module aptabase {
-		export class BuildConfig {
-			public static class: java.lang.Class<com.aptabase.BuildConfig>;
-			public static DEBUG: boolean;
-			public static LIBRARY_PACKAGE_NAME: string;
-			public static BUILD_TYPE: string;
-			public constructor();
 		}
 	}
 }
@@ -60,6 +48,23 @@ declare module com {
 				public static class: java.lang.Class<com.aptabase.EnvironmentInfo.Companion>;
 				public get(param0: globalAndroid.content.Context): com.aptabase.EnvironmentInfo;
 			}
+		}
+	}
+}
+
+declare module com {
+	export module aptabase {
+		export class InitOptions {
+			public static class: java.lang.Class<com.aptabase.InitOptions>;
+			public equals(param0: any): boolean;
+			public copy(param0: string): com.aptabase.InitOptions;
+			public toString(): string;
+			public getHost(): string;
+			public setHost(string): void;
+			public component1(): string;
+			public constructor();
+			public constructor(param0: string);
+			public hashCode(): number;
 		}
 	}
 }
