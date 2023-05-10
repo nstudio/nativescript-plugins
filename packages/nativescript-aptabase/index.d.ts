@@ -6,5 +6,5 @@ export interface InitOptions {
 
 export declare class Aptabase extends AptabaseCommon {
 	static initialize(appKey: string, initOptions?: InitOptions): void;
-	static track(name: string, properties?: any): void;
+	static track(name: string, properties?: Record<string, string | number | boolean>): void;
 }
