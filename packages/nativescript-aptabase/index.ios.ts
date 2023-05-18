@@ -1,11 +1,21 @@
+import { InitOptions } from '.';
 import { AptabaseCommon } from './common';
 
-export class Aptabase extends AptabaseCommon {
-    static initialize(appKey: string) {
-        NSCAptabase.initializeWithAppKey(appKey);
-    }
+function initOptionsFromOptions(options: InitOptions) {
+	if (options?.host) {
+    return NSCInitOptions.alloc().initWithHost(options.host);
+	}
 
-    static track(name: string, properties?: any) {
-        NSCAptabase.trackWithNameProperties(name, properties);
-    }
+	return;
+}
+
+export class Aptabase extends AptabaseCommon {
+	static initialize(appKey: string, opts?: InitOptions) {
+		const options = initOptionsFromOptions(opts);
+		NSCAptabase.initializeWithAppKeyOpts(appKey, options);
+	}
+
+	static track(name: string, properties?: any) {
+		NSCAptabase.trackWithNameProperties(name, properties);
+	}
 }
