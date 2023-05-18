@@ -1299,8 +1299,10 @@ export class Video extends VideoBase {
 			this.nativeView.onPause();
 		}
 		// this.release();
-		this._resumeOnFocusGain = this.player.isPlaying();
-		this.player.setPlayWhenReady(false);
+		if (this.player) {
+			this._resumeOnFocusGain = this.player.isPlaying();
+			this.player.setPlayWhenReady(false);
+		}
 	}
 
 	resumeEvent() {
