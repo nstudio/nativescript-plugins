@@ -3,6 +3,7 @@
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
     "@nstudio/nativescript-appcues": "file:../../dist/packages/nativescript-appcues",
+    "@nstudio/nativescript-aptabase": "file:../../dist/packages/nativescript-aptabase",
     "@nstudio/nativescript-airship": "file:../../dist/packages/nativescript-airship",
     "@nstudio/nativescript-airship-adm": "file:../../dist/packages/nativescript-airship-adm",
     "@nstudio/nativescript-airship-fcm": "file:../../dist/packages/nativescript-airship-fcm",
@@ -10,6 +11,7 @@
     "@nstudio/nativescript-barcodescanner": "file:../../dist/packages/nativescript-barcodescanner",
     "@nstudio/nativescript-blur": "file:../../dist/packages/nativescript-blur",
     "@nstudio/nativescript-camera-plus": "file:../../dist/packages/nativescript-camera-plus",
+    "@nstudio/nativescript-cardview": "file:../../dist/packages/nativescript-cardview",
     "@nstudio/nativescript-carousel": "file:../../dist/packages/nativescript-carousel",
     "@nstudio/nativescript-checkbox": "file:../../dist/packages/nativescript-checkbox",
     "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
@@ -29,7 +31,7 @@
     "@nstudio/nativescript-walletconnect": "file:../../dist/packages/nativescript-walletconnect"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.3.0",
-    "@nativescript/ios": "~8.3.0"
+    "@nativescript/android": "~8.5.0",
+    "@nativescript/ios": "~8.5.0"
   }
 }

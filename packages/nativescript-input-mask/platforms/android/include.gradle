@@ -1,7 +1,7 @@
 repositories {
-	jcenter()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-	implementation 'com.redmadrobot:inputmask:2.3.0'
+	implementation 'com.redmadrobot:input-mask-android:6.1.0'
 }

@@ -288,6 +288,20 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-appcues:build.all',
 					description: '@nstudio/nativescript-appcues: Build',
+				}
+			},
+			// @nstudio/nativescript-cardview
+			'nativescript-cardview': {
+				build: {
+					script: 'nx run nativescript-cardview:build.all',
+					description: '@nstudio/nativescript-cardview: Build',
+				},
+			},
+			// @nstudio/nativescript-aptabase
+			'nativescript-aptabase': {
+				build: {
+					script: 'nx run nativescript-aptabase:build.all',
+					description: '@nstudio/nativescript-aptabase: Build',
 				},
 			},
 			'build-all': {
@@ -403,6 +417,14 @@ module.exports = {
 			'nativescript-appcues': {
 				script: 'nx run nativescript-appcues:focus',
 				description: 'Focus on @nstudio/nativescript-appcues',
+			},
+			'nativescript-cardview': {
+				script: 'nx run nativescript-cardview:focus',
+				description: 'Focus on @nstudio/nativescript-cardview',
+			},
+			'nativescript-aptabase': {
+				script: 'nx run nativescript-aptabase:focus',
+				description: 'Focus on @nstudio/nativescript-aptabase',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

@@ -1,7 +1,7 @@
 /**********************************************************************************
  * (c) 2017, nStudio, LLC & LiveShopper, LLC
  *
- * Version 1.1.0                                                   team@nStudio.io
+ * Version 1.1.0                                                   team@nstudio.io
  **********************************************************************************/
 
 import { ContentView } from '@nativescript/core';
@@ -113,6 +113,18 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 */
 	@GetSetProperty()
 	public pictureSize: string = '0x0';
+
+	/**
+	 * *ANDROID ONLY* Enables or disables tap to focus
+	 */
+	@GetSetProperty()
+	public tapToFocus: boolean;
+
+	/**
+	 * Enables or disables pinch to zoom
+	 */
+	@GetSetProperty()
+	public pinchToZoom: boolean;
 
 	/**
 	 * @param ratio string
@@ -299,8 +311,8 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	/**
 	 * * ANDROID ONLY * - Returns true if the application has permission to use the device camera.
 	 */
-	hasCameraPermission(): boolean {
-		return false;
+	hasCameraPermission(): Promise<boolean> {
+		return Promise.resolve(false);
 	}
 
 	/**
@@ -313,8 +325,8 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	/**
 	 * * ANDROID ONLY * - Returns true if the application has permission to READ/WRITE STORAGE.
 	 */
-	hasStoragePermissions(): boolean {
-		return false;
+	hasStoragePermissions(): Promise<boolean> {
+		return Promise.resolve(false);
 	}
 
 	/**
@@ -327,8 +339,8 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	/**
 	 * * ANDROID ONLY * - Returns true if the application has permission to record audio, which is necessary for video recording.
 	 */
-	hasAudioPermission(): boolean {
-		return false;
+	hasAudioPermission(): Promise<boolean> {
+		return Promise.resolve(false);
 	}
 
 	/**
@@ -341,8 +353,8 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	/**
 	 * * ANDROID ONLY * - Returns true if the application has permission to record audio and write storage for saving videos.
 	 */
-	hasVideoRecordingPermissions(): boolean {
-		return false;
+	hasVideoRecordingPermissions(): Promise<boolean> {
+		return Promise.resolve(false);
 	}
 
 	/**

@@ -3,9 +3,11 @@
 - [@nstudio/nativescript-airship-fcm](packages/nativescript-airship-fcm/README.md)
 - [@nstudio/nativescript-airship-hms](packages/nativescript-airship-hms/README.md)
 - [@nstudio/nativescript-appcues](packages/nativescript-appcues/README.md)
+- [@nstudio/nativescript-aptabase](packages/nativescript-aptabase/README.md)
 - [@nstudio/nativescript-barcodescanner](packages/nativescript-barcodescanner/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
 - [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
+- [@nstudio/nativescript-cardview](packages/nativescript-cardview/README.md)
 - [@nstudio/nativescript-carousel](packages/nativescript-carousel/README.md)
 - [@nstudio/nativescript-checkbox](packages/nativescript-checkbox/README.md)
 - [@nstudio/nativescript-dynatrace](packages/nativescript-dynatrace/README.md)
@@ -28,7 +30,9 @@
 
 This workspace manages the suite of plugins listed above.
 
-In general, when in doubt with what to do, just `npm start`.
+Before running anything, always run `npm run setup` (or `yarn setup`) first.
+
+After that in general, just `npm start` to see the interactive options.
 
 ## How to add a new package to workspace?
 

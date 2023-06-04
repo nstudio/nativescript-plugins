@@ -8,10 +8,10 @@
     "experimentalDecorators": true,
     "noEmitHelpers": false,
     "jsx": "react",
-    "target": "es2017",
-    "module": "esnext",
+    "target": "ES2020",
+    "module": "ESNext",
     "lib": [
-      "es2017",
+      "ESNext",
       "dom"
     ],
     "skipLibCheck": true,
@@ -50,6 +50,9 @@
       ],
       "@nstudio/nativescript-camera-plus/angular": [
         "packages/nativescript-camera-plus/angular/index.ts"
+      ],
+      "@nstudio/nativescript-cardview": [
+        "packages/nativescript-cardview/index.d.ts"
       ],
       "@nstudio/nativescript-carousel": [
         "packages/nativescript-carousel/index.d.ts"
@@ -107,6 +110,9 @@
       ],
       "@nstudio/nativescript-appcues": [
         "packages/nativescript-appcues/index.d.ts"
+      ],
+      "@nstudio/nativescript-aptabase": [
+        "packages/nativescript-aptabase/index.d.ts"
       ]
     }
   },

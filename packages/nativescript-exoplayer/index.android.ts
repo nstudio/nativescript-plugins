@@ -35,7 +35,6 @@ export class Video extends VideoBase {
 	private enableSubtitles: boolean = false;
 
 	public TYPE = { DETECT: 0, SS: 1, DASH: 2, HLS: 3, OTHER: 4 };
-	public nativeView: com.google.android.exoplayer2.ui.PlayerView;
 	public player: com.google.android.exoplayer2.ExoPlayer;
 
 	constructor() {

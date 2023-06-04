@@ -321,13 +321,40 @@ export class LoadingIndicator {
 			const nativeView = options.android.view as android.view.View;
 			this._popOver.setWidth(nativeView.getWidth());
 			this._popOver.setHeight(nativeView.getHeight());
-			this._popOver.showAtLocation(nativeView, android.view.Gravity.CENTER, 0, 0);
+			try {
+				let point = Array.create('int', 2);
+				nativeView.getLocationInWindow(point);
+				let x = point[0] || 0;
+				let y = point[1] || 0;
+				this._popOver.showAtLocation(nativeView, android.view.Gravity.NO_GRAVITY, x, y);
+			} catch (e) {
+				console.error('Loading Indicator Error:', e);
+			}
 		} else if (Frame.topmost() && (Frame.topmost().android || (Frame.topmost().currentPage && Frame.topmost().currentPage.android))) {
-			const view = Frame.topmost().android.rootViewGroup || Frame.topmost().currentPage.android;
-
-			this._popOver.setWidth(Screen.mainScreen.widthPixels);
-			this._popOver.setHeight(Screen.mainScreen.heightPixels);
-			this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+			const view = Frame.topmost().android?.rootViewGroup || Frame.topmost().currentPage?.android;
+			if (view) {
+				const hasFocus = view.hasWindowFocus();
+				if (!hasFocus) {
+					/* Gets the currently opened dialog fragment or top fragment */
+					const activity = Application.android.foregroundActivity || Application.android.startActivity;
+					const fragments = activity?.getSupportFragmentManager().getFragments();
+					const count = fragments?.size();
+					const last = count - 1;
+					if (last !== -1) {
+						const dialog = fragments.get(last);
+						const view = dialog?.getView?.();
+						if (view) {
+							this._popOver.setWidth(Screen.mainScreen.widthPixels);
+							this._popOver.setHeight(Screen.mainScreen.heightPixels);
+							this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+						}
+					}
+				} else {
+					this._popOver.setWidth(Screen.mainScreen.widthPixels);
+					this._popOver.setHeight(Screen.mainScreen.heightPixels);
+					this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+				}
+			}
 		}
 	}
 

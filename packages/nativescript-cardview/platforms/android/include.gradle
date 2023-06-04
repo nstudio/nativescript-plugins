@@ -1,0 +1,9 @@
+dependencies {
+    def supportVer = "22.2.0";
+
+    if(project.hasProperty("supportVersion")) {
+    supportVer = supportVersion
+    }
+
+    implementation "com.android.support:cardview-v7:$supportVer"
+}

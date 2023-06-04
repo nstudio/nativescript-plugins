@@ -43,7 +43,6 @@ export const tintColorProperty = new CssProperty<Style, string>({
 
 export class CheckBox extends View {
 	checked: boolean;
-	nativeView: androidx.appcompat.widget.AppCompatCheckBox;
 	private _android: androidx.appcompat.widget.AppCompatCheckBox;
 	private _boxType: string;
 	private _checkStyle: string;

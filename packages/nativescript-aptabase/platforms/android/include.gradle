@@ -1,0 +1,3 @@
+dependencies {
+  implementation 'com.aptabase:aptabase:0.0.6'
+}

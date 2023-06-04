@@ -1,4 +1,4 @@
-import { Application, Utils } from '@nativescript/core';
+import { Application, Utils, ViewBase } from '@nativescript/core';
 import { Video as VideoBase, VideoFill, videoSourceProperty, fillProperty, subtitleSourceProperty, VideoEventData } from './common';
 
 export * from './common';
@@ -9,9 +9,25 @@ export * from './common';
 
 declare const ASBPlayerSubtitling;
 
-const rootVC = function () {
-	const appWindow = UIApplication.sharedApplication.keyWindow;
-	return Utils.ios.getVisibleViewController(appWindow.rootViewController);
+function getWindow() {
+	const app = UIApplication.sharedApplication;
+	if (!app) {
+		return;
+	}
+	return app.keyWindow || (app.windows && app.windows.count > 0 && app.windows.objectAtIndex(0));
+}
+function rootVC() {
+	if (Utils.ios.getRootViewController) {
+		return Utils.ios.getRootViewController();
+	} else {
+		// fallback for older versions of NativeScript
+		const win = getWindow();
+		let vc = win && win.rootViewController;
+		while (vc && vc.presentedViewController) {
+			vc = vc.presentedViewController;
+		}
+		return vc;
+	}
 };
 
 export class Video extends VideoBase {
@@ -31,7 +47,6 @@ export class Video extends VideoBase {
 	private _videoPlaying: boolean;
 	private _videoFinished: boolean;
 	private enableSubtitles: boolean = false;
-	public nativeView: any;
 
 	constructor() {
 		super();
@@ -71,12 +86,24 @@ export class Video extends VideoBase {
 	}
 
 	createNativeView() {
-		const vc = rootVC();
+		return this._playerController.view;
+	}
+
+	onLoaded() {
+		super.onLoaded();
+		// we do this on onLoaded as the viewControllers are not properly setup on createNativeView
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		let vcParent: ViewBase = this;
+		// start iterating over viewControllers
+		// we also iterate over this as if it has a viewController, it's most likely a modal
+		while (vcParent && !vcParent.viewController) {
+			vcParent = vcParent.parent;
+		}
+		const vc = vcParent?.viewController || rootVC();
 		if (vc) {
 			vc.addChildViewController(this._playerController);
 			this._playerController.didMoveToParentViewController(vc);
 		}
-		return this._playerController.view;
 	}
 
 	[videoSourceProperty.setNative](value: AVPlayerItem) {

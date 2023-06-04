@@ -2,7 +2,7 @@
  * (c) 2017, nStudio, LLC & LiveShopper, LLC
  * Licensed under a Commercial license.
  *
- * Version 1.1.0                                       			   team@nStudio.io
+ * Version 1.1.0                                       			   team@nstudio.io
  **********************************************************************************/
 
 import { Application, ImageAsset, ImageSource } from '@nativescript/core';

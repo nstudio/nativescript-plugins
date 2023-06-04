@@ -22,6 +22,9 @@ export class HomeComponent {
 		name: 'nativescript-appcues'
 	},
 	{
+		name: 'nativescript-aptabase'
+	},
+	{
 		name: 'nativescript-barcodescanner'
 	},
 	{
@@ -29,6 +32,9 @@ export class HomeComponent {
 	},
 	{
 		name: 'nativescript-camera-plus'
+	},
+	{
+		name: 'nativescript-cardview'
 	},
 	{
 		name: 'nativescript-carousel'

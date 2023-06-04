@@ -1,72 +1,65 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "library",
-  "sourceRoot": "packages/nativescript-freshchat",
-  "targets": {
-    "build": {
-      "executor": "@nrwl/js:tsc",
-      "options": {
-        "outputPath": "dist/packages/nativescript-freshchat",
-        "tsConfig": "packages/nativescript-freshchat/tsconfig.json",
-        "packageJson": "packages/nativescript-freshchat/package.json",
-        "main": "packages/nativescript-freshchat/index.d.ts",
-        "assets": [
-          "packages/nativescript-freshchat/*.md",
-          "packages/nativescript-freshchat/index.d.ts",
-          "LICENSE",
-          {
-            "glob": "**/*",
-            "input": "packages/nativescript-freshchat/platforms/",
-            "output": "./platforms/"
-          }
-        ],
-        "dependsOn": [
-          {
-            "target": "build.all",
-            "projects": "dependencies"
-          }
-        ]
-      }
-    },
-    "build.all": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": [
-          "node tools/scripts/build-finish.ts nativescript-freshchat"
-        ],
-        "parallel": false
-      },
-      "outputs": [
-        "dist/packages/nativescript-freshchat"
-      ],
-      "dependsOn": [
-        {
-          "target": "build.all",
-          "projects": "dependencies"
-        },
-        {
-          "target": "build",
-          "projects": "self"
-        }
-      ]
-    },
-    "focus": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "commands": [
-          "nx g @nativescript/plugin-tools:focus-packages nativescript-freshchat"
-        ],
-        "parallel": false
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "packages/nativescript-freshchat/**/*.ts"
-        ]
-      }
-    }
-  },
-  "tags": []
+	"name": "nativescript-freshchat",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-freshchat",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-freshchat",
+				"tsConfig": "packages/nativescript-freshchat/tsconfig.json",
+				"packageJson": "packages/nativescript-freshchat/package.json",
+				"main": "packages/nativescript-freshchat/index.d.ts",
+				"assets": [
+					"packages/nativescript-freshchat/*.md",
+					"packages/nativescript-freshchat/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-freshchat/platforms/",
+						"output": "./platforms/"
+					}
+				],
+				"dependsOn": [
+					{
+						"target": "build.all",
+						"projects": "dependencies"
+					}
+				]
+			}
+		},
+		"build.all": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-freshchat"],
+				"parallel": false
+			},
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-freshchat"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-freshchat"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-freshchat/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
 }

@@ -10,9 +10,14 @@ This plugin makes the native libraries [InputMask(Android)](https://github.com/R
 npm install @nstudio/nativescript-input-mask
 ```
 
+If you were using 0.1.x, please note the following breaking changes in 1.0.0 release:
+
+- Removed property `extractedValue`. Property text will keep that value from now on.
+- Added property `maskedValue` for retrieving the value with mask format.
+
 ## Usage
 
-Use by adding a `mask` property to an `InputMask` field. Masks can be changed on the fly, which causes the current extracted value to be re-applied to the new mask. Any characters that do not meet the mask criteria will be dropped.
+Use by adding a `mask` property to an `InputMask` field. Masks can be changed on the fly, which causes the current text value to be re-applied to the new mask. Any characters that do not meet the mask criteria will be dropped.
 
 Documentation for masks is below (from [here](https://github.com/RedMadRobot/input-mask-ios#description)).
 
@@ -81,15 +86,14 @@ import { Component, OnInit } from '@angular/core';
 	selector: 'ns-app',
 	template: `
 		<StackLayout>
-			<InputMask mask="([000]) [000]-[0000]" (extractedValueChange)="onExtractedValueChange($event)" (completedChange)="onCompletedChage($event)"> </InputMask>
+			<InputMask mask="([000]) [000]-[0000]" text="1235551111" (maskedValueChange)="onMaskedValueChange($event)" (completedChange)="onCompletedChage($event)"> </InputMask>
 		</StackLayout>
 	`,
 })
 export class AppComponent {
-	onExtractedValueChange(args) {
-		// `args.value` includes only extracted characters, for instance
-		// `1235551111` would be logged while the UI would display `(123) 555-1111`.
-		console.log('Extracted value:', args.value);
+	onMaskedValueChange(args) {
+		// e.g. `(123) 555-1111`
+		console.log('Masked value:', args.value);
 	}
 
 	onCompletedChange(args) {
@@ -108,7 +112,7 @@ The `InputMask` class extends `TextField` and implements the following additiona
 | Property       | Default | Description                                                  |
 | -------------- | ------- | ------------------------------------------------------------ |
 | mask           | ""      | The mask property to apply to text entered into the field.   |
-| extractedValue | ""      | The value extracted from the field.                          |
+| maskedValue    | ""      | A formatted value of original input using mask.              |
 | completed      | false   | Indicates whether all mandatory characters have been filled. |
 
 ## License

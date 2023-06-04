@@ -1,11 +1,11 @@
 /**********************************************************************************
  * (c) 2017, nStudio, LLC & LiveShopper, LLC
  *
- * Version 1.1.0                                                    team@nStudio.io
+ * Version 1.1.0                                                    team@nstudio.io
  **********************************************************************************/
 
-import * as permissions from 'nativescript-permissions';
 import { AndroidActivityResultEventData, AndroidApplication, Application, Device, ImageAsset, Utils, View } from '@nativescript/core';
+import * as permissions from '@nativescript-community/perms';
 import { CameraPlusBase, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, ICameraPlusEvents, IChooseOptions, IVideoOptions, WhiteBalance } from './common';
 import * as CamHelpers from './helpers';
 import { SelectedAsset } from './selected-asset';
@@ -144,6 +144,26 @@ export class CameraPlus extends CameraPlusBase {
 	set zoom(value: number) {
 		if (this._camera) {
 			this._camera.setZoom(value);
+		}
+	}
+
+	// @ts-ignore
+	public get pinchToZoom() {
+		return this._camera?.getEnablePinchZoom() ?? false;
+	}
+	public set pinchToZoom(value: boolean) {
+		if (this._camera) {
+			this._camera.setEnablePinchZoom(value);
+		}
+	}
+
+	// @ts-ignore
+	public get tapToFocus() {
+		return this._camera?.getEnableTapToFocus() ?? false;
+	}
+	public set tapToFocus(value: boolean) {
+		if (this._camera) {
+			this._camera.setEnableTapToFocus(value);
 		}
 	}
 
@@ -620,7 +640,7 @@ export class CameraPlus extends CameraPlusBase {
 
 				// Ensure storage permissions
 				if (!this.hasStoragePermissions()) {
-					permissions.requestPermissions([READ_EXTERNAL_STORAGE(), WRITE_EXTERNAL_STORAGE()]).then(() => {
+					permissions.request('storage').then(() => {
 						if (!this.hasStoragePermissions()) {
 							const error = new Error('request for storage permissions denied');
 							this.sendEvent(CameraPlus.errorEvent, error, 'Error choosing an image from the device library.');
@@ -687,7 +707,7 @@ export class CameraPlus extends CameraPlusBase {
 	public requestCameraPermissions(explanation: string = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			permissions
-				.requestPermission(CAMERA(), explanation)
+				.request('camera')
 				.then(() => {
 					resolve(true);
 				})
@@ -701,8 +721,12 @@ export class CameraPlus extends CameraPlusBase {
 	/**
 	 * Returns true if the CAMERA permission has been granted.
 	 */
-	public hasCameraPermission(): boolean {
-		return permissions.hasPermission(CAMERA());
+	public hasCameraPermission(): Promise<boolean> {
+		return new Promise((resolve) => {
+			permissions.check('camera').then((res) => {
+				resolve(res[1]);
+			});
+		});
 	}
 
 	/**
@@ -712,7 +736,7 @@ export class CameraPlus extends CameraPlusBase {
 	public requestAudioPermissions(explanation: string = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			permissions
-				.requestPermission(RECORD_AUDIO(), explanation)
+				.request('audio')
 				.then(() => {
 					resolve(true);
 				})
@@ -726,8 +750,12 @@ export class CameraPlus extends CameraPlusBase {
 	/**
 	 * Returns true if the RECORD_AUDIO permission has been granted.
 	 */
-	public hasAudioPermission(): boolean {
-		return permissions.hasPermission(RECORD_AUDIO());
+	public hasAudioPermission(): Promise<boolean> {
+		return new Promise((resolve) => {
+			permissions.check('audio').then((res) => {
+				resolve(res[1]);
+			});
+		});
 	}
 
 	/**
@@ -736,14 +764,17 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public requestStoragePermissions(explanation: string = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
+			const perms = {
+				storage: { write: true, read: true },
+			};
 			permissions
-				.requestPermissions([WRITE_EXTERNAL_STORAGE(), READ_EXTERNAL_STORAGE()], explanation)
+				.request(perms)
 				.then(() => {
 					resolve(true);
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Storage permissions.');
-					reject(false);
+					resolve(false);
 				});
 		});
 	}
@@ -751,10 +782,9 @@ export class CameraPlus extends CameraPlusBase {
 	/**
 	 * Returns true if the WRITE_EXTERNAL_STORAGE && READ_EXTERNAL_STORAGE permissions have been granted.
 	 */
-	public hasStoragePermissions(): boolean {
-		const writePerm = permissions.hasPermission(WRITE_EXTERNAL_STORAGE());
-		const readPerm = permissions.hasPermission(READ_EXTERNAL_STORAGE());
-		if (writePerm === true && readPerm === true) {
+	public async hasStoragePermissions(): Promise<boolean> {
+		const perms = await permissions.check('storage', { write: true, read: true });
+		if (perms[0]) {
 			return true;
 		} else {
 			return false;
@@ -763,26 +793,39 @@ export class CameraPlus extends CameraPlusBase {
 
 	public requestVideoRecordingPermissions(explanation: string = ''): Promise<boolean> {
 		return new Promise(async (resolve, reject) => {
+			const rejectError = (err) => {
+				this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Video permissions.');
+				resolve(false);
+			};
+			const perms = {
+				storage: { write: true, read: true },
+				audio: {},
+				video: {},
+			};
 			permissions
-				.requestPermissions([WRITE_EXTERNAL_STORAGE(), RECORD_AUDIO()], explanation)
+				.request(perms)
 				.then(() => {
 					resolve(true);
 				})
 				.catch((err) => {
-					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Video permissions.');
-					reject(false);
+					rejectError(err);
 				});
 		});
 	}
 
-	public hasVideoRecordingPermissions() {
-		const writePerm = permissions.hasPermission(WRITE_EXTERNAL_STORAGE());
-		const audio = permissions.hasPermission(RECORD_AUDIO());
-		if (writePerm === true && audio === true) {
-			return true;
-		} else {
-			return false;
-		}
+	public hasVideoRecordingPermissions(): Promise<boolean> {
+		return new Promise(async (resolve, reject) => {
+			const perms = {
+				storage: { write: true, read: true },
+				audio: {},
+			};
+			const permResults = await permissions.request(perms);
+			if (permResults[0]) {
+				resolve(true);
+			} else {
+				resolve(false);
+			}
+		});
 	}
 
 	/**

@@ -2,12 +2,12 @@ import { booleanConverter, Property, TextField } from '@nativescript/core';
 import { InputMask as InputMaskDefinition } from '.';
 
 export abstract class InputMaskBase extends TextField implements InputMaskDefinition {
-	private _extractedValue: string;
+	private _maskedValue: string;
 	private _completed: boolean;
 	mask: string;
 
-	get extractedValue() {
-		return this._extractedValue;
+	get maskedValue() {
+		return this._maskedValue;
 	}
 
 	get completed() {
@@ -22,11 +22,11 @@ export const completedProperty = new Property<InputMaskBase, boolean>({
 });
 completedProperty.register(InputMaskBase);
 
-export const extractedValueProperty = new Property<InputMaskBase, string>({
-	name: 'extractedValue',
+export const maskedValueProperty = new Property<InputMaskBase, string>({
+	name: 'maskedValue',
 	defaultValue: '',
 });
-extractedValueProperty.register(InputMaskBase);
+maskedValueProperty.register(InputMaskBase);
 
 export const maskProperty = new Property<InputMaskBase, string>({
 	name: 'mask',

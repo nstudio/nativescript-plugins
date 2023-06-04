@@ -1,7 +1,7 @@
 /**********************************************************************************
  * (c) 2017, nStudio, LLC & LiveShopper, LLC
  *
- * Version 1.1.0                                                    team@nStudio.io
+ * Version 1.1.0                                                    team@nstudio.io
  **********************************************************************************/
 
 import { Color, Device, File, ImageAsset, knownFolders, path, Utils, View } from '@nativescript/core';
@@ -791,6 +791,26 @@ export class CameraPlus extends CameraPlusBase {
 		}
 
 		this._cropByPreview = value;
+	}
+
+	// @ts-ignore
+	public get pinchToZoom() {
+		return (this._swifty as SwiftyCamViewController)?.pinchToZoom ?? false;
+	}
+	public set pinchToZoom(value: boolean) {
+		if (this._swifty) {
+			(this._swifty as SwiftyCamViewController).pinchToZoom = value;
+		}
+	}
+
+	// @ts-ignore
+	public get tapToFocus() {
+		return (this._swifty as SwiftyCamViewController)?.tapToFocus ?? false;
+	}
+	public set tapToFocus(value: boolean) {
+		if (this._swifty) {
+			(this._swifty as SwiftyCamViewController).tapToFocus = value;
+		}
 	}
 
 	_updatePhotoQuality() {
