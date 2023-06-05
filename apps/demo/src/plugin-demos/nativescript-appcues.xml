@@ -1,0 +1,17 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="nativescript-appcues" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+        <ScrollView class="h-full">
+          <StackLayout>
+            <Button text="Init nativescript-appcues" tap="{{ init }}" class="btn btn-primary"/>
+
+            <Button text="Identify" tap="{{ identify }}" class="btn btn-primary"/>
+            <Button text="Track" tap="{{ track }}" class="btn btn-primary"/>
+
+          </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</Page>

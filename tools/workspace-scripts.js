@@ -283,6 +283,13 @@ module.exports = {
 					description: '@nstudio/nativescript-freshchat: Build',
 				},
 			},
+			// @nstudio/nativescript-appcues
+			'nativescript-appcues': {
+				build: {
+					script: 'nx run nativescript-appcues:build.all',
+					description: '@nstudio/nativescript-appcues: Build',
+				}
+			},
 			// @nstudio/nativescript-cardview
 			'nativescript-cardview': {
 				build: {
@@ -406,6 +413,10 @@ module.exports = {
 			'nativescript-freshchat': {
 				script: 'nx run nativescript-freshchat:focus',
 				description: 'Focus on @nstudio/nativescript-freshchat',
+			},
+			'nativescript-appcues': {
+				script: 'nx run nativescript-appcues:focus',
+				description: 'Focus on @nstudio/nativescript-appcues',
 			},
 			'nativescript-cardview': {
 				script: 'nx run nativescript-cardview:focus',

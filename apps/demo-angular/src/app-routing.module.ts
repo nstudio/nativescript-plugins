@@ -10,6 +10,7 @@ const routes: Routes = [
 	{ path: 'nativescript-airship-adm', loadChildren: () => import('./plugin-demos/nativescript-airship-adm.module').then(m => m.NativescriptAirshipAdmModule) },
 	{ path: 'nativescript-airship-fcm', loadChildren: () => import('./plugin-demos/nativescript-airship-fcm.module').then(m => m.NativescriptAirshipFcmModule) },
 	{ path: 'nativescript-airship-hms', loadChildren: () => import('./plugin-demos/nativescript-airship-hms.module').then(m => m.NativescriptAirshipHmsModule) },
+	{ path: 'nativescript-appcues', loadChildren: () => import('./plugin-demos/nativescript-appcues.module').then(m => m.NativescriptAppcuesModule) },
 	{ path: 'nativescript-aptabase', loadChildren: () => import('./plugin-demos/nativescript-aptabase.module').then(m => m.NativescriptAptabaseModule) },
 	{ path: 'nativescript-barcodescanner', loadChildren: () => import('./plugin-demos/nativescript-barcodescanner.module').then(m => m.NativescriptBarcodescannerModule) },
 	{ path: 'nativescript-blur', loadChildren: () => import('./plugin-demos/nativescript-blur.module').then(m => m.NativescriptBlurModule) },
