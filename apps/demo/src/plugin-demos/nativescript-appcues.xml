@@ -8,6 +8,7 @@
           <StackLayout>
             <Button text="Init nativescript-appcues" tap="{{ init }}" class="btn btn-primary"/>
 
+            <Button text="Identify" tap="{{ identify }}" class="btn btn-primary"/>
             <Button text="Track" tap="{{ track }}" class="btn btn-primary"/>
 
           </StackLayout>
