@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-input-mask",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Nativescript plugin to mask (format) text such as phone numbers or credit card numbers.",
   "main": "index",
   "typings": "index.d.ts",
