@@ -12,13 +12,13 @@ export class InputMask extends InputMaskBase {
 
 		this.valueListener = new com.redmadrobot.inputmask.MaskedTextChangedListener.ValueListener({
 			onTextChanged(maskFilled: boolean, extractedValue: string, formattedValue: string): void {
-				const owner = this.owner.deref() as InputMask;
+				const owner = this.owner.get() as InputMask;
 				if (owner) {
 					completedProperty.nativeValueChange(owner, maskFilled);
 					maskedValueProperty.nativeValueChange(owner, formattedValue);
 					textProperty.nativeValueChange(owner, extractedValue);
 				}
-			}
+			},
 		});
 		(this.valueListener as any).owner = owner;
 
@@ -34,7 +34,7 @@ export class InputMask extends InputMaskBase {
 		super.disposeNativeView();
 
 		this.nativeViewProtected.removeTextChangedListener(this.maskedTextChangedListener);
-		
+
 		this.maskedTextChangedListener = null;
 		(this.valueListener as any).owner = null;
 		this.valueListener = null;
