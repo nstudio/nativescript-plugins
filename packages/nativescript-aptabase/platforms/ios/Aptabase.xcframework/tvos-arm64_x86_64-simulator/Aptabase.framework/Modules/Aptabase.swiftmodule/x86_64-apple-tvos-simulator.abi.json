@@ -1,0 +1,1365 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "Aptabase"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "InitOptions",
+        "printedName": "InitOptions",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "host",
+            "printedName": "host",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase11InitOptionsV4hostSSSgvp",
+            "mangledName": "$s8Aptabase11InitOptionsV4hostSSSgvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase11InitOptionsV4hostSSSgvg",
+                "mangledName": "$s8Aptabase11InitOptionsV4hostSSSgvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(host:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "InitOptions",
+                "printedName": "Aptabase.InitOptions",
+                "usr": "s:8Aptabase11InitOptionsV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8Aptabase11InitOptionsV4hostACSSSg_tcfc",
+            "mangledName": "$s8Aptabase11InitOptionsV4hostACSSSg_tcfc",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8Aptabase11InitOptionsV",
+        "mangledName": "$s8Aptabase11InitOptionsV",
+        "moduleName": "Aptabase",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "AptabaseClient",
+        "printedName": "AptabaseClient",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AptabaseClient",
+                "printedName": "Aptabase.AptabaseClient",
+                "usr": "s:8Aptabase0A6ClientC"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase0A6ClientC6sharedACvpZ",
+            "mangledName": "$s8Aptabase0A6ClientC6sharedACvpZ",
+            "moduleName": "Aptabase",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AptabaseClient",
+                    "printedName": "Aptabase.AptabaseClient",
+                    "usr": "s:8Aptabase0A6ClientC"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase0A6ClientC6sharedACvgZ",
+                "mangledName": "$s8Aptabase0A6ClientC6sharedACvgZ",
+                "moduleName": "Aptabase",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "dateFormatter",
+            "printedName": "dateFormatter",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "DateFormatter",
+                "printedName": "Foundation.DateFormatter",
+                "usr": "c:objc(cs)NSDateFormatter"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase0A6ClientC13dateFormatterSo06NSDateD0Cvp",
+            "mangledName": "$s8Aptabase0A6ClientC13dateFormatterSo06NSDateD0Cvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DateFormatter",
+                    "printedName": "Foundation.DateFormatter",
+                    "usr": "c:objc(cs)NSDateFormatter"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase0A6ClientC13dateFormatterSo06NSDateD0Cvg",
+                "mangledName": "$s8Aptabase0A6ClientC13dateFormatterSo06NSDateD0Cvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "initialize",
+            "printedName": "initialize(appKey:with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Aptabase.InitOptions?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "InitOptions",
+                    "printedName": "Aptabase.InitOptions",
+                    "usr": "s:8Aptabase11InitOptionsV"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8Aptabase0A6ClientC10initialize6appKey4withySS_AA11InitOptionsVSgtF",
+            "mangledName": "$s8Aptabase0A6ClientC10initialize6appKey4withySS_AA11InitOptionsVSgtF",
+            "moduleName": "Aptabase",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "trackEvent",
+            "printedName": "trackEvent(_:with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8Aptabase0A6ClientC10trackEvent_4withySS_SDySSypGtF",
+            "mangledName": "$s8Aptabase0A6ClientC10trackEvent_4withySS_SDySSypGtF",
+            "moduleName": "Aptabase",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "AptabaseClient",
+                "printedName": "Aptabase.AptabaseClient",
+                "usr": "s:8Aptabase0A6ClientC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8Aptabase0A6ClientCACycfc",
+            "mangledName": "$s8Aptabase0A6ClientCACycfc",
+            "moduleName": "Aptabase",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:8Aptabase0A6ClientC",
+        "mangledName": "$s8Aptabase0A6ClientC",
+        "moduleName": "Aptabase",
+        "isOpen": true,
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "hasMissingDesignatedInitializers": true
+      },
+      {
+        "kind": "Import",
+        "name": "TVUIKit",
+        "printedName": "TVUIKit",
+        "declKind": "Import",
+        "moduleName": "Aptabase"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "EnvironmentInfo",
+        "printedName": "EnvironmentInfo",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "isDebug",
+            "printedName": "isDebug",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV7isDebugSbvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV7isDebugSbvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV7isDebugSbvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV7isDebugSbvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV7isDebugSbvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV7isDebugSbvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV7isDebugSbvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV7isDebugSbvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "osName",
+            "printedName": "osName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV6osNameSSvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV6osNameSSvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6osNameSSvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6osNameSSvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6osNameSSvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6osNameSSvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6osNameSSvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6osNameSSvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "osVersion",
+            "printedName": "osVersion",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV9osVersionSSvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV9osVersionSSvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV9osVersionSSvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV9osVersionSSvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV9osVersionSSvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV9osVersionSSvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV9osVersionSSvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV9osVersionSSvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "locale",
+            "printedName": "locale",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV6localeSSvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV6localeSSvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6localeSSvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6localeSSvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6localeSSvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6localeSSvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV6localeSSvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV6localeSSvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "appVersion",
+            "printedName": "appVersion",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV10appVersionSSvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV10appVersionSSvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV10appVersionSSvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV10appVersionSSvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV10appVersionSSvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV10appVersionSSvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV10appVersionSSvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV10appVersionSSvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "appBuildNumber",
+            "printedName": "appBuildNumber",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:8Aptabase15EnvironmentInfoV14appBuildNumberSSvp",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV14appBuildNumberSSvp",
+            "moduleName": "Aptabase",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV14appBuildNumberSSvg",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV14appBuildNumberSSvg",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV14appBuildNumberSSvs",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV14appBuildNumberSSvs",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:8Aptabase15EnvironmentInfoV14appBuildNumberSSvM",
+                "mangledName": "$s8Aptabase15EnvironmentInfoV14appBuildNumberSSvM",
+                "moduleName": "Aptabase",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "get",
+            "printedName": "get()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "EnvironmentInfo",
+                "printedName": "Aptabase.EnvironmentInfo",
+                "usr": "s:8Aptabase15EnvironmentInfoV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:8Aptabase15EnvironmentInfoV3getACyFZ",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV3getACyFZ",
+            "moduleName": "Aptabase",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(isDebug:osName:osVersion:locale:appVersion:appBuildNumber:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "EnvironmentInfo",
+                "printedName": "Aptabase.EnvironmentInfo",
+                "usr": "s:8Aptabase15EnvironmentInfoV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "hasDefaultArg": true,
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8Aptabase15EnvironmentInfoV7isDebug6osName0F7Version6locale03appH00J11BuildNumberACSb_S5Stcfc",
+            "mangledName": "$s8Aptabase15EnvironmentInfoV7isDebug6osName0F7Version6locale03appH00J11BuildNumberACSb_S5Stcfc",
+            "moduleName": "Aptabase",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "EnvironmentInfo",
+                "printedName": "Aptabase.EnvironmentInfo",
+                "usr": "s:8Aptabase15EnvironmentInfoV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:8Aptabase15EnvironmentInfoVACycfc",
+            "mangledName": "$s8Aptabase15EnvironmentInfoVACycfc",
+            "moduleName": "Aptabase",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:8Aptabase15EnvironmentInfoV",
+        "mangledName": "$s8Aptabase15EnvironmentInfoV",
+        "moduleName": "Aptabase",
+        "declAttributes": [
+          "AccessControl"
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 253,
+      "length": 22,
+      "value": "\"aptabase-swift@0.1.0\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 379,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 383,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 388,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "Dictionary",
+      "offset": 640,
+      "length": 146,
+      "value": "[(\"US\", \"https:\/\/us.aptabase.com\"), (\"EU\", \"https:\/\/eu.aptabase.com\"), (\"DEV\", \"http:\/\/localhost:3000\"), (\"SH\", \"\")]"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 900,
+      "length": 26,
+      "value": "\"yyyy-MM-dd'T'HH:mm:ss'Z'\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 973,
+      "length": 7,
+      "value": "\"en_US\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1032,
+      "length": 5,
+      "value": "\"UTC\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1256,
+      "length": 3,
+      "value": "\"-\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1287,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1304,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1340,
+      "length": 71,
+      "value": "\"The Aptabase App Key \""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1371,
+      "length": 2,
+      "value": "\" is invalid. Tracking will be disabled.\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1484,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1734,
+      "length": 4,
+      "value": "\"SH\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 1802,
+      "length": 91,
+      "value": "\"Host parameter must be defined when using Self-Hosted App Key. Tracking will be disabled.\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2009,
+      "length": 25,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2020,
+      "length": 1,
+      "value": "\"\/api\/v0\/event\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "Dictionary",
+      "offset": 2164,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2200,
+      "length": 23,
+      "value": "\"com.aptabase.aptabase\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2594,
+      "length": 11,
+      "value": "\"timestamp\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2659,
+      "length": 11,
+      "value": "\"sessionId\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2723,
+      "length": 11,
+      "value": "\"eventName\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2763,
+      "length": 13,
+      "value": "\"systemProps\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2800,
+      "length": 9,
+      "value": "\"isDebug\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2844,
+      "length": 8,
+      "value": "\"osName\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2886,
+      "length": 11,
+      "value": "\"osVersion\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2934,
+      "length": 8,
+      "value": "\"locale\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 2976,
+      "length": 12,
+      "value": "\"appVersion\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3026,
+      "length": 16,
+      "value": "\"appBuildNumber\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3084,
+      "length": 12,
+      "value": "\"sdkVersion\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3177,
+      "length": 7,
+      "value": "\"props\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3422,
+      "length": 6,
+      "value": "\"POST\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3486,
+      "length": 9,
+      "value": "\"App-Key\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3526,
+      "length": 18,
+      "value": "\"application\/json\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3566,
+      "length": 14,
+      "value": "\"Content-Type\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 3801,
+      "length": 15,
+      "value": "\"unknown error\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4053,
+      "length": 3,
+      "value": "300"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 4090,
+      "length": 68,
+      "value": "\"trackEvent failed with status code \""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 4148,
+      "length": 1,
+      "value": "\": \""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/AptabaseClient.swift",
+      "kind": "StringLiteral",
+      "offset": 4157,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "BooleanLiteral",
+      "offset": 183,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 206,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 229,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 249,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 273,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 301,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 412,
+      "length": 28,
+      "value": "\"CFBundleShortVersionString\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 510,
+      "length": 17,
+      "value": "\"CFBundleVersion\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 724,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 766,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 816,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "BooleanLiteral",
+      "offset": 932,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/goenning\/Documents\/workspace\/aptabase\/aptabase-swift\/Sources\/Aptabase\/EnvironmentInfo.swift",
+      "kind": "StringLiteral",
+      "offset": 1253,
+      "length": 6,
+      "value": "\"tvOS\""
+    }
+  ]
+}

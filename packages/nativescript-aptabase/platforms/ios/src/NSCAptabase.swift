@@ -15,14 +15,14 @@ import Aptabase
         if let opts = opts {
             initOptions = InitOptions(host: opts.host)
         }
-        Aptabase.shared.initialize(appKey: appKey, with: initOptions)
+        AptabaseClient.shared.initialize(appKey: appKey, with: initOptions)
     }
 
     @objc static public func track(name: String, properties: [String : Any]?) {
         if (properties != nil) {
-            Aptabase.shared.trackEvent(name, with: properties!)
+            AptabaseClient.shared.trackEvent(name, with: properties!)
         } else {
-            Aptabase.shared.trackEvent(name)
+            AptabaseClient.shared.trackEvent(name)
         }
     }
 }

@@ -1,0 +1,21 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-watchos6.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Aptabase
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import WatchKit
+import _Concurrency
+import _StringProcessing
+public struct InitOptions {
+  public init(host: Swift.String? = nil)
+}
+@_hasMissingDesignatedInitializers public class AptabaseClient {
+  public static let shared: Aptabase.AptabaseClient
+  public func initialize(appKey: Swift.String, with options: Aptabase.InitOptions? = nil)
+  public func trackEvent(_ eventName: Swift.String, with props: [Swift.String : Any] = [:])
+  @objc deinit
+}
+public struct EnvironmentInfo {
+  public static func get() -> Aptabase.EnvironmentInfo
+}
