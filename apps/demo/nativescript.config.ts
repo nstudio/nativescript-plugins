@@ -17,7 +17,7 @@ export default {
 				name: 'Aptabase',
 				libs: ['Aptabase'],
 				repositoryURL: 'https://github.com/aptabase/aptabase-swift.git',
-				version: '0.0.4'
+				version: '0.1.0'
 			}
 		]
 	}

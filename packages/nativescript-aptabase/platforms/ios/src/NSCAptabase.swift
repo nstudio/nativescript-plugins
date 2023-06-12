@@ -20,7 +20,11 @@ import Aptabase
 
     @objc static public func track(name: String, properties: [String : Any]?) {
         if (properties != nil) {
-            Aptabase.shared.trackEvent(name, with: properties!)
+            var props: [String : any Value] = [:]
+            properties?.keys.forEach { key in
+                props[key] = properties?[key] as? any Value
+            }
+            Aptabase.shared.trackEvent(name, with: props)
         } else {
             Aptabase.shared.trackEvent(name)
         }
