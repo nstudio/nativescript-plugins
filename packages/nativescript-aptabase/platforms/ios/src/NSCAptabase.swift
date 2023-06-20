@@ -18,12 +18,25 @@ import Aptabase
         Aptabase.shared.initialize(appKey: appKey, with: initOptions)
     }
 
-    @objc static public func track(name: String, properties: [String : Any]?) {
+    @objc static public func track(name: String, properties: [String: Any]?) {
+//        print("properties: \(String(describing: properties))")
         if (properties != nil) {
-            var props: [String : any Value] = [:]
+            var props: [String : Value] = [:]
             properties?.keys.forEach { key in
-                props[key] = properties?[key] as? any Value
+//                print("key: \(key)")
+                if let str = properties?[key] as? String {
+                    props[key] = str
+                } else if let numInt = properties?[key] as? Int {
+                    props[key] = numInt
+                } else if let numDouble = properties?[key] as? Double {
+                    props[key] = numDouble
+                } else if let numFloat = properties?[key] as? Float {
+                    props[key] = numFloat
+                } else if let valBool = properties?[key] as? Bool {
+                    props[key] = valBool
+                }
             }
+//            print("props: \(String(describing: props))")
             Aptabase.shared.trackEvent(name, with: props)
         } else {
             Aptabase.shared.trackEvent(name)

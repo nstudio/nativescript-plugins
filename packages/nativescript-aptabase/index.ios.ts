@@ -1,7 +1,7 @@
 import { InitOptions } from '.';
 import { AptabaseCommon } from './common';
 
-function initOptionsFromOptions(options: InitOptions) {
+function initOptions(options: InitOptions) {
 	if (options?.host) {
     return NSCInitOptions.alloc().initWithHost(options.host);
 	}
@@ -11,7 +11,7 @@ function initOptionsFromOptions(options: InitOptions) {
 
 export class Aptabase extends AptabaseCommon {
 	static initialize(appKey: string, opts?: InitOptions) {
-		const options = initOptionsFromOptions(opts);
+		const options = initOptions(opts);
 		NSCAptabase.initializeWithAppKeyOpts(appKey, options);
 	}
 

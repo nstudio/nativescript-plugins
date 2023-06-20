@@ -13,7 +13,9 @@ export class DemoSharedNativescriptAptabase extends DemoSharedBase {
 
   trackEventWithData() {
     Aptabase.track('Hello Aptabase', { 
-      from: 'NativeScript'
+      from: 'NativeScript',
+      trackPlayed: 1,
+      count: 5
     })
   }
 }
