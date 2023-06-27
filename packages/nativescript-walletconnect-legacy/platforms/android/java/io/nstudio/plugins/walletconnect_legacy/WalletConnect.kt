@@ -15,6 +15,7 @@ import org.komputing.khex.extensions.toNoPrefixHexString
 import org.walletconnect.impls.MoshiPayloadAdapter
 import org.walletconnect.impls.OkHttpTransport
 import org.walletconnect.impls.WCSession
+import java.math.BigInteger
 
 class WalletConnect constructor(context: Context) {
   private var client: OkHttpClient = OkHttpClient.Builder()
@@ -27,6 +28,10 @@ class WalletConnect constructor(context: Context) {
   private lateinit var meta: Meta
 
   var listener: Callback? = null
+
+  val clientId: String = UUID.randomUUID().toString()
+
+  val handshakeId: Long  = - 1
 
   data class Meta(
     val url: String? = null,
@@ -59,6 +64,12 @@ class WalletConnect constructor(context: Context) {
 
   interface Callback {
     fun onStatus(event: String, data: Any?)
+
+    fun onMethod(event: String, data: String)
+  }
+
+  interface RequestCallback {
+    fun onResponse(id: Long, error: Session.Error?, result: Any?)
   }
 
   private fun initSession() {
@@ -71,30 +82,31 @@ class WalletConnect constructor(context: Context) {
     )
     session.addCallback(object : Session.Callback {
       override fun onMethodCall(call: Session.MethodCall) {
-        val response = JSONObject()
+        val response = Gson()
         when (call) {
           is Session.MethodCall.SessionRequest -> {
-            response.put("event", "session_request")
+            chainId = call.id
+            listener?.onMethod("session_request", response.toJson(call))
           }
 
           is Session.MethodCall.SessionUpdate -> {
-            response.put("event", "session_update")
+            listener?.onMethod("session_update", response.toJson(call))
           }
 
           is Session.MethodCall.SendTransaction -> {
-            response.put("event", "send_transaction")
+            listener?.onMethod("send_transaction", response.toJson(call))
           }
 
           is Session.MethodCall.SignMessage -> {
-            response.put("event", "session_request")
+            listener?.onMethod("sign_message", response.toJson(call))
           }
 
           is Session.MethodCall.Custom -> {
-            response.put("event", "session_request")
+            listener?.onMethod("custom", response.toJson(call))
           }
 
           is Session.MethodCall.Response -> {
-            response.put("event", "session_request")
+            listener?.onMethod("response", response.toJson(call))
           }
         }
       }
@@ -102,10 +114,12 @@ class WalletConnect constructor(context: Context) {
       override fun onStatus(status: Session.Status) {
         when (status) {
           Session.Status.Connected -> {
+            connected = true
             listener?.onStatus("connected", null)
           }
 
           Session.Status.Disconnected -> {
+            connected = false
             listener?.onStatus("disconnected", null)
           }
 
@@ -123,7 +137,40 @@ class WalletConnect constructor(context: Context) {
         }
       }
     })
+    this.session = session
   }
+
+  val uri: String
+    get() {
+      return config.toWCUri()
+    }
+
+
+  val bridge: String
+    get() {
+      return config.bridge ?: ""
+    }
+
+  val handshakeTopic: String
+    get() {
+      return config.handshakeTopic
+    }
+
+  var connected: Boolean = false
+    private set
+
+  var chainId: Long = 0
+    private set
+
+  val key: String
+    get() {
+      return config.key ?: ""
+    }
+
+  val approvedAccounts: List<String>
+    get() {
+      return session.approvedAccounts() ?: listOf()
+    }
 
   fun init() {
     session.init()
@@ -155,5 +202,70 @@ class WalletConnect constructor(context: Context) {
 
   fun updateSession(accounts: List<String>, chainId: Long) {
     session.update(accounts, chainId)
+  }
+
+  fun sendTransaction(id: Long,
+                   from: String,
+                   to: String?,
+                   nonce: String?,
+                   gasPrice: String?,
+                   gas: String?,
+                   value: String,
+                   data: String,
+                      callback: RequestCallback){
+    session.performMethodCall(Session.MethodCall.SendTransaction(
+      id, from, to, nonce, gasPrice, gas, value, data
+    )){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+
+  fun signTransaction(id: Long,
+                      from: String,
+                      to: String?,
+                      nonce: String?,
+                      gasPrice: String?,
+                      gas: String?,
+                      value: String,
+                      data: String, callback: RequestCallback){
+
+    session.performMethodCall(Session.MethodCall.Custom(
+      id, "eth_signTransaction", listOf(from, to, nonce, gasPrice, gas, value, data)
+    )){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+  fun signMessage(id: Long, address: String, message: String, callback: RequestCallback){
+    session.performMethodCall(Session.MethodCall.SignMessage(id, address, message)){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+  fun signPersonalMessage(id: Long, address: String, message: String, callback: RequestCallback){
+    session.performMethodCall(Session.MethodCall.Custom(id, "personal_sign", listOf(message, address))){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+  fun signTypedData(params: List<String>, callback: RequestCallback){
+    session.performMethodCall(Session.MethodCall.Custom(payloadId(), "eth_signTypedData", params)){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+  fun customRequest(id: Long, method: String, params: List<*>?, callback: RequestCallback){
+    session.performMethodCall(Session.MethodCall.Custom(id, method, params)){ response ->
+      callback.onResponse(response.id, response.error, response.result)
+    }
+  }
+
+  companion object {
+    fun payloadId(entropy: Int = 3): Long {
+      val date = System.currentTimeMillis().toDouble() * Math.pow(10.0, entropy.toDouble())
+      val extra = Math.floor(Math.random() * Math.pow(10.0, entropy.toDouble()))
+      return (date + extra).toLong()
+    }
   }
 }

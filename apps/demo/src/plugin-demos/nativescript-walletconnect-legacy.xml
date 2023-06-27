@@ -6,7 +6,13 @@
     <StackLayout class="p-20">
         <ScrollView class="h-full">
           <StackLayout>
-            <Button text="Test nativescript-walletconnect-legacy" tap="{{ testIt }}" class="btn btn-primary"/>
+            <TextView text="{{ uri }}"/>
+            
+            <Button text="Connect" tap="{{ connect }}" class="btn btn-primary"/>
+
+            <Button text="KillSession" tap="{{ killSession }}" class="btn btn-primary"/>
+
+            <Button text="Disconnect" tap="{{ disconnect }}" class="btn btn-primary"/>
 
           </StackLayout>
         </ScrollView>
