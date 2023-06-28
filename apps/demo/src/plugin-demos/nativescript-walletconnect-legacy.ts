@@ -16,9 +16,10 @@ export class DemoModel extends DemoSharedNativescriptWalletconnectLegacy {
 			this.wc = null;
 			return;
 		}
-		const uri = decodeURIComponent(this.uri);
+		//const uri = decodeURIComponent(this.uri);
+
 		this.wc = new WalletConnect({
-			uri,
+			uri: this.uri,
 			clientMeta: {
 				description: 'WalletConnect Developer App',
 				url: 'https://walletconnect.org',
@@ -34,7 +35,7 @@ export class DemoModel extends DemoSharedNativescriptWalletconnectLegacy {
 			});
 		});
 
-		this.wc.on('connect', (error, payload) =>{});
+		this.wc.on('connect', (error, payload) => {});
 
 		this.wc
 			.createSession()

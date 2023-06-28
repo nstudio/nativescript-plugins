@@ -16,11 +16,14 @@ import org.walletconnect.impls.MoshiPayloadAdapter
 import org.walletconnect.impls.OkHttpTransport
 import org.walletconnect.impls.WCSession
 import java.math.BigInteger
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 class WalletConnect constructor(context: Context) {
   private var client: OkHttpClient = OkHttpClient.Builder()
     .build()
-  private var moshi: Moshi = Moshi.Builder().build()
+  private var moshi: Moshi = Moshi.Builder()
+    .add(KotlinJsonAdapterFactory())
+    .build()
   private var storage: WCSessionStore
   private lateinit var config: Session.Config
   private lateinit var session: Session
