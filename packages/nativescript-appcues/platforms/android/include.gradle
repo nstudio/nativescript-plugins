@@ -1,3 +1,6 @@
 dependencies {
-    implementation "com.appcues:appcues:1.1.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    
+    implementation "com.appcues:appcues:2.1.3"
 }
