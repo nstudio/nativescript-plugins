@@ -336,8 +336,8 @@ export class LoadingIndicator {
 				const hasFocus = view.hasWindowFocus();
 				if (!hasFocus) {
 					/* Gets the currently opened dialog fragment or top fragment */
-					const activity = Application.android.foregroundActivity || Application.android.startActivity;
-					const fragments = activity?.getSupportFragmentManager().getFragments();
+          const activity =  Application.android.startActivity || Application.android.foregroundActivity;
+          const fragments = activity instanceof androidx.fragment.app.FragmentActivity ? activity?.getSupportFragmentManager()?.getFragments() : Utils.android.getCurrentActivity()?.getFragmentManager()?.getFragments();
 					const count = fragments?.size();
 					const last = count - 1;
 					if (last !== -1) {
