@@ -1,6 +1,17 @@
 @import 'nativescript-theme-core/scss/light';
 @import 'nativescript-theme-core/scss/index';
 
+.btn {
+	border-radius: 20;
+	width: 100%;
+
+	&.btn-primary {
+		color: #464646;
+		background-color: transparent;
+		border-width: 1;
+		border-color: #e0e0e0;
+	}
+}
 .flp-container .flp-list-container {
 	border-radius: 10;
 	background-color: white;
