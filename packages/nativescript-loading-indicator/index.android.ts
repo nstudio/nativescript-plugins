@@ -342,12 +342,14 @@ export class LoadingIndicator {
 					const last = count - 1;
 					if (last !== -1) {
 						const dialog = fragments.get(last);
-						const view = dialog?.getView?.();
-						if (view) {
-							this._popOver.setWidth(Screen.mainScreen.widthPixels);
-							this._popOver.setHeight(Screen.mainScreen.heightPixels);
-							this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
-						}
+            const view = dialog?.getView?.() || Frame.topmost().android?.rootViewGroup || Frame.topmost().currentPage?.android;
+            if (view) {
+                setTimeout(() => {
+                    this._popOver.setWidth(Screen.mainScreen.widthPixels);
+                    this._popOver.setHeight(Screen.mainScreen.heightPixels);
+                    this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+                });
+            }
 					}
 				} else {
 					this._popOver.setWidth(Screen.mainScreen.widthPixels);
