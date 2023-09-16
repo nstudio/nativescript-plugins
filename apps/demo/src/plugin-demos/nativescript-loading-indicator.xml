@@ -4,33 +4,33 @@
         </ActionBar>
     </Page.actionBar>
     <GridLayout rows="*">
-    <ScrollView row="0" padding="10">
-      <StackLayout horizontalAlignment="center">
+    <ScrollView row="0">
+      <StackLayout horizontalAlignment="center" class="p-20">
         <Label text="Made with ❤️ by nStudio" class="h2 text-center m-t-10" textWrap="true" />
 
-        <Button text="Message" tap="{{ showLoader }}" class="btn-tide" />
-        <Button text="Message - No Bezel" tap="{{ showLoaderNoBezel }}" class="btn-burning" />
+        <Button text="Message" tap="{{ showLoader }}" class="btn btn-primary" />
+        <Button text="Message - No Bezel" tap="{{ showLoaderNoBezel }}" class="btn btn-primary" />
 
         <!-- uncomment test iOS target view, see main-view-model for more -->
         <!--<StackLayout width="300" height="300" id="stackView" backgroundColor="yellow">
         </StackLayout>-->
 
-        <Button text="Message w/details" tap="{{ showLoaderMsgAndDetails }}" class="btn-tide" />
+        <Button text="Message w/details" tap="{{ showLoaderMsgAndDetails }}" class="btn btn-primary" />
         <ios>
-          <Button text="Square (iOS)" tap="{{ showLoaderSquare }}" class="btn-burning" />
+          <Button text="Square (iOS)" tap="{{ showLoaderSquare }}" class="btn btn-primary" />
         </ios>
-        <Button text="Margin" tap="{{ showLoaderMargin }}" class="btn-tide" />
-        <Button text="Dim background" tap="{{ showLoaderDimBg }}" class="btn-burning" />
-        <Button text="Color" tap="{{ showLoaderColor }}" class="btn-tide" />
+        <Button text="Margin" tap="{{ showLoaderMargin }}" class="btn btn-primary" />
+        <Button text="Dim background" tap="{{ showLoaderDimBg }}" class="btn btn-primary" />
+        <Button text="Color" tap="{{ showLoaderColor }}" class="btn btn-primary" />
         <android>
-          <Button text="Cancel Loader (Android)" tap="{{ showLoaderCancel }}" class="btn-burning" />
+          <Button text="Cancel Loader (Android)" tap="{{ showLoaderCancel }}" class="btn btn-primary" />
         </android>
-        <Button text="Indeterminate" tap="{{ showLoaderIndeterminate }}" class="btn-tide" />
-        <Button text="Determinate" tap="{{ showLoaderDeterminate }}" class="btn-tide" />
-        <Button text="Annular determinate" tap="{{ showLoaderAnnularDeterminate }}" class="btn-burning" />
-        <Button text="Determinate horizontal bar" tap="{{ showLoaderDeterminateHorizontalBar }}" class="btn-tide" />
-        <Button text="Mode text" tap="{{ showLoaderModeText }}" class="btn-burning" />
-        <Button text="Mode custom" tap="{{ showLoaderModeCustom }}" class="btn-tide" />
+        <Button text="Indeterminate" tap="{{ showLoaderIndeterminate }}" class="btn btn-primary" />
+        <Button text="Determinate" tap="{{ showLoaderDeterminate }}" class="btn btn-primary" />
+        <Button text="Annular determinate" tap="{{ showLoaderAnnularDeterminate }}" class="btn btn-primary" />
+        <Button text="Determinate horizontal bar" tap="{{ showLoaderDeterminateHorizontalBar }}" class="btn btn-primary" />
+        <Button text="Mode text" tap="{{ showLoaderModeText }}" class="btn btn-primary" />
+        <Button text="Mode custom" tap="{{ showLoaderModeCustom }}" class="btn btn-primary" />
       </StackLayout>
     </ScrollView>
   </GridLayout>

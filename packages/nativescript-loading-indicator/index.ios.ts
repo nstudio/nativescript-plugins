@@ -1,4 +1,4 @@
-import { Color, Utils } from '@nativescript/core';
+import { Color, Utils, Frame } from '@nativescript/core';
 import { Mode, OptionsCommon } from './common';
 
 export * from './common';
