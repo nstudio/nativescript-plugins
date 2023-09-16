@@ -101,11 +101,54 @@ export class LoadingIndicator {
 	}
 
 	private _getRootWindow() {
-    const rootVc = Utils.ios.getRootViewController();
-    if (rootVc?.view) {
-      return rootVc.view;
-    } else {
-      return null;
+        const rootVc = this._rootViewController || Utils.ios.getRootViewController() || this.findTopViewController(Frame.topmost().currentPage.ios);
+        if (rootVc?.view) {
+            return rootVc.view;
+        }
+        else if(rootVc && !rootVc?.view) {
+            return rootVc;
+        }
+        else {
+            return null;
+        }
     }
-	}
+    get _rootViewController() {
+        const keyWindow = UIApplication.sharedApplication.keyWindow;
+        return keyWindow != null ? keyWindow.rootViewController : undefined;
+    }
+    private findTopViewController(root) {
+        const presented = root.presentedViewController;
+        if (presented !== null) {
+            return this.findTopViewController(presented);
+        }
+        if (root instanceof UISplitViewController) {
+            const last = root.viewControllers.lastObject;
+            if (last == null) {
+                return root;
+            }
+            return this.findTopViewController(last);
+        }
+        else if (root instanceof UINavigationController) {
+            const top = root.topViewController;
+            if (top == null) {
+                return root;
+            }
+            return this.findTopViewController(top);
+        }
+        else if (root instanceof UITabBarController) {
+            const selected = root.selectedViewController;
+            if (selected == null) {
+                return root;
+            }
+            return this.findTopViewController(selected);
+        }
+        else {
+            if (presented === root.presentedViewController) {
+                return presented;
+            }
+            else {
+                return root;
+            }
+        }
+    }
 }
