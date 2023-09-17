@@ -29,6 +29,7 @@ export class LoadingIndicator {
 	private _progressDrawable: android.graphics.drawable.Drawable;
 	private _backgroundDrawable: android.graphics.drawable.Drawable;
 	private _progressDrawableThick: android.graphics.drawable.Drawable;
+	private _popupTimeout;
 
 	constructor() {
 		this._defaultProgressColor = new Color('#007DD6');
@@ -41,7 +42,7 @@ export class LoadingIndicator {
 	}
 
 	show(options?: OptionsCommon) {
-		const context = Application.android.foregroundActivity || Application.android.startActivity;
+		const context = Utils.android.getCurrentActivity() as android.app.Activity;
 		if (context) {
 			options = options || {};
 			options.android = options.android || {};
@@ -336,20 +337,21 @@ export class LoadingIndicator {
 				const hasFocus = view.hasWindowFocus();
 				if (!hasFocus) {
 					/* Gets the currently opened dialog fragment or top fragment */
-          const activity =  Application.android.startActivity || Application.android.foregroundActivity;
-          const fragments = activity instanceof androidx.fragment.app.FragmentActivity ? activity?.getSupportFragmentManager()?.getFragments() : Utils.android.getCurrentActivity()?.getFragmentManager()?.getFragments();
+					const activity = Utils.android.getCurrentActivity() as android.app.Activity;
+					const fragments = activity instanceof androidx.fragment.app.FragmentActivity ? activity?.getSupportFragmentManager()?.getFragments() : activity?.getFragmentManager()?.getFragments();
 					const count = fragments?.size();
 					const last = count - 1;
 					if (last !== -1) {
 						const dialog = fragments.get(last);
-            const view = dialog?.getView?.() || Frame.topmost().android?.rootViewGroup || Frame.topmost().currentPage?.android;
-            if (view) {
-                setTimeout(() => {
-                    this._popOver.setWidth(Screen.mainScreen.widthPixels);
-                    this._popOver.setHeight(Screen.mainScreen.heightPixels);
-                    this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
-                });
-            }
+						const view = dialog?.getView?.() || Frame.topmost().android?.rootViewGroup || Frame.topmost().currentPage?.android;
+						if (view) {
+							this._resetTimeout();
+							this._popupTimeout = setTimeout(() => {
+								this._popOver.setWidth(Screen.mainScreen.widthPixels);
+								this._popOver.setHeight(Screen.mainScreen.heightPixels);
+								this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+							});
+						}
 					}
 				} else {
 					this._popOver.setWidth(Screen.mainScreen.widthPixels);
@@ -360,7 +362,14 @@ export class LoadingIndicator {
 		}
 	}
 
-	private _updatePopOver(context, options?: OptionsCommon) {
+	private _resetTimeout() {
+		if (typeof this._popupTimeout === 'number') {
+			clearTimeout(this._popupTimeout);
+			this._popupTimeout = null;
+		}
+	}
+
+	private _updatePopOver(context: android.app.Activity, options?: OptionsCommon) {
 		const contentView = this._popOver.getContentView() as android.widget.LinearLayout;
 		const parentView = contentView.getChildAt(0) as android.widget.LinearLayout;
 		let count = parentView.getChildCount();
@@ -620,7 +629,7 @@ export class LoadingIndicator {
 	}
 
 	private _getResources() {
-		const ctx = Application.android.foregroundActivity as android.app.Activity;
+		const ctx = Utils.android.getCurrentActivity() as android.app.Activity;
 		return ctx.getResources();
 	}
 

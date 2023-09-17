@@ -101,7 +101,7 @@ export class LoadingIndicator {
 	}
 
 	private _getRootWindow() {
-        const rootVc = this._rootViewController || Utils.ios.getRootViewController() || this.findTopViewController(Frame.topmost().currentPage.ios);
+        const rootVc = Utils.ios.getRootViewController() || this.findTopViewController(Frame.topmost()?.currentPage?.ios);
         if (rootVc?.view) {
             return rootVc.view;
         }
