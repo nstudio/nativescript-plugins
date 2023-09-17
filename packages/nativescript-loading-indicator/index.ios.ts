@@ -101,7 +101,7 @@ export class LoadingIndicator {
 	}
 
 	private _getRootWindow() {
-        const rootVc = Utils.ios.getRootViewController() || this.findTopViewController(Frame.topmost()?.currentPage?.ios);
+        const rootVc = this._rootViewController || Utils.ios.getRootViewController() || this.findTopViewController(Frame.topmost().currentPage.ios);
         if (rootVc?.view) {
             return rootVc.view;
         }
@@ -111,6 +111,10 @@ export class LoadingIndicator {
         else {
             return null;
         }
+    }
+    get _rootViewController() {
+        const keyWindow = UIApplication.sharedApplication.keyWindow;
+        return keyWindow != null ? keyWindow.rootViewController : undefined;
     }
     private findTopViewController(root) {
         const presented = root.presentedViewController;

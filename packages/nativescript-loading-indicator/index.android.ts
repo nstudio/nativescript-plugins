@@ -336,18 +336,20 @@ export class LoadingIndicator {
 				const hasFocus = view.hasWindowFocus();
 				if (!hasFocus) {
 					/* Gets the currently opened dialog fragment or top fragment */
-					const activity = Application.android.foregroundActivity || Application.android.startActivity;
-					const fragments = activity?.getSupportFragmentManager().getFragments();
+          const activity =  Application.android.startActivity || Application.android.foregroundActivity;
+          const fragments = activity instanceof androidx.fragment.app.FragmentActivity ? activity?.getSupportFragmentManager()?.getFragments() : Utils.android.getCurrentActivity()?.getFragmentManager()?.getFragments();
 					const count = fragments?.size();
 					const last = count - 1;
 					if (last !== -1) {
 						const dialog = fragments.get(last);
-						const view = dialog?.getView?.();
-						if (view) {
-							this._popOver.setWidth(Screen.mainScreen.widthPixels);
-							this._popOver.setHeight(Screen.mainScreen.heightPixels);
-							this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
-						}
+            const view = dialog?.getView?.() || Frame.topmost().android?.rootViewGroup || Frame.topmost().currentPage?.android;
+            if (view) {
+                setTimeout(() => {
+                    this._popOver.setWidth(Screen.mainScreen.widthPixels);
+                    this._popOver.setHeight(Screen.mainScreen.heightPixels);
+                    this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+                });
+            }
 					}
 				} else {
 					this._popOver.setWidth(Screen.mainScreen.widthPixels);
