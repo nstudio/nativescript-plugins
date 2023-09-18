@@ -42,7 +42,7 @@ export class LoadingIndicator {
 	}
 
 	show(options?: OptionsCommon) {
-		const context = Utils.android.getCurrentActivity() as android.app.Activity;
+		const context = this._getCurrentActivity();
 		if (context) {
 			options = options || {};
 			options.android = options.android || {};
@@ -337,7 +337,7 @@ export class LoadingIndicator {
 				const hasFocus = view.hasWindowFocus();
 				if (!hasFocus) {
 					/* Gets the currently opened dialog fragment or top fragment */
-					const activity = Utils.android.getCurrentActivity() as android.app.Activity;
+					const activity = this._getCurrentActivity();
 					const fragments = activity instanceof androidx.fragment.app.FragmentActivity ? activity?.getSupportFragmentManager()?.getFragments() : activity?.getFragmentManager()?.getFragments();
 					const count = fragments?.size();
 					const last = count - 1;
@@ -653,4 +653,10 @@ export class LoadingIndicator {
 		}
 		return null;
 	}
+    private _getCurrentActivity(): android.app.Activity|null {
+        if (!Application) {
+            return null;
+        }
+        return Application.android.startActivity || Application.android.foregroundActivity;
+    }
 }
