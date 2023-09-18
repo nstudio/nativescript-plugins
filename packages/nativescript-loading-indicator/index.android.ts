@@ -653,7 +653,7 @@ export class LoadingIndicator {
 		}
 		return null;
 	}
-    private _getCurrentActivity(): android.app.Activity {
+    private _getCurrentActivity(): android.app.Activity|null {
         if (!Application) {
             return null;
         }
