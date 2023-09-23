@@ -46,26 +46,41 @@ export declare class Video extends View {
 	muted: boolean;
 
 	/**
-   * aspect/fill settings
-   * Android:
-   * When set to VideoFill.aspectFill, the aspect ratio of the video will not be honored and it will fill the entire space available.
+	 * aspect/fill settings
+	 * Android:
+	 * When set to VideoFill.aspectFill, the aspect ratio of the video will not be honored and it will fill the entire space available.
 
-   * iOS:
-   * VideoFill.default = AVLayerVideoGravityResize
-   * VideoFill.aspect = AVLayerVideoGravityResizeAspect
-   * VideoFill.aspectFill = AVLayerVideoGravityResizeAspectFill
-   */
+	* iOS:
+	* VideoFill.default = AVLayerVideoGravityResize
+	* VideoFill.aspect = AVLayerVideoGravityResizeAspect
+	* VideoFill.aspectFill = AVLayerVideoGravityResizeAspectFill
+	*/
 	fill: VideoFill;
 	static IMAGETYPEMONO: number;
 	static IMAGETYPESTEREOTOPBOTTOM: number;
 	static IMAGETYPESTEREOLEFTRIGHT: number;
 
-  /**
-   * encryption parameters
-   */
-  public encryptionKey: string = null;
-  public encryptionIV: string = null;
-  public encryption: string = '';
+	/**
+	 * encryption parameters
+	 */
+	public encryptionKey: string = null;
+	public encryptionIV: string = null;
+	public encryption: string = '';
+
+	/**
+	 * (ios) Set the audio session playback category.
+	 * backgroundAudio must evaluate to false for this to work.
+	 * Available categories:
+	 * - AVAudioSessionCategoryAmbient
+	 * - AVAudioSessionCategoryAudioProcessing
+	 * - AVAudioSessionCategoryMultiRoute
+	 * - AVAudioSessionCategoryPlayAndRecord
+	 * - AVAudioSessionCategoryPlayback
+	 * - AVAudioSessionCategoryRecord
+	 * - AVAudioSessionCategorySoloAmbient
+	 * - AVAudioSessionCategoryAudioProcessing (Deprecated in iOS 10)
+	 */
+	static iosAudioSessionCategory: string;
 
 	/**
 	 * Start playing the video.

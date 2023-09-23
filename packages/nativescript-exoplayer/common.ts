@@ -118,6 +118,8 @@ export class Video extends View {
 	public static IMAGETYPEMONO = 1;
 	public static IMAGETYPESTEREOTOPBOTTOM = 2;
 	public static IMAGETYPESTEREOLEFTRIGHT = 3;
+
+	public static iosAudioSessionCategory: string;
 }
 
 export const encryptionKeyProperty = new Property<Video, any>({
