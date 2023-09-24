@@ -111,6 +111,7 @@ export class Video extends View {
 	public detectChapters: boolean = false;
 	public backgroundAudio: boolean = false;
 
+	encrypted = false;
 	public encryptionKey: string = null;
 	public encryptionIV: string = null;
 	public encryption: string = '';
