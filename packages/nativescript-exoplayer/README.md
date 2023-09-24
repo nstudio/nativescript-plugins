@@ -132,6 +132,35 @@ If set to true, currentTimeUpdated callback is possible.
 
 Attribute to specify an event callback to execute when the time is updated.
 
+- **iosAudioSessionCategory - (string)** - _optional_
+
+(iOS only) Static attribute to specify the device audio session playback category. 'backgroundAudio' on the class instance must be false for this to take effect. Available categories:
+  1. AVAudioSessionCategoryAmbient
+  2. AVAudioSessionCategoryAudioProcessing
+  3. AVAudioSessionCategoryMultiRoute
+  4. AVAudioSessionCategoryPlayAndRecord
+  5. AVAudioSessionCategoryPlayback
+  6. AVAudioSessionCategoryRecord
+  7. AVAudioSessionCategorySoloAmbient
+  8. AVAudioSessionCategoryAudioProcessing (Deprecated in iOS 10)
+
+Details for these categories can be found on the [AVAudioSessionCategory](https://developer.apple.com/documentation/avfaudio/avaudiosessioncategory?language=objc) documentation.
+
+Example usage:
+```TS
+import { NgModule } from '@angular/core';
+import { Video } from '@nstudio/nativescript-exoplayer';
+
+@NgModule({
+  // stuff
+})
+export class AppModule {
+  constructor() {
+    Video.iosAudioSessionCategory = 'AVAudioSessionCategoryPlayback';
+  }
+}
+```
+
 ## API
 
 - **play()** - Start playing the video
@@ -190,6 +219,7 @@ iv =ED07304DF8D0D0AFA2EB9B13D75BD817
 - Osie Fortune
 - Alex Gritton
 - gaudsonu98
+- coltkenn2658
 
 ## License
 
