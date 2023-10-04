@@ -347,13 +347,15 @@ export class LoadingIndicator {
 						if (view) {
 							this._resetTimeout();
 							this._popupTimeout = setTimeout(() => {
-								this._popOver.setWidth(Screen.mainScreen.widthPixels);
-								this._popOver.setHeight(Screen.mainScreen.heightPixels);
-								this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+								if (this._popOver) {
+									this._popOver.setWidth(Screen.mainScreen.widthPixels);
+									this._popOver.setHeight(Screen.mainScreen.heightPixels);
+									this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
+								}
 							});
 						}
 					}
-				} else {
+				} else if (this._popOver) {
 					this._popOver.setWidth(Screen.mainScreen.widthPixels);
 					this._popOver.setHeight(Screen.mainScreen.heightPixels);
 					this._popOver.showAtLocation(view, android.view.Gravity.CENTER, 0, 0);
