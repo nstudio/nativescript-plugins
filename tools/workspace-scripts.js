@@ -267,7 +267,7 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-persona:build.all',
 					description: '@nstudio/nativescript-persona: Build',
-				}
+				},
 			},
 			// @nstudio/nativescript-walletconnect
 			'nativescript-walletconnect': {
@@ -288,7 +288,7 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-appcues:build.all',
 					description: '@nstudio/nativescript-appcues: Build',
-				}
+				},
 			},
 			// @nstudio/nativescript-cardview
 			'nativescript-cardview': {
@@ -302,6 +302,13 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-aptabase:build.all',
 					description: '@nstudio/nativescript-aptabase: Build',
+				},
+			},
+			// @nstudio/nativescript-walletconnect-legacy
+			'nativescript-walletconnect-legacy': {
+				build: {
+					script: 'nx run nativescript-walletconnect-legacy:build.all',
+					description: '@nstudio/nativescript-walletconnect-legacy: Build',
 				},
 			},
 			'build-all': {
@@ -425,6 +432,10 @@ module.exports = {
 			'nativescript-aptabase': {
 				script: 'nx run nativescript-aptabase:focus',
 				description: 'Focus on @nstudio/nativescript-aptabase',
+			},
+			'nativescript-walletconnect-legacy': {
+				script: 'nx run nativescript-walletconnect-legacy:focus',
+				description: 'Focus on @nstudio/nativescript-walletconnect-legacy',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

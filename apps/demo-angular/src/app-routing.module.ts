@@ -32,7 +32,8 @@ const routes: Routes = [
 	{ path: 'nativescript-plaid', loadChildren: () => import('./plugin-demos/nativescript-plaid.module').then(m => m.NativescriptPlaidModule) },
 	{ path: 'nativescript-qr', loadChildren: () => import('./plugin-demos/nativescript-qr.module').then(m => m.NativescriptQrModule) },
 	{ path: 'nativescript-tracking-transparency', loadChildren: () => import('./plugin-demos/nativescript-tracking-transparency.module').then(m => m.NativescriptTrackingTransparencyModule) },
-	{ path: 'nativescript-walletconnect', loadChildren: () => import('./plugin-demos/nativescript-walletconnect.module').then(m => m.NativescriptWalletconnectModule) }
+	{ path: 'nativescript-walletconnect', loadChildren: () => import('./plugin-demos/nativescript-walletconnect.module').then(m => m.NativescriptWalletconnectModule) },
+	{ path: 'nativescript-walletconnect-legacy', loadChildren: () => import('./plugin-demos/nativescript-walletconnect-legacy.module').then(m => m.NativescriptWalletconnectLegacyModule) }
 ];
 
 @NgModule({

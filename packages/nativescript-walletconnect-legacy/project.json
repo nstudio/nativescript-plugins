@@ -1,0 +1,65 @@
+{
+	"name": "nativescript-walletconnect-legacy",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-walletconnect-legacy",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-walletconnect-legacy",
+				"tsConfig": "packages/nativescript-walletconnect-legacy/tsconfig.json",
+				"packageJson": "packages/nativescript-walletconnect-legacy/package.json",
+				"main": "packages/nativescript-walletconnect-legacy/index.d.ts",
+				"assets": [
+					"packages/nativescript-walletconnect-legacy/*.md",
+					"packages/nativescript-walletconnect-legacy/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-walletconnect-legacy/platforms/",
+						"output": "./platforms/"
+					}
+				],
+				"dependsOn": [
+					{
+						"target": "build.all",
+						"projects": "dependencies"
+					}
+				]
+			}
+		},
+		"build.all": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-walletconnect-legacy"],
+				"parallel": false
+			},
+			"outputs": ["dist/packages/nativescript-walletconnect-legacy"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-walletconnect-legacy"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-walletconnect-legacy/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
+}

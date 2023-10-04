@@ -1,0 +1,12 @@
+repositories {
+	maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+	implementation 'com.github.WalletConnect:kotlin-walletconnect-lib:0.9.9'
+    implementation "com.squareup.okhttp3:okhttp:4.9.3"
+    implementation "com.google.code.gson:gson:2.9.0"
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+ 	implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    implementation "com.github.komputing:khex:1.0.0"
+}
