@@ -240,8 +240,8 @@ export class Video extends VideoBase {
 				if (!owner) {
 					return;
 				}
-				this.videoWidth = _videoSize.width;
-				this.videoHeight = _videoSize.height;
+				owner.videoWidth = _videoSize.width;
+				owner.videoHeight = _videoSize.height;
 
 			},
 			onSurfaceSizeChanged: function (_width: number, _height: number): void {
