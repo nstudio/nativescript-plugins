@@ -275,6 +275,14 @@ export class Video extends VideoBase {
 		this._player.play();
 	}
 
+	public getVideoSize() {
+        const r = this._playerController.videoBounds;
+        return {
+            width: r.size.width,
+            height: r.size.height
+        };
+    }
+
 	public pause() {
 		if (this._player) {
 			this._player.pause();

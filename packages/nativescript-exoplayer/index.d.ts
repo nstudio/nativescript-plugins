@@ -146,6 +146,12 @@ export declare class Video extends View {
 	stop(): void;
 
 	/**
+	 * Get the video size
+	 * @returns {object<width: number, height: number>}
+	 */
+	getVideoSize(): { width: number; height: number };
+
+	/**
 	 * *** IOS ONLY ***
 	 * Update the video player with an AVAsset file.
 	 */

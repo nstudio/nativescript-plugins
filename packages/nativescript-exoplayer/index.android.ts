@@ -236,6 +236,10 @@ export class Video extends VideoBase {
 			},
 			onVideoSizeChanged: function (_videoSize: com.google.android.exoplayer2.video.VideoSize): void {
 				/* required in listener implementation */
+
+				this.videoWidth = _videoSize.width;
+				this.videoHeight = _videoSize.height;
+
 			},
 			onSurfaceSizeChanged: function (_width: number, _height: number): void {
 				/* required in listener implementation */
@@ -418,6 +422,13 @@ export class Video extends VideoBase {
 			this.startCurrentTimer();
 		}
 	}
+
+	getVideoSize() {
+        return {
+            width: this.videoWidth,
+            height: this.videoHeight
+        };
+    }
 
 	pause() {
 		if (this.player) {
