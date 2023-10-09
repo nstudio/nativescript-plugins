@@ -236,7 +236,10 @@ export class Video extends VideoBase {
 			},
 			onVideoSizeChanged: function (_videoSize: com.google.android.exoplayer2.video.VideoSize): void {
 				/* required in listener implementation */
-
+				const owner = that.get();
+				if (!owner) {
+					return;
+				}
 				this.videoWidth = _videoSize.width;
 				this.videoHeight = _videoSize.height;
 
