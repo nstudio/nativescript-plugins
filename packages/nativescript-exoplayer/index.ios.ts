@@ -275,12 +275,13 @@ export class Video extends VideoBase {
 		this._player.play();
 	}
 
+	public getPlayer() {
+		return this._player;
+	}
+
 	public getVideoSize() {
-        const r = this._playerController.videoBounds;
-        return {
-            width: r.size.width,
-            height: r.size.height
-        };
+        const size = this._player.currentItem.presentationSize;
+        return size;
     }
 
 	public pause() {

@@ -152,6 +152,11 @@ export declare class Video extends View {
 	getVideoSize(): { width: number; height: number };
 
 	/**
+	 * Get the native player instance.
+	 */
+	getPlayer();
+
+	/**
 	 * *** IOS ONLY ***
 	 * Update the video player with an AVAsset file.
 	 */

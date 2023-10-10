@@ -426,6 +426,10 @@ export class Video extends VideoBase {
 		}
 	}
 
+	getPlayer() {
+		return this.player;
+	}
+
 	getVideoSize() {
         return {
             width: this.videoWidth,
