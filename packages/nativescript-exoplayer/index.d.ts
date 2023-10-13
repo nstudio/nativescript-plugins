@@ -154,7 +154,7 @@ export declare class Video extends View {
 	/**
 	 * Get the native player instance.
 	 */
-	getPlayer();
+	getPlayer(): AVPlayer|com.google.android.exoplayer2.ExoPlayer;
 
 	/**
 	 * *** IOS ONLY ***

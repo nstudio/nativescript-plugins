@@ -280,8 +280,11 @@ export class Video extends VideoBase {
 	}
 
 	public getVideoSize() {
-        const size = this._player.currentItem.presentationSize;
-        return size;
+
+		if (this._player) {
+			const size = this._player.currentItem.presentationSize;
+			return size;
+		}
     }
 
 	public pause() {
@@ -462,7 +465,7 @@ export class Video extends VideoBase {
 class PlayerObserverClass extends NSObject {
 	observeValueForKeyPathOfObjectChangeContext(path: string, obj: Object, change: NSDictionary<any, any>, context: any) {
 		if (path === 'status') {
-			if (this['_owner']._player.currentItem.status === AVPlayerItemStatus.ReadyToPlay && !this['_owner']._videoLoaded) {
+			if (this['_owner']._player && this['_owner']._player.currentItem.status === AVPlayerItemStatus.ReadyToPlay && !this['_owner']._videoLoaded) {
 				this['_owner'].playbackReady();
 			}
 		}
