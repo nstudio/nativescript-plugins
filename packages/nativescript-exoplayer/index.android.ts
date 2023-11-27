@@ -236,6 +236,13 @@ export class Video extends VideoBase {
 			},
 			onVideoSizeChanged: function (_videoSize: com.google.android.exoplayer2.video.VideoSize): void {
 				/* required in listener implementation */
+				const owner = that.get();
+				if (!owner) {
+					return;
+				}
+				owner.videoWidth = _videoSize.width;
+				owner.videoHeight = _videoSize.height;
+
 			},
 			onSurfaceSizeChanged: function (_width: number, _height: number): void {
 				/* required in listener implementation */
@@ -419,6 +426,17 @@ export class Video extends VideoBase {
 		}
 	}
 
+	getPlayer() {
+		return this.player;
+	}
+
+	getVideoSize() {
+        return {
+            width: this.videoWidth,
+            height: this.videoHeight
+        };
+    }
+
 	pause() {
 		if (this.player) {
 			this.player.setPlayWhenReady(false);
@@ -529,8 +547,10 @@ export class Video extends VideoBase {
 			this.nativeView.onPause();
 		}
 		// this.release();
-		this._resumeOnFocusGain = this.player.isPlaying();
-		this.player.setPlayWhenReady(false);
+		if (this.player) {
+            this._resumeOnFocusGain = this.player.isPlaying();
+            this.player.setPlayWhenReady(false);
+        }
 	}
 
 	resumeEvent() {

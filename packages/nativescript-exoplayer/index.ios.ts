@@ -275,6 +275,18 @@ export class Video extends VideoBase {
 		this._player.play();
 	}
 
+	public getPlayer() {
+		return this._player;
+	}
+
+	public getVideoSize() {
+
+		if (this._player) {
+			const size = this._player.currentItem.presentationSize;
+			return size;
+		}
+    }
+
 	public pause() {
 		if (this._player) {
 			this._player.pause();
@@ -453,7 +465,7 @@ export class Video extends VideoBase {
 class PlayerObserverClass extends NSObject {
 	observeValueForKeyPathOfObjectChangeContext(path: string, obj: Object, change: NSDictionary<any, any>, context: any) {
 		if (path === 'status') {
-			if (this['_owner']._player.currentItem.status === AVPlayerItemStatus.ReadyToPlay && !this['_owner']._videoLoaded) {
+			if (this['_owner']._player && this['_owner']._player.currentItem.status === AVPlayerItemStatus.ReadyToPlay && !this['_owner']._videoLoaded) {
 				this['_owner'].playbackReady();
 			}
 		}
