@@ -171,6 +171,8 @@ export class AppModule {
 - **destroy()** - Destroy the video player and free resources
 - **mute(boolean)** - Mute the current video
 - **setVolume()** - Set the volume - Must be between 0 and 1.
+- **getVideoSize()** - On iOS, this will return the size of the presentation layer and on Android, the size of the player view
+- **getPlayer()** - get the native Player instance
 
 ### Android only
 

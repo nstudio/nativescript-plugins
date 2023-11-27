@@ -28,7 +28,7 @@ function rootVC() {
 		}
 		return vc;
 	}
-};
+}
 
 export class Video extends VideoBase {
 	private _player: AVPlayer;
@@ -280,12 +280,11 @@ export class Video extends VideoBase {
 	}
 
 	public getVideoSize() {
-
 		if (this._player) {
 			const size = this._player.currentItem.presentationSize;
 			return size;
 		}
-    }
+	}
 
 	public pause() {
 		if (this._player) {

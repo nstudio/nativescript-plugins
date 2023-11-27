@@ -242,7 +242,6 @@ export class Video extends VideoBase {
 				}
 				owner.videoWidth = _videoSize.width;
 				owner.videoHeight = _videoSize.height;
-
 			},
 			onSurfaceSizeChanged: function (_width: number, _height: number): void {
 				/* required in listener implementation */
@@ -431,11 +430,11 @@ export class Video extends VideoBase {
 	}
 
 	getVideoSize() {
-        return {
-            width: this.videoWidth,
-            height: this.videoHeight
-        };
-    }
+		return {
+			width: this.videoWidth,
+			height: this.videoHeight,
+		};
+	}
 
 	pause() {
 		if (this.player) {
@@ -548,9 +547,9 @@ export class Video extends VideoBase {
 		}
 		// this.release();
 		if (this.player) {
-            this._resumeOnFocusGain = this.player.isPlaying();
-            this.player.setPlayWhenReady(false);
-        }
+			this._resumeOnFocusGain = this.player.isPlaying();
+			this.player.setPlayWhenReady(false);
+		}
 	}
 
 	resumeEvent() {
