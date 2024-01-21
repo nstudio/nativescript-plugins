@@ -3,12 +3,12 @@
   "description": "NativeScript Application",
   "dependencies": {
     "@nativescript/core": "file:../../node_modules/@nativescript/core",
-    "@nstudio/nativescript-appcues": "file:../../packages/nativescript-appcues",
+    "@nstudio/nativescript-aptabase": "file:../../packages/nativescript-aptabase",
     "@nstudio/nativescript-airship": "file:../../packages/nativescript-airship",
     "@nstudio/nativescript-airship-adm": "file:../../packages/nativescript-airship-adm",
     "@nstudio/nativescript-airship-fcm": "file:../../packages/nativescript-airship-fcm",
     "@nstudio/nativescript-airship-hms": "file:../../packages/nativescript-airship-hms",
-    "@nstudio/nativescript-aptabase": "file:../../packages/nativescript-aptabase",
+    "@nstudio/nativescript-appcues": "file:../../packages/nativescript-appcues",
     "@nstudio/nativescript-barcodescanner": "file:../../packages/nativescript-barcodescanner",
     "@nstudio/nativescript-blur": "file:../../packages/nativescript-blur",
     "@nstudio/nativescript-camera-plus": "file:../../packages/nativescript-camera-plus",
@@ -32,7 +32,7 @@
     "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
   },
   "devDependencies": {
-    "@nativescript/android": "~8.5.0",
-    "@nativescript/ios": "~8.5.0"
+    "@nativescript/android": "~8.6.0",
+    "@nativescript/ios": "~8.6.0"
   }
 }
