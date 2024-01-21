@@ -25,7 +25,7 @@ ios: {
             name: 'Aptabase',
             libs: ['Aptabase'],
             repositoryURL: 'https://github.com/aptabase/aptabase-swift.git',
-            version: '0.1.0'
+            version: '0.3.6'
         }
     ]
 }
