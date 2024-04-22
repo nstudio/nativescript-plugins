@@ -5,7 +5,7 @@
  **********************************************************************************/
 
 import { Color, Device, File, ImageAsset, knownFolders, path, Utils, View } from '@nativescript/core';
-import { CameraPlusBase, CameraTypes, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, IChooseOptions, IVideoOptions } from './common';
+import { CameraPlusBase, CameraTypes, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, IChooseOptions, IVideoOptions, CameraLens as CLens } from './common';
 
 export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
@@ -751,6 +751,43 @@ export class CameraPlus extends CameraPlusBase {
 
 	private isAudioEnabled() {
 		return this.enableAudio === true || CameraPlus.enableAudio;
+	}
+
+
+	// @ts-ignore
+	get defaultLens() {
+		if (this._swifty) {
+			switch (this._swifty.defaultLens) {
+				case CameraLens.Auto:
+					return CLens.Auto;
+				case CameraLens.Telephoto:
+					return CLens.TelePhoto;
+				case CameraLens.Wide:
+					return CLens.Wide;
+				case CameraLens.Ultrawide:
+					return CLens.UltraWide;
+			}
+		}
+		return CLens.TelePhoto;
+	}
+
+	set defaultLens(value: CLens | string) {
+		if (this._swifty) {
+			switch (value) {
+				case CLens.Auto:
+					this._swifty.defaultLens = CameraLens.Auto;
+					break;
+				case CLens.TelePhoto:
+					this._swifty.defaultLens = CameraLens.Telephoto;
+					break;
+				case CLens.Wide:
+					this._swifty.defaultLens = CameraLens.Wide;
+					break;
+				case CLens.UltraWide:
+					this._swifty.defaultLens = CameraLens.Ultrawide;
+					break;
+			}
+		}
 	}
 
 	public createNativeView() {

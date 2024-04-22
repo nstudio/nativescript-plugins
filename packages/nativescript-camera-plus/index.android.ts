@@ -6,7 +6,7 @@
 
 import { AndroidActivityResultEventData, AndroidApplication, Application, Device, ImageAsset, Utils, View } from '@nativescript/core';
 import * as permissions from '@nativescript-community/perms';
-import { CameraPlusBase, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, ICameraPlusEvents, IChooseOptions, IVideoOptions, WhiteBalance } from './common';
+import { CameraLens, CameraPlusBase, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, ICameraPlusEvents, IChooseOptions, IVideoOptions, WhiteBalance } from './common';
 import * as CamHelpers from './helpers';
 import { SelectedAsset } from './selected-asset';
 
@@ -123,6 +123,42 @@ export class CameraPlus extends CameraPlusBase {
 
 	private isAudioEnabled() {
 		return this.enableAudio === true || CameraPlus.enableAudio;
+	}
+
+	// @ts-ignore
+	get defaultLens() {
+		if (this._camera) {
+			switch (this._camera.getDefaultLens()) {
+				case io.github.triniwiz.fancycamera.CameraLens.auto:
+					return CameraLens.Auto;
+				case io.github.triniwiz.fancycamera.CameraLens.telephoto:
+					return CameraLens.TelePhoto;
+				case io.github.triniwiz.fancycamera.CameraLens.wide:
+					return CameraLens.Wide;
+				case io.github.triniwiz.fancycamera.CameraLens.ultrawide:
+					return CameraLens.UltraWide;
+			}
+		}
+		return CameraLens.TelePhoto;
+	}
+
+	set defaultLens(value: CameraLens | string) {
+		if (this._camera) {
+			switch (value) {
+				case CameraLens.Auto:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.auto);
+					break;
+				case CameraLens.TelePhoto:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.telephoto);
+					break;
+				case CameraLens.Wide:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.wide);
+					break;
+				case CameraLens.UltraWide:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.ultrawide);
+					break;
+			}
+		}
 	}
 
 	// @ts-ignore

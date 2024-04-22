@@ -2,12 +2,14 @@ allprojects {
     repositories {
         google()
         maven { url "https://repo1.maven.org/maven2/" }
+        maven { url "https://s01.oss.sonatype.org/content/repositories/releases/" }
+        mavenCentral()
     }
 }
 
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation('io.github.triniwiz:fancycamera:3.0.8'){
+    implementation('io.github.triniwiz:fancycamera:4.0.0-alpha.3'){
         transitive = true
     }
 }

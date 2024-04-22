@@ -87,6 +87,10 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 */
 	public static confirmScreenDismissedEvent = CameraPlusEvents.ConfirmScreenDismissedEvent;
 
+	
+	@GetSetProperty()
+	public defaultLens: string;
+
 	/**
 	 * @default 4:3
 	 * *ANDROID ONLY*  A string to represent the camera preview aspect ratio e.g 4:3, 1:1 ,16:9 to check if the device supports the ratio use {@link getGetSupportedRatios}
@@ -446,6 +450,13 @@ export enum WhiteBalance {
 	Fluorescent = 'fluorescent',
 	Incandescent = 'incandescent',
 	WarmFluorescent = 'warm-fluorescent',
+}
+
+export enum CameraLens {
+	Auto = 'auto',
+	TelePhoto = 'telephoto',
+	Wide = 'wide',
+	UltraWide = 'ultraWide',
 }
 
 export function GetSetProperty() {
