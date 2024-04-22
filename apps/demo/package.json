@@ -29,7 +29,8 @@
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
+    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect",
+    "@nstudio/nativescript-ui-pager": "file:../../packages/nativescript-ui-pager"
   },
   "devDependencies": {
     "@nativescript/android": "~8.6.0",

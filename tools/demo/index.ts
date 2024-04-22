@@ -25,4 +25,5 @@ export * from './nativescript-persona';
 export * from './nativescript-plaid';
 export * from './nativescript-qr';
 export * from './nativescript-tracking-transparency';
+export * from './nativescript-ui-pager';
 export * from './nativescript-walletconnect';

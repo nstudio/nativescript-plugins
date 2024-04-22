@@ -304,6 +304,13 @@ module.exports = {
 					description: '@nstudio/nativescript-aptabase: Build',
 				},
 			},
+			// @nstudio/nativescript-ui-pager
+			'nativescript-ui-pager': {
+				build: {
+					script: 'nx run nativescript-ui-pager:build.all',
+					description: '@nstudio/nativescript-ui-pager: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -425,6 +432,10 @@ module.exports = {
 			'nativescript-aptabase': {
 				script: 'nx run nativescript-aptabase:focus',
 				description: 'Focus on @nstudio/nativescript-aptabase',
+			},
+			'nativescript-ui-pager': {
+				script: 'nx run nativescript-ui-pager:focus',
+				description: 'Focus on @nstudio/nativescript-ui-pager',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

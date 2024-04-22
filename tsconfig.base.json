@@ -113,6 +113,12 @@
       ],
       "@nstudio/nativescript-aptabase": [
         "packages/nativescript-aptabase/index.d.ts"
+      ],
+      "@nstudio/nativescript-ui-pager": [
+        "packages/nativescript-ui-pager/index.d.ts"
+      ],
+      "@nstudio/nativescript-ui-pager/angular": [
+        "packages/nativescript-ui-pager/angular/index.ts"
       ]
     }
   },

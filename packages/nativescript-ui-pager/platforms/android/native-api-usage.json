@@ -1,0 +1,13 @@
+{
+  "uses": [
+    "com.nativescript.pager*:*",
+    "androidx.recyclerview.widget:RecyclerView.Adapter",
+    "androidx.recyclerview.widget:RecyclerView.ViewHolder",
+    "androidx.viewpager2.widget:ViewPager2",
+    "androidx.viewpager2.widget:ViewPager2.OnPageChangeCallback",
+    "androidx.viewpager2.widget:ViewPager2.PageTransformer",
+    "androidx.viewpager2.widget:CompositePageTransformer",
+    "androidx.viewpager2.widget:MarginPageTransformer"
+  ]
+}
+

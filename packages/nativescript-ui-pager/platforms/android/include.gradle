@@ -1,0 +1,8 @@
+
+dependencies {
+	def androidXAppCompat =  project.hasProperty("androidXAppCompat") ? project.androidXAppCompat : "1.1.0"
+	def androidxViewPager2Version =  project.hasProperty("androidxViewPager2Version") ? project.androidxViewPager2Version : "1.0.0"
+
+	implementation "androidx.appcompat:appcompat:$androidXAppCompat"
+	implementation "androidx.viewpager2:viewpager2:$androidxViewPager2Version"
+}
