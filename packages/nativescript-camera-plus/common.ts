@@ -456,7 +456,7 @@ export enum CameraLens {
 	Auto = 'auto',
 	TelePhoto = 'telephoto',
 	Wide = 'wide',
-	UltraWide = 'ultraWide',
+	UltraWide = 'ultrawide',
 }
 
 export function GetSetProperty() {

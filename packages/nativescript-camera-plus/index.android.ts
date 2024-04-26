@@ -93,6 +93,8 @@ export class CameraPlus extends CameraPlusBase {
 	private _videoPath: string;
 	readonly _context; // defining this to pass TS warning, NS provides the context during lifecycle
 	_lastCameraOptions: ICameraOptions[];
+	_defaultLens: CameraLens | string = CameraLens.TelePhoto;
+	
 	constructor() {
 		super();
 		this._camera = null;
@@ -139,10 +141,11 @@ export class CameraPlus extends CameraPlusBase {
 					return CameraLens.UltraWide;
 			}
 		}
-		return CameraLens.TelePhoto;
+		return this._defaultLens;
 	}
 
 	set defaultLens(value: CameraLens | string) {
+		this._defaultLens = value;
 		if (this._camera) {
 			switch (value) {
 				case CameraLens.Auto:
@@ -309,6 +312,8 @@ export class CameraPlus extends CameraPlusBase {
 		this._camera = new fancycamera.FancyCamera(this._context);
 		(this._camera as any).setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT));
 		this._camera.setEnableAudio(CameraPlus.enableAudio);
+		// ensure defaultLens set after camera is created 
+		this.defaultLens = this._defaultLens;
 		this._nativeView.addView(this._camera as any);
 		return this._nativeView;
 	}
@@ -438,6 +443,8 @@ export class CameraPlus extends CameraPlusBase {
 		const listener = new listenerImpl();
 		listener.owner = new WeakRef(this);
 		this._camera.setListener(listener);
+		// ensure defaultLens set after camera is created 
+		this.defaultLens = this._defaultLens;
 		this.cameraId = this._cameraId;
 	}
 
