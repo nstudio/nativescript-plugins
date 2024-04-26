@@ -571,7 +571,9 @@ export class CameraPlus extends CameraPlusBase {
 
 			const permResult = await this.requestVideoRecordingPermissions();
 			CLog(permResult);
-			this._camera.startRecording();
+			if (permResult) {
+				this._camera.startRecording();
+			}
 		}
 	}
 
@@ -676,13 +678,17 @@ export class CameraPlus extends CameraPlusBase {
 
 				// Ensure storage permissions
 				if (!this.hasStoragePermissions()) {
-					permissions.request('storage').then(() => {
-						if (!this.hasStoragePermissions()) {
-							const error = new Error('request for storage permissions denied');
-							this.sendEvent(CameraPlus.errorEvent, error, 'Error choosing an image from the device library.');
-							reject(error);
-						} else {
-							createThePickerIntent();
+					permissions.request('storage').then((res) => {
+						const permType = res[0];
+						switch (permType) {
+							case 'authorized':
+								createThePickerIntent();
+								break;
+							default:
+								const error = new Error('request for storage permissions denied');
+								this.sendEvent(CameraPlus.errorEvent, error, 'Error choosing an image from the device library.');
+								reject(error);
+								break;
 						}
 					});
 					return;
@@ -744,8 +750,16 @@ export class CameraPlus extends CameraPlusBase {
 		return new Promise((resolve, reject) => {
 			permissions
 				.request('camera')
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					const permType = res[0];
+					switch (permType) {
+						case 'authorized':
+							resolve(true);
+							break;
+						default:
+							resolve(false);
+							break;
+					}
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Camera permissions.');
@@ -760,7 +774,15 @@ export class CameraPlus extends CameraPlusBase {
 	public hasCameraPermission(): Promise<boolean> {
 		return new Promise((resolve) => {
 			permissions.check('camera').then((res) => {
-				resolve(res[1]);
+				const permType = res[0];
+				switch (permType) {
+					case 'authorized':
+						resolve(true);
+						break;
+					default:
+						resolve(false);
+						break;
+				}
 			});
 		});
 	}
@@ -773,8 +795,16 @@ export class CameraPlus extends CameraPlusBase {
 		return new Promise((resolve, reject) => {
 			permissions
 				.request('audio')
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					const permType = res[0];
+					switch (permType) {
+						case 'authorized':
+							resolve(true);
+							break;
+						default:
+							resolve(false);
+							break;
+					}
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Audio permission.');
@@ -789,7 +819,15 @@ export class CameraPlus extends CameraPlusBase {
 	public hasAudioPermission(): Promise<boolean> {
 		return new Promise((resolve) => {
 			permissions.check('audio').then((res) => {
-				resolve(res[1]);
+				const permType = res[0];
+				switch (permType) {
+					case 'authorized':
+						resolve(true);
+						break;
+					default:
+						resolve(false);
+						break;
+				}
 			});
 		});
 	}
@@ -805,8 +843,16 @@ export class CameraPlus extends CameraPlusBase {
 			};
 			permissions
 				.request(perms)
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					const permType = res[0];
+					switch (permType) {
+						case 'authorized':
+							resolve(true);
+							break;
+						default:
+							resolve(false);
+							break;
+					}
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Storage permissions.');
@@ -820,10 +866,12 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public async hasStoragePermissions(): Promise<boolean> {
 		const perms = await permissions.check('storage', { write: true, read: true });
-		if (perms[0]) {
-			return true;
-		} else {
-			return false;
+		const permType = perms[0];
+		switch (permType) {
+			case 'authorized':
+				return true;
+			default:
+				return false;
 		}
 	}
 
@@ -840,8 +888,16 @@ export class CameraPlus extends CameraPlusBase {
 			};
 			permissions
 				.request(perms)
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					const permType = res[0];
+					switch (permType) {
+						case 'authorized':
+							resolve(true);
+							break;
+						default:
+							resolve(false);
+							break;
+					}
 				})
 				.catch((err) => {
 					rejectError(err);
@@ -856,10 +912,14 @@ export class CameraPlus extends CameraPlusBase {
 				audio: {},
 			};
 			const permResults = await permissions.request(perms);
-			if (permResults[0]) {
-				resolve(true);
-			} else {
-				resolve(false);
+			const permType = permResults[0];
+			switch (permType) {
+				case 'authorized':
+					resolve(true);
+					break;
+				default:
+					resolve(false);
+					break;
 			}
 		});
 	}
@@ -881,7 +941,7 @@ export class CameraPlus extends CameraPlusBase {
 	 * Check if the device has a camera
 	 */
 	public isCameraAvailable() {
-		if (Utils.ad.getApplicationContext().getPackageManager().hasSystemFeature('android.hardware.camera')) {
+		if (Utils.android.getApplicationContext().getPackageManager().hasSystemFeature('android.hardware.camera')) {
 			return true;
 		} else {
 			return false;
