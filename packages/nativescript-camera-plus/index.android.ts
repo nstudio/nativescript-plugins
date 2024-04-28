@@ -12,7 +12,6 @@ import { SelectedAsset } from './selected-asset';
 
 export { CameraVideoQuality, WhiteBalance } from './common';
 
-
 const REQUEST_VIDEO_CAPTURE = 999;
 const WRAP_CONTENT = -2;
 const ALIGN_PARENT_TOP = 10;
@@ -134,7 +133,11 @@ export class CameraPlus extends CameraPlusBase {
 		if (this._camera) {
 			switch (this._camera.getDefaultLens()) {
 				case io.github.triniwiz.fancycamera.CameraLens.auto:
-					return CameraLens.Auto;
+					if (this.isWideAngleSupported()) {
+						return CameraLens.Auto;
+					} else {
+						return CameraLens.TelePhoto;
+					}
 				case io.github.triniwiz.fancycamera.CameraLens.telephoto:
 					return CameraLens.TelePhoto;
 				case io.github.triniwiz.fancycamera.CameraLens.wide:
@@ -151,7 +154,11 @@ export class CameraPlus extends CameraPlusBase {
 		if (this._camera) {
 			switch (value) {
 				case CameraLens.Auto:
-					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.auto);
+					if (this.isWideAngleSupported()) {
+						this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.auto);
+					} else {
+						this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.telephoto);
+					}
 					break;
 				case CameraLens.TelePhoto:
 					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.telephoto);
