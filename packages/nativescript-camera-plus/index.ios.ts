@@ -753,6 +753,12 @@ export class CameraPlus extends CameraPlusBase {
 		return this.enableAudio === true || CameraPlus.enableAudio;
 	}
 
+	isWideAngleSupported(): boolean {
+		if (parseFloat(Device.osVersion) >= 13) {
+			return true;
+		}
+		return false;
+	}
 
 	// @ts-ignore
 	get defaultLens() {
@@ -800,9 +806,7 @@ export class CameraPlus extends CameraPlusBase {
 		} else {
 			this._swifty.disableAudio = !this.isAudioEnabled();
 		}
-		
 
-	
 		CLog('CameraPlus createNativeView');
 		CLog('video enabled:', this.isVideoEnabled());
 		CLog('default camera:', CameraPlus.defaultCamera);

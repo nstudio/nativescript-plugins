@@ -9,7 +9,7 @@ import { CameraPlus as CameraPlusDefinition } from '.';
 import { CameraPlusEvents } from './events';
 
 export class CameraUtil {
-	public static debug: boolean = false;
+	public static debug = false;
 }
 
 export const CLog = (...args: any[]) => {
@@ -33,9 +33,9 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 * and can reset it before different using in different views if they want to go back/forth
 	 * between photo/camera and video/camera
 	 */
-	public static enableVideo: boolean = false;
+	public static enableVideo = false;
 
-	public static enableAudio: boolean = true;
+	public static enableAudio = true;
 
 	/**
 	 * Default camera: must be set early before constructor to default the camera correctly on launch (default to rear)
@@ -104,7 +104,7 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 *  1 being max zoom
 	 */
 	@GetSetProperty()
-	public zoom: number = 0;
+	public zoom = 0;
 
 	/**
 	 *  *ANDROID ONLY* Camera white balance
@@ -116,7 +116,7 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 *  *ANDROID ONLY* A string representing the size of picture {@link takePicture} will output. Available sizes can be fetched using {@link getAvailablePictureSizes}
 	 */
 	@GetSetProperty()
-	public pictureSize: string = '0x0';
+	public pictureSize = '0x0';
 
 	/**
 	 * *ANDROID ONLY* Enables or disables tap to focus
@@ -149,7 +149,7 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 * If true the default take picture event will present a confirmation dialog. Default is true.
 	 */
 	@GetSetProperty()
-	public confirmPhotos: boolean = true;
+	public confirmPhotos = true;
 
 	/**
 	 * When confirming capture this text will be presented to the user to retake the photo. Default is 'Retake'
@@ -167,13 +167,13 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 * If true the default videorecordingready event will present a confirmation dialog. Default is false.
 	 */
 	@GetSetProperty()
-	public confirmVideo: boolean = false;
+	public confirmVideo = false;
 
 	/**
 	 * If true the default take picture event will save to device gallery. Default is true.
 	 */
 	@GetSetProperty()
-	public saveToGallery: boolean = true;
+	public saveToGallery = true;
 
 	/**
 	 * The gallery/library selection mode. 'single' allows one image to be selected. 'multiple' allows multiple images. Default is 'multiple'
@@ -185,80 +185,82 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 * If true the default flash toggle icon/button will show on the Camera Plus layout. Default is true.
 	 */
 	@GetSetProperty()
-	public showFlashIcon: boolean = true;
+	public showFlashIcon = true;
 
 	/**
 	 * If true the default camera toggle (front/back) icon/button will show on the Camera Plus layout. Default is true.
 	 */
 	@GetSetProperty()
-	public showToggleIcon: boolean = true;
+	public showToggleIcon = true;
 
 	/**
 	 * If true the default capture (take picture) icon/button will show on the Camera Plus layout. Default is true.
 	 */
 	@GetSetProperty()
-	public showCaptureIcon: boolean = true;
+	public showCaptureIcon = true;
 
 	/**
 	 * If true the choose from gallery/library icon/button will show on the Camera Plus layout. Default is true.
 	 */
 	@GetSetProperty()
-	public showGalleryIcon: boolean = true;
+	public showGalleryIcon = true;
 
 	/**
 	 * *ANDROID ONLY* - allows setting a custom app_resource drawable icon for the Toggle Flash button icon when flash is on (enabled).
 	 */
 	@GetSetProperty()
-	public flashOnIcon: string = '';
+	public flashOnIcon = '';
 
 	/**
 	 * *ANDROID ONLY* - allows setting a custom app_resource drawable icon for the Toggle Flash button icon when flash is off (disabled).
 	 */
 	@GetSetProperty()
-	public flashOffIcon: string = '';
+	public flashOffIcon = '';
 
 	/**
 	 * *ANDROID ONLY* - allows setting a custom app_resource drawable icon for the Toggle Flash button icon when flash is off (disabled).
 	 */
 	@GetSetProperty()
-	public toggleCameraIcon: string = '';
+	public toggleCameraIcon = '';
 
 	/**
 	 * *ANDROID ONLY* - allows setting a custom app_resource drawable icon for the Capture button icon.
 	 */
 	@GetSetProperty()
-	public takePicIcon: string = '';
+	public takePicIcon = '';
 
 	/**
 	 * *ANDROID ONLY* - allows setting a custom app_resource drawable icon for the Open Gallery button icon.
 	 */
 	@GetSetProperty()
-	public galleryIcon: string = '';
+	public galleryIcon = '';
 
 	/**
 	 * *ANDROID ONLY* - If true the camera will auto focus to capture the image. Default is true.
 	 */
 	@GetSetProperty()
-	public autoFocus: boolean = true;
+	public autoFocus = true;
 
 	/**
 	 * *iOS ONLY* - Enable/disable double tap gesture to switch camera. (enabled)
 	 */
 	@GetSetProperty()
-	public doubleTapCameraSwitch: boolean = true;
+	public doubleTapCameraSwitch = true;
 
 	/** If true it will crop the picture to the center square **/
 	@GetSetProperty()
-	public autoSquareCrop: boolean = false;
+	public autoSquareCrop = false;
 
 	/**
 	 * Toggles the device camera (front/back).
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	toggleCamera(): void {}
 
 	/**
 	 * Toggles the active camera flash mode.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	toggleFlash(): void {}
 
 	/**
