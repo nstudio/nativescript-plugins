@@ -754,7 +754,7 @@ export class CameraPlus extends CameraPlusBase {
 	}
 
 	isWideAngleSupported(): boolean {
-		if (parseFloat(Device.osVersion) >= 13) {
+		if (Utils.SDK_VERSION >= 13) {
 			return true;
 		}
 		return false;

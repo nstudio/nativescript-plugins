@@ -5,7 +5,7 @@
  * Version 1.1.0                                       			   team@nstudio.io
  **********************************************************************************/
 
-import { Application, ImageAsset, ImageSource, Utils } from '@nativescript/core';
+import { ImageAsset, ImageSource, Utils } from '@nativescript/core';
 
 interface ArrayBufferStatic extends ArrayBufferConstructor {
 	from(buffer: java.nio.ByteBuffer): ArrayBuffer;

@@ -87,6 +87,9 @@ export abstract class CameraPlusBase extends ContentView implements CameraPlusDe
 	 */
 	public static confirmScreenDismissedEvent = CameraPlusEvents.ConfirmScreenDismissedEvent;
 
+	isWideAngleSupported() {
+		return false;
+	}
 	
 	@GetSetProperty()
 	public defaultLens: string;
