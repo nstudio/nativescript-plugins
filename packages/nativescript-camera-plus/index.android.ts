@@ -277,11 +277,16 @@ export class CameraPlus extends CameraPlusBase {
 	public getAvailablePictureSizes(ratio: string): string[] {
 		const sizes = [];
 		if (this._camera && typeof ratio === 'string') {
-			const nativeSizes: any = this._camera.getAvailablePictureSizes(ratio);
-			for (const size of nativeSizes) {
-				sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+			const nativeSizes = this._camera.getAvailablePictureSizes(ratio);
+			if (nativeSizes) {
+				const length = nativeSizes.length;
+				for (let i = 0; i < length; i++) {
+					const size = nativeSizes[i];
+					sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+				}
 			}
 		}
+
 		return sizes;
 	}
 
