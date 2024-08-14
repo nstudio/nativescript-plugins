@@ -930,7 +930,7 @@ export class CameraPlus extends CameraPlusBase {
 			permissions
 				.request(perms)
 				.then((res) => {
-					resolve(res?.['microphone'] === 'authorized' && res?.['camera'] === 'authorized');
+					resolve(res?.['android.permission.RECORD_AUDIO'] === 'authorized' && res?.['android.permission.CAMERA'] === 'authorized');
 				})
 				.catch((err) => {
 					rejectError(err);
