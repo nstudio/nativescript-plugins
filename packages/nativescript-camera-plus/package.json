@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-camera-plus",
-  "version": "5.0.0-alpha.7",
+  "version": "5.0.0-alpha.8",
   "description": "An advanced, embeddable camera for NativeScript.",
   "main": "index",
   "typings": "index.d.ts",
@@ -64,6 +64,6 @@
   "readmeFilename": "README.md",
   "bootstrapper": "@nativescript/plugin-seed",
   "dependencies": {
-    "@nativescript-community/perms": "~2.3.0"
+    "@nativescript-community/perms": "2.3.3"
   }
 }

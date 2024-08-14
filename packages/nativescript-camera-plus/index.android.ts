@@ -43,6 +43,22 @@ const WRITE_EXTERNAL_STORAGE = () => android.Manifest.permission.WRITE_EXTERNAL_
 // the snapshot will fail if they resolve during import, so must be done via a function
 const DEVICE_INFO_STRING = () => `Device: ${Device.manufacturer} ${Device.model} on SDK: ${Device.sdkVersion}`;
 
+
+function buildStoragePermissions(ctx: android.content.Context) {
+	let perms: { photo: Record<string, never>; video: Record<string, never> } | { storage: { read: boolean; write: boolean } };
+
+	const version = ctx.getApplicationInfo().targetSdkVersion;
+
+	if (version >= 33) {
+		perms = { photo: {}, video: {} };
+	} else if (version >= 30) {
+		perms = { storage: { read: true, write: false } };
+	} else {
+		perms = { ...perms, storage: { read: true, write: true } };
+	}
+	return perms;
+}
+
 export class CameraPlus extends CameraPlusBase {
 	// @GetSetProperty() public camera: android.hardware.Camera;
 	// Snapshot-friendly, since the decorator will include the snapshot-unknown object "android"
@@ -356,9 +372,11 @@ export class CameraPlus extends CameraPlusBase {
 		this.on(View.layoutChangedEvent, this._onLayoutChangeListener);
 		const listenerImpl = (io.github.triniwiz.fancycamera.CameraEventListenerUI as any).extend({
 			owner: null,
-			onReady(): void {},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			onReadyUI(): void {},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			onCameraCloseUI(): void {},
-			onCameraError(message: string, ex: java.lang.Exception): void {
+			onCameraErrorUI(message: string, ex: java.lang.Exception): void {
 				console.log('onCameraError', message);
 				ex.printStackTrace();
 				const owner = this.owner ? this.owner.get() : null;
@@ -452,6 +470,7 @@ export class CameraPlus extends CameraPlusBase {
 					owner.isRecording = false;
 				}
 			},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			onCameraAnalysisUI(imageAnalysis: io.github.triniwiz.fancycamera.ImageAnalysis): void {},
 		});
 		const listener = new listenerImpl();
@@ -817,17 +836,10 @@ export class CameraPlus extends CameraPlusBase {
 	public requestAudioPermissions(explanation = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			permissions
-				.request('audio')
+				.request('microphone')
 				.then((res) => {
 					const permType = res[0];
-					switch (permType) {
-						case 'authorized':
-							resolve(true);
-							break;
-						default:
-							resolve(false);
-							break;
-					}
+					resolve(permType === 'authorized');
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Audio permission.');
@@ -841,7 +853,7 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public hasAudioPermission(): Promise<boolean> {
 		return new Promise((resolve) => {
-			permissions.check('audio').then((res) => {
+			permissions.check('microphone').then((res) => {
 				const permType = res[0];
 				switch (permType) {
 					case 'authorized':
@@ -861,20 +873,19 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public requestStoragePermissions(explanation = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
-			const perms = {
-				storage: { write: true, read: true },
-			};
+			const ctx = Utils.android.getApplicationContext() ?? this._context;
+			const version = ctx.getApplicationInfo().targetSdkVersion;
+			const perms = buildStoragePermissions(ctx);
+			
 			permissions
 				.request(perms)
 				.then((res) => {
-					const permType = res[0];
-					switch (permType) {
-						case 'authorized':
-							resolve(true);
-							break;
-						default:
-							resolve(false);
-							break;
+					if (version >= 33) {
+						resolve(res?.['photo'] === 'authorized' && res?.['video'] === 'authorized');
+					} else if (version >= 30) {
+						resolve(res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized');
+					} else {
+						resolve(res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized' && res?.['android.permission.WRITE_EXTERNAL_STORAGE'] === 'authorized');
 					}
 				})
 				.catch((err) => {
@@ -888,14 +899,22 @@ export class CameraPlus extends CameraPlusBase {
 	 * Returns true if the WRITE_EXTERNAL_STORAGE && READ_EXTERNAL_STORAGE permissions have been granted.
 	 */
 	public async hasStoragePermissions(): Promise<boolean> {
-		const perms = await permissions.check('storage', { write: true, read: true });
-		const permType = perms[0];
-		switch (permType) {
-			case 'authorized':
-				return true;
-			default:
-				return false;
+		const ctx = Utils.android.getApplicationContext() ?? this._context;
+		const version = ctx.getApplicationInfo().targetSdkVersion;
+		const perms = buildStoragePermissions(ctx);
+		try {
+			const res = await permissions.checkMultiple(perms);
+			if (version >= 33) {
+				return res?.['photo'] === 'authorized' && res?.['video'] === 'authorized';
+			} else if (version >= 30) {
+				return res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized';
+			} else {
+				return res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized' && res?.['android.permission.WRITE_EXTERNAL_STORAGE'] === 'authorized';
+			}
+		} catch (error) {
+			return false;
 		}
+	
 	}
 
 	public requestVideoRecordingPermissions(explanation = ''): Promise<boolean> {
@@ -905,22 +924,13 @@ export class CameraPlus extends CameraPlusBase {
 				resolve(false);
 			};
 			const perms = {
-				storage: { write: true, read: true },
-				audio: {},
-				video: {},
+				microphone: {},
+				camera: {},
 			};
 			permissions
 				.request(perms)
 				.then((res) => {
-					const permType = res[0];
-					switch (permType) {
-						case 'authorized':
-							resolve(true);
-							break;
-						default:
-							resolve(false);
-							break;
-					}
+					resolve(res?.['microphone'] === 'authorized' && res?.['camera'] === 'authorized');
 				})
 				.catch((err) => {
 					rejectError(err);
@@ -929,18 +939,11 @@ export class CameraPlus extends CameraPlusBase {
 	}
 
 	public async hasVideoRecordingPermissions(): Promise<boolean> {
-		const perms = {
-			storage: { write: true, read: true },
-			audio: {},
-		};
-
-		const res = await permissions.request(perms);
-		const permType = res[0];
-		switch (permType) {
-			case 'authorized':
-				return true;
-			default:
-				return false;
+		try {
+			const res = await permissions.check('microphone');
+			return res[0] === 'authorized';
+		} catch (error) {
+			return false;
 		}
 	}
 
