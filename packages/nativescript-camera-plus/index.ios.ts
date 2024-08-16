@@ -7,6 +7,8 @@
 import { Color, Device, File, ImageAsset, knownFolders, path, Utils, View } from '@nativescript/core';
 import { CameraPlusBase, CameraTypes, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, IChooseOptions, IVideoOptions, CameraLens as CLens } from './common';
 
+declare const NSCCamplusHelpers;
+
 export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
 /**
@@ -754,7 +756,7 @@ export class CameraPlus extends CameraPlusBase {
 	}
 
 	isWideAngleSupported(): boolean {
-		if (Utils.SDK_VERSION >= 13) {
+		if (Utils.ios.MajorVersion >= 13) {
 			return true;
 		}
 		return false;
@@ -1072,15 +1074,12 @@ export class CameraPlus extends CameraPlusBase {
 
 	private _detectDevice() {
 		if (typeof this._isIPhoneX === 'undefined') {
-			const _SYS_NAMELEN: number = 256;
 
 			/* tslint:disable-next-line: no-any */
-			const buffer: any = interop.alloc(5 * _SYS_NAMELEN);
-			uname(buffer);
-			let name: string = NSString.stringWithUTF8String(buffer.add(_SYS_NAMELEN * 4)).toString();
+			let name = NSCCamplusHelpers.getDeviceIdentifier();
 
 			// Get machine name for Simulator
-			if (name === 'x86_64' || name === 'i386') {
+			if (name === 'x86_64' || name === 'i386' || name === 'arm64') {
 				name = NSProcessInfo.processInfo.environment.objectForKey('SIMULATOR_MODEL_IDENTIFIER');
 			}
 
