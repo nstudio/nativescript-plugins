@@ -51,11 +51,61 @@ android {
 }
 ```
 
+## Angular Example:
+
+```typescript
+import { Component, NgZone } from '@angular/core';
+import { ImageAsset, ImageSource } from '@nativescript/core';
+import { CameraLoadedEvent, CameraPlus, ImagesSelectedEvent, PhotoCapturedEvent, ToggleCameraEvent } from '@nstudio/nativescript-camera-plus';
+
+import * as permission from '@nativescript-community/perms';
+import { registerElement } from '@nativescript/angular';
+registerElement('CameraPlus', () => CameraPlus);
+
+export class YourComponent {
+	public cam: CameraPlus;
+
+	constructor(private zone: NgZone) {}
+
+	cameraLoadedEvent(event: CameraLoadedEvent): void {
+		this.cam = event.object;
+		(async () => {
+			let result = await permission.check('camera');
+			if (result[0] !== 'authorized') {
+				result = await permission.request('camera');
+			}
+
+			this.cam.autoFocus = true;
+			const flashMode = this.cam.getFlashMode();
+			// Turn flash on at startup
+			if (flashMode === 'off') {
+				this.cam.toggleFlash();
+			}
+		})();
+	}
+}
+```
+
+```html
+<CameraPlus
+  debug="true"
+  confirmRetakeText="RETAKE!"
+  confirmSaveText="CONFIRM!"
+  enableVideo="true"
+  galleryPickerMode="single"
+  showCaptureIcon="true"
+  showFlashIcon="true"
+  showGalleryIcon="true"
+  showToggleIcon="true"
+  (loaded)="cameraLoadedEvent($event)"
+></CameraPlus>
+```
+
 ## Sample
 
 _Yes the camera is rotated because it's a webcam to an emulator and it's just the way life works_
 
-![Camera Plus](tools/assets/images/camplus1.gif)
+![Camera Plus](/tools/assets/images/camplus1.gif)
 
 ## Demo
 
@@ -80,7 +130,7 @@ The camera in your webcam being used on emulators will likely be rotated sideway
 | **showToggleIcon**    | boolean | _true_       | If true the default camera toggle (front/back) icon button will show on the Camera Plus layout.                  |
 | **showCaptureIcon**   | boolean | _true_       | If true the default capture (take picture) icon/button will show on the Camera Plus layout.                      |
 | **showGalleryIcon**   | boolean | _true_       | If true the choose from gallery/library icon/button will show on the Camera Plus layout.                         |
-| **enableVideo**       | boolean | _fale_       | If true the CameraPlus instance can record video and videos are shown in the gallery.                            |
+| **enableVideo**       | boolean | _false_      | If true the CameraPlus instance can record video and videos are shown in the gallery.                            |
 
 ## Static Properties
 
