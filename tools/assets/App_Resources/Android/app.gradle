@@ -7,16 +7,15 @@ repositories {
   }
   maven { url "https://repo1.maven.org/maven2/" }
   google()
-  jcenter()
   maven { url 'https://developer.huawei.com/repo/' }
 }
 
 android {
-  compileSdkVersion 33
-  buildToolsVersion "33"
+  compileSdkVersion 34
+  buildToolsVersion "34"
   defaultConfig {
     minSdkVersion 23
-    targetSdkVersion 33
+    targetSdkVersion 34
     generatedDensities = []
     multiDexEnabled true
   }

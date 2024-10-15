@@ -1,9 +1,7 @@
-/// <reference path="android-declarations.d.ts"/>
-
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class BitmapUtils {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.BitmapUtils>;
 					public static INSTANCE: io.github.triniwiz.fancycamera.BitmapUtils;
@@ -17,26 +15,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
-				export class BuildConfig {
-					public static class: java.lang.Class<io.github.triniwiz.fancycamera.BuildConfig>;
-					public static DEBUG: boolean;
-					public static LIBRARY_PACKAGE_NAME: string;
-					public static BUILD_TYPE: string;
-					public constructor();
-				}
-			}
-		}
-	}
-}
-
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class Camera extends io.github.triniwiz.fancycamera.CameraBase {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera>;
 					public getDisplayRatio(): string;
@@ -55,11 +37,14 @@ declare module io {
 					public getMaxAudioBitRate(): number;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet);
 					public getWhiteBalance(): io.github.triniwiz.fancycamera.WhiteBalance;
+					public getImageProcessors(): androidx.databinding.ObservableList<io.github.triniwiz.fancycamera.ImageProcessor<any>>;
 					public setAutoSquareCrop(param0: boolean): void;
 					public setForceStopping(param0: boolean): void;
+					public isWideAngleSupported(): boolean;
 					public isForceStopping(): boolean;
 					public setRotation(param0: io.github.triniwiz.fancycamera.CameraOrientation): void;
 					public getAutoSquareCrop(): boolean;
+					public setImageProcessors(param0: androidx.databinding.ObservableList<io.github.triniwiz.fancycamera.ImageProcessor<any>>): void;
 					public setWhiteBalance(param0: io.github.triniwiz.fancycamera.WhiteBalance): void;
 					public getPictureSize(): string;
 					public getSaveToGallery(): boolean;
@@ -89,12 +74,12 @@ declare module io {
 					public setRetrieveLatestImage(param0: boolean): void;
 					public setPictureSize(param0: string): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
+					public setDefaultLens(param0: io.github.triniwiz.fancycamera.CameraLens): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
 					public setZoomRatio(param0: number): void;
 					public getMaxVideoBitrate(): number;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
 					public getCamera(): globalAndroid.hardware.Camera;
-					public getDetectorType(): io.github.triniwiz.fancycamera.DetectorType;
 					public takePhoto(): void;
 					public getMaxVideoFrameRate(): number;
 					public getPreviewSurface(): any;
@@ -105,6 +90,7 @@ declare module io {
 					public setDisplayRatio(param0: string): void;
 					public getEnableTapToFocus(): boolean;
 					public getEnablePinchZoom(): boolean;
+					public getDefaultLens(): io.github.triniwiz.fancycamera.CameraLens;
 					public toggleCamera(): void;
 					public setEnableTapToFocus(param0: boolean): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet, param2: number);
@@ -112,12 +98,11 @@ declare module io {
 					public getPause(): boolean;
 					public hasFlash(): boolean;
 					public constructor(param0: globalAndroid.content.Context);
-					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
 					public getDb(): number;
 					public getZoomRatio(): number;
 				}
-				export module Camera {
+				export namespace Camera {
 					export class WhenMappings {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera.WhenMappings>;
 					}
@@ -127,10 +112,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class Camera2 extends io.github.triniwiz.fancycamera.CameraBase {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2>;
 					public getDisplayRatio(): string;
@@ -139,6 +124,7 @@ declare module io {
 					public getMinZoomRatio(): number;
 					public getRetrieveLatestImage(): boolean;
 					public getAllowExifRotation(): boolean;
+					public setFrontCameraId(param0: string): void;
 					public setEnablePinchZoom(param0: boolean): void;
 					public setMaxVideoFrameRate(param0: number): void;
 					public getDisableHEVC(): boolean;
@@ -149,9 +135,13 @@ declare module io {
 					public startPreview(): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet);
 					public getWhiteBalance(): io.github.triniwiz.fancycamera.WhiteBalance;
+					public getImageProcessors(): androidx.databinding.ObservableList<io.github.triniwiz.fancycamera.ImageProcessor<any>>;
 					public setAutoSquareCrop(param0: boolean): void;
+					public isWideAngleSupported(): boolean;
 					public setRotation(param0: io.github.triniwiz.fancycamera.CameraOrientation): void;
 					public getAutoSquareCrop(): boolean;
+					public getDeviceCameraInfo(): java.util.List<io.github.triniwiz.fancycamera.Camera2.CameraInfo>;
+					public setImageProcessors(param0: androidx.databinding.ObservableList<io.github.triniwiz.fancycamera.ImageProcessor<any>>): void;
 					public setWhiteBalance(param0: io.github.triniwiz.fancycamera.WhiteBalance): void;
 					public getPictureSize(): string;
 					public getSaveToGallery(): boolean;
@@ -159,6 +149,8 @@ declare module io {
 					public setDisableHEVC(param0: boolean): void;
 					public getNumberOfCameras(): number;
 					public setQuality(param0: io.github.triniwiz.fancycamera.Quality): void;
+					public getBackCameraId(): string;
+					public setExternalCameraId(param0: string): void;
 					public getSupportedRatios(): androidNative.Array<string>;
 					public setZoom(param0: number): void;
 					public release(): void;
@@ -174,28 +166,33 @@ declare module io {
 					public setAmplitudeEMA(param0: number): void;
 					public getAmplitudeEMA(): number;
 					public stopPreview(): void;
+					public setCameraWithId(param0: string): void;
 					public setRetrieveLatestImage(param0: boolean): void;
 					public setPictureSize(param0: string): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
 					public getMaxZoomRatio(): number;
+					public setDefaultLens(param0: io.github.triniwiz.fancycamera.CameraLens): void;
 					public setDb(param0: number): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
 					public setZoomRatio(param0: number): void;
 					public getMaxVideoBitrate(): number;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
-					public getDetectorType(): io.github.triniwiz.fancycamera.DetectorType;
+					public getCurrentCameraInfo(): io.github.triniwiz.fancycamera.Camera2.CameraInfo;
+					public setBackCameraId(param0: string): void;
 					public setStoredZoomRatio(param0: number): void;
 					public getMaxVideoFrameRate(): number;
 					public takePhoto(): void;
 					public getPreviewSurface(): any;
 					public getAmplitude(): number;
 					public getZoom(): number;
+					public getExternalCameraId(): string;
 					public getAvailablePictureSizes(param0: string): androidNative.Array<io.github.triniwiz.fancycamera.Size>;
 					public setAutoFocus(param0: boolean): void;
+					public getEnableTapToFocus(): boolean;
 					public getStoredZoom(): number;
 					public setDisplayRatio(param0: string): void;
-					public getEnableTapToFocus(): boolean;
 					public getEnablePinchZoom(): boolean;
+					public getDefaultLens(): io.github.triniwiz.fancycamera.CameraLens;
 					public setStoredZoom(param0: number): void;
 					public toggleCamera(): void;
 					public setEnableTapToFocus(param0: boolean): void;
@@ -204,13 +201,50 @@ declare module io {
 					public getPause(): boolean;
 					public hasFlash(): boolean;
 					public constructor(param0: globalAndroid.content.Context);
-					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
 					public getStoredZoomRatio(): number;
 					public getDb(): number;
+					public getFrontCameraId(): string;
 					public getZoomRatio(): number;
 				}
-				export module Camera2 {
+				export namespace Camera2 {
+					export class Camera2CameraCharacteristicsImpl extends io.github.triniwiz.fancycamera.Camera2.CameraCharacteristicsImpl {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2.Camera2CameraCharacteristicsImpl>;
+						public getCameraCharacteristic(param0: globalAndroid.hardware.camera2.CameraCharacteristics.Key): any;
+						public constructor(param0: globalAndroid.hardware.camera2.CameraCharacteristics);
+					}
+					export class CameraCharacteristicsImpl {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2.CameraCharacteristicsImpl>;
+						/**
+						 * Constructs a new instance of the io.github.triniwiz.fancycamera.Camera2$CameraCharacteristicsImpl interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							getCameraCharacteristic(param0: globalAndroid.hardware.camera2.CameraCharacteristics.Key): any;
+						});
+						public constructor();
+						public getCameraCharacteristic(param0: globalAndroid.hardware.camera2.CameraCharacteristics.Key): any;
+					}
+					export class CameraInfo {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2.CameraInfo>;
+						public getMaxZoom(): number;
+						public constructor(param0: string, param1: string, param2: io.github.triniwiz.fancycamera.Camera2.CameraCharacteristicsImpl);
+						public getMinZoom(): number;
+						public getFocalLengths(): androidNative.Array<number>;
+						public toString(): string;
+						public getActiveSize(): globalAndroid.graphics.Rect;
+						public getLensFacing(): number;
+						public getZoomRange(): globalAndroid.util.Range<java.lang.Float>;
+						public getId(): string;
+						public getMaxDigitalZoom(): number;
+						public getImplementationType(): string;
+						public getCapabilities(): androidNative.Array<number>;
+						public getHardwareLevel(): number;
+					}
+					export class CameraxCameraCharacteristicsImpl extends io.github.triniwiz.fancycamera.Camera2.CameraCharacteristicsImpl {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2.CameraxCameraCharacteristicsImpl>;
+						public constructor(param0: androidx.camera.camera2.interop.Camera2CameraInfo);
+						public getCameraCharacteristic(param0: globalAndroid.hardware.camera2.CameraCharacteristics.Key): any;
+					}
 					export class WhenMappings {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Camera2.WhenMappings>;
 					}
@@ -220,13 +254,12 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export abstract class CameraBase {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraBase>;
-					public setFaceDetectionOptions(param0: any): void;
 					public setMTimerTask$fancycamera_release(param0: java.util.TimerTask): void;
 					public setPause(param0: boolean): void;
 					public getAllowExifRotation(): boolean;
@@ -241,13 +274,13 @@ declare module io {
 					public setOverridePhotoWidth(param0: number): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet);
 					public setAutoSquareCrop(param0: boolean): void;
+					public isWideAngleSupported(): boolean;
 					public setRotation(param0: io.github.triniwiz.fancycamera.CameraOrientation): void;
 					public setOverridePhotoHeight(param0: number): void;
 					public setOnTextRecognitionListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getOnPoseDetectedListener$fancycamera_release(): io.github.triniwiz.fancycamera.ImageAnalysisCallback;
 					public getSaveToGallery(): boolean;
 					public setGettingAudioLevels$fancycamera_release(param0: boolean): void;
-					public getImageLabelingOptions$fancycamera_release(): any;
 					public setQuality(param0: io.github.triniwiz.fancycamera.Quality): void;
 					public setListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.CameraEventListener): void;
 					public getSupportedRatios(): androidNative.Array<string>;
@@ -258,8 +291,6 @@ declare module io {
 					public getOnSelfieSegmentationListener$fancycamera_release(): io.github.triniwiz.fancycamera.ImageAnalysisCallback;
 					public setOnTextRecognitionListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getDATE_FORMAT$fancycamera_release(): java.lang.ThreadLocal<java.text.SimpleDateFormat>;
-					public getAnalysisExecutor$fancycamera_release(): java.util.concurrent.ExecutorService;
-					public getObjectDetectionOptions$fancycamera_release(): any;
 					public setLatestImage$fancycamera_release(param0: globalAndroid.graphics.Bitmap): void;
 					public setOnImageLabelingListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getCurrentFrame$fancycamera_release(): number;
@@ -268,11 +299,8 @@ declare module io {
 					public setRetrieveLatestImage(param0: boolean): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
 					public resetCurrentFrame$fancycamera_release(): void;
-					public setBarcodeScannerOptions$fancycamera_release(param0: any): void;
-					public setSelfieSegmentationOptions(param0: any): void;
 					public getProcessEveryNthFrame(): number;
 					public getMainHandler$fancycamera_release(): globalAndroid.os.Handler;
-					public setAnalysisExecutor$fancycamera_release(param0: java.util.concurrent.ExecutorService): void;
 					public startDurationTimer$fancycamera_release(): void;
 					public stopDurationTimer$fancycamera_release(): void;
 					public getDuration(): number;
@@ -281,11 +309,9 @@ declare module io {
 					public getOnBarcodeScanningListener$fancycamera_release(): io.github.triniwiz.fancycamera.ImageAnalysisCallback;
 					public getMaxVideoBitrate(): number;
 					public setonSurfaceUpdateListener(param0: io.github.triniwiz.fancycamera.SurfaceUpdateListener): void;
-					public getFaceDetectionOptions$fancycamera_release(): any;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
 					public getMTimerTask$fancycamera_release(): java.util.TimerTask;
 					public setRecorder$fancycamera_release(param0: globalAndroid.media.MediaRecorder): void;
-					public getDetectorType(): io.github.triniwiz.fancycamera.DetectorType;
 					public getMaxVideoFrameRate(): number;
 					public takePhoto(): void;
 					public stringSizeToSize$fancycamera_release(param0: string): io.github.triniwiz.fancycamera.Size;
@@ -297,7 +323,6 @@ declare module io {
 					public getEnableTapToFocus(): boolean;
 					public setProcessEveryNthFrame(param0: number): void;
 					public getEnablePinchZoom(): boolean;
-					public setImageLabelingOptions(param0: any): void;
 					public setOnPoseDetectedListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public initListener$fancycamera_release(param0: globalAndroid.media.MediaRecorder): void;
 					public getVIDEO_RECORDER_PERMISSIONS_REQUEST$fancycamera_release(): number;
@@ -305,11 +330,8 @@ declare module io {
 					public hasFlash(): boolean;
 					public constructor(param0: globalAndroid.content.Context);
 					public getEnableAudio(): boolean;
-					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
 					public getDb(): number;
-					public setBarcodeScannerOptions(param0: any): void;
-					public getBarcodeScannerOptions$fancycamera_release(): any;
 					public cameraRecording(): boolean;
 					public getDisplayRatio(): string;
 					public getRetrieveLatestImage(): boolean;
@@ -324,7 +346,7 @@ declare module io {
 					public setOnObjectDetectedListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public setCurrentFrame$fancycamera_release(param0: number): void;
 					public getWhiteBalance(): io.github.triniwiz.fancycamera.WhiteBalance;
-					public setObjectDetectionOptions$fancycamera_release(param0: any): void;
+					public getImageProcessors(): androidx.databinding.ObservableList<io.github.triniwiz.fancycamera.ImageProcessor<any>>;
 					public getTIME_FORMAT$fancycamera_release(): java.lang.ThreadLocal<java.text.SimpleDateFormat>;
 					public hasStoragePermission(): boolean;
 					public setMTimer$fancycamera_release(param0: java.util.Timer): void;
@@ -344,7 +366,6 @@ declare module io {
 					public requestPermission(): void;
 					public release(): void;
 					public getOnTextRecognitionListener$fancycamera_release(): io.github.triniwiz.fancycamera.ImageAnalysisCallback;
-					public setSelfieSegmentationOptions$fancycamera_release(param0: any): void;
 					public getRotation(): io.github.triniwiz.fancycamera.CameraOrientation;
 					public isGettingAudioLevels$fancycamera_release(): boolean;
 					public setPosition(param0: io.github.triniwiz.fancycamera.CameraPosition): void;
@@ -361,10 +382,9 @@ declare module io {
 					public getMTimer$fancycamera_release(): java.util.Timer;
 					public getOnObjectDetectedListener$fancycamera_release(): io.github.triniwiz.fancycamera.ImageAnalysisCallback;
 					public getOverridePhotoHeight(): number;
-					public setObjectDetectionOptions(param0: any): void;
 					public setPictureSize(param0: string): void;
 					public setEnableAudio(param0: boolean): void;
-					public setImageLabelingOptions$fancycamera_release(param0: any): void;
+					public setDefaultLens(param0: io.github.triniwiz.fancycamera.CameraLens): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
 					public setZoomRatio(param0: number): void;
 					public convertFromExifDateTime$fancycamera_release(param0: string): java.util.Date;
@@ -376,6 +396,7 @@ declare module io {
 					public getVIDEO_RECORDER_PERMISSIONS$fancycamera_release(): androidNative.Array<string>;
 					public setDisplayRatio(param0: string): void;
 					public requestStoragePermission(): void;
+					public getDefaultLens(): io.github.triniwiz.fancycamera.CameraLens;
 					public toggleCamera(): void;
 					public setEnableTapToFocus(param0: boolean): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet, param2: number);
@@ -383,33 +404,14 @@ declare module io {
 					public setOnPoseDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public setMDuration$fancycamera_release(param0: number): void;
 					public setOnImageLabelingListener$fancycamera_release(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
-					public initOptions$fancycamera_release(): void;
-					public setFaceDetectionOptions$fancycamera_release(param0: any): void;
 					public getCurrentOrientation(): number;
 					public setOnFacesDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
-					public getSelfieSegmentationOptions$fancycamera_release(): any;
 					public getZoomRatio(): number;
 				}
-				export module CameraBase {
+				export namespace CameraBase {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraBase.Companion>;
-						public setFaceDetectionSupported$fancycamera_release(param0: boolean): void;
 						public getEMA_FILTER$fancycamera_release(): number;
-						public setObjectDetectionSupported$fancycamera_release(param0: boolean): void;
-						public isBarcodeScanningSupported$fancycamera_release(): boolean;
-						public isFaceDetectionSupported$fancycamera_release(): boolean;
-						public isPoseDetectionSupported$fancycamera_release(): boolean;
-						public isTextRecognitionSupported$fancycamera_release(): boolean;
-						public setTextRecognitionSupported$fancycamera_release(param0: boolean): void;
-						public setImageLabelingSupported$fancycamera_release(param0: boolean): void;
-						public setPoseDetectionSupported$fancycamera_release(param0: boolean): void;
-						public detectSupport$fancycamera_release(): void;
-						public setBarcodeScanningSupported$fancycamera_release(param0: boolean): void;
-						public setSelfieSegmentationSupported$fancycamera_release(param0: boolean): void;
-						public isImageLabelingSupported$fancycamera_release(): boolean;
-						public isSelfieSegmentationSupported$fancycamera_release(): boolean;
-						public isObjectDetectionSupported$fancycamera_release(): boolean;
-						public isMLSupported$fancycamera_release(): boolean;
 					}
 					export class WhenMappings {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraBase.WhenMappings>;
@@ -420,10 +422,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class CameraEventListener {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraEventListener>;
 					/**
@@ -454,10 +456,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export abstract class CameraEventListenerUI extends io.github.triniwiz.fancycamera.CameraEventListener {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraEventListenerUI>;
 					public onCameraOpenUI(): void;
@@ -478,7 +480,7 @@ declare module io {
 					public onReady(): void;
 					public onCameraPhotoUI(param0: java.io.File): void;
 				}
-				export module CameraEventListenerUI {
+				export namespace CameraEventListenerUI {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraEventListenerUI.Companion>;
 					}
@@ -488,10 +490,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class CameraFlashMode {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraFlashMode>;
 					public static OFF: io.github.triniwiz.fancycamera.CameraFlashMode;
@@ -503,7 +505,7 @@ declare module io {
 					public static values(): androidNative.Array<io.github.triniwiz.fancycamera.CameraFlashMode>;
 					public getValue(): number;
 				}
-				export module CameraFlashMode {
+				export namespace CameraFlashMode {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraFlashMode.Companion>;
 						public from(param0: number): io.github.triniwiz.fancycamera.CameraFlashMode;
@@ -514,10 +516,28 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
+				export class CameraLens {
+					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraLens>;
+					public static auto: io.github.triniwiz.fancycamera.CameraLens;
+					public static telephoto: io.github.triniwiz.fancycamera.CameraLens;
+					public static wide: io.github.triniwiz.fancycamera.CameraLens;
+					public static ultrawide: io.github.triniwiz.fancycamera.CameraLens;
+					public static values(): androidNative.Array<io.github.triniwiz.fancycamera.CameraLens>;
+					public static valueOf(param0: string): io.github.triniwiz.fancycamera.CameraLens;
+				}
+			}
+		}
+	}
+}
+
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class CameraOrientation {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraOrientation>;
 					public static UNKNOWN: io.github.triniwiz.fancycamera.CameraOrientation;
@@ -529,7 +549,7 @@ declare module io {
 					public static valueOf(param0: string): io.github.triniwiz.fancycamera.CameraOrientation;
 					public getValue(): number;
 				}
-				export module CameraOrientation {
+				export namespace CameraOrientation {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraOrientation.Companion>;
 						public from(param0: number): io.github.triniwiz.fancycamera.CameraOrientation;
@@ -540,10 +560,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class CameraPosition {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraPosition>;
 					public static BACK: io.github.triniwiz.fancycamera.CameraPosition;
@@ -551,11 +571,15 @@ declare module io {
 					public static values(): androidNative.Array<io.github.triniwiz.fancycamera.CameraPosition>;
 					public getValue(): number;
 					public static valueOf(param0: string): io.github.triniwiz.fancycamera.CameraPosition;
+					public getLenFacing(): number;
 				}
-				export module CameraPosition {
+				export namespace CameraPosition {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraPosition.Companion>;
 						public from(param0: number): io.github.triniwiz.fancycamera.CameraPosition;
+					}
+					export class WhenMappings {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.CameraPosition.WhenMappings>;
 					}
 				}
 			}
@@ -563,10 +587,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class DetectorType {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.DetectorType>;
 					public static Barcode: io.github.triniwiz.fancycamera.DetectorType;
@@ -585,7 +609,7 @@ declare module io {
 					public static values(): androidNative.Array<io.github.triniwiz.fancycamera.DetectorType>;
 					public static fromInt(param0: number): io.github.triniwiz.fancycamera.DetectorType;
 				}
-				export module DetectorType {
+				export namespace DetectorType {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.DetectorType.Companion>;
 						public fromInt(param0: number): io.github.triniwiz.fancycamera.DetectorType;
@@ -597,10 +621,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class Event {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.Event>;
 					public constructor(param0: io.github.triniwiz.fancycamera.EventType, param1: java.io.File, param2: string);
@@ -613,10 +637,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class EventType {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.EventType>;
 					public static Photo: io.github.triniwiz.fancycamera.EventType;
@@ -629,28 +653,26 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
-				export class FancyCamera extends globalAndroid.view.View {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
+				export class FancyCamera {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.FancyCamera>;
-					public setFaceDetectionOptions(param0: any): void;
 					public setPause(param0: boolean): void;
 					public getAllowExifRotation(): boolean;
 					public setMaxVideoFrameRate(param0: number): void;
 					public getAutoFocus(): boolean;
 					public setAllowExifRotation(param0: boolean): void;
-					public getBarcodeScannerOptions(): any;
 					public startPreview(): void;
 					public onPermissionHandler(param0: number, param1: androidNative.Array<string>, param2: androidNative.Array<number>): void;
 					public constructor(param0: globalAndroid.content.Context, param1: globalAndroid.util.AttributeSet);
 					public setOverridePhotoWidth(param0: number): void;
 					public setAutoSquareCrop(param0: boolean): void;
+					public isWideAngleSupported(): boolean;
 					public setOverridePhotoHeight(param0: number): void;
 					public setOnTextRecognitionListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getSaveToGallery(): boolean;
-					public getFaceDetectionOptions(): any;
 					public getLatestImage(): globalAndroid.graphics.Bitmap;
 					public setQuality(param0: io.github.triniwiz.fancycamera.Quality): void;
 					public hasCameraPermission(): boolean;
@@ -660,16 +682,14 @@ declare module io {
 					public getRatio(): string;
 					public setRetrieveLatestImage(param0: boolean): void;
 					public getPosition(): io.github.triniwiz.fancycamera.CameraPosition;
-					public setSelfieSegmentationOptions(param0: any): void;
 					public getProcessEveryNthFrame(): number;
+					public addImageProcessor(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>): void;
 					public getDuration(): number;
 					public requestAudioPermission(): void;
 					public hasAudioPermission(): boolean;
 					public getMaxVideoBitrate(): number;
 					public setonSurfaceUpdateListener(param0: io.github.triniwiz.fancycamera.SurfaceUpdateListener): void;
 					public setFlashMode(param0: io.github.triniwiz.fancycamera.CameraFlashMode): void;
-					public getSelfieSegmentationOptions(): any;
-					public getDetectorType(): io.github.triniwiz.fancycamera.DetectorType;
 					public getMaxVideoFrameRate(): number;
 					public takePhoto(): void;
 					public getAvailablePictureSizes(param0: string): androidNative.Array<io.github.triniwiz.fancycamera.Size>;
@@ -677,19 +697,16 @@ declare module io {
 					public getEnableTapToFocus(): boolean;
 					public setProcessEveryNthFrame(param0: number): void;
 					public getEnablePinchZoom(): boolean;
-					public setImageLabelingOptions(param0: any): void;
 					public stopRecording(): void;
 					public setCameraOrientation(param0: io.github.triniwiz.fancycamera.CameraOrientation): void;
 					public constructor(param0: globalAndroid.content.Context);
 					public getEnableAudio(): boolean;
-					public setDetectorType(param0: io.github.triniwiz.fancycamera.DetectorType): void;
 					public setMaxAudioBitRate(param0: number): void;
 					public getHasFlash(): boolean;
 					public getDb(): number;
 					public setEnableAudioLevels(param0: boolean): void;
-					public setBarcodeScannerOptions(param0: any): void;
+					public removeImageProcessor(param0: number): void;
 					public static setForceV1(param0: boolean): void;
-					public setDetectorWithName(param0: string): void;
 					public getRetrieveLatestImage(): boolean;
 					public getCameraOrientation(): io.github.triniwiz.fancycamera.CameraOrientation;
 					public setEnablePinchZoom(param0: boolean): void;
@@ -701,35 +718,38 @@ declare module io {
 					public getWhiteBalance(): io.github.triniwiz.fancycamera.WhiteBalance;
 					public hasStoragePermission(): boolean;
 					public getAutoSquareCrop(): boolean;
+					public removeImageProcessor(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>): void;
 					public getOverridePhotoWidth(): number;
 					public setWhiteBalance(param0: io.github.triniwiz.fancycamera.WhiteBalance): void;
 					public getPictureSize(): string;
 					public startRecording(): void;
+					public addImageProcessors(param0: androidNative.Array<io.github.triniwiz.fancycamera.ImageProcessor<any>>): void;
 					public setDisableHEVC(param0: boolean): void;
-					public getObjectDetectionOptions(): any;
 					public getNumberOfCameras(): number;
 					public static getForceV1(): boolean;
 					public setZoom(param0: number): void;
 					public requestPermission(): void;
 					public release(): void;
 					public setPosition(param0: io.github.triniwiz.fancycamera.CameraPosition): void;
+					public clearImageProcessor(): void;
 					public setOnObjectDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public isAudioLevelsEnabled(): boolean;
 					public stop(): void;
 					public setMaxVideoBitrate(param0: number): void;
 					public setOnBarcodeScanningListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public stopPreview(): void;
-					public setObjectDetectionOptions(param0: any): void;
 					public getOverridePhotoHeight(): number;
 					public setPictureSize(param0: string): void;
 					public setEnableAudio(param0: boolean): void;
+					public setDefaultLens(param0: io.github.triniwiz.fancycamera.CameraLens): void;
 					public getFlashMode(): io.github.triniwiz.fancycamera.CameraFlashMode;
 					public hasPermission(): boolean;
 					public getGetSupportedRatios(): androidNative.Array<string>;
-					public getImageLabelingOptions(): any;
+					public removeImageProcessors(param0: androidNative.Array<io.github.triniwiz.fancycamera.ImageProcessor<any>>): void;
 					public setOnSelfieSegmentationListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
 					public getZoom(): number;
 					public requestStoragePermission(): void;
+					public getDefaultLens(): io.github.triniwiz.fancycamera.CameraLens;
 					public setRatio(param0: string): void;
 					public toggleCamera(): void;
 					public setEnableTapToFocus(param0: boolean): void;
@@ -738,8 +758,9 @@ declare module io {
 					public getPreviewView(): any;
 					public setListener(param0: io.github.triniwiz.fancycamera.CameraEventListener): void;
 					public setOnFacesDetectedListener(param0: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+					public getImageProcessors(): java.util.List<io.github.triniwiz.fancycamera.ImageProcessor<any>>;
 				}
-				export module FancyCamera {
+				export namespace FancyCamera {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.FancyCamera.Companion>;
 						public setForceV1(param0: boolean): void;
@@ -751,10 +772,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class FancyCameraFileProvider {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.FancyCameraFileProvider>;
 					public constructor();
@@ -764,17 +785,17 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class FrameMetadata {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.FrameMetadata>;
 					public getRotation(): number;
 					public getHeight(): number;
 					public getWidth(): number;
 				}
-				export module FrameMetadata {
+				export namespace FrameMetadata {
 					export class Builder {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.FrameMetadata.Builder>;
 						public constructor();
@@ -789,10 +810,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class ImageAnalysis {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.ImageAnalysis>;
 					public constructor();
@@ -802,10 +823,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class ImageAnalysisCallback {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.ImageAnalysisCallback>;
 					/**
@@ -824,21 +845,36 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
-				export class ML {
-					public static class: java.lang.Class<io.github.triniwiz.fancycamera.ML>;
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
+				export class ImageProcessor<T>  extends java.lang.Object {
+					public static class: java.lang.Class<io.github.triniwiz.fancycamera.ImageProcessor<any>>;
+					/**
+					 * Constructs a new instance of the io.github.triniwiz.fancycamera.ImageProcessor<any> interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+					 */
+					public constructor(implementation: {
+						getType(): number;
+						process(param0: com.google.mlkit.vision.common.InputImage): java.util.concurrent.FutureTask<T>;
+						process(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number): java.util.concurrent.FutureTask<T>;
+						process(param0: globalAndroid.media.Image, param1: number): java.util.concurrent.FutureTask<T>;
+						process(param0: globalAndroid.graphics.Bitmap, param1: number): java.util.concurrent.FutureTask<T>;
+					});
 					public constructor();
-					public static processBytes(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number, param5: string, param6: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
-					public static processImage(param0: globalAndroid.graphics.Bitmap, param1: number, param2: string, param3: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+					public getType(): number;
+					public process(param0: com.google.mlkit.vision.common.InputImage): java.util.concurrent.FutureTask<T>;
+					public process(param0: globalAndroid.media.Image, param1: number): java.util.concurrent.FutureTask<T>;
+					public process(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number): java.util.concurrent.FutureTask<T>;
+					public process(param0: globalAndroid.graphics.Bitmap, param1: number): java.util.concurrent.FutureTask<T>;
 				}
-				export module ML {
-					export class Companion {
-						public static class: java.lang.Class<io.github.triniwiz.fancycamera.ML.Companion>;
-						public processBytes(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number, param5: string, param6: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
-						public processImage(param0: globalAndroid.graphics.Bitmap, param1: number, param2: string, param3: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+				export namespace ImageProcessor {
+					export class DefaultImpls {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.ImageProcessor.DefaultImpls>;
+						public static getType(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>): number;
+						public static process(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>, param1: globalAndroid.graphics.Bitmap, param2: number): java.util.concurrent.FutureTask<any>;
+						public static process(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>, param1: androidNative.Array<number>, param2: number, param3: number, param4: number, param5: number): java.util.concurrent.FutureTask<any>;
+						public static process(param0: io.github.triniwiz.fancycamera.ImageProcessor<any>, param1: globalAndroid.media.Image, param2: number): java.util.concurrent.FutureTask<any>;
 					}
 				}
 			}
@@ -846,10 +882,32 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
+				export class ML {
+					public static class: java.lang.Class<io.github.triniwiz.fancycamera.ML>;
+					public static process(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number, param5: java.util.List<any>, param6: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+					public constructor();
+					public static processImage(param0: globalAndroid.graphics.Bitmap, param1: number, param2: java.util.List<any>, param3: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+				}
+				export namespace ML {
+					export class Companion {
+						public static class: java.lang.Class<io.github.triniwiz.fancycamera.ML.Companion>;
+						public process(param0: androidNative.Array<number>, param1: number, param2: number, param3: number, param4: number, param5: java.util.List<any>, param6: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+						public processImage(param0: globalAndroid.graphics.Bitmap, param1: number, param2: java.util.List<any>, param3: io.github.triniwiz.fancycamera.ImageAnalysisCallback): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class Quality {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.Quality>;
 					public static MAX_480P: io.github.triniwiz.fancycamera.Quality;
@@ -863,7 +921,7 @@ declare module io {
 					public getValue(): number;
 					public static valueOf(param0: string): io.github.triniwiz.fancycamera.Quality;
 				}
-				export module Quality {
+				export namespace Quality {
 					export class Companion {
 						public static class: java.lang.Class<io.github.triniwiz.fancycamera.Quality.Companion>;
 						public from(param0: number): io.github.triniwiz.fancycamera.Quality;
@@ -874,10 +932,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class Size {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.Size>;
 					public toString(): string;
@@ -890,10 +948,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class SurfaceUpdateListener {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.SurfaceUpdateListener>;
 					/**
@@ -910,10 +968,10 @@ declare module io {
 	}
 }
 
-declare module io {
-	export module github {
-		export module triniwiz {
-			export module fancycamera {
+declare namespace io {
+	export namespace github {
+		export namespace triniwiz {
+			export namespace fancycamera {
 				export class WhiteBalance {
 					public static class: java.lang.Class<io.github.triniwiz.fancycamera.WhiteBalance>;
 					public static Auto: io.github.triniwiz.fancycamera.WhiteBalance;
@@ -934,4 +992,5 @@ declare module io {
 }
 
 //Generics information:
+//io.github.triniwiz.fancycamera.ImageProcessor:1
 

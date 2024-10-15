@@ -1,4 +1,4 @@
-import { Application, ImageAsset } from '@nativescript/core';
+import { ImageAsset, Utils } from '@nativescript/core';
 import { CLog } from './common';
 
 /**
@@ -6,15 +6,14 @@ import { CLog } from './common';
  * @param iconName
  */
 export function getImageDrawable(iconName: string): number {
-	const contentContext: android.content.Context = Application.android.context;
-	return contentContext.getResources().getIdentifier(iconName, 'drawable', Application.android.context.getPackageName());
+	return Utils.android.getResources().getIdentifier(iconName, 'drawable', Utils.android.getPackageName());
 }
 
 /**
  * Helper method to create android ImageButton
  */
 export function createImageButton(): android.widget.ImageButton {
-	const btn = new android.widget.ImageButton(Application.android.context);
+	const btn = new android.widget.ImageButton(Utils.android.getApplicationContext());
 	btn.setPadding(24, 24, 24, 24);
 	btn.setMaxHeight(48);
 	btn.setMaxWidth(48);
@@ -210,7 +209,7 @@ export function getOrientationFromBytes(data): number {
 export function createImageConfirmationDialog(file, retakeText = 'Retake', saveText = 'Save'): Promise<boolean> {
 	return new Promise((resolve, reject) => {
 		try {
-			const alert = new android.app.AlertDialog.Builder(Application.android.foregroundActivity);
+			const alert = new android.app.AlertDialog.Builder(Utils.android.getCurrentActivity());
 			alert.setOnDismissListener(
 				new android.content.DialogInterface.OnDismissListener({
 					onDismiss: (dialog) => {
@@ -219,7 +218,7 @@ export function createImageConfirmationDialog(file, retakeText = 'Retake', saveT
 				})
 			);
 
-			const layout = new android.widget.LinearLayout(Application.android.context);
+			const layout = new android.widget.LinearLayout(Utils.android.getApplicationContext());
 			layout.setOrientation(1);
 
 			// - Brad - working on OOM issue - use better Bitmap creation
@@ -235,9 +234,9 @@ export function createImageConfirmationDialog(file, retakeText = 'Retake', saveT
 
 			picture = android.graphics.BitmapFactory.decodeFile(file, bitmapFactoryOpts);
 
-			const img = new android.widget.ImageView(Application.android.context);
+			const img = new android.widget.ImageView(Utils.android.getApplicationContext());
 
-			const scale = Application.android.context.getResources().getDisplayMetrics().density;
+			const scale = Utils.android.getResources().getDisplayMetrics().density;
 			img.setPadding(0, 10 * scale, 0, 0);
 
 			img.setImageBitmap(picture);

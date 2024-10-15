@@ -1,10 +1,24 @@
+
+declare const enum CameraLens {
+
+	Auto = 0,
+
+	Telephoto = 1,
+
+	Wide = 2,
+
+	Ultrawide = 3
+}
+
 declare const enum CameraSelection {
+
 	Rear = 0,
 
-	Front = 1,
+	Front = 1
 }
 
 declare class Orientation extends NSObject {
+
 	static alloc(): Orientation; // inherited from NSObject
 
 	static new(): Orientation; // inherited from NSObject
@@ -13,6 +27,7 @@ declare class Orientation extends NSObject {
 }
 
 declare class PreviewView extends UIView {
+
 	static alloc(): PreviewView; // inherited from NSObject
 
 	static appearance(): PreviewView; // inherited from UIAppearance
@@ -39,14 +54,16 @@ declare class PreviewView extends UIView {
 }
 
 declare const enum SessionSetupResult {
+
 	Success = 0,
 
 	NotAuthorized = 1,
 
-	ConfigurationFailed = 2,
+	ConfigurationFailed = 2
 }
 
 declare class SwiftyCamButton extends UIButton {
+
 	static alloc(): SwiftyCamButton; // inherited from NSObject
 
 	static appearance(): SwiftyCamButton; // inherited from UIAppearance
@@ -60,6 +77,8 @@ declare class SwiftyCamButton extends UIButton {
 	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): SwiftyCamButton; // inherited from UIAppearance
 
 	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): SwiftyCamButton; // inherited from UIAppearance
+
+	static buttonWithConfigurationPrimaryAction(configuration: UIButtonConfiguration, primaryAction: UIAction): SwiftyCamButton; // inherited from UIButton
 
 	static buttonWithType(buttonType: UIButtonType): SwiftyCamButton; // inherited from UIButton
 
@@ -77,6 +96,7 @@ declare class SwiftyCamButton extends UIButton {
 }
 
 interface SwiftyCamButtonDelegate {
+
 	buttonDidBeginLongPress(): void;
 
 	buttonDidEndLongPress(): void;
@@ -88,6 +108,7 @@ interface SwiftyCamButtonDelegate {
 	setMaxiumVideoDuration(): number;
 }
 declare var SwiftyCamButtonDelegate: {
+
 	prototype: SwiftyCamButtonDelegate;
 };
 
@@ -96,17 +117,19 @@ declare var SwiftyCamVersionNumber: number;
 declare var SwiftyCamVersionString: interop.Reference<number>;
 
 declare const enum SwiftyCamVideoGravity {
+
 	Resize = 0,
 
 	ResizeAspect = 1,
 
-	ResizeAspectFill = 2,
+	ResizeAspectFill = 2
 }
 
 declare class SwiftyCamViewController extends UIViewController implements AVCaptureFileOutputRecordingDelegate, SwiftyCamButtonDelegate, UIGestureRecognizerDelegate {
+
 	static alloc(): SwiftyCamViewController; // inherited from NSObject
 
-	static deviceWithMediaTypePreferringPosition(mediaType: string, position: AVCaptureDevicePosition): AVCaptureDevice;
+	static deviceWithMediaTypePreferringPositionLens(mediaType: string, position: AVCaptureDevicePosition, lens: CameraLens): AVCaptureDevice;
 
 	static new(): SwiftyCamViewController; // inherited from NSObject
 
@@ -125,6 +148,8 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 	readonly currentCamera: CameraSelection;
 
 	defaultCamera: CameraSelection;
+
+	defaultLens: CameraLens;
 
 	disableAudio: boolean;
 
@@ -166,8 +191,6 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	readonly session: AVCaptureSession;
 
-	readonly sessionQueue: NSObject;
-
 	sessionRunning: boolean;
 
 	setupResult: SessionSetupResult;
@@ -204,7 +227,7 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 
 	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
 
-	readonly; // inherited from NSObjectProtocol
+	readonly  // inherited from NSObjectProtocol
 
 	buttonDidBeginLongPress(): void;
 
@@ -286,6 +309,7 @@ declare class SwiftyCamViewController extends UIViewController implements AVCapt
 }
 
 interface SwiftyCamViewControllerDelegate {
+
 	swiftyCamDidBeginRecordingVideo(swiftyCam: SwiftyCamViewController, camera: CameraSelection): void;
 
 	swiftyCamDidChangeZoomLevel(swiftyCam: SwiftyCamViewController, zoom: number): void;
@@ -311,10 +335,12 @@ interface SwiftyCamViewControllerDelegate {
 	swiftyCamSessionDidStopRunning(swiftyCam: SwiftyCamViewController): void;
 }
 declare var SwiftyCamViewControllerDelegate: {
+
 	prototype: SwiftyCamViewControllerDelegate;
 };
 
 declare const enum VideoQuality {
+
 	High = 0,
 
 	Medium = 1,
@@ -335,5 +361,5 @@ declare const enum VideoQuality {
 
 	Iframe1280x720 = 9,
 
-	Photo = 10,
+	Photo = 10
 }

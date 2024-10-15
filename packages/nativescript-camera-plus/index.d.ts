@@ -75,6 +75,8 @@ export declare class CameraPlus extends ContentView {
 	 */
 	public static confirmScreenDismissedEvent: CameraPlusEvents.ConfirmScreenDismissedEvent;
 
+	isWideAngleSupported(): boolean
+
 	/**
 	 * If true console logs will be output to help debug the Camera Plus events.
 	 */
