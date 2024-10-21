@@ -10,6 +10,12 @@ export class Server {
 		return this.server.status as never;
 	}
 
+	setStatusChangeListener(value: (status: ServerStatus) => void) {
+		this.server.setStatusChangeCallback((status) => {
+			value(status as never);
+		});
+	}
+
 	start() {
 		return new Promise<void>((resolve, reject) => {
 			this.server.start((error: string) => {

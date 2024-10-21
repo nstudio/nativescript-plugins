@@ -4,6 +4,8 @@ export class Server {
 
 	get status(): ServerStatus;
 
+	setStatusChangeListener(value: (status: ServerStatus) => void);
+
 	start(): Promise<void>;
 
 	stop(wait?: bool): Promise<void>;

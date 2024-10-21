@@ -1,11 +1,11 @@
-package io.nstudio.plugins
+package io.nstudio.plugins.webserver
 
-class Sever(
+class Server(
   logger: Boolean,
   path: String,
   directory: String,
-  index: String,
-  hostName: String,
+  index: String?,
+  hostName: String?,
   port: Short,
   workers: Int,
   showFiles: Boolean
@@ -61,8 +61,8 @@ class Sever(
       logger: Boolean,
       path: String,
       directory: String,
-      index: String,
-      hostName: String,
+      index: String?,
+      hostName: String?,
       port: Short,
       workers: Int,
       showFiles: Boolean,
