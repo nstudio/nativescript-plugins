@@ -113,6 +113,9 @@
       ],
       "@nstudio/nativescript-aptabase": [
         "packages/nativescript-aptabase/index.d.ts"
+      ],
+      "@nstudio/nativescript-web-server": [
+        "packages/nativescript-web-server/index.d.ts"
       ]
     }
   },

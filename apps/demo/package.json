@@ -15,8 +15,8 @@
     "@nstudio/nativescript-cardview": "file:../../packages/nativescript-cardview",
     "@nstudio/nativescript-carousel": "file:../../packages/nativescript-carousel",
     "@nstudio/nativescript-checkbox": "file:../../packages/nativescript-checkbox",
-    "@nstudio/nativescript-dynatrace": "file:../../packages/nativescript-dynatrace",
-    "@nstudio/nativescript-embrace": "file:../../packages/nativescript-embrace",
+    "@nstudio/nativescript-dynatrace": "file:../../dist/packages/nativescript-dynatrace",
+    "@nstudio/nativescript-embrace": "file:../../dist/packages/nativescript-embrace",
     "@nstudio/nativescript-exoplayer": "file:../../packages/nativescript-exoplayer",
     "@nstudio/nativescript-fancyalert": "file:../../packages/nativescript-fancyalert",
     "@nstudio/nativescript-filterable-listpicker": "file:../../packages/nativescript-filterable-listpicker",
@@ -29,7 +29,8 @@
     "@nstudio/nativescript-plaid": "file:../../packages/nativescript-plaid",
     "@nstudio/nativescript-qr": "file:../../packages/nativescript-qr",
     "@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
-    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect"
+    "@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect",
+    "@nstudio/nativescript-web-server": "file:../../packages/nativescript-web-server"
   },
   "devDependencies": {
     "@nativescript/android": "~8.6.0",

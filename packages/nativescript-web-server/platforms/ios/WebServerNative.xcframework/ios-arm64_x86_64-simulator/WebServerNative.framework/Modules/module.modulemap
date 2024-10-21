@@ -1,0 +1,11 @@
+framework module WebServerNative {
+  umbrella header "WebServerNative.h"
+  export *
+
+  module * { export * }
+}
+
+module WebServerNative.Swift {
+  header "WebServerNative-Swift.h"
+  requires objc
+}

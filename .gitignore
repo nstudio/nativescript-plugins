@@ -66,3 +66,31 @@ packages/**/native-src/android/**/.classpath
 packages/**/native-src/ios/**/xcuserdata/
 packages/**/native-src/ios/**/project.xcworkspace/
 packages/**/native-src/ios/**/build
+
+
+# src-native
+packages/**/src-native/dist
+
+# src-native
+packages/**/src-native/**/target
+
+# src-native/android
+packages/**/src-native/android/**/*.iml
+packages/**/src-native/android/**/.gradle
+packages/**/src-native/android/**/local.properties
+packages/**/src-native/android/**/.idea/workspace.xml
+packages/**/src-native/android/**/.idea/libraries
+packages/**/src-native/android/**/.DS_Store
+packages/**/src-native/android/**/build
+packages/**/src-native/android/**/bin
+packages/**/src-native/android/**/captures
+packages/**/src-native/android/**/.externalNativeBuild
+packages/**/src-native/android/**/.settings
+packages/**/src-native/android/**/.project
+packages/**/src-native/android/**/.classpath
+
+# src-native/ios
+packages/**/src-native/web-server-ios/**/xcuserdata/
+packages/**/src-native/web-server-ios/**/project.xcworkspace/
+packages/**/src-native/web-server-ios/**/build
+packages/**/src-native/web-server-ios/**/dist

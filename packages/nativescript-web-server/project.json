@@ -1,0 +1,82 @@
+{
+  "name": "nativescript-web-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/nativescript-web-server",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "dist/packages/nativescript-web-server",
+        "tsConfig": "packages/nativescript-web-server/tsconfig.json",
+        "packageJson": "packages/nativescript-web-server/package.json",
+        "main": "packages/nativescript-web-server/index.d.ts",
+        "assets": [
+          "packages/nativescript-web-server/*.md",
+          "packages/nativescript-web-server/index.d.ts",
+          "LICENSE",
+          {
+            "glob": "**/*",
+            "input": "packages/nativescript-web-server/platforms/",
+            "output": "./platforms/"
+          }
+        ],
+        "dependsOn": [
+          {
+            "target": "build.all",
+            "projects": "dependencies"
+          }
+        ]
+      }
+    },
+    "build.all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node tools/scripts/build-finish.ts nativescript-web-server"
+        ],
+        "parallel": false
+      },
+      "outputs": [
+        "dist/packages/nativescript-web-server"
+      ],
+      "dependsOn": [
+        {
+          "target": "build.all",
+          "projects": "dependencies"
+        },
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
+    "build.native.ios.framework.release": {
+			"outputs": ["{workspaceRoot}/dist/packages"],
+			"options": {
+				"commands": ["sh webserver-build-ios.sh"],
+				"cwd": "tools/scripts",
+				"parallel": false 
+			},
+			"executor": "nx:run-commands"
+		},
+    "focus": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx g @nativescript/plugin-tools:focus-packages nativescript-web-server"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "packages/nativescript-web-server/**/*.ts"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

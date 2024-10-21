@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "crates/server",
+    "crates/playground",
+    "crates/server-android",
+    "crates/server-ios"
+]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = 3
+debug = false
+incremental = false
+strip = true

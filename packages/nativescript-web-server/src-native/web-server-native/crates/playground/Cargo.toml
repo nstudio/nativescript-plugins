@@ -1,0 +1,7 @@
+[package]
+name = "web-server-playground"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+web-server-native = { path = "../server" }

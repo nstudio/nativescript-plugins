@@ -1,0 +1,58 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/triniwiz/Documents/GitHub/nstudio-nativescript-plugins/packages/nativescript-web-server/src-native/web-server-ios/dist/Release-iphoneos/WebServerNative.framework/WebServerNative'
+relocations:
+  - { offsetInCU: 0x34, offset: 0x4C0D6, size: 0x8, addend: 0x0, symName: _WebServerNativeVersionString, symObjAddr: 0x0, symBinAddr: 0x1F0F30, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x4C10B, size: 0x8, addend: 0x0, symName: _WebServerNativeVersionNumber, symObjAddr: 0x38, symBinAddr: 0x1F0F68, symSize: 0x0 }
+  - { offsetInCU: 0x89, offset: 0x4C1AA, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSYAASY8rawValuexSg03RawG0Qz_tcfCTW', symObjAddr: 0x200, symBinAddr: 0x4200, symSize: 0x30 }
+  - { offsetInCU: 0xBB, offset: 0x4C1DC, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSYAASY8rawValue03RawG0QzvgTW', symObjAddr: 0x230, symBinAddr: 0x4230, symSize: 0x44 }
+  - { offsetInCU: 0xE8, offset: 0x4C209, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusO8rawValueACSgSi_tcfCTf4nd_n', symObjAddr: 0xF00, symBinAddr: 0x4F00, symSize: 0x14 }
+  - { offsetInCU: 0x1B7, offset: 0x4C2D8, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative11NSCCallbackCACycfcTo', symObjAddr: 0x274, symBinAddr: 0x4274, symSize: 0x2C }
+  - { offsetInCU: 0x24B, offset: 0x4C36C, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative11NSCCallbackCfETo', symObjAddr: 0x2AC, symBinAddr: 0x42AC, symSize: 0x14 }
+  - { offsetInCU: 0x29C, offset: 0x4C3BD, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative17NSCStatusCallbackCACycfcTo', symObjAddr: 0x2C0, symBinAddr: 0x42C0, symSize: 0x2C }
+  - { offsetInCU: 0x346, offset: 0x4C467, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative17NSCStatusCallbackCfETo', symObjAddr: 0x328, symBinAddr: 0x4328, symSize: 0x14 }
+  - { offsetInCU: 0x397, offset: 0x4C4B8, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6servers13OpaquePointerVSgvgTo', symObjAddr: 0x33C, symBinAddr: 0x433C, symSize: 0x10 }
+  - { offsetInCU: 0x3B7, offset: 0x4C4D8, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6servers13OpaquePointerVSgvgTo', symObjAddr: 0x33C, symBinAddr: 0x433C, symSize: 0x10 }
+  - { offsetInCU: 0x3ED, offset: 0x4C50E, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6servers13OpaquePointerVSgvsTo', symObjAddr: 0x34C, symBinAddr: 0x434C, symSize: 0x10 }
+  - { offsetInCU: 0x40D, offset: 0x4C52E, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6servers13OpaquePointerVSgvsTo', symObjAddr: 0x34C, symBinAddr: 0x434C, symSize: 0x10 }
+  - { offsetInCU: 0x446, offset: 0x4C567, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC14statusCallbackSVSgvgTo', symObjAddr: 0x35C, symBinAddr: 0x435C, symSize: 0x10 }
+  - { offsetInCU: 0x466, offset: 0x4C587, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC14statusCallbackSVSgvgTo', symObjAddr: 0x35C, symBinAddr: 0x435C, symSize: 0x10 }
+  - { offsetInCU: 0x49C, offset: 0x4C5BD, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC14statusCallbackSVSgvsTo', symObjAddr: 0x36C, symBinAddr: 0x436C, symSize: 0x10 }
+  - { offsetInCU: 0x4BC, offset: 0x4C5DD, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC14statusCallbackSVSgvsTo', symObjAddr: 0x36C, symBinAddr: 0x436C, symSize: 0x10 }
+  - { offsetInCU: 0x55B, offset: 0x4C67C, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCyACSb_S3SSgADs5Int16Vs6UInt32VSbtcfcTo', symObjAddr: 0x654, symBinAddr: 0x4654, symSize: 0xF0 }
+  - { offsetInCU: 0x58D, offset: 0x4C6AE, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCfDTo', symObjAddr: 0x788, symBinAddr: 0x4788, symSize: 0x68 }
+  - { offsetInCU: 0x5C8, offset: 0x4C6E9, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6statusAA0D6StatusOvgTo', symObjAddr: 0x7F0, symBinAddr: 0x47F0, symSize: 0x34 }
+  - { offsetInCU: 0x615, offset: 0x4C736, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC23setStatusChangeCallbackyyyAA0dF0OcSgFTo', symObjAddr: 0xA44, symBinAddr: 0x4A44, symSize: 0x8C }
+  - { offsetInCU: 0x64C, offset: 0x4C76D, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC5startyyySSSgcFTo', symObjAddr: 0xB58, symBinAddr: 0x4B58, symSize: 0xD0 }
+  - { offsetInCU: 0x71E, offset: 0x4C83F, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC4stopyySb_ySSSgctFTo', symObjAddr: 0xDB0, symBinAddr: 0x4DB0, symSize: 0xD8 }
+  - { offsetInCU: 0x7FC, offset: 0x4C91D, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCACycfcTo', symObjAddr: 0xED4, symBinAddr: 0x4ED4, symSize: 0x2C }
+  - { offsetInCU: 0x85A, offset: 0x4C97B, size: 0x8, addend: 0x0, symName: '_$sSo8NSStringCSgIeyBy_SSSgIegg_TR', symObjAddr: 0xC28, symBinAddr: 0x4C28, symSize: 0x44 }
+  - { offsetInCU: 0x872, offset: 0x4C993, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCMa', symObjAddr: 0xF14, symBinAddr: 0x4F14, symSize: 0x20 }
+  - { offsetInCU: 0x886, offset: 0x4C9A7, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative17NSCStatusCallbackCMa', symObjAddr: 0xF34, symBinAddr: 0x4F34, symSize: 0x20 }
+  - { offsetInCU: 0x89A, offset: 0x4C9BB, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative11NSCCallbackCMa', symObjAddr: 0xF54, symBinAddr: 0x4F54, symSize: 0x20 }
+  - { offsetInCU: 0x8AE, offset: 0x4C9CF, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSHAASQWb', symObjAddr: 0xF74, symBinAddr: 0x4F74, symSize: 0x4 }
+  - { offsetInCU: 0x8C2, offset: 0x4C9E3, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOACSQAAWl', symObjAddr: 0xF78, symBinAddr: 0x4F78, symSize: 0x44 }
+  - { offsetInCU: 0x8D6, offset: 0x4C9F7, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOMa', symObjAddr: 0xFBC, symBinAddr: 0x4FBC, symSize: 0x10 }
+  - { offsetInCU: 0x8EA, offset: 0x4CA0B, size: 0x8, addend: 0x0, symName: '_$sSo8NSStringCSgIeyBy_SSSgIegg_TRTA', symObjAddr: 0x1094, symBinAddr: 0x5094, symSize: 0x8 }
+  - { offsetInCU: 0x8FE, offset: 0x4CA1F, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOIegy_SgWOe', symObjAddr: 0x109C, symBinAddr: 0x509C, symSize: 0x10 }
+  - { offsetInCU: 0x91D, offset: 0x4CA3E, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOIeyBy_ACIegy_TRTA', symObjAddr: 0x10AC, symBinAddr: 0x50AC, symSize: 0x10 }
+  - { offsetInCU: 0x969, offset: 0x4CA8A, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSQAASQ2eeoiySbx_xtFZTW', symObjAddr: 0x54, symBinAddr: 0x4054, symSize: 0xC }
+  - { offsetInCU: 0x991, offset: 0x4CAB2, size: 0x8, addend: 0x0, symName: '_$ss2eeoiySbx_xtSYRzSQ8RawValueRpzlF15WebServerNative15NSCServerStatusO_Tgq5', symObjAddr: 0x60, symBinAddr: 0x4060, symSize: 0x5C }
+  - { offsetInCU: 0xA76, offset: 0x4CB97, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSHAASH9hashValueSivgTW', symObjAddr: 0xBC, symBinAddr: 0x40BC, symSize: 0x78 }
+  - { offsetInCU: 0xB22, offset: 0x4CC43, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSHAASH4hash4intoys6HasherVz_tFTW', symObjAddr: 0x134, symBinAddr: 0x4134, symSize: 0x58 }
+  - { offsetInCU: 0xB92, offset: 0x4CCB3, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusOSHAASH13_rawHashValue4seedS2i_tFTW', symObjAddr: 0x18C, symBinAddr: 0x418C, symSize: 0x74 }
+  - { offsetInCU: 0xDC0, offset: 0x4CEE1, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusO8rawValueACSgSi_tcfC', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x18 }
+  - { offsetInCU: 0xDD4, offset: 0x4CEF5, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative15NSCServerStatusO8rawValueSivg', symObjAddr: 0x18, symBinAddr: 0x4018, symSize: 0x3C }
+  - { offsetInCU: 0xEE4, offset: 0x4D005, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCyACSb_S3SSgADs5Int16Vs6UInt32VSbtcfC', symObjAddr: 0x37C, symBinAddr: 0x437C, symSize: 0xA8 }
+  - { offsetInCU: 0xEFF, offset: 0x4D020, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCyACSb_S3SSgADs5Int16Vs6UInt32VSbtcfc', symObjAddr: 0x424, symBinAddr: 0x4424, symSize: 0x230 }
+  - { offsetInCU: 0x1020, offset: 0x4D141, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCfD', symObjAddr: 0x744, symBinAddr: 0x4744, symSize: 0x44 }
+  - { offsetInCU: 0x1089, offset: 0x4D1AA, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC6statusAA0D6StatusOvg', symObjAddr: 0x824, symBinAddr: 0x4824, symSize: 0x2C }
+  - { offsetInCU: 0x110F, offset: 0x4D230, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC23setStatusChangeCallbackyyyAA0dF0OcSgF', symObjAddr: 0x850, symBinAddr: 0x4850, symSize: 0xD4 }
+  - { offsetInCU: 0x125D, offset: 0x4D37E, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC23setStatusChangeCallbackyyyAA0dF0OcSgFySo07CServerF0V_SvSgtcfU_', symObjAddr: 0x924, symBinAddr: 0x4924, symSize: 0x108 }
+  - { offsetInCU: 0x1314, offset: 0x4D435, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC23setStatusChangeCallbackyyyAA0dF0OcSgFySo07CServerF0V_SvSgtcfU_To', symObjAddr: 0xA40, symBinAddr: 0x4A40, symSize: 0x4 }
+  - { offsetInCU: 0x137F, offset: 0x4D4A0, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC5startyyySSSgcF', symObjAddr: 0xAD0, symBinAddr: 0x4AD0, symSize: 0x88 }
+  - { offsetInCU: 0x1489, offset: 0x4D5AA, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC4stopyySb_ySSSgctF', symObjAddr: 0xC6C, symBinAddr: 0x4C6C, symSize: 0x98 }
+  - { offsetInCU: 0x153B, offset: 0x4D65C, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerC4stopyySb_ySSSgctFySpys4Int8VGSg_SvSgtcfU_To', symObjAddr: 0xD9C, symBinAddr: 0x4D9C, symSize: 0x14 }
+  - { offsetInCU: 0x15C1, offset: 0x4D6E2, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCACycfC', symObjAddr: 0xE88, symBinAddr: 0x4E88, symSize: 0x20 }
+  - { offsetInCU: 0x15D5, offset: 0x4D6F6, size: 0x8, addend: 0x0, symName: '_$s15WebServerNative9NSCServerCACycfc', symObjAddr: 0xEA8, symBinAddr: 0x4EA8, symSize: 0x2C }
+...

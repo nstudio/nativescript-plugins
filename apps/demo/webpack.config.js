@@ -18,5 +18,12 @@ module.exports = (env) => {
     context: webpack.Utils.project.getProjectFilePath('node_modules')
   });
 
+  webpack.Utils.addCopyRule({
+    from: '../src/web_assets', 
+		to: 'web_assets',
+    context: webpack.Utils.project.getProjectFilePath('node_modules')
+  });
+
+
   return webpack.resolveConfig();
 };
