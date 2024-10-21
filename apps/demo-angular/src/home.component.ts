@@ -86,6 +86,9 @@ export class HomeComponent {
 	},
 	{
 		name: 'nativescript-walletconnect'
+	},
+	{
+		name: 'nativescript-web-server'
 	}
 ];
 }

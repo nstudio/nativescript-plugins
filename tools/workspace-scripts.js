@@ -304,6 +304,13 @@ module.exports = {
 					description: '@nstudio/nativescript-aptabase: Build',
 				},
 			},
+			// @nstudio/nativescript-web-server
+			'nativescript-web-server': {
+				build: {
+					script: 'nx run nativescript-web-server:build.all',
+					description: '@nstudio/nativescript-web-server: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -425,6 +432,10 @@ module.exports = {
 			'nativescript-aptabase': {
 				script: 'nx run nativescript-aptabase:focus',
 				description: 'Focus on @nstudio/nativescript-aptabase',
+			},
+			'nativescript-web-server': {
+				script: 'nx run nativescript-web-server:focus',
+				description: 'Focus on @nstudio/nativescript-web-server',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',
