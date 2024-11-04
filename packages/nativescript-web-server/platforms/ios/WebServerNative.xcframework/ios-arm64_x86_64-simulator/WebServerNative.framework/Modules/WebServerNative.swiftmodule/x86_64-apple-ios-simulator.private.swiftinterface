@@ -7,6 +7,67 @@ import Swift
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc(NSCMessageType) public enum NSCMessageType : Swift.Int, Swift.RawRepresentable {
+  public typealias RawValue = Swift.Int
+  case Text
+  case Binary
+  case Ping
+  case Pong
+  public init?(rawValue: Swift.Int)
+  public var rawValue: WebServerNative.NSCMessageType.RawValue {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc(NSCMessage) @objcMembers public class NSCMessage : ObjectiveC.NSObject {
+  @objc final public let type: WebServerNative.NSCMessageType
+  @objc public var text: Swift.String? {
+    @objc get
+  }
+  @objc public var data: Foundation.NSData? {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc(NSCClient) @objcMembers public class NSCClient : ObjectiveC.NSObject {
+  @objc public var id: Swift.UInt64 {
+    @objc get
+  }
+  @objc deinit
+}
+@objcMembers @objc(NSCWebSocketServer) public class NSCWebSocketServer : ObjectiveC.NSObject {
+  @objc public init(_ logger: Swift.Bool, _ path: Swift.String, _ maxPayload: Swift.Int, _ hostName: Swift.String?, _ port: Swift.Int16, _ workers: Swift.UInt32, _ autoPong: Swift.Bool)
+  @objc deinit
+  @objc public func send(text: Swift.String, id: Swift.UInt64)
+  @objc public func send(binary: Foundation.NSData, id: Swift.UInt64)
+  @objc public func send(ping: Foundation.NSData, id: Swift.UInt64)
+  @objc public func sendEmptyPing(id: Swift.UInt64)
+  @objc public func send(pong: Foundation.NSData, id: Swift.UInt64)
+  @objc public func sendEmptyPong(id: Swift.UInt64)
+  @objc public func broadcast(_ text: Swift.String)
+  @objc public func broadcast(binary: Foundation.NSData)
+  @objc public func broadcast(ping: Foundation.NSData)
+  @objc public func broadcastEmptyPing()
+  @objc public func broadcast(pong: Foundation.NSData)
+  @objc public func broadcastEmptyPong()
+  @objc public func addOnMessage(_ callback: @escaping (WebServerNative.NSCClient, WebServerNative.NSCMessage) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnMessage(_ id: Swift.UInt64)
+  @objc public func addOnPing(_ callback: @escaping (WebServerNative.NSCClient, Foundation.NSData?) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnPing(_ id: Swift.UInt64)
+  @objc public func addOnPong(_ callback: @escaping (WebServerNative.NSCClient, Foundation.NSData?) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnPong(_ id: Swift.UInt64)
+  @objc public func addOnConnect(_ callback: @escaping (WebServerNative.NSCClient) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnConnect(_ id: Swift.UInt64)
+  @objc public func addOnDisconnect(_ callback: @escaping (WebServerNative.NSCClient, Swift.UInt16, Swift.String?) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnDisconnect(_ id: Swift.UInt64)
+  @objc public func addOnError(_ callback: @escaping (WebServerNative.NSCClient, Swift.String) -> Swift.Void) -> Swift.UInt64
+  @objc public func removeOnError(_ id: Swift.UInt64)
+  @objc public var status: WebServerNative.NSCServerStatus {
+    @objc get
+  }
+  @objc public func setStatusChangeCallback(_ callback: ((WebServerNative.NSCServerStatus) -> Swift.Void)?)
+  @objc public func start(_ callback: @escaping (Swift.String?) -> Swift.Void)
+  @objc public func stop(_ wait: Swift.Bool, _ callback: @escaping (Swift.String?) -> Swift.Void)
+}
 @objc(NSCServerStatus) public enum NSCServerStatus : Swift.Int, Swift.RawRepresentable {
   public typealias RawValue = Swift.Int
   case Inactive
@@ -29,5 +90,7 @@ import _SwiftConcurrencyShims
   @objc public func start(_ callback: @escaping (Swift.String?) -> Swift.Void)
   @objc public func stop(_ wait: Swift.Bool, _ callback: @escaping (Swift.String?) -> Swift.Void)
 }
+extension WebServerNative.NSCMessageType : Swift.Equatable {}
+extension WebServerNative.NSCMessageType : Swift.Hashable {}
 extension WebServerNative.NSCServerStatus : Swift.Equatable {}
 extension WebServerNative.NSCServerStatus : Swift.Hashable {}

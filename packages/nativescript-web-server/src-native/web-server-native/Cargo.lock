@@ -20,6 +20,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "actix-cors"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9e772b3bcafe335042b5db010ab7c09013dad6eac4915c91d8d50902769f331"
+dependencies = [
+ "actix-utils",
+ "actix-web",
+ "derive_more",
+ "futures-util",
+ "log",
+ "once_cell",
+ "smallvec",
+]
+
+[[package]]
 name = "actix-files"
 version = "0.6.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -206,6 +221,20 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "actix-ws"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3a1fb4f9f2794b0aadaf2ba5f14a6f034c7e86957b458c506a8cb75953f2d99"
+dependencies = [
+ "actix-codec",
+ "actix-http",
+ "actix-web",
+ "bytestring",
+ "futures-core",
+ "tokio",
 ]
 
 [[package]]
@@ -1361,9 +1390,13 @@ checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 name = "web-server-native"
 version = "0.1.0"
 dependencies = [
+ "actix-cors",
  "actix-files",
  "actix-web",
+ "actix-ws",
+ "bytestring",
  "futures",
+ "futures-util",
  "parking_lot",
 ]
 

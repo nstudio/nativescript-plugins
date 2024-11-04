@@ -1,4 +1,5 @@
 declare const io;
+import { Observable } from '@nativescript/core';
 import { ServerStatus } from './common';
 
 export class Server {
@@ -50,4 +51,9 @@ export class Server {
 			);
 		});
 	}
+}
+
+export class Client {}
+
+export class WebSocketServer extends Observable {
 }

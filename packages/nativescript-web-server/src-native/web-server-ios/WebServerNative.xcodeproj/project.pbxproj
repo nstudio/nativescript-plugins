@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F19D12D62CD7D3F400738651 /* NSCWebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */; };
 		F1B814E72CC569B7006DCAB9 /* WebServerNative.docc in Sources */ = {isa = PBXBuildFile; fileRef = F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */; };
 		F1B814ED2CC569B7006DCAB9 /* WebServerNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */; };
 		F1B814F22CC569B7006DCAB9 /* WebServerNativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B814F12CC569B7006DCAB9 /* WebServerNativeTests.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCWebSocketServer.swift; sourceTree = "<group>"; };
 		F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebServerNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1B814E52CC569B7006DCAB9 /* WebServerNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServerNative.h; sourceTree = "<group>"; };
 		F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = WebServerNative.docc; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				F1B814E52CC569B7006DCAB9 /* WebServerNative.h */,
 				F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */,
 				F1B815012CC59574006DCAB9 /* NSCServer.swift */,
+				F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */,
 			);
 			path = WebServerNative;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19D12D62CD7D3F400738651 /* NSCWebSocketServer.swift in Sources */,
 				F1B814E72CC569B7006DCAB9 /* WebServerNative.docc in Sources */,
 				F1B815022CC59574006DCAB9 /* NSCServer.swift in Sources */,
 			);

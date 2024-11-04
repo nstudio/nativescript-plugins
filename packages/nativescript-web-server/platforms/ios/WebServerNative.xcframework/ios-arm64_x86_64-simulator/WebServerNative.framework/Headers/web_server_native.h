@@ -16,7 +16,30 @@ typedef enum CServerStatus {
   CServerStatus_Stopping,
 } CServerStatus;
 
+typedef enum CWebsocketServerStatus {
+  CWebsocketServerStatus_Inactive,
+  CWebsocketServerStatus_Active,
+  CWebsocketServerStatus_Crashed,
+  CWebsocketServerStatus_Starting,
+  CWebsocketServerStatus_Stopping,
+} CWebsocketServerStatus;
+
+typedef enum WebsocketMessageType {
+  WebsocketMessageType_Text,
+  WebsocketMessageType_Binary,
+  WebsocketMessageType_Ping,
+  WebsocketMessageType_Pong,
+} WebsocketMessageType;
+
+typedef struct CClient CClient;
+
 typedef struct CServer CServer;
+
+typedef struct CWebsocketMessage CWebsocketMessage;
+
+typedef struct CWebsocketReason CWebsocketReason;
+
+typedef struct CWebsocketServer CWebsocketServer;
 
 typedef struct CStaticServiceOptions {
   bool logger;
@@ -28,6 +51,16 @@ typedef struct CStaticServiceOptions {
   uint32_t workers;
   bool show_files;
 } CStaticServiceOptions;
+
+typedef struct CWebSocketServiceOptions {
+  bool logger;
+  const char *path;
+  intptr_t max_payload;
+  const char *host_name;
+  int16_t port;
+  uint32_t workers;
+  bool auto_pong;
+} CWebSocketServiceOptions;
 
 struct CServer *webserver_init(const struct CStaticServiceOptions *options);
 
@@ -46,5 +79,120 @@ void webserver_set_status_callback(struct CServer *server,
                                    void (*callback)(enum CServerStatus, void*));
 
 void webserver_clear_status_callback(struct CServer *server);
+
+struct CClient *webserver_websocket_client(struct CWebsocketServer *server, uint64_t client_id);
+
+uint64_t webserver_websocket_client_id(struct CClient *client);
+
+void webserver_websocket_client_release(struct CClient *client);
+
+struct CWebsocketServer *webserver_websocket_init(const struct CWebSocketServiceOptions *options);
+
+void webserver_websocket_release(struct CWebsocketServer *server);
+
+void webserver_websocket_start(struct CWebsocketServer *server,
+                               void *data,
+                               void (*callback)(char*, void*));
+
+void webserver_websocket_stop(struct CWebsocketServer *server,
+                              bool wait,
+                              void *data,
+                              void (*callback)(char*, void*));
+
+enum CWebsocketServerStatus webserver_websocket_status(struct CWebsocketServer *server);
+
+void webserver_websocket_send_ping(struct CWebsocketServer *server,
+                                   uint64_t id,
+                                   const uint8_t *data,
+                                   uintptr_t data_size);
+
+void webserver_websocket_broadcast_ping(struct CWebsocketServer *server,
+                                        const uint8_t *data,
+                                        uintptr_t data_size);
+
+void webserver_websocket_send_pong(struct CWebsocketServer *server,
+                                   uint64_t id,
+                                   const uint8_t *data,
+                                   uintptr_t data_size);
+
+void webserver_websocket_broadcast_pong(struct CWebsocketServer *server,
+                                        const uint8_t *data,
+                                        uintptr_t data_size);
+
+void webserver_websocket_broadcast_text(struct CWebsocketServer *server, const char *message);
+
+void webserver_websocket_send_text(struct CWebsocketServer *server,
+                                   uint64_t id,
+                                   const char *message);
+
+void webserver_websocket_send_binary(struct CWebsocketServer *server,
+                                     uint64_t id,
+                                     const uint8_t *data,
+                                     uintptr_t data_size);
+
+void webserver_websocket_broadcast_binary(struct CWebsocketServer *server,
+                                          const uint8_t *data,
+                                          uintptr_t data_size);
+
+void webserver_websocket_set_status_callback(struct CWebsocketServer *server,
+                                             void *data,
+                                             void (*callback)(enum CServerStatus, void*));
+
+void webserver_websocket_clear_status_callback(struct CWebsocketServer *server);
+
+void webserver_websocket_message_release(struct CWebsocketMessage *message);
+
+enum WebsocketMessageType webserver_websocket_message_type(struct CWebsocketMessage *message);
+
+const uint8_t *webserver_websocket_message_data(struct CWebsocketMessage *message);
+
+uintptr_t webserver_websocket_message_data_size(struct CWebsocketMessage *message);
+
+struct CWebsocketMessage *webserver_websocket_message_create_text(const char *text);
+
+struct CWebsocketMessage *webserver_websocket_message_create_ping(const uint8_t *data,
+                                                                  uintptr_t data_size);
+
+struct CWebsocketMessage *webserver_websocket_message_create_pong(const uint8_t *data,
+                                                                  uintptr_t data_size);
+
+struct CWebsocketMessage *webserver_websocket_message_create_binary(const uint8_t *data,
+                                                                    uintptr_t data_size);
+
+char *webserver_websocket_message_text(const struct CWebsocketMessage *message);
+
+uint16_t webserver_websocket_reason_code(const struct CWebsocketReason *reason);
+
+char *webserver_websocket_reason_description(const struct CWebsocketReason *reason);
+
+void webserver_websocket_reason_release(struct CWebsocketReason *reason);
+
+uint64_t webserver_websocket_add_connect_callback(struct CWebsocketServer *server,
+                                                  void *data,
+                                                  void (*callback)(uint64_t, void*));
+
+void webserver_websocket_remove_connect_callback(struct CWebsocketServer *server, uint64_t id);
+
+uint64_t webserver_websocket_add_disconnect_callback(struct CWebsocketServer *server,
+                                                     void *data,
+                                                     void (*callback)(uint64_t,
+                                                                      struct CWebsocketReason*,
+                                                                      void*));
+
+void webserver_websocket_remove_disconnect_callback(struct CWebsocketServer *server, uint64_t id);
+
+uint64_t webserver_websocket_add_message_callback(struct CWebsocketServer *server,
+                                                  void *data,
+                                                  void (*callback)(uint64_t,
+                                                                   struct CWebsocketMessage*,
+                                                                   void*));
+
+void webserver_websocket_remove_message_callback(struct CWebsocketServer *server, uint64_t id);
+
+uint64_t webserver_websocket_add_error_callback(struct CWebsocketServer *server,
+                                                void *data,
+                                                void (*callback)(uint64_t, char*, void*));
+
+void webserver_websocket_remove_error_callback(struct CWebsocketServer *server, uint64_t id);
 
 #endif /* WEBSERVER_C_H */

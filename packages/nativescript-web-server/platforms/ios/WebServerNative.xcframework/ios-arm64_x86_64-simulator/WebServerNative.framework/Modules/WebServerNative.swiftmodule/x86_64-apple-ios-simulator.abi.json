@@ -16,6 +16,1916 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "NSCMessageType",
+        "printedName": "NSCMessageType",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "Text",
+            "printedName": "Text",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCMessageType.Type) -> WebServerNative.NSCMessageType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WebServerNative.NSCMessageType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCMessageType",
+                        "printedName": "WebServerNative.NSCMessageType",
+                        "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@WebServerNative@E@NSCMessageType@NSCMessageTypeText",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO4TextyA2CmF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "Binary",
+            "printedName": "Binary",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCMessageType.Type) -> WebServerNative.NSCMessageType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WebServerNative.NSCMessageType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCMessageType",
+                        "printedName": "WebServerNative.NSCMessageType",
+                        "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@WebServerNative@E@NSCMessageType@NSCMessageTypeBinary",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO6BinaryyA2CmF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "Ping",
+            "printedName": "Ping",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCMessageType.Type) -> WebServerNative.NSCMessageType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WebServerNative.NSCMessageType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCMessageType",
+                        "printedName": "WebServerNative.NSCMessageType",
+                        "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@WebServerNative@E@NSCMessageType@NSCMessageTypePing",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO4PingyA2CmF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "Pong",
+            "printedName": "Pong",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCMessageType.Type) -> WebServerNative.NSCMessageType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "WebServerNative.NSCMessageType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCMessageType",
+                        "printedName": "WebServerNative.NSCMessageType",
+                        "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@WebServerNative@E@NSCMessageType@NSCMessageTypePong",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO4PongyA2CmF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "WebServerNative.NSCMessageType?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15WebServerNative14NSCMessageTypeO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO8rawValueACSgSi_tcfc",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15WebServerNative14NSCMessageTypeO8rawValueSivp",
+            "mangledName": "$s15WebServerNative14NSCMessageTypeO8rawValueSivp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15WebServerNative14NSCMessageTypeO8rawValueSivg",
+                "mangledName": "$s15WebServerNative14NSCMessageTypeO8rawValueSivg",
+                "moduleName": "WebServerNative",
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@WebServerNative@E@NSCMessageType",
+        "mangledName": "$s15WebServerNative14NSCMessageTypeO",
+        "moduleName": "WebServerNative",
+        "objc_name": "NSCMessageType",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "NSCMessage",
+        "printedName": "NSCMessage",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "type",
+            "printedName": "type",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCMessageType",
+                "printedName": "WebServerNative.NSCMessageType",
+                "usr": "c:@M@WebServerNative@E@NSCMessageType"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(py)type",
+            "mangledName": "$s15WebServerNative10NSCMessageC4typeAA0D4TypeOvp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCMessageType",
+                    "printedName": "WebServerNative.NSCMessageType",
+                    "usr": "c:@M@WebServerNative@E@NSCMessageType"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(im)type",
+                "mangledName": "$s15WebServerNative10NSCMessageC4typeAA0D4TypeOvg",
+                "moduleName": "WebServerNative",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "text",
+            "printedName": "text",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(py)text",
+            "mangledName": "$s15WebServerNative10NSCMessageC4textSSSgvp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(im)text",
+                "mangledName": "$s15WebServerNative10NSCMessageC4textSSSgvg",
+                "moduleName": "WebServerNative",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "data",
+            "printedName": "data",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.NSData?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSData",
+                    "printedName": "Foundation.NSData",
+                    "usr": "c:objc(cs)NSData"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(py)data",
+            "mangledName": "$s15WebServerNative10NSCMessageC4dataSo6NSDataCSgvp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.NSData?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSData",
+                        "printedName": "Foundation.NSData",
+                        "usr": "c:objc(cs)NSData"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(im)data",
+                "mangledName": "$s15WebServerNative10NSCMessageC4dataSo6NSDataCSgvg",
+                "moduleName": "WebServerNative",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCMessage",
+                "printedName": "WebServerNative.NSCMessage",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCMessage"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCMessage(im)init",
+            "mangledName": "$s15WebServerNative10NSCMessageCACycfc",
+            "moduleName": "WebServerNative",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@WebServerNative@objc(cs)NSCMessage",
+        "mangledName": "$s15WebServerNative10NSCMessageC",
+        "moduleName": "WebServerNative",
+        "objc_name": "NSCMessage",
+        "declAttributes": [
+          "AccessControl",
+          "ObjCMembers",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "NSCClient",
+        "printedName": "NSCClient",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "id",
+            "printedName": "id",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCClient(py)id",
+            "mangledName": "$s15WebServerNative9NSCClientC2ids6UInt64Vvp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UInt64",
+                    "printedName": "Swift.UInt64",
+                    "usr": "s:s6UInt64V"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCClient(im)id",
+                "mangledName": "$s15WebServerNative9NSCClientC2ids6UInt64Vvg",
+                "moduleName": "WebServerNative",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCClient",
+                "printedName": "WebServerNative.NSCClient",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCClient(im)init",
+            "mangledName": "$s15WebServerNative9NSCClientCACycfc",
+            "moduleName": "WebServerNative",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@WebServerNative@objc(cs)NSCClient",
+        "mangledName": "$s15WebServerNative9NSCClientC",
+        "moduleName": "WebServerNative",
+        "objc_name": "NSCClient",
+        "declAttributes": [
+          "AccessControl",
+          "ObjCMembers",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "NSCWebSocketServer",
+        "printedName": "NSCWebSocketServer",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(_:_:_:_:_:_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCWebSocketServer",
+                "printedName": "WebServerNative.NSCWebSocketServer",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int16",
+                "printedName": "Swift.Int16",
+                "usr": "s:s5Int16V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt32",
+                "printedName": "Swift.UInt32",
+                "usr": "s:s6UInt32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)init:::::::",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0CyACSb_SSSiSSSgs5Int16Vs6UInt32VSbtcfc",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "send",
+            "printedName": "send(text:id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendWithText:id:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C4send4text2idySS_s6UInt64VtF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "send",
+            "printedName": "send(binary:id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendWithBinary:id:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C4send6binary2idySo6NSDataC_s6UInt64VtF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "send",
+            "printedName": "send(ping:id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendWithPing:id:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C4send4ping2idySo6NSDataC_s6UInt64VtF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendEmptyPing",
+            "printedName": "sendEmptyPing(id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendEmptyPingWithId:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C13sendEmptyPing2idys6UInt64V_tF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "send",
+            "printedName": "send(pong:id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendWithPong:id:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C4send4pong2idySo6NSDataC_s6UInt64VtF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendEmptyPong",
+            "printedName": "sendEmptyPong(id:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)sendEmptyPongWithId:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C13sendEmptyPong2idys6UInt64V_tF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcast",
+            "printedName": "broadcast(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcast:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9broadcastyySSF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcast",
+            "printedName": "broadcast(binary:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcastWithBinary:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9broadcast6binaryySo6NSDataC_tF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcast",
+            "printedName": "broadcast(ping:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcastWithPing:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9broadcast4pingySo6NSDataC_tF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcastEmptyPing",
+            "printedName": "broadcastEmptyPing()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcastEmptyPing",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C18broadcastEmptyPingyyF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcast",
+            "printedName": "broadcast(pong:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSData",
+                "printedName": "Foundation.NSData",
+                "usr": "c:objc(cs)NSData"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcastWithPong:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9broadcast4pongySo6NSDataC_tF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "broadcastEmptyPong",
+            "printedName": "broadcastEmptyPong()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)broadcastEmptyPong",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C18broadcastEmptyPongyyF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnMessage",
+            "printedName": "addOnMessage(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient, WebServerNative.NSCMessage) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(WebServerNative.NSCClient, WebServerNative.NSCMessage)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCClient",
+                        "printedName": "WebServerNative.NSCClient",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCMessage",
+                        "printedName": "WebServerNative.NSCMessage",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCMessage"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnMessage:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C12addOnMessageys6UInt64VyAA9NSCClientC_AA10NSCMessageCtcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnMessage",
+            "printedName": "removeOnMessage(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnMessage:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C15removeOnMessageyys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnPing",
+            "printedName": "addOnPing(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient, Foundation.NSData?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(WebServerNative.NSCClient, Foundation.NSData?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCClient",
+                        "printedName": "WebServerNative.NSCClient",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Foundation.NSData?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "NSData",
+                            "printedName": "Foundation.NSData",
+                            "usr": "c:objc(cs)NSData"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnPing:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9addOnPingys6UInt64VyAA9NSCClientC_So6NSDataCSgtcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnPing",
+            "printedName": "removeOnPing(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnPing:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C12removeOnPingyys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnPong",
+            "printedName": "addOnPong(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient, Foundation.NSData?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(WebServerNative.NSCClient, Foundation.NSData?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCClient",
+                        "printedName": "WebServerNative.NSCClient",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Foundation.NSData?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "NSData",
+                            "printedName": "Foundation.NSData",
+                            "usr": "c:objc(cs)NSData"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnPong:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C9addOnPongys6UInt64VyAA9NSCClientC_So6NSDataCSgtcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnPong",
+            "printedName": "removeOnPong(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnPong:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C12removeOnPongyys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnConnect",
+            "printedName": "addOnConnect(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCClient",
+                    "printedName": "WebServerNative.NSCClient",
+                    "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnConnect:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C12addOnConnectys6UInt64VyAA9NSCClientCcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnConnect",
+            "printedName": "removeOnConnect(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnConnect:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C15removeOnConnectyys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnDisconnect",
+            "printedName": "addOnDisconnect(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient, Swift.UInt16, Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(WebServerNative.NSCClient, Swift.UInt16, Swift.String?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCClient",
+                        "printedName": "WebServerNative.NSCClient",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UInt16",
+                        "printedName": "Swift.UInt16",
+                        "usr": "s:s6UInt16V"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnDisconnect:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C15addOnDisconnectys6UInt64VyAA9NSCClientC_s6UInt16VSSSgtcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnDisconnect",
+            "printedName": "removeOnDisconnect(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnDisconnect:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C18removeOnDisconnectyys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOnError",
+            "printedName": "addOnError(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(WebServerNative.NSCClient, Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(WebServerNative.NSCClient, Swift.String)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCClient",
+                        "printedName": "WebServerNative.NSCClient",
+                        "usr": "c:@M@WebServerNative@objc(cs)NSCClient"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)addOnError:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C10addOnErrorys6UInt64VyAA9NSCClientC_SStcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeOnError",
+            "printedName": "removeOnError(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UInt64",
+                "printedName": "Swift.UInt64",
+                "usr": "s:s6UInt64V"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)removeOnError:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C13removeOnErroryys6UInt64VF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "status",
+            "printedName": "status",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCServerStatus",
+                "printedName": "WebServerNative.NSCServerStatus",
+                "usr": "c:@M@WebServerNative@E@NSCServerStatus"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(py)status",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C6statusAA15NSCServerStatusOvp",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "NSCServerStatus",
+                    "printedName": "WebServerNative.NSCServerStatus",
+                    "usr": "c:@M@WebServerNative@E@NSCServerStatus"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)status",
+                "mangledName": "$s15WebServerNative012NSCWebSocketB0C6statusAA15NSCServerStatusOvg",
+                "moduleName": "WebServerNative",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "setStatusChangeCallback",
+            "printedName": "setStatusChangeCallback(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((WebServerNative.NSCServerStatus) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(WebServerNative.NSCServerStatus) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "NSCServerStatus",
+                        "printedName": "WebServerNative.NSCServerStatus",
+                        "usr": "c:@M@WebServerNative@E@NSCServerStatus"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)setStatusChangeCallback:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C23setStatusChangeCallbackyyyAA09NSCServerG0OcSgF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "start",
+            "printedName": "start(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)start:",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C5startyyySSSgcF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stop",
+            "printedName": "stop(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)stop::",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0C4stopyySb_ySSSgctF",
+            "moduleName": "WebServerNative",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "NSCWebSocketServer",
+                "printedName": "WebServerNative.NSCWebSocketServer",
+                "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer(im)init",
+            "mangledName": "$s15WebServerNative012NSCWebSocketB0CACycfc",
+            "moduleName": "WebServerNative",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@WebServerNative@objc(cs)NSCWebSocketServer",
+        "mangledName": "$s15WebServerNative012NSCWebSocketB0C",
+        "moduleName": "WebServerNative",
+        "objc_name": "NSCWebSocketServer",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "ObjCMembers"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "WebServerNative",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "NSCServerStatus",
         "printedName": "NSCServerStatus",
         "children": [
@@ -728,6 +2638,132 @@
     "json_format_version": 8
   },
   "ConstValues": [
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 128,
+      "length": 15,
+      "value": "\"WebServerNative.NSCVoidCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 404,
+      "length": 6,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 420,
+      "length": 4,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 434,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 1018,
+      "length": 10,
+      "value": "\"WebServerNative.NSCMessage\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 2031,
+      "length": 18,
+      "value": "\"WebServerNative.NSCMessageCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 2315,
+      "length": 17,
+      "value": "\"WebServerNative.NSCReasonCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 2608,
+      "length": 17,
+      "value": "\"WebServerNative.NSCStringCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 2883,
+      "length": 15,
+      "value": "\"WebServerNative.NSCDataCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 3195,
+      "length": 9,
+      "value": "\"WebServerNative.NSCClient\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 3646,
+      "length": 18,
+      "value": "\"WebServerNative.NSCConnectCallback\""
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 4943,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 5003,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 5057,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 5117,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 5179,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "Dictionary",
+      "offset": 5236,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
+      "kind": "StringLiteral",
+      "offset": 4800,
+      "length": 18,
+      "value": "\"WebServerNative.NSCWebSocketServer\""
+    },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCServer.swift",
       "kind": "IntegerLiteral",

@@ -298,7 +298,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+
+SWIFT_CLASS_NAMED("NSCClient")
+@interface NSCClient : NSObject
+@property (nonatomic, readonly) uint64_t id;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+enum NSCMessageType : NSInteger;
 @class NSString;
+@class NSData;
+
+SWIFT_CLASS_NAMED("NSCMessage")
+@interface NSCMessage : NSObject
+@property (nonatomic, readonly) enum NSCMessageType type;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+@property (nonatomic, readonly, strong) NSData * _Nullable data;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, NSCMessageType, "NSCMessageType", open) {
+  NSCMessageTypeText = 0,
+  NSCMessageTypeBinary = 1,
+  NSCMessageTypePing = 2,
+  NSCMessageTypePong = 3,
+};
+
 enum NSCServerStatus : NSInteger;
 
 SWIFT_CLASS_NAMED("NSCServer")
@@ -319,6 +346,42 @@ typedef SWIFT_ENUM_NAMED(NSInteger, NSCServerStatus, "NSCServerStatus", open) {
   NSCServerStatusStarting = 3,
   NSCServerStatusStopping = 4,
 };
+
+
+SWIFT_CLASS_NAMED("NSCWebSocketServer")
+@interface NSCWebSocketServer : NSObject
+- (nonnull instancetype)init:(BOOL)logger :(NSString * _Nonnull)path :(NSInteger)maxPayload :(NSString * _Nullable)hostName :(int16_t)port :(uint32_t)workers :(BOOL)autoPong OBJC_DESIGNATED_INITIALIZER;
+- (void)sendWithText:(NSString * _Nonnull)text id:(uint64_t)id;
+- (void)sendWithBinary:(NSData * _Nonnull)binary id:(uint64_t)id;
+- (void)sendWithPing:(NSData * _Nonnull)ping id:(uint64_t)id;
+- (void)sendEmptyPingWithId:(uint64_t)id;
+- (void)sendWithPong:(NSData * _Nonnull)pong id:(uint64_t)id;
+- (void)sendEmptyPongWithId:(uint64_t)id;
+- (void)broadcast:(NSString * _Nonnull)text;
+- (void)broadcastWithBinary:(NSData * _Nonnull)binary;
+- (void)broadcastWithPing:(NSData * _Nonnull)ping;
+- (void)broadcastEmptyPing;
+- (void)broadcastWithPong:(NSData * _Nonnull)pong;
+- (void)broadcastEmptyPong;
+- (uint64_t)addOnMessage:(void (^ _Nonnull)(NSCClient * _Nonnull, NSCMessage * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnMessage:(uint64_t)id;
+- (uint64_t)addOnPing:(void (^ _Nonnull)(NSCClient * _Nonnull, NSData * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnPing:(uint64_t)id;
+- (uint64_t)addOnPong:(void (^ _Nonnull)(NSCClient * _Nonnull, NSData * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnPong:(uint64_t)id;
+- (uint64_t)addOnConnect:(void (^ _Nonnull)(NSCClient * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnConnect:(uint64_t)id;
+- (uint64_t)addOnDisconnect:(void (^ _Nonnull)(NSCClient * _Nonnull, uint16_t, NSString * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnDisconnect:(uint64_t)id;
+- (uint64_t)addOnError:(void (^ _Nonnull)(NSCClient * _Nonnull, NSString * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnError:(uint64_t)id;
+@property (nonatomic, readonly) enum NSCServerStatus status;
+- (void)setStatusChangeCallback:(void (^ _Nullable)(enum NSCServerStatus))callback;
+- (void)start:(void (^ _Nonnull)(NSString * _Nullable))callback;
+- (void)stop:(BOOL)wait :(void (^ _Nonnull)(NSString * _Nullable))callback;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif
 #if __has_attribute(external_source_symbol)
@@ -628,7 +691,34 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+
+SWIFT_CLASS_NAMED("NSCClient")
+@interface NSCClient : NSObject
+@property (nonatomic, readonly) uint64_t id;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+enum NSCMessageType : NSInteger;
 @class NSString;
+@class NSData;
+
+SWIFT_CLASS_NAMED("NSCMessage")
+@interface NSCMessage : NSObject
+@property (nonatomic, readonly) enum NSCMessageType type;
+@property (nonatomic, readonly, copy) NSString * _Nullable text;
+@property (nonatomic, readonly, strong) NSData * _Nullable data;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM_NAMED(NSInteger, NSCMessageType, "NSCMessageType", open) {
+  NSCMessageTypeText = 0,
+  NSCMessageTypeBinary = 1,
+  NSCMessageTypePing = 2,
+  NSCMessageTypePong = 3,
+};
+
 enum NSCServerStatus : NSInteger;
 
 SWIFT_CLASS_NAMED("NSCServer")
@@ -649,6 +739,42 @@ typedef SWIFT_ENUM_NAMED(NSInteger, NSCServerStatus, "NSCServerStatus", open) {
   NSCServerStatusStarting = 3,
   NSCServerStatusStopping = 4,
 };
+
+
+SWIFT_CLASS_NAMED("NSCWebSocketServer")
+@interface NSCWebSocketServer : NSObject
+- (nonnull instancetype)init:(BOOL)logger :(NSString * _Nonnull)path :(NSInteger)maxPayload :(NSString * _Nullable)hostName :(int16_t)port :(uint32_t)workers :(BOOL)autoPong OBJC_DESIGNATED_INITIALIZER;
+- (void)sendWithText:(NSString * _Nonnull)text id:(uint64_t)id;
+- (void)sendWithBinary:(NSData * _Nonnull)binary id:(uint64_t)id;
+- (void)sendWithPing:(NSData * _Nonnull)ping id:(uint64_t)id;
+- (void)sendEmptyPingWithId:(uint64_t)id;
+- (void)sendWithPong:(NSData * _Nonnull)pong id:(uint64_t)id;
+- (void)sendEmptyPongWithId:(uint64_t)id;
+- (void)broadcast:(NSString * _Nonnull)text;
+- (void)broadcastWithBinary:(NSData * _Nonnull)binary;
+- (void)broadcastWithPing:(NSData * _Nonnull)ping;
+- (void)broadcastEmptyPing;
+- (void)broadcastWithPong:(NSData * _Nonnull)pong;
+- (void)broadcastEmptyPong;
+- (uint64_t)addOnMessage:(void (^ _Nonnull)(NSCClient * _Nonnull, NSCMessage * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnMessage:(uint64_t)id;
+- (uint64_t)addOnPing:(void (^ _Nonnull)(NSCClient * _Nonnull, NSData * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnPing:(uint64_t)id;
+- (uint64_t)addOnPong:(void (^ _Nonnull)(NSCClient * _Nonnull, NSData * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnPong:(uint64_t)id;
+- (uint64_t)addOnConnect:(void (^ _Nonnull)(NSCClient * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnConnect:(uint64_t)id;
+- (uint64_t)addOnDisconnect:(void (^ _Nonnull)(NSCClient * _Nonnull, uint16_t, NSString * _Nullable))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnDisconnect:(uint64_t)id;
+- (uint64_t)addOnError:(void (^ _Nonnull)(NSCClient * _Nonnull, NSString * _Nonnull))callback SWIFT_WARN_UNUSED_RESULT;
+- (void)removeOnError:(uint64_t)id;
+@property (nonatomic, readonly) enum NSCServerStatus status;
+- (void)setStatusChangeCallback:(void (^ _Nullable)(enum NSCServerStatus))callback;
+- (void)start:(void (^ _Nonnull)(NSString * _Nullable))callback;
+- (void)stop:(BOOL)wait :(void (^ _Nonnull)(NSString * _Nullable))callback;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
 
 #endif
 #if __has_attribute(external_source_symbol)
