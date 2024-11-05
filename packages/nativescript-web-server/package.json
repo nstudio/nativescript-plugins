@@ -1,6 +1,6 @@
 {
   "name": "@nstudio/nativescript-web-server",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "NativeScript Web Server",
   "main": "index",
   "typings": "index.d.ts",

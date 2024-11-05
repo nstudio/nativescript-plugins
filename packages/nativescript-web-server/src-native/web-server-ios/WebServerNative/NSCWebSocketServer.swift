@@ -56,7 +56,7 @@ public enum NSCMessageType: Int, RawRepresentable {
 @objc(NSCMessage)
 @objcMembers
 public class NSCMessage: NSObject {
-    private var message: OpaquePointer?
+    var message: OpaquePointer?
     public let type: NSCMessageType
     private var _data: NSData? = nil
     private var _text: String? = nil
@@ -71,7 +71,6 @@ public class NSCMessage: NSObject {
                 let text = webserver_websocket_message_text(message)
                 if(text != nil){
                     _text = String(cString: text!)
-                    webserver_websocket_message_release(message)
                 }
             }
             return _text
@@ -81,7 +80,7 @@ public class NSCMessage: NSObject {
     public var data: NSData? {
         get {
             if(_data == nil){
-                _data = convertMessageToData(message)
+                _data = convertNSCMessageToData(self)
             }
             return _data
         }
@@ -169,6 +168,21 @@ func convertMessageToData(_ message: OpaquePointer?) -> NSData? {
         let size = webserver_websocket_message_data_size(message)
         let data = NSData(bytesNoCopy: ptr, length: Int(size)) { _, _ in
             webserver_websocket_message_release(message)
+        }
+        return data
+    }
+    return nil
+}
+
+func convertNSCMessageToData(_ message: NSCMessage) -> NSData? {
+    guard let msg = message.message else {return nil}
+    let message_data = webserver_websocket_message_data(msg)
+    if(message_data != nil){
+        let ptr = UnsafeMutableRawPointer(mutating: message_data!)
+        let size = webserver_websocket_message_data_size(msg)
+        let msg = Unmanaged.passRetained(message)
+        let data = NSData(bytesNoCopy: ptr, length: Int(size)) { _, _ in
+            let _ = msg.takeRetainedValue()
         }
         return data
     }
@@ -289,13 +303,13 @@ public class NSCWebSocketServer: NSObject {
             
             guard let messageType = messageType else {return}
             
-            let message = NSCMessage(message: message, type: messageType)
             if(data != nil){
                 let cb =  Unmanaged<NSCMessageCallback>.fromOpaque(data!).takeUnretainedValue()
                 guard let client = cb.server.clients[clientId] else {
                     // todo query ?
                     return
                 }
+                let message = NSCMessage(message: message, type: messageType)
                 cb.callback(client,message)
             }
            

@@ -63,7 +63,7 @@ export class WebSocketServer extends Observable {
 			let ret: ArrayBuffer | string | null = null;
 			if (message.type === NSCMessageType.Text) {
 				ret = message.text;
-			} else if (message instanceof NSData) {
+			} else if (message.data instanceof NSData) {
 				ret = interop.bufferFromData(message.data);
 			}
 			this.notify({ eventName: 'message', client: this.clients.get(client.id), message: ret });

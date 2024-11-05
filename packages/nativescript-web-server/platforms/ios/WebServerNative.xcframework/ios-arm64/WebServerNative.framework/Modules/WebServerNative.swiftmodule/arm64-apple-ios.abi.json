@@ -2676,91 +2676,91 @@
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 2031,
+      "offset": 1958,
       "length": 18,
       "value": "\"WebServerNative.NSCMessageCallback\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 2315,
+      "offset": 2242,
       "length": 17,
       "value": "\"WebServerNative.NSCReasonCallback\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 2608,
+      "offset": 2535,
       "length": 17,
       "value": "\"WebServerNative.NSCStringCallback\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 2883,
+      "offset": 2810,
       "length": 15,
       "value": "\"WebServerNative.NSCDataCallback\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 3195,
+      "offset": 3122,
       "length": 9,
       "value": "\"WebServerNative.NSCClient\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 3646,
+      "offset": 3573,
       "length": 18,
       "value": "\"WebServerNative.NSCConnectCallback\""
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 4943,
+      "offset": 5429,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 5003,
+      "offset": 5489,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 5057,
+      "offset": 5543,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 5117,
+      "offset": 5603,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 5179,
+      "offset": 5665,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "Dictionary",
-      "offset": 5236,
+      "offset": 5722,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/triniwiz\/Documents\/GitHub\/nstudio-nativescript-plugins\/packages\/nativescript-web-server\/src-native\/web-server-ios\/WebServerNative\/NSCWebSocketServer.swift",
       "kind": "StringLiteral",
-      "offset": 4800,
+      "offset": 5286,
       "length": 18,
       "value": "\"WebServerNative.NSCWebSocketServer\""
     },
