@@ -1,17 +1,17 @@
 use crate::static_server::{Callback, ServerStatus, StatusCallback};
+use crate::RUNTIME;
 use actix_web::dev::ServerHandle;
-use actix_web::rt::Runtime;
 use actix_web::web::{Bytes, Data};
 use actix_web::{rt, App, Error, HttpRequest, HttpResponse};
 use actix_ws::{AggregatedMessage, CloseReason, Session};
 use bytestring::ByteString;
-use futures_util::StreamExt as _;
 use parking_lot::{Mutex, RwLock};
 use std::collections::HashMap;
 use std::fmt::{Debug, Formatter};
 use std::ops::Deref;
 use std::sync::atomic::{AtomicU64, AtomicU8, Ordering};
 use std::sync::Arc;
+use tokio::runtime::Handle;
 
 const ACTIVE_ERROR: &str = "Server has already started";
 
@@ -100,7 +100,6 @@ pub trait WebSocketErrorCallback: Send {
 pub struct Server {
     next_id: Arc<AtomicU64>,
     next_client_id: Arc<AtomicU64>,
-    runtime: Arc<RwLock<Option<Runtime>>>,
     handle: Arc<RwLock<Option<ServerHandle>>>,
     config: Arc<Mutex<WebSocketServiceOptions>>,
     status: Arc<AtomicU8>,
@@ -115,7 +114,6 @@ pub struct Server {
 impl Debug for Server {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Server")
-            .field("runtime", &self.runtime)
             .field("handle", &self.handle)
             .field("config", &self.config)
             .field("status", &self.status)
@@ -130,7 +128,6 @@ impl Clone for Server {
         Server {
             next_id: Arc::clone(&self.next_id),
             next_client_id: Arc::clone(&self.next_client_id),
-            runtime: Arc::clone(&self.runtime),
             handle: Arc::clone(&self.handle),
             config: Arc::clone(&self.config),
             status: Arc::clone(&self.status),
@@ -178,14 +175,13 @@ impl Server {
     pub fn new(
         options: WebSocketServiceOptions,
     ) -> Self {
-        let rt = Runtime::new().unwrap();
-        Self { next_id: Arc::new(AtomicU64::new(1)), next_client_id: Arc::new(AtomicU64::new(1)), runtime: Arc::new(RwLock::new(Some(rt))), handle: Default::default(), config: Arc::new(Mutex::new(options)), status: Default::default(), status_callback: Arc::new(RwLock::new(None)), clients: Arc::new(Default::default()), connect_callback: Arc::new(Default::default()), disconnect_callback: Arc::new(Default::default()), message_callback: Arc::new(Default::default()), error_callback: Arc::new(Default::default()) }
+        Self { next_id: Arc::new(AtomicU64::new(1)), next_client_id: Arc::new(AtomicU64::new(1)), handle: Default::default(), config: Arc::new(Mutex::new(options)), status: Default::default(), status_callback: Arc::new(RwLock::new(None)), clients: Arc::new(Default::default()), connect_callback: Arc::new(Default::default()), disconnect_callback: Arc::new(Default::default()), message_callback: Arc::new(Default::default()), error_callback: Arc::new(Default::default()) }
     }
 
     async fn handle_ws(req: HttpRequest, stream: actix_web::web::Payload, data: Data<Server>) -> Result<HttpResponse, Error> {
         let (mut res, session, stream) = actix_ws::handle(&req, stream)?;
 
-        let (policy, max_payload, auto_pong) = {
+        let (policy, _max_payload, auto_pong) = {
             let lock = data.config.lock();
             (format!("connect-src https: ws://{}:{};", lock.host_name.as_deref().unwrap_or("localhost"), lock.port.unwrap_or(8081)), lock.max_payload.unwrap_or(100 * 1024 * 1024), lock.auto_pong)
         };
@@ -205,7 +201,7 @@ impl Server {
         {
             data.clients.write().insert(id, client);
         }
-        let mut client = Client { id, session: session.clone(), headers };
+        let client = Client { id, session: session.clone(), headers };
 
 
         let mut stream = stream
@@ -259,7 +255,7 @@ impl Server {
                     Ok(AggregatedMessage::Close(close_reason)) => {
                         let reason = Reason::from(close_reason);
                         let reason_2 = reason.clone();
-                         let _ = client.session.close(reason_2.into()).await;
+                        let _ = client.session.close(reason_2.into()).await;
                         let mut lock = data.disconnect_callback.write();
                         for (_, cb) in lock.iter_mut() {
                             cb.on_disconnect(id, reason.clone());
@@ -286,6 +282,10 @@ impl Server {
     pub fn client(&self, client_id: u64) -> Option<Client> {
         self.clients.read().get(&client_id).cloned()
     }
+
+    pub fn clients(&self) -> Vec<Client> {
+        self.clients.read().values().cloned().collect()
+    }
     pub fn start(&self, callback: Box<dyn Callback>) {
         let self_server = self.clone();
         if self.status.load(Ordering::SeqCst) == ServerStatus::Active as u8 {
@@ -300,14 +300,13 @@ impl Server {
         }
 
         let status_callback = Arc::clone(&self.status_callback);
-
-        let rt = self.runtime.read();
-        if let Some(rt) = rt.as_ref() {
-            let handle = Arc::clone(&self.handle);
-            let config = Arc::clone(&self.config);
-            let status = Arc::clone(&self.status);
-            let rt_handle = rt.tokio_runtime().handle().clone();
-            rt_handle.clone().spawn_blocking(move || {
+        let handle = Arc::clone(&self.handle);
+        let config = Arc::clone(&self.config);
+        let status = Arc::clone(&self.status);
+        let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+        rt_handle.spawn_blocking(move || {
+            let rt_handle = Handle::current();
+            rt_handle.block_on(async move {
                 let (host_name, port, workers) = {
                     let lock = config.lock();
                     let host_name = match lock.host_name.as_ref() {
@@ -333,67 +332,83 @@ impl Server {
                     .workers(workers as usize)
                     .bind((host_name.deref(), port));
 
-                rt_handle.block_on(async move {
-                    match server {
-                        Ok(server) => {
-                            let server = server.run();
+                match server {
+                    Ok(server) => {
+                        let server = server.run();
 
-                            {
-                                *handle.write() = Some(server.handle());
-                            }
+                        {
+                            *handle.write() = Some(server.handle());
+                        }
 
-                            status.store(ServerStatus::Active as u8, Ordering::SeqCst);
+                        status.store(ServerStatus::Active as u8, Ordering::SeqCst);
 
+                        {
                             let status_callback_lock = status_callback.read();
                             if let Some(callback) = status_callback_lock.deref() {
                                 callback.on_change(ServerStatus::Active);
                                 drop(status_callback_lock);
                             }
+                        }
 
-                            callback.on_success();
-                            match server.await {
-                                Ok(_) => {
-                                    status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
-                                    *handle.write() = None;
+                        callback.on_success();
 
-                                    let status_callback_lock = status_callback.read();
-                                    if let Some(callback) = status_callback_lock.deref() {
-                                        callback.on_change(ServerStatus::Inactive);
-                                        drop(status_callback_lock);
-                                    }
+                        match server.await {
+                            Ok(_) => {
+                                status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
+                                *handle.write() = None;
+
+                                let status_callback_lock = status_callback.read();
+                                if let Some(callback) = status_callback_lock.deref() {
+                                    callback.on_change(ServerStatus::Inactive);
+                                    drop(status_callback_lock);
                                 }
-                                Err(_) => {
-                                    status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
-                                    *handle.write() = None;
+                            }
+                            Err(_) => {
+                                status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
+                                *handle.write() = None;
 
-                                    let status_callback_lock = status_callback.read();
-                                    if let Some(callback) = status_callback_lock.deref() {
-                                        callback.on_change(ServerStatus::Inactive);
-                                        drop(status_callback_lock);
-                                    }
+                                let status_callback_lock = status_callback.read();
+                                if let Some(callback) = status_callback_lock.deref() {
+                                    callback.on_change(ServerStatus::Inactive);
+                                    drop(status_callback_lock);
                                 }
                             }
                         }
-                        Err(error) => {
-                            callback.on_error(error.to_string());
-                        }
                     }
-                })
-            });
-        } else {
-            callback.on_error(INTERNAL_START_ERROR.to_string())
-        }
+                    Err(error) => {
+                        callback.on_error(error.to_string());
+                    }
+                }
+            })
+        });
     }
 
     pub fn stop(&self, wait: bool, callback: Box<dyn Callback>) {
-        let rt_handle = self.runtime.read().as_ref().map(|rt| rt.tokio_runtime().handle().clone());
-        if let Some(rt_handle) = rt_handle {
-            let status_callback = Arc::clone(&self.status_callback);
-            if self.status.load(Ordering::SeqCst) == ServerStatus::Active as u8 {
-                if wait {
-                    rt_handle.block_on(async {
-                        if let Some(handle) = self.handle.read().as_ref() {
-                            self.status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
+        let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+        let status_callback = Arc::clone(&self.status_callback);
+        if self.status.load(Ordering::SeqCst) == ServerStatus::Active as u8 {
+            if wait {
+                rt_handle.block_on(async {
+                    if let Some(handle) = self.handle.read().as_ref() {
+                        self.status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
+
+                        let status_callback_lock = status_callback.read();
+                        if let Some(callback) = status_callback_lock.deref() {
+                            callback.on_change(ServerStatus::Stopping);
+                            drop(status_callback_lock);
+                        }
+
+                        handle.stop(true).await;
+                        callback.on_success()
+                    }
+                });
+            } else {
+                let handle = self.handle.read().as_ref().map(|handle| handle.clone());
+                if let Some(handle) = handle {
+                    let status = Arc::clone(&self.status);
+                    rt_handle.clone().spawn_blocking(move || {
+                        rt_handle.block_on(async {
+                            status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
 
                             let status_callback_lock = status_callback.read();
                             if let Some(callback) = status_callback_lock.deref() {
@@ -403,79 +418,69 @@ impl Server {
 
                             handle.stop(true).await;
                             callback.on_success()
-                        }
+                        })
                     });
-                } else {
-                    let handle = self.handle.read().as_ref().map(|handle| handle.clone());
-                    if let Some(handle) = handle {
-                        let status = Arc::clone(&self.status);
-                        rt_handle.clone().spawn_blocking(move || {
-                            rt_handle.block_on(async {
-                                status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
-
-                                let status_callback_lock = status_callback.read();
-                                if let Some(callback) = status_callback_lock.deref() {
-                                    callback.on_change(ServerStatus::Stopping);
-                                    drop(status_callback_lock);
-                                }
-
-                                handle.stop(true).await;
-                                callback.on_success()
-                            })
-                        });
-                    }
                 }
-            } else {
-                callback.on_error(INACTIVE_ERROR.to_string())
             }
         } else {
-            callback.on_error(INACTIVE_ERROR.to_string());
+            callback.on_error(INACTIVE_ERROR.to_string())
         }
     }
 
     pub fn broadcast(&self, message: Message) {
-        let clients = Arc::clone(&self.clients);
-        rt::spawn(async move {
-            let mut clients = clients.write();
-            match message {
-                Message::Text(text) => {
-                    for (_, client) in clients.iter_mut() {
-                        let _ = client.session.text(text.clone()).await;
+        let status = self.status.load(Ordering::SeqCst);
+        if status == ServerStatus::Active as u8 {
+            let clients = Arc::clone(&self.clients);
+            let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+            rt_handle.spawn(async move {
+                let mut clients: Vec<_> = clients.write().iter().map(|client| client.1.session.clone()).collect();
+                match message {
+                    Message::Text(text) => {
+                        for session in clients.iter_mut() {
+                            let _ = session.text(text.clone()).await;
+                        }
                     }
-                }
-                Message::Binary(bin) => {
-                    for (_, client) in clients.iter_mut() {
-                        let _ = client.session.binary(bin.clone()).await;
+                    Message::Binary(bin) => {
+                        for session in clients.iter_mut() {
+                            let _ = session.binary(bin.clone()).await;
+                        }
                     }
+                    _ => {}
                 }
-                _ => {}
-            }
-        });
+            });
+        }
     }
 
     pub fn send(&self, message: Message, id: u64) {
-        let clients = Arc::clone(&self.clients);
-        rt::spawn(async move {
-            let mut clients = clients.write();
-            if let Some(client) = clients.get_mut(&id) {
-                match message {
-                    Message::Text(text) => {
-                        let _ = client.session.text(text.clone()).await;
-                    }
-                    Message::Binary(bin) => {
-                        let _ = client.session.binary(bin).await;
-                    }
-                    Message::Pong(msg) => {
-                        let msg = msg.as_deref().unwrap_or(b"");
-                        let _ = client.session.pong(msg).await;
-                    }
-                    Message::Ping(msg) => {
-                        let msg = msg.as_deref().unwrap_or(b"");
-                        let _ = client.session.pong(msg).await;
+        let status = self.status.load(Ordering::SeqCst);
+        if status == ServerStatus::Active as u8 {
+            let clients = Arc::clone(&self.clients);
+            let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+            rt_handle.spawn(async move {
+                let session = {
+                    let clients = clients.read();
+                    clients.get(&id).map(|client| client.session.clone())
+                };
+                if let Some(mut session) = session {
+                    match message {
+                        Message::Text(text) => {
+                            let _ = session.text(text.clone()).await;
+                        }
+                        Message::Binary(bin) => {
+                            let _ = session.binary(bin).await;
+                        }
+                        Message::Pong(msg) => {
+                            let msg = msg.as_deref().unwrap_or(b"");
+                            let _ = session.pong(msg).await;
+                        }
+                        Message::Ping(msg) => {
+                            let msg = msg.as_deref().unwrap_or(b"");
+                            let _ = session.pong(msg).await;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     pub fn set_status_callback(&self, callback: Box<dyn StatusCallback>) {

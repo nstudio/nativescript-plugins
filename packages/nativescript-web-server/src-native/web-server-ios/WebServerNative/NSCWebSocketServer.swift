@@ -8,14 +8,6 @@
 import Foundation
 
 
-class NSCVoidCallback: NSObject {
-    var callback: () -> Void
-    init(callback: @escaping () -> Void) {
-        self.callback = callback
-    }
-}
-
-
 @objc(NSCMessageType)
 public enum NSCMessageType: Int, RawRepresentable {
     public typealias RawValue = Int
@@ -97,36 +89,112 @@ public class NSCMessage: NSObject {
 class NSCMessageCallback: NSObject {
     var server: NSCWebSocketServer
     var callback: (NSCClient,NSCMessage) -> Void
+    var current: CFRunLoop
     init(callback: @escaping (NSCClient, NSCMessage) -> Void, server: NSCWebSocketServer) {
         self.callback = callback
         self.server = server
+        self.current = CFRunLoopGetCurrent()
+    }
+    
+    func trigger(_ client: NSCClient, _ message: NSCMessage){
+        if(current == CFRunLoopGetCurrent()){
+            callback(client,message)
+             }else {
+                 CFRunLoopPerformBlock(current, CFRunLoopMode.defaultMode.rawValue) {
+                     self.callback(client,message)
+                 }
+                 CFRunLoopWakeUp(current)
+        }
     }
 }
 
 class NSCReasonCallback: NSObject {
     var server: NSCWebSocketServer
     var callback: (NSCClient,UInt16, String?) -> Void
+    var current: CFRunLoop
     init(callback: @escaping (NSCClient, UInt16, String?) -> Void, server: NSCWebSocketServer) {
         self.callback = callback
         self.server = server
+        self.current = CFRunLoopGetCurrent()
+    }
+    
+    func trigger(_ client: NSCClient, _ code: UInt16, _ description: String?){
+        if(current == CFRunLoopGetCurrent()){
+            callback(client,code, description)
+             }else {
+                 CFRunLoopPerformBlock(current, CFRunLoopMode.defaultMode.rawValue) {
+                     self.callback(client,code, description)
+                 }
+                 CFRunLoopWakeUp(current)
+        }
     }
 }
 
 class NSCStringCallback: NSObject {
     var server: NSCWebSocketServer
     var callback: (NSCClient, String) -> Void
+    var current: CFRunLoop
     init(callback: @escaping (NSCClient,String) -> Void, server: NSCWebSocketServer) {
         self.callback = callback
         self.server = server
+        self.current = CFRunLoopGetCurrent()
+    }
+    
+    func trigger(_ client: NSCClient, _ data: String){
+        if(current == CFRunLoopGetCurrent()){
+            callback(client,data)
+             }else {
+                 CFRunLoopPerformBlock(current, CFRunLoopMode.defaultMode.rawValue) {
+                     self.callback(client,data)
+                 }
+                 CFRunLoopWakeUp(current)
+        }
     }
 }
 
 class NSCDataCallback: NSObject {
     var server: NSCWebSocketServer
     var callback: (NSCClient, NSData?) -> Void
+    var current: CFRunLoop
     init(callback: @escaping (NSCClient,NSData?) -> Void, server: NSCWebSocketServer) {
         self.callback = callback
         self.server = server
+        self.current = CFRunLoopGetCurrent()
+    }
+    
+    func trigger(_ client: NSCClient, _ data: NSData?){
+        if(current == CFRunLoopGetCurrent()){
+            callback(client,data)
+             }else {
+                 CFRunLoopPerformBlock(current, CFRunLoopMode.defaultMode.rawValue) {
+                     self.callback(client,data)
+                 }
+                 CFRunLoopWakeUp(current)
+        }
+    }
+}
+
+
+class NSCConnectCallback: NSObject {
+    var server: NSCWebSocketServer
+    var callback: (NSCClient) -> Void
+    var current: CFRunLoop
+    init(callback: @escaping (NSCClient) -> Void, server: NSCWebSocketServer) {
+        self.callback = callback
+        self.server = server
+        self.current = CFRunLoopGetCurrent()
+    }
+    
+    
+    func trigger(_ client: NSCClient){
+        if(current == CFRunLoopGetCurrent()){
+            callback(client)
+             }else {
+                 CFRunLoopPerformBlock(current, CFRunLoopMode.defaultMode.rawValue) {
+                     self.callback(client)
+                 }
+                 CFRunLoopWakeUp(current)
+        }
     }
 }
 
@@ -148,15 +216,6 @@ public class NSCClient: NSObject {
             webserver_websocket_client_release(client)
             client = nil
         }
-    }
-}
-
-class NSCConnectCallback: NSObject {
-    var server: NSCWebSocketServer
-    var callback: (NSCClient) -> Void
-    init(callback: @escaping (NSCClient) -> Void, server: NSCWebSocketServer) {
-        self.callback = callback
-        self.server = server
     }
 }
 
@@ -310,7 +369,7 @@ public class NSCWebSocketServer: NSObject {
                     return
                 }
                 let message = NSCMessage(message: message, type: messageType)
-                cb.callback(client,message)
+                cb.trigger(client,message)
             }
            
         }
@@ -327,6 +386,7 @@ public class NSCWebSocketServer: NSObject {
     public func addOnPing(_ callback: @escaping (NSCClient, NSData?) -> Void) -> UInt64 {
         let data = NSCDataCallback(callback: callback, server: self)
         let pointer = Unmanaged.passUnretained(data).toOpaque()
+        let current = CFRunLoopGetCurrent()
         let id = webserver_websocket_add_message_callback(server, pointer) { clientId, message, data in
             let type = webserver_websocket_message_type(message)
             if(type == WebsocketMessageType_Ping){
@@ -337,7 +397,8 @@ public class NSCWebSocketServer: NSObject {
                         // todo query ?
                         return
                     }
-                    cb.callback(client,message_data)
+                    
+                    cb.trigger(client,message_data)
                 }
             }
         }
@@ -366,7 +427,9 @@ public class NSCWebSocketServer: NSObject {
                         // todo query ?
                         return
                     }
-                    cb.callback(client,message_data)
+                 
+                    cb.trigger(client,message_data)
+                  
                 }
             }
         }
@@ -391,7 +454,7 @@ public class NSCWebSocketServer: NSObject {
                 guard let client = client else {return}
                 let ret = NSCClient(client: client)
                 cb.server.clients[clientId] = ret
-                cb.callback(ret)
+                cb.trigger(ret)
             }
         }
         
@@ -426,7 +489,7 @@ public class NSCWebSocketServer: NSObject {
                     return
                 }
                 
-                cb.callback(client, code, description)
+                cb.trigger(client, code, description)
             }
         }
         
@@ -454,7 +517,7 @@ public class NSCWebSocketServer: NSObject {
                     // todo query ?
                     return
                 }
-                cb.callback(client, error)
+                cb.trigger(client, error)
             }
         }
         

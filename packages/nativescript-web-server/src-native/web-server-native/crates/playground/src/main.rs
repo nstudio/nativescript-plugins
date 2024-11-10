@@ -1,8 +1,8 @@
+use tokio::time::{self, Duration};
 use web_server_native::static_server::StaticServiceOptions;
-use web_server_native::websocket_server::{Client, Message, Reason, Server, WebSocketServiceOptions};
-
+use web_server_native::websocket_server::{Message, Reason, Server, WebSocketServiceOptions};
 struct ServerCallback {
-    wss: Option<Server>
+    wss: Option<Server>,
 }
 impl web_server_native::static_server::Callback for ServerCallback {
     fn on_success(&self) {
@@ -22,7 +22,6 @@ impl web_server_native::websocket_server::WebSocketConnectCallback for ServerCal
             wss.send(message, client_id);
         }
         println!("WSS:OnConnect {}", client_id);
-
     }
 }
 
@@ -33,8 +32,23 @@ impl web_server_native::websocket_server::WebSocketDisconnectCallback for Server
 }
 
 impl web_server_native::websocket_server::WebSocketMessageCallback for ServerCallback {
-    fn on_message(&self,client_id: u64,  message: Message) {
+    fn on_message(&self, client_id: u64, message: Message) {
         println!("{:?} {:?}", client_id, message)
+    }
+}
+
+async fn interval(server: Server) {
+    loop {
+        for client in server.clients() {
+            let message = Message::new_binary([1_u8, 2, 3, 4, 5].as_slice());
+            server.send(message, client.id());
+
+            let message = Message::new_text(format!("Hi {}", client.id()));
+            server.send(message, client.id());
+        }
+        let message = Message::new_text("Hi");
+        server.broadcast(message);
+        time::sleep(Duration::from_secs(1)).await
     }
 }
 
@@ -53,7 +67,7 @@ fn main() {
         }
     );
 
-    server.start(Box::new(ServerCallback {wss: None}));
+    server.start(Box::new(ServerCallback { wss: None }));
 
     let wss = Server::new(
         WebSocketServiceOptions {
@@ -66,14 +80,19 @@ fn main() {
             max_payload: None,
         }
     );
+
+    let wss_clone = wss.clone();
+
     let cb = ServerCallback {
         wss: Some(wss.clone())
     };
     wss.add_on_message(Box::new(cb));
-    wss.add_on_connect(Box::new(ServerCallback {wss: Some(wss.clone())}));
-    wss.add_on_disconnect(Box::new(ServerCallback {wss: Some(wss.clone())}));
-
-    wss.start(Box::new(ServerCallback {wss: Some(wss.clone())}));
-
+    wss.add_on_connect(Box::new(ServerCallback { wss: Some(wss.clone()) }));
+    wss.add_on_disconnect(Box::new(ServerCallback { wss: Some(wss.clone()) }));
+    wss.start(Box::new(ServerCallback { wss: Some(wss.clone()) }));
+    let tokio_runtime = web_server_native::tokio_runtime();
+    tokio_runtime.block_on(async move {
+        interval(wss_clone).await;
+    });
     rx.recv().unwrap();
 }

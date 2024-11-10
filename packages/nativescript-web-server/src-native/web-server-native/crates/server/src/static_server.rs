@@ -1,5 +1,5 @@
+use crate::RUNTIME;
 use actix_web::dev::ServerHandle;
-use actix_web::rt::Runtime;
 use actix_web::web::Data;
 use actix_web::App;
 use parking_lot::{Mutex, RwLock};
@@ -36,7 +36,6 @@ pub enum ServerStatus {
 }
 
 pub struct Server {
-    runtime: Arc<RwLock<Option<Runtime>>>,
     handle: Arc<RwLock<Option<ServerHandle>>>,
     config: Arc<Mutex<StaticServiceOptions>>,
     status: Arc<AtomicU8>,
@@ -46,7 +45,6 @@ pub struct Server {
 impl Debug for Server {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Server")
-            .field("runtime", &self.runtime)
             .field("handle", &self.handle)
             .field("config", &self.config)
             .field("status", &self.status)
@@ -58,7 +56,6 @@ impl Debug for Server {
 impl Clone for Server {
     fn clone(&self) -> Self {
         Server {
-            runtime: Arc::clone(&self.runtime),
             handle: Arc::clone(&self.handle),
             config: Arc::clone(&self.config),
             status: Arc::clone(&self.status),
@@ -84,8 +81,7 @@ impl Server {
     pub fn new(
         options: StaticServiceOptions,
     ) -> Self {
-        let rt = Runtime::new().unwrap();
-        Self { runtime: Arc::new(RwLock::new(Some(rt))), handle: Default::default(), config: Arc::new(Mutex::new(options)), status: Default::default(), status_callback: Arc::new(RwLock::new(None)) }
+        Self { handle: Default::default(), config: Arc::new(Mutex::new(options)), status: Default::default(), status_callback: Arc::new(RwLock::new(None)) }
     }
 
     pub fn start(&self, callback: Box<dyn Callback>) {
@@ -102,110 +98,122 @@ impl Server {
 
         let status_callback = Arc::clone(&self.status_callback);
 
-        let rt = self.runtime.read();
-        if let Some(rt) = rt.as_ref() {
-            let handle = Arc::clone(&self.handle);
-            let config = Arc::clone(&self.config);
-            let status = Arc::clone(&self.status);
-            let rt_handle = rt.tokio_runtime().handle().clone();
-            rt_handle.clone().spawn_blocking(move || {
-                let (host_name, port, workers) = {
-                    let lock = config.lock();
-                    let host_name = match lock.host_name.as_ref() {
-                        None => "127.0.0.1".to_string(),
-                        Some(name) => name.to_string()
-                    };
-
-                    let port = lock.port.unwrap_or_else(|| 8080);
-
-                    let workers = lock.workers;
-                    (host_name, port, workers)
+        let handle = Arc::clone(&self.handle);
+        let config = Arc::clone(&self.config);
+        let status = Arc::clone(&self.status);
+        let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+        rt_handle.clone().spawn_blocking(move || {
+            let (host_name, port, workers) = {
+                let lock = config.lock();
+                let host_name = match lock.host_name.as_ref() {
+                    None => "127.0.0.1".to_string(),
+                    Some(name) => name.to_string()
                 };
 
-                let server = actix_web::HttpServer::new(move || {
-                    let config = Arc::clone(&config);
+                let port = lock.port.unwrap_or_else(|| 8080);
 
-                    let lock = config.lock();
-                    let app = App::new()
-                        .app_data(Data::new(self_server.clone()))
-                        .wrap(actix_web::middleware::Compress::default());
+                let workers = lock.workers;
+                (host_name, port, workers)
+            };
 
-                    let mut directory = std::path::PathBuf::new();
-                    directory.push(&lock.directory);
-                    let mut files = actix_files::Files::new(lock.path.as_ref(), directory);
-                    if lock.show_files {
-                        files = files.show_files_listing();
-                    }
-                    if let Some(index) = lock.index.as_deref() {
-                        files = files.index_file(index);
-                    }
+            let server = actix_web::HttpServer::new(move || {
+                let config = Arc::clone(&config);
 
-                    app.service(files)
-                })
-                    .workers(workers as usize)
-                    .bind((host_name.deref(), port));
+                let lock = config.lock();
+                let app = App::new()
+                    .app_data(Data::new(self_server.clone()))
+                    .wrap(actix_web::middleware::Compress::default());
 
-                rt_handle.block_on(async move {
-                    match server {
-                        Ok(server) => {
-                            let server = server.run();
+                let mut directory = std::path::PathBuf::new();
+                directory.push(&lock.directory);
+                let mut files = actix_files::Files::new(lock.path.as_ref(), directory);
+                if lock.show_files {
+                    files = files.show_files_listing();
+                }
+                if let Some(index) = lock.index.as_deref() {
+                    files = files.index_file(index);
+                }
 
-                            {
-                                *handle.write() = Some(server.handle());
-                            }
+                app.service(files)
+            })
+                .workers(workers as usize)
+                .bind((host_name.deref(), port));
 
-                            status.store(ServerStatus::Active as u8, Ordering::SeqCst);
+            rt_handle.block_on(async move {
+                match server {
+                    Ok(server) => {
+                        let server = server.run();
 
-                            let status_callback_lock = status_callback.read();
-                            if let Some(callback) = status_callback_lock.deref() {
-                                callback.on_change(ServerStatus::Active);
-                                drop(status_callback_lock);
-                            }
+                        {
+                            *handle.write() = Some(server.handle());
+                        }
 
-                            callback.on_success();
-                            match server.await {
-                                Ok(_) => {
-                                    status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
-                                    *handle.write() = None;
+                        status.store(ServerStatus::Active as u8, Ordering::SeqCst);
 
-                                    let status_callback_lock = status_callback.read();
-                                    if let Some(callback) = status_callback_lock.deref() {
-                                        callback.on_change(ServerStatus::Inactive);
-                                        drop(status_callback_lock);
-                                    }
+                        let status_callback_lock = status_callback.read();
+                        if let Some(callback) = status_callback_lock.deref() {
+                            callback.on_change(ServerStatus::Active);
+                            drop(status_callback_lock);
+                        }
+
+                        callback.on_success();
+                        match server.await {
+                            Ok(_) => {
+                                status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
+                                *handle.write() = None;
+
+                                let status_callback_lock = status_callback.read();
+                                if let Some(callback) = status_callback_lock.deref() {
+                                    callback.on_change(ServerStatus::Inactive);
+                                    drop(status_callback_lock);
                                 }
-                                Err(_) => {
-                                    status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
-                                    *handle.write() = None;
+                            }
+                            Err(_) => {
+                                status.store(ServerStatus::Inactive as u8, Ordering::SeqCst);
+                                *handle.write() = None;
 
-                                    let status_callback_lock = status_callback.read();
-                                    if let Some(callback) = status_callback_lock.deref() {
-                                        callback.on_change(ServerStatus::Inactive);
-                                        drop(status_callback_lock);
-                                    }
+                                let status_callback_lock = status_callback.read();
+                                if let Some(callback) = status_callback_lock.deref() {
+                                    callback.on_change(ServerStatus::Inactive);
+                                    drop(status_callback_lock);
                                 }
                             }
                         }
-                        Err(error) => {
-                            callback.on_error(error.to_string());
-                        }
                     }
-                })
-            });
-        } else {
-            callback.on_error(INTERNAL_START_ERROR.to_string())
-        }
+                    Err(error) => {
+                        callback.on_error(error.to_string());
+                    }
+                }
+            })
+        });
     }
 
     pub fn stop(&self, wait: bool, callback: Box<dyn Callback>) {
-        let rt_handle = self.runtime.read().as_ref().map(|rt| rt.tokio_runtime().handle().clone());
-        if let Some(rt_handle) = rt_handle {
-            let status_callback = Arc::clone(&self.status_callback);
-            if self.status.load(Ordering::SeqCst) == ServerStatus::Active as u8 {
-                if wait {
-                    rt_handle.block_on(async {
-                        if let Some(handle) = self.handle.read().as_ref() {
-                            self.status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
+        let rt_handle = RUNTIME.runtime.read().tokio_runtime().handle().clone();
+        let status_callback = Arc::clone(&self.status_callback);
+        if self.status.load(Ordering::SeqCst) == ServerStatus::Active as u8 {
+            if wait {
+                rt_handle.block_on(async {
+                    if let Some(handle) = self.handle.read().as_ref() {
+                        self.status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
+
+                        let status_callback_lock = status_callback.read();
+                        if let Some(callback) = status_callback_lock.deref() {
+                            callback.on_change(ServerStatus::Stopping);
+                            drop(status_callback_lock);
+                        }
+
+                        handle.stop(true).await;
+                        callback.on_success()
+                    }
+                });
+            } else {
+                let handle = self.handle.read().as_ref().map(|handle| handle.clone());
+                if let Some(handle) = handle {
+                    let status = Arc::clone(&self.status);
+                    rt_handle.clone().spawn_blocking(move || {
+                        rt_handle.block_on(async {
+                            status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
 
                             let status_callback_lock = status_callback.read();
                             if let Some(callback) = status_callback_lock.deref() {
@@ -215,30 +223,9 @@ impl Server {
 
                             handle.stop(true).await;
                             callback.on_success()
-                        }
+                        })
                     });
-                } else {
-                    let handle = self.handle.read().as_ref().map(|handle| handle.clone());
-                    if let Some(handle) = handle {
-                        let status = Arc::clone(&self.status);
-                        rt_handle.clone().spawn_blocking(move || {
-                            rt_handle.block_on(async {
-                                status.store(ServerStatus::Stopping as u8, Ordering::SeqCst);
-
-                                let status_callback_lock = status_callback.read();
-                                if let Some(callback) = status_callback_lock.deref() {
-                                    callback.on_change(ServerStatus::Stopping);
-                                    drop(status_callback_lock);
-                                }
-
-                                handle.stop(true).await;
-                                callback.on_success()
-                            })
-                        });
-                    }
                 }
-            } else {
-                callback.on_error(INACTIVE_ERROR.to_string())
             }
         } else {
             callback.on_error(INACTIVE_ERROR.to_string())

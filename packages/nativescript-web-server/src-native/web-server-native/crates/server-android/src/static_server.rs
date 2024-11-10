@@ -1,9 +1,10 @@
-use jni::objects::{GlobalRef, JClass, JObject, JString, JValueGen};
+use crate::watch_item;
+use jni::objects::{GlobalRef, JClass, JObject, JString, JValue, JValueGen};
 use jni::sys::{jboolean, jint, jlong, jshort, JNI_TRUE};
 use jni::JNIEnv;
 use std::fmt::Debug;
 use web_server_native::static_server::{Callback, Server, ServerStatus, StaticServiceOptions, StatusCallback};
-use web_server_native::websocket_server::{Message, Reason, WebSocketConnectCallback, WebSocketDisconnectCallback, WebSocketMessageCallback};
+use web_server_native::websocket_server::{Message, Reason, WebSocketConnectCallback, WebSocketDisconnectCallback, WebSocketErrorCallback, WebSocketMessageCallback};
 
 #[no_mangle]
 pub extern "system" fn Java_io_nstudio_plugins_webserver_Server_init(
@@ -111,7 +112,7 @@ impl WebSocketConnectCallback for JavaCallback {
     fn on_connect(&self, client_id: u64) {
         let vm = self.jvm.attach_current_thread();
         let mut env = vm.unwrap();
-        let _ = env.call_method(self.callback.as_obj(), "onConnect", "(J)V", &[client_id.into()]);
+        let _ = env.call_method(self.callback.as_obj(), "onConnect", "(J)V", &[(client_id as jlong).into()]);
     }
 }
 
@@ -119,65 +120,110 @@ impl WebSocketDisconnectCallback for JavaCallback {
     fn on_disconnect(&self, client_id: u64, reason: Reason) {
         let vm = self.jvm.attach_current_thread();
         let mut env = vm.unwrap();
+        let null = JObject::null();
         let (code, description) = match reason {
             Reason::None => {
-                (1000u16, JObject::null().into())
+                (1000u16, null)
             }
             Reason::Some(reason) => {
                 let description = match reason.description {
                     None => {
-                        JObject::null().into()
+                        null
                     }
                     Some(description) => {
-                        env.new_string(description).unwrap().into()
+                        let desc = env.new_string(description).unwrap();
+                        desc.into()
                     }
                 };
                 (reason.code.into(), description)
             }
         };
 
-        let _ = env.call_method(self.callback.as_obj(), "onDisconnect", "(JSLjava/lang/String;)V", &[client_id.into(), code.into(), description]);
+        let description: JValue = JValueGen::Object(&description);
+        let _ = env.call_method(self.callback.as_obj(), "onDisconnect", "(JSLjava/lang/String;)V", &[(client_id as jlong).into(), (code as jshort).into(), description]);
     }
 }
 
 impl WebSocketMessageCallback for JavaCallback {
     fn on_message(&self, client_id: u64, message: Message) {
         let vm = self.jvm.attach_current_thread();
-        let mut env = vm.unwrap();
-        match message {
-            Message::Text(text) => {
-                let text = env.new_string(text).unwrap();
-                let _ = env.call_method(self.callback.as_obj(), "onMessage", "(JLjava/lang/String;)V", &[client_id.into(), text.into()]);
-            }
-            Message::Binary(binary) => {
-                let null = JObject::null().into();
-                let _ = env.call_method(self.callback.as_obj(), "onMessage", "(JLjava/nio/ByteBuffer;)V", &[client_id.into(), null]);
-            }
-            Message::Pong(pong) => {
-                match pong {
-                    None => {
-                        let null = JObject::null().into();
-                        let _ = env.call_method(self.callback.as_obj(), "onPong", "(JLjava/nio/ByteBuffer;)V", &[client_id.into(), null]);
-                    }
-                    Some(_) => {}
+        if let Ok(mut env) = vm {
+            match message {
+                Message::Text(text) => {
+                    let text = env.new_string(text).unwrap();
+                    let text: JValue = JValueGen::Object(&text);
+                    let _ = env.call_method(self.callback.as_obj(), "onMessage", "(JLjava/lang/String;)V", &[(client_id as jlong).into(), text.into()]);
                 }
-            }
-            Message::Ping(ping) => {
-                match ping {
-                    None => {
-                        let null = JObject::null().into();
-                        let _ = env.call_method(self.callback.as_obj(), "onPing", "(JLjava/nio/ByteBuffer;)V", &[client_id.into(), null]);
+                Message::Binary(binary) => {
+                    match unsafe { env.new_direct_byte_buffer(binary.as_ptr() as _, binary.len()) } {
+                        Ok(buf) => {
+                            let id = Box::into_raw(Box::new(binary));
+                            let buf: JValue = JValueGen::Object(&buf);
+                            unsafe { watch_item(&mut env, id as _, buf); }
+                            let _ = env.call_method(self.callback.as_obj(), "onMessage", "(JLjava/nio/ByteBuffer;)V", &[(client_id as jlong).into(), buf.into()]);
+                        }
+                        Err(_) => {}
                     }
-                    Some(_) => {}
+                }
+                Message::Pong(pong) => {
+                    match pong {
+                        None => {
+                            let null = JObject::null();
+                            let null = JValueGen::Object(&null);
+                            let _ = env.call_method(self.callback.as_obj(), "onPong", "(JLjava/nio/ByteBuffer;)V", &[(client_id as jlong).into(), null]);
+                        }
+                        Some(pong) => {
+                            match unsafe { env.new_direct_byte_buffer(pong.as_ptr() as _, pong.len()) } {
+                                Ok(buf) => {
+                                    let id = Box::into_raw(Box::new(pong));
+                                    let buf: JValue = JValueGen::Object(&buf);
+                                    unsafe { watch_item(&mut env, id as _, buf); }
+                                    let _ = env.call_method(self.callback.as_obj(), "onPong", "(JLjava/nio/ByteBuffer;)V", &[(client_id as jlong).into(), buf]);
+                                }
+                                Err(_) => {}
+                            }
+                        }
+                    }
+                }
+                Message::Ping(ping) => {
+                    match ping {
+                        None => {
+                            let null = JObject::null();
+                            let null = JValueGen::Object(&null);
+                            let _ = env.call_method(self.callback.as_obj(), "onPing", "(JLjava/nio/ByteBuffer;)V", &[(client_id as jlong).into(), null]);
+                        }
+                        Some(ping) => {
+                            match unsafe { env.new_direct_byte_buffer(ping.as_ptr() as _, ping.len()) } {
+                                Ok(buf) => {
+                                    let id = Box::into_raw(Box::new(ping));
+                                    let buf: JValue = JValueGen::Object(&buf);
+                                    unsafe { watch_item(&mut env, id as _, buf); }
+                                    let _ = env.call_method(self.callback.as_obj(), "onPing", "(JLjava/nio/ByteBuffer;)V", &[(client_id as jlong).into(), buf.into()]);
+                                }
+                                Err(_) => {}
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
 
+impl WebSocketErrorCallback for JavaCallback {
+    fn on_error(&self, client_id: u64, error: String) {
+        let vm = self.jvm.attach_current_thread();
+        if let Ok(mut env) = vm {
+            let error = env.new_string(error).unwrap();
+            let error: JValue = JValueGen::Object(&error);
+            let _ = env.call_method(self.callback.as_obj(), "onError", "(JLjava/lang/String;)V", &[(client_id as jlong).into(), error.into()]);
+        }
+    }
+}
+
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_Server_start(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -196,7 +242,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_Server_start(
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_Server_stop(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     wait: jboolean,
@@ -215,7 +261,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_Server_stop(
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_Server_setStatusCallback(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,

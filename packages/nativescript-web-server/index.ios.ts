@@ -82,8 +82,8 @@ export class WebSocketServer extends Observable {
 			}
 			this.notify({ eventName: 'pong', client: this.clients.get(client.id), message: ret });
 		});
-		this.server.addOnDisconnect((client) => {
-			this.notify({ eventName: 'close', client: this.clients.get(client.id) });
+		this.server.addOnDisconnect((client, code, description) => {
+			this.notify({ eventName: 'close', client: this.clients.get(client.id), code, description });
 			this.clients.delete(client.id);
 		});
 	}

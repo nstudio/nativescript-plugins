@@ -9,3 +9,5 @@ name = "webservernative"
 [dependencies]
 web-server-native = { path = "../server" }
 jni = "0.21.1"
+bytes = "1.7.2"
+parking_lot = "0.12.3"

@@ -394,7 +394,7 @@ pub unsafe extern "C" fn webserver_websocket_message_create_pong(data: *const u8
         return Box::into_raw(Box::new(CWebsocketMessage(Message::Pong(None))));
     }
 
-    let data = std::slice::from_raw_parts(data, data_size);
+    let data = slice::from_raw_parts(data, data_size);
     Box::into_raw(Box::new(CWebsocketMessage(Message::Pong(Some(data.into())))))
 }
 

@@ -1,6 +1,7 @@
 use crate::static_server::JavaCallback;
+use bytes::Bytes;
 use jni::objects::{JByteArray, JByteBuffer, JClass, JObject, JString, ReleaseMode};
-use jni::sys::{jboolean, jint, jlong, jshort, JNI_TRUE};
+use jni::sys::{jboolean, jint, jlong, jshort, JNI_FALSE, JNI_TRUE};
 use jni::JNIEnv;
 use std::fmt::Debug;
 use std::slice;
@@ -65,7 +66,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_start(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -84,7 +85,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_stop(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     wait: jboolean,
@@ -103,7 +104,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 #[no_mangle]
 pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_setStatusCallback(
-    mut env: JNIEnv,
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -155,9 +156,8 @@ unsafe fn buffer_to_vec(env: &mut JNIEnv,
     None
 }
 
-
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_ping_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPingBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -174,27 +174,64 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
         None
     } else {
         unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
+            let mut message: Option<Bytes> = None;
+
+            if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+                message = Some(bytes::Bytes::from(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec()));
             }
+
+            if message.is_none() {
+                let length = env.get_array_length(data).unwrap_or_default();
+                let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+                let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+                let _ = env.get_byte_array_region(data, 0, slice);
+                message = Some(Bytes::from(buffer));
+            }
+
+            message
         }
     };
-    let message = Message::Ping(message.into());
+    let message = Message::Ping(message);
     server.send(message, id as u64);
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_ping_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPingEmpty(
+    _: JNIEnv,
+    _: JClass,
+    server: jlong,
+    id: jlong,
+) {
+    if server == 0 {
+        return;
+    };
+
+    let server = &*(server as *mut Server);
+
+    let message = Message::Ping(None);
+    server.send(message, id as u64);
+}
+
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPingEmpty(
+    _: JNIEnv,
+    _: JClass,
+    server: jlong,
+) {
+    if server == 0 {
+        return;
+    };
+
+    let server = &*(server as *mut Server);
+
+    let message = Message::Ping(None);
+    server.broadcast(message);
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPingBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -210,27 +247,30 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
         None
     } else {
         unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
+            let mut message: Option<Vec<u8>> = None;
+
+            if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+                message = Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
             }
+
+            if message.is_none() {
+                let length = env.get_array_length(data).unwrap_or_default();
+                let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+                let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+                let _ = env.get_byte_array_region(data, 0, slice);
+                message = Some(buffer)
+            }
+
+            message.map(|bytes| { bytes::Bytes::from(bytes) })
         }
     };
-    let message = Message::Ping(message.into());
+    let message = Message::Ping(message);
     server.broadcast(message);
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_ping_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPingBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -243,14 +283,14 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
     let server = &*(server as *mut Server);
     if let Some(message) = buffer_to_vec(&mut env, data) {
-        let message = Message::Ping(message.into());
+        let message = Message::Ping(Some(Bytes::from(message)));
         server.send(message, id as u64);
     }
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_ping_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPingBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -262,14 +302,32 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
     let server = &*(server as *mut Server);
     if let Some(message) = buffer_to_vec(&mut env, data) {
-        let message = Message::Ping(message.into());
+        let message = Message::Ping(Some(Bytes::from(message)));
         server.broadcast(message);
     }
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_pong_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPongEmpty(
+    _: JNIEnv,
+    _: JClass,
+    server: jlong,
+    id: jlong,
+) {
+    if server == 0 {
+        return;
+    };
+
+    let server = &*(server as *mut Server);
+
+    let message = Message::Pong(None);
+    server.send(message, id as u64);
+}
+
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPongBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -286,27 +344,46 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
         None
     } else {
         unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
+            let mut message: Option<Vec<u8>> = None;
+
+            if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+                message = Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
             }
+
+            if message.is_none() {
+                let length = env.get_array_length(data).unwrap_or_default();
+                let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+                let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+                let _ = env.get_byte_array_region(data, 0, slice);
+                message = Some(buffer)
+            }
+
+            message.map(|bytes| { bytes::Bytes::from(bytes) })
         }
     };
-    let message = Message::Pong(message.into());
+    let message = Message::Pong(message);
     server.send(message, id as u64);
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPongEmpty(
+    _: JNIEnv,
+    _: JClass,
+    server: jlong,
+) {
+    if server == 0 {
+        return;
+    };
+
+    let server = &*(server as *mut Server);
+
+    let message = Message::Pong(None);
+    server.broadcast(message);
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_pong_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPongBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -322,27 +399,30 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
         None
     } else {
         unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
+            let mut message: Option<Vec<u8>> = None;
+
+            if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+                message = Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
             }
+
+            if message.is_none() {
+                let length = env.get_array_length(data).unwrap_or_default();
+                let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+                let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+                let _ = env.get_byte_array_region(data, 0, slice);
+                message = Some(buffer)
+            }
+
+            message.map(|bytes| { bytes::Bytes::from(bytes) })
         }
     };
-    let message = Message::Pong(message.into());
+    let message = Message::Pong(message);
     server.broadcast(message);
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_pong_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendPongBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -355,13 +435,14 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
     let server = &*(server as *mut Server);
     if let Some(message) = buffer_to_vec(&mut env, data) {
+        let message = bytes::Bytes::from(message);
         let message = Message::Pong(message.into());
         server.send(message, id as u64);
     }
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_pong_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastPongBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -373,14 +454,14 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
     let server = &*(server as *mut Server);
     if let Some(message) = buffer_to_vec(&mut env, data) {
-        let message = Message::Pong(message.into());
+        let message = Message::Pong(Some(bytes::Bytes::from(message)));
         server.broadcast(message);
     }
 }
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_text(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendText(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -407,7 +488,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_text(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastText(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -434,7 +515,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_binary_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendBinaryBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -446,31 +527,34 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
     };
 
     let server = &*(server as *mut Server);
+    if data.is_null() {
+        // todo
+        return;
+    }
 
-    let message = if data.is_null() {
-        None
-    } else {
-        unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
-            }
-        }
-    };
-    let message = Message::Binary(message.into());
-    server.send(message, id as u64);
+    let mut message: Option<Vec<u8>> = None;
+
+    if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+        message = Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec());
+    }
+
+    if message.is_none() {
+        let length = env.get_array_length(data).unwrap_or_default();
+        let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+        let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+        let _ = env.get_byte_array_region(data, 0, slice);
+        message = Some(buffer);
+    }
+
+
+    if let Some(message) = message {
+        let message = Message::Binary(message.into());
+        server.send(message, id as u64);
+    }
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_binary_bytes(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastBinaryBytes(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -482,30 +566,35 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
     let server = &*(server as *mut Server);
 
-    let message = if data.is_null() {
-        None
-    } else {
-        unsafe {
-            match env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
-                Ok(array) => {
-                    Some(slice::from_raw_parts_mut(array.as_ptr() as *mut u8, array.len()).to_vec())
-                }
-                Err(_) => {
-                    let length = env.get_array_length(data).unwrap_or_default();
-                    let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
-                    let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
-                    let _ = env.get_byte_array_region(data, 0, slice);
-                    Some(buffer)
-                }
-            }
-        }
-    };
-    let message = Message::Binary(message.into());
-    server.broadcast(message);
+    if data.is_null() {
+        // todo
+        return;
+    }
+
+    let mut message: Option<Vec<u8>> = None;
+
+
+    if let Ok(array) = env.get_array_elements_critical(data, ReleaseMode::NoCopyBack) {
+        let buf = slice::from_raw_parts(array.as_ptr() as *mut u8, array.len()).to_vec();
+        message = Some(buf);
+    }
+
+    if message.is_none() {
+        let length = env.get_array_length(data).unwrap_or_default();
+        let mut buffer: Vec<u8> = Vec::with_capacity(length as usize);
+        let slice = slice::from_raw_parts_mut(buffer.as_mut_ptr() as *mut i8, buffer.len());
+        let _ = env.get_byte_array_region(data, 0, slice);
+        message = Some(buffer);
+    }
+
+    if let Some(message) = message {
+        let message = Message::Binary(message.into());
+        server.broadcast(message);
+    }
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_send_binary_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_sendBinaryBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -524,7 +613,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcast_binary_buffer(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_broadcastBinaryBuffer(
     mut env: JNIEnv,
     _: JClass,
     server: jlong,
@@ -543,8 +632,8 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_addOnConnect(
-    mut env: JNIEnv,
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeAddOnConnect(
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -561,7 +650,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_removeOnConnect(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeRemoveOnConnect(
     _: JNIEnv,
     _: JClass,
     server: jlong,
@@ -578,8 +667,8 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_addOnDisconnect(
-    mut env: JNIEnv,
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeAddOnDisconnect(
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -596,7 +685,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_removeOnDisconnect(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeRemoveOnDisconnect(
     _: JNIEnv,
     _: JClass,
     server: jlong,
@@ -613,8 +702,8 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_addOnMessage(
-    mut env: JNIEnv,
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeAddOnMessage(
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -631,7 +720,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_removeOnMessage(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeRemoveOnMessage(
     _: JNIEnv,
     _: JClass,
     server: jlong,
@@ -647,10 +736,9 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 
-
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_addOnError(
-    mut env: JNIEnv,
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeAddOnError(
+    env: JNIEnv,
     _: JClass,
     server: jlong,
     callback: JObject,
@@ -667,7 +755,7 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
 }
 
 #[no_mangle]
-pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_removeOnError(
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_nativeRemoveOnError(
     _: JNIEnv,
     _: JClass,
     server: jlong,
@@ -680,4 +768,23 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
     let server = &*(server as *mut Server);
 
     server.remove_on_error(id as u64)
+}
+
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_hasClient(
+    _: JNIEnv,
+    _: JClass,
+    server: jlong,
+    client_id: jlong,
+) -> jboolean {
+    if server == 0 || client_id > 0 {
+        return 0;
+    };
+
+    let server = &*(server as *mut Server);
+
+    if server.client(client_id as u64).is_some() {
+        return JNI_TRUE;
+    }
+    JNI_FALSE
 }

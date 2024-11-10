@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 web-server-native = { path = "../server" }
+tokio = {version = "1.41.1", features = ["full"]}
