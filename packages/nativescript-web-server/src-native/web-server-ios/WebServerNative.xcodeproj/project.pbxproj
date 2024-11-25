@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F19D12D62CD7D3F400738651 /* NSCWebSocketServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */; };
+		F1B814E72CC569B7006DCAB9 /* WebServerNative.docc in Sources */ = {isa = PBXBuildFile; fileRef = F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */; };
+		F1B814ED2CC569B7006DCAB9 /* WebServerNative.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */; };
+		F1B814F22CC569B7006DCAB9 /* WebServerNativeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B814F12CC569B7006DCAB9 /* WebServerNativeTests.swift */; };
+		F1B814F32CC569B7006DCAB9 /* WebServerNative.h in Headers */ = {isa = PBXBuildFile; fileRef = F1B814E52CC569B7006DCAB9 /* WebServerNative.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F1B815022CC59574006DCAB9 /* NSCServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B815012CC59574006DCAB9 /* NSCServer.swift */; };
+		F1B815042CC59693006DCAB9 /* web_server_native.h in Headers */ = {isa = PBXBuildFile; fileRef = F1B815032CC59693006DCAB9 /* web_server_native.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F1B815082CC5C061006DCAB9 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F1B815072CC5C061006DCAB9 /* libresolv.tbd */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1B814EE2CC569B7006DCAB9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1B814D92CC569B7006DCAB9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1B814E12CC569B7006DCAB9;
+			remoteInfo = WebServerNative;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCWebSocketServer.swift; sourceTree = "<group>"; };
+		F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WebServerNative.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1B814E52CC569B7006DCAB9 /* WebServerNative.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebServerNative.h; sourceTree = "<group>"; };
+		F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = WebServerNative.docc; sourceTree = "<group>"; };
+		F1B814EC2CC569B7006DCAB9 /* WebServerNativeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebServerNativeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1B814F12CC569B7006DCAB9 /* WebServerNativeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServerNativeTests.swift; sourceTree = "<group>"; };
+		F1B815012CC59574006DCAB9 /* NSCServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCServer.swift; sourceTree = "<group>"; };
+		F1B815032CC59693006DCAB9 /* web_server_native.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = web_server_native.h; path = WebServerNative/include/web_server_native.h; sourceTree = "<group>"; };
+		F1B815072CC5C061006DCAB9 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/usr/lib/libresolv.tbd; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1B814DF2CC569B7006DCAB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B815082CC5C061006DCAB9 /* libresolv.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1B814E92CC569B7006DCAB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B814ED2CC569B7006DCAB9 /* WebServerNative.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1B814D82CC569B7006DCAB9 = {
+			isa = PBXGroup;
+			children = (
+				F1B815032CC59693006DCAB9 /* web_server_native.h */,
+				F1B814E42CC569B7006DCAB9 /* WebServerNative */,
+				F1B814F02CC569B7006DCAB9 /* WebServerNativeTests */,
+				F1B814E32CC569B7006DCAB9 /* Products */,
+				F1B815062CC5C061006DCAB9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F1B814E32CC569B7006DCAB9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */,
+				F1B814EC2CC569B7006DCAB9 /* WebServerNativeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1B814E42CC569B7006DCAB9 /* WebServerNative */ = {
+			isa = PBXGroup;
+			children = (
+				F1B814E52CC569B7006DCAB9 /* WebServerNative.h */,
+				F1B814E62CC569B7006DCAB9 /* WebServerNative.docc */,
+				F1B815012CC59574006DCAB9 /* NSCServer.swift */,
+				F19D12D52CD7D3F300738651 /* NSCWebSocketServer.swift */,
+			);
+			path = WebServerNative;
+			sourceTree = "<group>";
+		};
+		F1B814F02CC569B7006DCAB9 /* WebServerNativeTests */ = {
+			isa = PBXGroup;
+			children = (
+				F1B814F12CC569B7006DCAB9 /* WebServerNativeTests.swift */,
+			);
+			path = WebServerNativeTests;
+			sourceTree = "<group>";
+		};
+		F1B815062CC5C061006DCAB9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1B815072CC5C061006DCAB9 /* libresolv.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F1B814DD2CC569B7006DCAB9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B814F32CC569B7006DCAB9 /* WebServerNative.h in Headers */,
+				F1B815042CC59693006DCAB9 /* web_server_native.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F1B814E12CC569B7006DCAB9 /* WebServerNative */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1B814F62CC569B7006DCAB9 /* Build configuration list for PBXNativeTarget "WebServerNative" */;
+			buildPhases = (
+				F1B814FD2CC56E78006DCAB9 /* PreBuild Server */,
+				F1B814DD2CC569B7006DCAB9 /* Headers */,
+				F1B814DE2CC569B7006DCAB9 /* Sources */,
+				F1B814DF2CC569B7006DCAB9 /* Frameworks */,
+				F1B814E02CC569B7006DCAB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WebServerNative;
+			productName = WebServerNative;
+			productReference = F1B814E22CC569B7006DCAB9 /* WebServerNative.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		F1B814EB2CC569B7006DCAB9 /* WebServerNativeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1B814F92CC569B7006DCAB9 /* Build configuration list for PBXNativeTarget "WebServerNativeTests" */;
+			buildPhases = (
+				F1B814E82CC569B7006DCAB9 /* Sources */,
+				F1B814E92CC569B7006DCAB9 /* Frameworks */,
+				F1B814EA2CC569B7006DCAB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1B814EF2CC569B7006DCAB9 /* PBXTargetDependency */,
+			);
+			name = WebServerNativeTests;
+			productName = WebServerNativeTests;
+			productReference = F1B814EC2CC569B7006DCAB9 /* WebServerNativeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1B814D92CC569B7006DCAB9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					F1B814E12CC569B7006DCAB9 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					F1B814EB2CC569B7006DCAB9 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = F1B814DC2CC569B7006DCAB9 /* Build configuration list for PBXProject "WebServerNative" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F1B814D82CC569B7006DCAB9;
+			productRefGroup = F1B814E32CC569B7006DCAB9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1B814E12CC569B7006DCAB9 /* WebServerNative */,
+				F1B814EB2CC569B7006DCAB9 /* WebServerNativeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1B814E02CC569B7006DCAB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1B814EA2CC569B7006DCAB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F1B814FD2CC56E78006DCAB9 /* PreBuild Server */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "PreBuild Server";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\"$SRCROOT/pre-build.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1B814DE2CC569B7006DCAB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F19D12D62CD7D3F400738651 /* NSCWebSocketServer.swift in Sources */,
+				F1B814E72CC569B7006DCAB9 /* WebServerNative.docc in Sources */,
+				F1B815022CC59574006DCAB9 /* NSCServer.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1B814E82CC569B7006DCAB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1B814F22CC569B7006DCAB9 /* WebServerNativeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1B814EF2CC569B7006DCAB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1B814E12CC569B7006DCAB9 /* WebServerNative */;
+			targetProxy = F1B814EE2CC569B7006DCAB9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		F1B814F42CC569B7006DCAB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		F1B814F52CC569B7006DCAB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F1B814F72CC569B7006DCAB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/WebServerNative/include\"";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				"OTHER_LDFLAGS[sdk=iphoneos*][arch=arm64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/aarch64-apple-ios/debug\"",
+					"-Wl,-no_compact_unwind",
+					"-lwebservernative",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=arm64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/aarch64-apple-ios-sim/debug\"",
+					"-Wl,-no_compact_unwind",
+					"-lwebservernative",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=x86_64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/x86_64-apple-ios/debug\"",
+					"-Wl,-no_compact_unwind",
+					"-lwebservernative",
+					"-ObjC",
+				);
+				OTHER_SWIFT_FLAGS = "-Xcc -Wno-error=non-modular-include-in-framework-module";
+				PRODUCT_BUNDLE_IDENTIFIER = io.nstudio.plugins.webserver.WebServerNative;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1B814F82CC569B7006DCAB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/WebServerNative/include\"";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = (
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				"OTHER_LDFLAGS[sdk=iphoneos*][arch=arm64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/aarch64-apple-ios/release\"",
+					"-lwebservernative",
+					"-Wl,-no_compact_unwind",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=arm64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/aarch64-apple-ios-sim/release\"",
+					"-Wl,-no_compact_unwind",
+					"-lwebservernative",
+					"-ObjC",
+				);
+				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=x86_64]" = (
+					"$(inherited)",
+					"-L\"$(SRCROOT)/../web-server-native/target/x86_64-apple-ios/release\"",
+					"-lwebservernative",
+					"-Wl,-no_compact_unwind",
+					"-ObjC",
+				);
+				OTHER_SWIFT_FLAGS = "-Xcc -Wno-error=non-modular-include-in-framework-module";
+				PRODUCT_BUNDLE_IDENTIFIER = io.nstudio.plugins.webserver.WebServerNative;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = auto;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F1B814FA2CC569B7006DCAB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.nstudio.plugins.webserver.WebServerNativeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1B814FB2CC569B7006DCAB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.nstudio.plugins.webserver.WebServerNativeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1B814DC2CC569B7006DCAB9 /* Build configuration list for PBXProject "WebServerNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1B814F42CC569B7006DCAB9 /* Debug */,
+				F1B814F52CC569B7006DCAB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1B814F62CC569B7006DCAB9 /* Build configuration list for PBXNativeTarget "WebServerNative" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1B814F72CC569B7006DCAB9 /* Debug */,
+				F1B814F82CC569B7006DCAB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1B814F92CC569B7006DCAB9 /* Build configuration list for PBXNativeTarget "WebServerNativeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1B814FA2CC569B7006DCAB9 /* Debug */,
+				F1B814FB2CC569B7006DCAB9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1B814D92CC569B7006DCAB9 /* Project object */;
+}

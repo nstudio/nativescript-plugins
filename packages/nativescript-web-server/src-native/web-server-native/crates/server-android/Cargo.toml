@@ -1,0 +1,13 @@
+[package]
+name = "server-android"
+version = "0.1.0"
+edition = "2021"
+[lib]
+crate-type = ["cdylib"]
+name = "webservernative"
+
+[dependencies]
+web-server-native = { path = "../server" }
+jni = "0.21.1"
+bytes = "1.7.2"
+parking_lot = "0.12.3"

@@ -1,0 +1,15 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page">
+    <Page.actionBar>
+        <ActionBar title="nativescript-web-server" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+    <StackLayout class="p-20">
+          <StackLayout>
+            <Button text="Start nativescript-web-server" tap="{{ start }}" class="btn btn-primary"/>
+            <Label text="{{ 'Server Status: '  + status }}" class="btn btn-primary"/>
+            <Button text="Get Status nativescript-web-server" tap="{{ getStatus }}" class="btn btn-primary"/>
+            <Button text="Stop nativescript-web-server" tap="{{ stop }}" class="btn btn-primary"/>
+            <WebView loaded="{{ loaded }}" width="100%" height="300" />
+          </StackLayout>
+    </StackLayout>
+</Page>
