@@ -24,3 +24,21 @@ android {
     additionalParameters "--no-version-vectors"
   }
 }
+
+
+  configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+      def requested = details.requested
+      if (requested.group == 'androidx.lifecycle') {
+        if(requested.name == 'lifecycle-viewmodel'){
+          details.useTarget 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
+        }
+
+        if(requested.name == 'lifecycle-viewmodel-ktx'){
+          details.useTarget 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+        }
+        
+      }
+    }
+  }
+
