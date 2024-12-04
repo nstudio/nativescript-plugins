@@ -5,7 +5,7 @@
  * Version 1.1.0                                       			   team@nstudio.io
  **********************************************************************************/
 
-import { Application, ImageAsset, ImageSource } from '@nativescript/core';
+import { ImageAsset, ImageSource, Utils } from '@nativescript/core';
 
 interface ArrayBufferStatic extends ArrayBufferConstructor {
 	from(buffer: java.nio.ByteBuffer): ArrayBuffer;
@@ -84,7 +84,7 @@ export class SelectedAsset extends ImageAsset {
 	private static _calculateFileUri(uri: android.net.Uri) {
 		const isKitKat = android.os.Build.VERSION.SDK_INT >= 19; // android.os.Build.VERSION_CODES.KITKAT
 
-		if (isKitKat && android.provider.DocumentsContract && android.provider.DocumentsContract.isDocumentUri(Application.android.context, uri)) {
+		if (isKitKat && android.provider.DocumentsContract && android.provider.DocumentsContract.isDocumentUri(Utils.android.getApplicationContext(), uri)) {
 			// externalStorageProvider
 			if (SelectedAsset.isExternalStorageDocument(uri)) {
 				const docId = android.provider.DocumentsContract.getDocumentId(uri);
@@ -285,6 +285,6 @@ export class SelectedAsset extends ImageAsset {
 	}
 
 	private static getContentResolver(): android.content.ContentResolver {
-		return Application.android.nativeApp.getContentResolver();
+		return Utils.android.getApplicationContext().getContentResolver();
 	}
 }

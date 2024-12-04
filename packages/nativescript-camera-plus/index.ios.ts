@@ -5,7 +5,9 @@
  **********************************************************************************/
 
 import { Color, Device, File, ImageAsset, knownFolders, path, Utils, View } from '@nativescript/core';
-import { CameraPlusBase, CameraTypes, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, IChooseOptions, IVideoOptions } from './common';
+import { CameraPlusBase, CameraTypes, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, IChooseOptions, IVideoOptions, CameraLens as CLens } from './common';
+
+declare const NSCCamplusHelpers;
 
 export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
@@ -753,6 +755,49 @@ export class CameraPlus extends CameraPlusBase {
 		return this.enableAudio === true || CameraPlus.enableAudio;
 	}
 
+	isWideAngleSupported(): boolean {
+		if (Utils.ios.MajorVersion >= 13) {
+			return true;
+		}
+		return false;
+	}
+
+	// @ts-ignore
+	get defaultLens() {
+		if (this._swifty) {
+			switch (this._swifty.defaultLens) {
+				case CameraLens.Auto:
+					return CLens.Auto;
+				case CameraLens.Telephoto:
+					return CLens.TelePhoto;
+				case CameraLens.Wide:
+					return CLens.Wide;
+				case CameraLens.Ultrawide:
+					return CLens.UltraWide;
+			}
+		}
+		return CLens.TelePhoto;
+	}
+
+	set defaultLens(value: CLens | string) {
+		if (this._swifty) {
+			switch (value) {
+				case CLens.Auto:
+					this._swifty.defaultLens = CameraLens.Auto;
+					break;
+				case CLens.TelePhoto:
+					this._swifty.defaultLens = CameraLens.Telephoto;
+					break;
+				case CLens.Wide:
+					this._swifty.defaultLens = CameraLens.Wide;
+					break;
+				case CLens.UltraWide:
+					this._swifty.defaultLens = CameraLens.Ultrawide;
+					break;
+			}
+		}
+	}
+
 	public createNativeView() {
 		// this._swifty.videoGravity = SwiftyCamVideoGravity.ResizeAspectFill;
 		const videoEnabled = this.isVideoEnabled();
@@ -763,9 +808,7 @@ export class CameraPlus extends CameraPlusBase {
 		} else {
 			this._swifty.disableAudio = !this.isAudioEnabled();
 		}
-		
 
-	
 		CLog('CameraPlus createNativeView');
 		CLog('video enabled:', this.isVideoEnabled());
 		CLog('default camera:', CameraPlus.defaultCamera);
@@ -1031,15 +1074,12 @@ export class CameraPlus extends CameraPlusBase {
 
 	private _detectDevice() {
 		if (typeof this._isIPhoneX === 'undefined') {
-			const _SYS_NAMELEN: number = 256;
 
 			/* tslint:disable-next-line: no-any */
-			const buffer: any = interop.alloc(5 * _SYS_NAMELEN);
-			uname(buffer);
-			let name: string = NSString.stringWithUTF8String(buffer.add(_SYS_NAMELEN * 4)).toString();
+			let name = NSCCamplusHelpers.getDeviceIdentifier();
 
 			// Get machine name for Simulator
-			if (name === 'x86_64' || name === 'i386') {
+			if (name === 'x86_64' || name === 'i386' || name === 'arm64') {
 				name = NSProcessInfo.processInfo.environment.objectForKey('SIMULATOR_MODEL_IDENTIFIER');
 			}
 

@@ -6,14 +6,11 @@
 
 import { AndroidActivityResultEventData, AndroidApplication, Application, Device, ImageAsset, Utils, View } from '@nativescript/core';
 import * as permissions from '@nativescript-community/perms';
-import { CameraPlusBase, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, ICameraPlusEvents, IChooseOptions, IVideoOptions, WhiteBalance } from './common';
+import { CameraLens, CameraPlusBase, CameraVideoQuality, CLog, GetSetProperty, ICameraOptions, ICameraPlusEvents, IChooseOptions, IVideoOptions, WhiteBalance } from './common';
 import * as CamHelpers from './helpers';
 import { SelectedAsset } from './selected-asset';
 
-export * from './common';
 export { CameraVideoQuality, WhiteBalance } from './common';
-
-import fancycamera = io.github.triniwiz.fancycamera;
 
 const REQUEST_VIDEO_CAPTURE = 999;
 const WRAP_CONTENT = -2;
@@ -46,37 +43,53 @@ const WRITE_EXTERNAL_STORAGE = () => android.Manifest.permission.WRITE_EXTERNAL_
 // the snapshot will fail if they resolve during import, so must be done via a function
 const DEVICE_INFO_STRING = () => `Device: ${Device.manufacturer} ${Device.model} on SDK: ${Device.sdkVersion}`;
 
+
+function buildStoragePermissions(ctx: android.content.Context) {
+	let perms: { photo: Record<string, never>; video: Record<string, never> } | { storage: { read: boolean; write: boolean } };
+
+	const version = ctx.getApplicationInfo().targetSdkVersion;
+
+	if (version >= 33) {
+		perms = { photo: {}, video: {} };
+	} else if (version >= 30) {
+		perms = { storage: { read: true, write: false } };
+	} else {
+		perms = { ...perms, storage: { read: true, write: true } };
+	}
+	return perms;
+}
+
 export class CameraPlus extends CameraPlusBase {
 	// @GetSetProperty() public camera: android.hardware.Camera;
 	// Snapshot-friendly, since the decorator will include the snapshot-unknown object "android"
-	private _camera: fancycamera.FancyCamera;
+	private _camera: io.github.triniwiz.fancycamera.FancyCamera;
 	private _cameraId;
 
 	@GetSetProperty()
-	public flashOnIcon: string = 'ic_flash_on_white';
+	public flashOnIcon = 'ic_flash_on_white';
 	@GetSetProperty()
-	public flashOffIcon: string = 'ic_flash_off_white';
+	public flashOffIcon = 'ic_flash_off_white';
 	@GetSetProperty()
-	public toggleCameraIcon: string = 'ic_switch_camera_white';
+	public toggleCameraIcon = 'ic_switch_camera_white';
 	@GetSetProperty()
-	public confirmPhotos: boolean = true;
+	public confirmPhotos = true;
 	@GetSetProperty()
-	public saveToGallery: boolean = false;
+	public saveToGallery = false;
 	@GetSetProperty()
-	public takePicIcon: string = 'ic_camera_white';
+	public takePicIcon = 'ic_camera_white';
 	@GetSetProperty()
-	public galleryIcon: string = 'ic_photo_library_white';
+	public galleryIcon = 'ic_photo_library_white';
 	@GetSetProperty()
-	public insetButtons: boolean = false;
+	public insetButtons = false;
 	@GetSetProperty()
-	public insetButtonsPercent: number = 0.1;
+	public insetButtonsPercent = 0.1;
 	@GetSetProperty()
 	public enableVideo: boolean;
 	@GetSetProperty()
 	public isRecording: boolean;
 
 	@GetSetProperty()
-	public enableAudio: boolean = true;
+	public enableAudio = true;
 
 	public events: ICameraPlusEvents;
 	private _nativeView: android.widget.RelativeLayout;
@@ -93,6 +106,8 @@ export class CameraPlus extends CameraPlusBase {
 	private _videoPath: string;
 	readonly _context; // defining this to pass TS warning, NS provides the context during lifecycle
 	_lastCameraOptions: ICameraOptions[];
+	_defaultLens: CameraLens | string = CameraLens.TelePhoto;
+
 	constructor() {
 		super();
 		this._camera = null;
@@ -123,6 +138,55 @@ export class CameraPlus extends CameraPlusBase {
 
 	private isAudioEnabled() {
 		return this.enableAudio === true || CameraPlus.enableAudio;
+	}
+
+	isWideAngleSupported(): boolean {
+		return (<any>this._camera)?.isWideAngleSupported?.() ?? false;
+	}
+
+	// @ts-ignore
+	get defaultLens() {
+		if (this._camera) {
+			switch (this._camera.getDefaultLens()) {
+				case io.github.triniwiz.fancycamera.CameraLens.auto:
+					if (this.isWideAngleSupported()) {
+						return CameraLens.Auto;
+					} else {
+						return CameraLens.TelePhoto;
+					}
+				case io.github.triniwiz.fancycamera.CameraLens.telephoto:
+					return CameraLens.TelePhoto;
+				case io.github.triniwiz.fancycamera.CameraLens.wide:
+					return CameraLens.Wide;
+				case io.github.triniwiz.fancycamera.CameraLens.ultrawide:
+					return CameraLens.UltraWide;
+			}
+		}
+		return this._defaultLens;
+	}
+
+	set defaultLens(value: CameraLens | string) {
+		this._defaultLens = value;
+		if (this._camera) {
+			switch (value) {
+				case CameraLens.Auto:
+					if (this.isWideAngleSupported()) {
+						this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.auto);
+					} else {
+						this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.telephoto);
+					}
+					break;
+				case CameraLens.TelePhoto:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.telephoto);
+					break;
+				case CameraLens.Wide:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.wide);
+					break;
+				case CameraLens.UltraWide:
+					this._camera.setDefaultLens(io.github.triniwiz.fancycamera.CameraLens.ultrawide);
+					break;
+			}
+		}
 	}
 
 	// @ts-ignore
@@ -172,28 +236,28 @@ export class CameraPlus extends CameraPlusBase {
 		if (this._camera) {
 			switch (value) {
 				case WhiteBalance.Cloudy:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Cloudy);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Cloudy);
 					break;
 				case WhiteBalance.Fluorescent:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Fluorescent);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Fluorescent);
 					break;
 				case WhiteBalance.Incandescent:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Incandescent);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Incandescent);
 					break;
 				case WhiteBalance.Shadow:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Shadow);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Shadow);
 					break;
 				case WhiteBalance.Sunny:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Sunny);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Sunny);
 					break;
 				case WhiteBalance.Twilight:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Twilight);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Twilight);
 					break;
 				case WhiteBalance.WarmFluorescent:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.WarmFluorescent);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.WarmFluorescent);
 					break;
 				default:
-					this._camera.setWhiteBalance(fancycamera.WhiteBalance.Auto);
+					this._camera.setWhiteBalance(io.github.triniwiz.fancycamera.WhiteBalance.Auto);
 					break;
 			}
 		}
@@ -202,19 +266,19 @@ export class CameraPlus extends CameraPlusBase {
 	get whiteBalance(): WhiteBalance | string {
 		if (this._camera) {
 			switch (this._camera.getWhiteBalance()) {
-				case fancycamera.WhiteBalance.Cloudy:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Cloudy:
 					return WhiteBalance.Cloudy;
-				case fancycamera.WhiteBalance.Fluorescent:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Fluorescent:
 					return WhiteBalance.Fluorescent;
-				case fancycamera.WhiteBalance.Incandescent:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Incandescent:
 					return WhiteBalance.Incandescent;
-				case fancycamera.WhiteBalance.Shadow:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Shadow:
 					return WhiteBalance.Shadow;
-				case fancycamera.WhiteBalance.Sunny:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Sunny:
 					return WhiteBalance.Sunny;
-				case fancycamera.WhiteBalance.Twilight:
+				case io.github.triniwiz.fancycamera.WhiteBalance.Twilight:
 					return WhiteBalance.Twilight;
-				case fancycamera.WhiteBalance.WarmFluorescent:
+				case io.github.triniwiz.fancycamera.WhiteBalance.WarmFluorescent:
 					return WhiteBalance.WarmFluorescent;
 				default:
 					return WhiteBalance.Auto;
@@ -229,11 +293,16 @@ export class CameraPlus extends CameraPlusBase {
 	public getAvailablePictureSizes(ratio: string): string[] {
 		const sizes = [];
 		if (this._camera && typeof ratio === 'string') {
-			const nativeSizes: any = this._camera.getAvailablePictureSizes(ratio);
-			for (const size of nativeSizes) {
-				sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+			const nativeSizes = this._camera.getAvailablePictureSizes(ratio);
+			if (nativeSizes) {
+				const length = nativeSizes.length;
+				for (let i = 0; i < length; i++) {
+					const size = nativeSizes[i];
+					sizes.push(`${size.getWidth()}x${size.getHeight()}`);
+				}
 			}
 		}
+
 		return sizes;
 	}
 
@@ -270,9 +339,11 @@ export class CameraPlus extends CameraPlusBase {
 		// create the Android RelativeLayout
 		Application.android.on('activityRequestPermissions', this._permissionListener);
 		this._nativeView = new android.widget.RelativeLayout(this._context);
-		this._camera = new fancycamera.FancyCamera(this._context);
+		this._camera = new io.github.triniwiz.fancycamera.FancyCamera(this._context);
 		(this._camera as any).setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT));
 		this._camera.setEnableAudio(CameraPlus.enableAudio);
+		// ensure defaultLens set after camera is created
+		this.defaultLens = this._defaultLens;
 		this._nativeView.addView(this._camera as any);
 		return this._nativeView;
 	}
@@ -299,11 +370,13 @@ export class CameraPlus extends CameraPlusBase {
 	public initNativeView() {
 		super.initNativeView();
 		this.on(View.layoutChangedEvent, this._onLayoutChangeListener);
-		const listenerImpl = (fancycamera.CameraEventListenerUI as any).extend({
+		const listenerImpl = (io.github.triniwiz.fancycamera.CameraEventListenerUI as any).extend({
 			owner: null,
-			onReady(): void {},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			onReadyUI(): void {},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
 			onCameraCloseUI(): void {},
-			onCameraError(message: string, ex: java.lang.Exception): void {
+			onCameraErrorUI(message: string, ex: java.lang.Exception): void {
 				console.log('onCameraError', message);
 				ex.printStackTrace();
 				const owner = this.owner ? this.owner.get() : null;
@@ -397,11 +470,14 @@ export class CameraPlus extends CameraPlusBase {
 					owner.isRecording = false;
 				}
 			},
-			onCameraAnalysisUI(imageAnalysis: fancycamera.ImageAnalysis): void {},
+			// eslint-disable-next-line @typescript-eslint/no-empty-function
+			onCameraAnalysisUI(imageAnalysis: io.github.triniwiz.fancycamera.ImageAnalysis): void {},
 		});
 		const listener = new listenerImpl();
 		listener.owner = new WeakRef(this);
 		this._camera.setListener(listener);
+		// ensure defaultLens set after camera is created
+		this.defaultLens = this._defaultLens;
 		this.cameraId = this._cameraId;
 	}
 
@@ -421,11 +497,11 @@ export class CameraPlus extends CameraPlusBase {
 		if (this._camera) {
 			switch (id) {
 				case CAMERA_FACING_FRONT:
-					this._camera.setPosition(fancycamera.CameraPosition.FRONT);
+					this._camera.setPosition(io.github.triniwiz.fancycamera.CameraPosition.FRONT);
 					this._cameraId = CAMERA_FACING_FRONT;
 					break;
 				default:
-					this._camera.setPosition(fancycamera.CameraPosition.BACK);
+					this._camera.setPosition(io.github.triniwiz.fancycamera.CameraPosition.BACK);
 					this._cameraId = CAMERA_FACING_BACK;
 					break;
 			}
@@ -507,25 +583,25 @@ export class CameraPlus extends CameraPlusBase {
 			this._camera.setSaveToGallery(!!options.saveToGallery);
 			switch (options.quality) {
 				case CameraVideoQuality.HIGHEST:
-					this._camera.setQuality(fancycamera.Quality.HIGHEST);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.HIGHEST);
 					break;
 				case CameraVideoQuality.LOWEST:
-					this._camera.setQuality(fancycamera.Quality.LOWEST);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.LOWEST);
 					break;
 				case CameraVideoQuality.MAX_2160P:
-					this._camera.setQuality(fancycamera.Quality.MAX_2160P);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.MAX_2160P);
 					break;
 				case CameraVideoQuality.MAX_1080P:
-					this._camera.setQuality(fancycamera.Quality.MAX_1080P);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.MAX_1080P);
 					break;
 				case CameraVideoQuality.MAX_720P:
-					this._camera.setQuality(fancycamera.Quality.MAX_720P);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.MAX_720P);
 					break;
 				case CameraVideoQuality.QVGA:
-					this._camera.setQuality(fancycamera.Quality.QVGA);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.QVGA);
 					break;
 				default:
-					this._camera.setQuality(fancycamera.Quality.MAX_480P);
+					this._camera.setQuality(io.github.triniwiz.fancycamera.Quality.MAX_480P);
 					break;
 			}
 			// -1 uses profile value;
@@ -535,7 +611,9 @@ export class CameraPlus extends CameraPlusBase {
 
 			const permResult = await this.requestVideoRecordingPermissions();
 			CLog(permResult);
-			this._camera.startRecording();
+			if (permResult) {
+				this._camera.startRecording();
+			}
 		}
 	}
 
@@ -640,13 +718,19 @@ export class CameraPlus extends CameraPlusBase {
 
 				// Ensure storage permissions
 				if (!this.hasStoragePermissions()) {
-					permissions.request('storage').then(() => {
-						if (!this.hasStoragePermissions()) {
-							const error = new Error('request for storage permissions denied');
-							this.sendEvent(CameraPlus.errorEvent, error, 'Error choosing an image from the device library.');
-							reject(error);
-						} else {
-							createThePickerIntent();
+					permissions.request('storage').then((res) => {
+						const permType = res[0];
+						switch (permType) {
+							case 'authorized':
+								createThePickerIntent();
+								break;
+							default:
+								{
+									const error = new Error('request for storage permissions denied');
+									this.sendEvent(CameraPlus.errorEvent, error, 'Error choosing an image from the device library.');
+									reject(error);
+								}
+								break;
 						}
 					});
 					return;
@@ -704,12 +788,20 @@ export class CameraPlus extends CameraPlusBase {
 	 * Request permission to use device camera.
 	 * @param explanation
 	 */
-	public requestCameraPermissions(explanation: string = ''): Promise<boolean> {
+	public requestCameraPermissions(explanation = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			permissions
 				.request('camera')
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					const permType = res[0];
+					switch (permType) {
+						case 'authorized':
+							resolve(true);
+							break;
+						default:
+							resolve(false);
+							break;
+					}
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Camera permissions.');
@@ -724,7 +816,15 @@ export class CameraPlus extends CameraPlusBase {
 	public hasCameraPermission(): Promise<boolean> {
 		return new Promise((resolve) => {
 			permissions.check('camera').then((res) => {
-				resolve(res[1]);
+				const permType = res[0];
+				switch (permType) {
+					case 'authorized':
+						resolve(true);
+						break;
+					default:
+						resolve(false);
+						break;
+				}
 			});
 		});
 	}
@@ -733,12 +833,13 @@ export class CameraPlus extends CameraPlusBase {
 	 * Request permission to use record audio for video.
 	 * @param explanation
 	 */
-	public requestAudioPermissions(explanation: string = ''): Promise<boolean> {
+	public requestAudioPermissions(explanation = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
 			permissions
-				.request('audio')
-				.then(() => {
-					resolve(true);
+				.request('microphone')
+				.then((res) => {
+					const permType = res[0];
+					resolve(permType === 'authorized');
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Audio permission.');
@@ -752,8 +853,16 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public hasAudioPermission(): Promise<boolean> {
 		return new Promise((resolve) => {
-			permissions.check('audio').then((res) => {
-				resolve(res[1]);
+			permissions.check('microphone').then((res) => {
+				const permType = res[0];
+				switch (permType) {
+					case 'authorized':
+						resolve(true);
+						break;
+					default:
+						resolve(false);
+						break;
+				}
 			});
 		});
 	}
@@ -762,15 +871,22 @@ export class CameraPlus extends CameraPlusBase {
 	 * Request permission to read/write to external storage.
 	 * @param explanation
 	 */
-	public requestStoragePermissions(explanation: string = ''): Promise<boolean> {
+	public requestStoragePermissions(explanation = ''): Promise<boolean> {
 		return new Promise((resolve, reject) => {
-			const perms = {
-				storage: { write: true, read: true },
-			};
+			const ctx = Utils.android.getApplicationContext() ?? this._context;
+			const version = ctx.getApplicationInfo().targetSdkVersion;
+			const perms = buildStoragePermissions(ctx);
+			
 			permissions
 				.request(perms)
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					if (version >= 33) {
+						resolve(res?.['photo'] === 'authorized' && res?.['video'] === 'authorized');
+					} else if (version >= 30) {
+						resolve(res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized');
+					} else {
+						resolve(res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized' && res?.['android.permission.WRITE_EXTERNAL_STORAGE'] === 'authorized');
+					}
 				})
 				.catch((err) => {
 					this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Storage permissions.');
@@ -783,29 +899,38 @@ export class CameraPlus extends CameraPlusBase {
 	 * Returns true if the WRITE_EXTERNAL_STORAGE && READ_EXTERNAL_STORAGE permissions have been granted.
 	 */
 	public async hasStoragePermissions(): Promise<boolean> {
-		const perms = await permissions.check('storage', { write: true, read: true });
-		if (perms[0]) {
-			return true;
-		} else {
+		const ctx = Utils.android.getApplicationContext() ?? this._context;
+		const version = ctx.getApplicationInfo().targetSdkVersion;
+		const perms = buildStoragePermissions(ctx);
+		try {
+			const res = await permissions.checkMultiple(perms);
+			if (version >= 33) {
+				return res?.['photo'] === 'authorized' && res?.['video'] === 'authorized';
+			} else if (version >= 30) {
+				return res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized';
+			} else {
+				return res?.['android.permission.READ_EXTERNAL_STORAGE'] === 'authorized' && res?.['android.permission.WRITE_EXTERNAL_STORAGE'] === 'authorized';
+			}
+		} catch (error) {
 			return false;
 		}
+	
 	}
 
-	public requestVideoRecordingPermissions(explanation: string = ''): Promise<boolean> {
-		return new Promise(async (resolve, reject) => {
+	public requestVideoRecordingPermissions(explanation = ''): Promise<boolean> {
+		return new Promise((resolve, reject) => {
 			const rejectError = (err) => {
 				this.sendEvent(CameraPlus.errorEvent, err, 'Error requesting Video permissions.');
 				resolve(false);
 			};
 			const perms = {
-				storage: { write: true, read: true },
-				audio: {},
-				video: {},
+				microphone: {},
+				camera: {},
 			};
 			permissions
 				.request(perms)
-				.then(() => {
-					resolve(true);
+				.then((res) => {
+					resolve(res?.['android.permission.RECORD_AUDIO'] === 'authorized' && res?.['android.permission.CAMERA'] === 'authorized');
 				})
 				.catch((err) => {
 					rejectError(err);
@@ -813,19 +938,13 @@ export class CameraPlus extends CameraPlusBase {
 		});
 	}
 
-	public hasVideoRecordingPermissions(): Promise<boolean> {
-		return new Promise(async (resolve, reject) => {
-			const perms = {
-				storage: { write: true, read: true },
-				audio: {},
-			};
-			const permResults = await permissions.request(perms);
-			if (permResults[0]) {
-				resolve(true);
-			} else {
-				resolve(false);
-			}
-		});
+	public async hasVideoRecordingPermissions(): Promise<boolean> {
+		try {
+			const res = await permissions.check('microphone');
+			return res[0] === 'authorized';
+		} catch (error) {
+			return false;
+		}
 	}
 
 	/**
@@ -834,7 +953,7 @@ export class CameraPlus extends CameraPlusBase {
 	public getCurrentCamera(): 'front' | 'rear' {
 		if (!this._camera) return 'rear';
 		switch (this._camera.getPosition()) {
-			case fancycamera.CameraPosition.FRONT:
+			case io.github.triniwiz.fancycamera.CameraPosition.FRONT:
 				return 'front';
 			default:
 				return 'rear';
@@ -845,7 +964,7 @@ export class CameraPlus extends CameraPlusBase {
 	 * Check if the device has a camera
 	 */
 	public isCameraAvailable() {
-		if (Utils.ad.getApplicationContext().getPackageManager().hasSystemFeature('android.hardware.camera')) {
+		if (Utils.android.getApplicationContext().getPackageManager().hasSystemFeature('android.hardware.camera')) {
 			return true;
 		} else {
 			return false;
@@ -876,7 +995,7 @@ export class CameraPlus extends CameraPlusBase {
 	 */
 	public getFlashMode() {
 		if (this.hasFlash()) {
-			if (this._camera.getFlashMode() !== fancycamera.CameraFlashMode.OFF) {
+			if (this._camera.getFlashMode() !== io.github.triniwiz.fancycamera.CameraFlashMode.OFF) {
 				return 'on';
 			}
 			return 'off';
