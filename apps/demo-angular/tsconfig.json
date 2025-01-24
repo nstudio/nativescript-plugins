@@ -26,7 +26,15 @@
 			"@nstudio/nativescript-barcodescanner": ["packages/nativescript-barcodescanner/index.d.ts"],
 			"@nstudio/nativescript-intercom": ["packages/nativescript-intercom/index.d.ts"],
 			"@nstudio/nativescript-loading-indicator": ["packages/nativescript-loading-indicator/index.d.ts"],
-			"@nstudio/nativescript-carousel": ["packages/nativescript-carousel/carousel.d.ts"]
+			"@nstudio/nativescript-carousel": ["packages/nativescript-carousel/carousel.d.ts"],
+			"@nstudio/*": ["../../dist/packages/*"],
+			"@nstudio/nativescript-appcues": ["../../packages/nativescript-appcues/index.d.ts"],
+			"@nstudio/nativescript-aptabase": ["../../packages/nativescript-aptabase/index.d.ts"],
+			"@nstudio/nativescript-cardview": ["../../packages/nativescript-cardview/index.d.ts"],
+			"@nstudio/nativescript-freshchat": ["../../packages/nativescript-freshchat/index.d.ts"],
+			"@nstudio/nativescript-persona": ["../../packages/nativescript-persona/index.d.ts"],
+			"@nstudio/nativescript-walletconnect": ["../../packages/nativescript-walletconnect/index.d.ts"],
+			"@nstudio/nativescript-web-server": ["../../packages/nativescript-web-server/index.d.ts"]
 		}
 	},
 	"files": ["./references.d.ts", "./src/main.ts", "./src/polyfills.ts"],

@@ -32,7 +32,7 @@
         <Button text="nativescript-qr" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-tracking-transparency" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-walletconnect" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
-<Button text="nativescript-web-server" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-web-server" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>
