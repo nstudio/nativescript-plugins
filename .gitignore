@@ -94,3 +94,6 @@ packages/**/src-native/web-server-ios/**/xcuserdata/
 packages/**/src-native/web-server-ios/**/project.xcworkspace/
 packages/**/src-native/web-server-ios/**/build
 packages/**/src-native/web-server-ios/**/dist
+
+.nx/cache
+.nx/workspace-data

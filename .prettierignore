@@ -3,3 +3,8 @@
 /dist
 /coverage
 native-src
+*.aar
+*/*.xcframework/**/*
+
+/.nx/cache
+/.nx/workspace-data
