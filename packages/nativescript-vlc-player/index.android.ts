@@ -1,3 +1,3 @@
-import { View } from '@nativescript/core';
+import { VLCPlayerCommon } from './common';
 
-export class VLCPlayer extends View {}
+export class VLCPlayer extends VLCPlayerCommon {}

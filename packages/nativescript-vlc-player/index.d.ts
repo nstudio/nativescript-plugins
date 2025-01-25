@@ -1,3 +1,5 @@
-import { NativescriptVlcPlayerCommon } from './common';
+import { VLCPlayerCommon } from './common';
 
-export declare class NativescriptVlcPlayer extends NativescriptVlcPlayerCommon {}
+export { VLCPlayerEvents } from './common';
+
+export class VLCPlayer extends VLCPlayerCommon {}

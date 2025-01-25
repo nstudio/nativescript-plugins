@@ -1,5 +1,4 @@
-import { View } from '@nativescript/core';
-import { srcProperty } from './common';
+import { srcProperty, autoPlayProperty, VLCPlayerCommon, VLCPlayerEvents } from './common';
 
 @NativeClass()
 class VLCMediaPlayerDelegateImpl extends NSObject implements VLCMediaPlayerDelegate {
@@ -16,16 +15,55 @@ class VLCMediaPlayerDelegateImpl extends NSObject implements VLCMediaPlayerDeleg
 		const owner = this.owner.deref();
 		if (owner) {
 			console.log('state:', owner.player.state);
-			// switch (owner.player.state) {
-			//     case  VLCMediaPlayerState.Buffering:
-
-			//     break;
-			// }
+			switch (owner.player.state) {
+				case VLCMediaPlayerState.Buffering:
+					owner.notify({
+						eventName: VLCPlayerEvents.buffering,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Opening:
+					owner.notify({
+						eventName: VLCPlayerEvents.opening,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Playing:
+					owner.notify({
+						eventName: VLCPlayerEvents.playing,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Paused:
+					owner.notify({
+						eventName: VLCPlayerEvents.paused,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Ended:
+					owner.notify({
+						eventName: VLCPlayerEvents.ended,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Error:
+					owner.notify({
+						eventName: VLCPlayerEvents.error,
+						object: owner,
+					});
+					break;
+				case VLCMediaPlayerState.Stopped:
+					owner.notify({
+						eventName: VLCPlayerEvents.stopped,
+						object: owner,
+					});
+					break;
+			}
 		}
 	}
 }
-export class VLCPlayer extends View {
-	player: VLCMediaPlayer; //RCTVLCPlayer;
+export class VLCPlayer extends VLCPlayerCommon {
+	player: VLCMediaPlayer;
 	delegate: VLCMediaPlayerDelegateImpl;
 	createNativeView() {
 		const options = NSArray.arrayWithArray(['--network-caching=50', '--rtsp-tcp'] as any);
@@ -34,7 +72,6 @@ export class VLCPlayer extends View {
 		const view = UIView.alloc().init();
 		view.backgroundColor = UIColor.redColor;
 		this.player.drawable = view;
-		// RCTVLCPlayer.alloc().init();
 		return view;
 	}
 
@@ -56,17 +93,23 @@ export class VLCPlayer extends View {
 		// }
 		// this.player.delegate = self;
 		// this.player.drawable = self;
-		// [bavv edit end]
 
 		this.player.media = VLCMedia.mediaWithURL(uri);
 
 		AVAudioSession.sharedInstance().setActiveWithOptionsError(false, AVAudioSessionSetActiveFlags_NotifyOthersOnDeactivation);
 
-		this.player.play();
+		if (this.autoPlay) {
+			this.player.play();
+		}
 
-		// self.onVideoLoadStart(@{
-		//                        @"target": self.reactTag
-		//                        });
+		this.notify({
+			eventName: VLCPlayerEvents.loadStarted,
+			object: this,
+		});
+	}
+
+	[autoPlayProperty.setNative](value: boolean) {
+		this.autoPlay = value;
 	}
 }
 
