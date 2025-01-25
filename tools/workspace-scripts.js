@@ -23,15 +23,15 @@ module.exports = {
 			},
 			demo: {
 				clean: {
-					script: 'nx run demo:clean',
+					script: 'nx clean demo',
 					description: '⚆  Clean  🧹',
 				},
 				ios: {
-					script: 'nx run demo:ios',
+					script: 'nx debug demo ios',
 					description: '⚆  Run iOS  ',
 				},
 				android: {
-					script: 'nx run demo:android',
+					script: 'nx debug demo android',
 					description: '⚆  Run Android  🤖',
 				},
 			},
@@ -41,15 +41,15 @@ module.exports = {
 			},
 			'demo-angular': {
 				clean: {
-					script: 'nx run demo-angular:clean',
+					script: 'nx clean demo-angular',
 					description: '⚆  Clean  🧹',
 				},
 				ios: {
-					script: 'nx run demo-angular:ios',
+					script: 'nx debug demo-angular ios',
 					description: '⚆  Run iOS  ',
 				},
 				android: {
-					script: 'nx run demo-angular:android',
+					script: 'nx debug demo-angular android',
 					description: '⚆  Run Android  🤖',
 				},
 			},
@@ -59,15 +59,15 @@ module.exports = {
 			},
 			'demo-react': {
 				clean: {
-					script: 'nx run demo-react:clean',
+					script: 'nx clean demo-react',
 					description: '⚆  Clean  🧹',
 				},
 				ios: {
-					script: 'nx run demo-react:ios',
+					script: 'nx debug demo-react ios',
 					description: '⚆  Run iOS  ',
 				},
 				android: {
-					script: 'nx run demo-react:android',
+					script: 'nx debug demo-react android',
 					description: '⚆  Run Android  🤖',
 				},
 			},
@@ -77,15 +77,15 @@ module.exports = {
 			},
 			'demo-svelte': {
 				clean: {
-					script: 'nx run demo-svelte:clean',
+					script: 'nx clean demo-svelte',
 					description: '⚆  Clean  🧹',
 				},
 				ios: {
-					script: 'nx run demo-svelte:ios',
+					script: 'nx debug demo-svelte ios',
 					description: '⚆  Run iOS  ',
 				},
 				android: {
-					script: 'nx run demo-svelte:android',
+					script: 'nx debug demo-svelte android',
 					description: '⚆  Run Android  🤖',
 				},
 			},
@@ -95,15 +95,15 @@ module.exports = {
 			},
 			'demo-vue': {
 				clean: {
-					script: 'nx run demo-vue:clean',
+					script: 'nx clean demo-vue',
 					description: '⚆  Clean  🧹',
 				},
 				ios: {
-					script: 'nx run demo-vue:ios',
+					script: 'nx debug demo-vue ios',
 					description: '⚆  Run iOS  ',
 				},
 				android: {
-					script: 'nx run demo-vue:android',
+					script: 'nx debug demo-vue android',
 					description: '⚆  Run Android  🤖',
 				},
 			},
@@ -267,7 +267,7 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-persona:build.all',
 					description: '@nstudio/nativescript-persona: Build',
-				}
+				},
 			},
 			// @nstudio/nativescript-walletconnect
 			'nativescript-walletconnect': {
@@ -288,7 +288,7 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-appcues:build.all',
 					description: '@nstudio/nativescript-appcues: Build',
-				}
+				},
 			},
 			// @nstudio/nativescript-cardview
 			'nativescript-cardview': {
@@ -309,6 +309,13 @@ module.exports = {
 				build: {
 					script: 'nx run nativescript-web-server:build.all',
 					description: '@nstudio/nativescript-web-server: Build',
+				},
+			},
+			// @nstudio/nativescript-vlc-player
+			'nativescript-vlc-player': {
+				build: {
+					script: 'nx run nativescript-vlc-player:build.all',
+					description: '@nstudio/nativescript-vlc-player: Build',
 				},
 			},
 			'build-all': {
@@ -436,6 +443,10 @@ module.exports = {
 			'nativescript-web-server': {
 				script: 'nx run nativescript-web-server:focus',
 				description: 'Focus on @nstudio/nativescript-web-server',
+			},
+			'nativescript-vlc-player': {
+				script: 'nx run nativescript-vlc-player:focus',
+				description: 'Focus on @nstudio/nativescript-vlc-player',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

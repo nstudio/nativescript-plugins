@@ -21,24 +21,14 @@
 				}
 			]
 		},
-		"ios": {
-			"executor": "@nativescript/nx:build",
+		"debug": {
+			"executor": "@nativescript/nx:debug",
 			"options": {
-				"platform": "ios",
-				"noHmr": true
-			},
-			"dependsOn": [
-				{
-					"target": "build.all",
-					"dependencies": true
-				}
-			]
-		},
-		"android": {
-			"executor": "@nativescript/nx:build",
-			"options": {
-				"platform": "android",
-				"noHmr": true
+				"noHmr": true,
+				"uglify": false,
+				"release": false,
+				"forDevice": false,
+				"prepare": false
 			},
 			"dependsOn": [
 				{
@@ -48,10 +38,8 @@
 			]
 		},
 		"clean": {
-			"executor": "@nativescript/nx:build",
-			"options": {
-				"clean": true
-			}
+			"executor": "@nativescript/nx:clean",
+			"options": {}
 		},
 		"lint": {
 			"executor": "@nx/eslint:lint"
