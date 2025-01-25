@@ -1,0 +1,9 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:vlc="@nstudio/nativescript-vlc-player">
+  <Page.actionBar>
+    <ActionBar title="nativescript-vlc-player" icon="" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
+  <GridLayout rows="*,auto,*">
+    <vlc:VLCPlayer row="1" src="rtsp://62.109.19.230:554/iloveyou" width="300" height="300"></vlc:VLCPlayer>
+  </GridLayout>
+</Page>
