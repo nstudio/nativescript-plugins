@@ -124,6 +124,7 @@ export class PlaidLink extends PlaidLinkBase {
 		const field = clazz.getDeclaredField('token');
 		field.setAccessible(true);
 		field.set(configuration, this.token);
+		// @ts-ignore
 		const plaid = com.plaid.link.Plaid.create(Utils.android.getApplicationContext(), configuration.build());
 		Application.android.off(AndroidApplication.activityResultEvent, this._resultHandler);
 		Application.android.on(AndroidApplication.activityResultEvent, this._resultHandler);

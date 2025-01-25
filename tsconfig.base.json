@@ -22,6 +22,7 @@
 		],
 		"paths": {
 			"@demo/shared": ["tools/demo/index.ts"],
+			"@nstudio/*": ["packages/*"],
 			"@nstudio/nativescript-airship": ["packages/nativescript-airship/index.d.ts"],
 			"@nstudio/nativescript-airship-adm": ["packages/nativescript-airship-adm/index.ts"],
 			"@nstudio/nativescript-airship-fcm": ["packages/nativescript-airship-fcm/index.ts"],
@@ -51,8 +52,7 @@
 			"@nstudio/nativescript-qr": ["packages/nativescript-qr/index.d.ts"],
 			"@nstudio/nativescript-tracking-transparency": ["packages/nativescript-tracking-transparency/index.d.ts"],
 			"@nstudio/nativescript-walletconnect": ["packages/nativescript-walletconnect/index.d.ts"],
-			"@nstudio/nativescript-web-server": ["packages/nativescript-web-server/index.d.ts"],
-			"@nstudio/*": ["packages/*"]
+			"@nstudio/nativescript-web-server": ["packages/nativescript-web-server/index.d.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
