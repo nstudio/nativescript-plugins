@@ -127,7 +127,7 @@ export class BarcodeScanner {
 		this._audioSession.setActiveError(true);
 		this._currentVolume = this._audioSession.outputVolume;
 		if (!this._observerActive) {
-			this._audioSession.addObserverForKeyPathOptionsContext(this._observer, 'outputVolume', 0, null);
+			this._audioSession.addObserverForKeyPathOptionsContext(this._observer, 'outputVolume', NSKeyValueObservingOptions.New, null);
 			this._observerActive = true;
 		}
 	}

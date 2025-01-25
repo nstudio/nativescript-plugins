@@ -12,7 +12,8 @@
 				"production": true,
 				"uglify": true,
 				"release": true,
-				"forDevice": true
+				"forDevice": true,
+				"tsConfig": "apps/demo-angular/tsconfig.json"
 			},
 			"dependsOn": [
 				{
