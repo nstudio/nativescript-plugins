@@ -111,6 +111,18 @@ export class VLCPlayer extends VLCPlayerCommon {
 	[autoPlayProperty.setNative](value: boolean) {
 		this.autoPlay = value;
 	}
+
+	play() {
+		if (this.player) {
+			this.player.play();
+		}
+	}
+
+	pause() {
+		if (this.player) {
+			this.player.pause();
+		}
+	}
 }
 
 srcProperty.register(VLCPlayer);

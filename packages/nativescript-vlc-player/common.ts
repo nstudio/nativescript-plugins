@@ -22,5 +22,8 @@ export enum VLCPlayerEvents {
 }
 
 export class VLCPlayerCommon extends View {
+	src: string;
 	autoPlay: boolean;
+	play() {}
+	pause() {}
 }
