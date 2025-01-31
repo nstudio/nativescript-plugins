@@ -1,6 +1,6 @@
 {
 	"name": "@nstudio/nativescript-vlc-player",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"description": "VLC Player for NativeScript. Supports RTSP, RTMP and other protocols.",
 	"main": "index",
 	"types": "index.d.ts",
