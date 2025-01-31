@@ -364,8 +364,8 @@ export class Airship implements IAirship {
 		const cb = () => {
 			if (config) {
 				if (onReady) {
-					// @ts-ignore
 					com.urbanairship.UAirship.takeOff(
+						// @ts-ignore
 						Utils.android.getApplicationContext(),
 						config._native.build(),
 						new com.urbanairship.UAirship.OnReadyCallback({
@@ -381,8 +381,8 @@ export class Airship implements IAirship {
 				}
 			} else {
 				if (onReady) {
-					// @ts-ignore
 					com.urbanairship.UAirship.takeOff(
+						// @ts-ignore
 						Utils.android.getApplicationContext(),
 						AirshipConfig.defaultConfig()._native.build(),
 						new com.urbanairship.UAirship.OnReadyCallback({
