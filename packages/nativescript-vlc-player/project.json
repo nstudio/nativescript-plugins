@@ -1,0 +1,65 @@
+{
+	"name": "nativescript-vlc-player",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-vlc-player",
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-vlc-player",
+				"tsConfig": "packages/nativescript-vlc-player/tsconfig.json",
+				"packageJson": "packages/nativescript-vlc-player/package.json",
+				"main": "packages/nativescript-vlc-player/index.d.ts",
+				"assets": [
+					"packages/nativescript-vlc-player/*.md",
+					"packages/nativescript-vlc-player/index.d.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-vlc-player/platforms/",
+						"output": "./platforms/"
+					}
+				],
+				"dependsOn": [
+					{
+						"target": "build.all",
+						"projects": "dependencies"
+					}
+				]
+			}
+		},
+		"build.all": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-vlc-player"],
+				"parallel": false
+			},
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-vlc-player"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-vlc-player"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-vlc-player/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
+}

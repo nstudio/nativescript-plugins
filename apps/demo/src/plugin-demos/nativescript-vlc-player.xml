@@ -1,0 +1,13 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="navigatingTo" class="page" xmlns:vlc="@nstudio/nativescript-vlc-player">
+  <Page.actionBar>
+    <ActionBar title="nativescript-vlc-player" icon="" class="action-bar">
+    </ActionBar>
+  </Page.actionBar>
+  <GridLayout rows="*,auto,auto,*">
+    <vlc:VLCPlayer row="1" autoPlay="true" src="rtsp://807e9439d5ca.entrypoint.cloud.wowza.com:1935/app-rC94792j/068b9c9a_stream2" width="300" height="300" loaded="{{ loaded }}"></vlc:VLCPlayer>
+    <GridLayout row="2" columns="*,auto,auto,*" class="p-5">
+      <Button col="1" text="Play" tap="{{play}}" class="m-r-5" />
+      <Button col="2" text="Pause" tap="{{pause}}" class="m-l-5" />
+      </GridLayout>
+  </GridLayout>
+</Page>
