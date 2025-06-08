@@ -36,7 +36,8 @@
 			"@nstudio/nativescript-freshchat": ["../../packages/nativescript-freshchat/index.d.ts"],
 			"@nstudio/nativescript-persona": ["../../packages/nativescript-persona/index.d.ts"],
 			"@nstudio/nativescript-walletconnect": ["../../packages/nativescript-walletconnect/index.d.ts"],
-			"@nstudio/nativescript-web-server": ["../../packages/nativescript-web-server/index.d.ts"]
+			"@nstudio/nativescript-web-server": ["../../packages/nativescript-web-server/index.d.ts"],
+			"@nstudio/nativescript-auth0": ["../../packages/nativescript-auth0/index.d.ts"]
 		}
 	}
 }
