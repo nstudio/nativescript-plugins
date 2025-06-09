@@ -31,7 +31,7 @@
 
 This workspace manages the suite of plugins listed above.
 
-Before running anything, always run `npm run setup` (or `yarn setup`) first.
+Before running anything, always run `npm run setup` first.
 
 After that in general, just `npm start` to see the interactive options.
 

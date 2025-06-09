@@ -32,7 +32,7 @@
 		"@nstudio/nativescript-web-server": "file:../../dist/packages/nativescript-web-server"
 	},
 	"devDependencies": {
-		"@nativescript/android": "~8.8.0",
-		"@nativescript/ios": "~8.8.0"
+		"@nativescript/android": "~8.9.0",
+		"@nativescript/ios": "~8.9.0"
 	}
 }
