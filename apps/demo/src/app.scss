@@ -115,45 +115,45 @@ CheckBox {
 .align-center {
 	vertical-align: center;
 	horizontal-align: center;
-  }
-  
-  .title {
+}
+
+.title {
 	font-size: 30;
 	margin: 4;
-  }
-  
-  .subtitle {
+}
+
+.subtitle {
 	font-size: 24;
-  }
-  
-  .info {
+}
+
+.info {
 	font-size: 20;
 	margin: 4;
-  }
-  
-  .size16 {
+}
+
+.size16 {
 	font-size: 16;
 	margin: 2;
-  }
-  
-  .clear-btn {
+}
+
+.clear-btn {
 	background-color: white;
 	padding: 5px;
-  }
-  
-  .blue {
+}
+
+.blue {
 	color: #6a78c5;
-  }
-  
-  .gray {
+}
+
+.gray {
 	color: #666;
-  }
-  
-  .white {
+}
+
+.white {
 	color: #fff;
-  }
-  
-  .avatar-circle {
+}
+
+.avatar-circle {
 	font-size: 35;
 	height: 50;
 	width: 50;
@@ -165,22 +165,25 @@ CheckBox {
 	horizontal-align: center;
 	vertical-align: center;
 	text-align: center;
-  }
-  
-  .blackCard {
+}
+
+.blackCard {
 	background-color: #333;
 	color: white;
-  }
-  
-  .blueCard {
+}
+
+.blueCard {
 	background-color: #3489db;
 	color: white;
-  }
-  
-  .jokerCard {
+}
+
+.jokerCard {
 	background-color: yellow;
-  }
-  
-  .whiteCard {
+}
+
+.whiteCard {
 	background-color: #fff;
-  }
+}
+.rounded {
+	border-radius: 20;
+}
