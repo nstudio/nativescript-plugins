@@ -1,7 +1,7 @@
 {
 	"name": "@nstudio/nativescript-auth0",
-	"version": "1.0.0",
-	"description": "Add a plugin description",
+	"version": "0.0.3",
+	"description": "Auth0 for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
 	"nativescript": {
@@ -19,7 +19,8 @@
 		"JavaScript",
 		"TypeScript",
 		"iOS",
-		"Android"
+		"Android",
+		"Auth0"
 	],
 	"author": {
 		"name": "nStudio",

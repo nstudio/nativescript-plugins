@@ -63,9 +63,15 @@ public class NSCAuth0WebAuth: NSObject {
     return self
   }
   
-  public func start(_ callback: @escaping (NSCAuth0Credentials?, Error?)->Void){
+  public func start(_ scope: String? = nil, _ audience: String? = nil, _ callback: @escaping (NSCAuth0Credentials?, Error?)->Void){
     Task {
       do {
+        if let scope = scope {
+          webAuth = self.webAuth.scope(scope)
+        }
+        if let audience = audience {
+          webAuth = self.webAuth.audience(audience)
+        }
         let result = try await webAuth.start()
         callback(NSCAuth0Credentials(credentials: result), nil)
       }catch {
@@ -205,10 +211,10 @@ public class NSCAuth0Authentication: NSObject {
     }
   }
   
-  public func refreshToken(_ refreshToken: String, _ scope: String?, _ callback: @escaping (NSCAuth0Credentials?, Error?) -> Void){
+  public func refreshToken(_ refreshToken: String, _ scope: String?, _ audience: String? = nil, _ callback: @escaping (NSCAuth0Credentials?, Error?) -> Void){
     Task {
       do {
-        let request = authentication.renew(withRefreshToken: refreshToken, audience: nil, scope: scope)
+        let request = authentication.renew(withRefreshToken: refreshToken, audience: audience, scope: scope)
         let credentials = try await request.start()
         callback(NSCAuth0Credentials(credentials: credentials), nil)
       }catch {

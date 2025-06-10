@@ -14,6 +14,7 @@
 				"assets": [
 					"packages/nativescript-auth0/*.md",
 					"packages/nativescript-auth0/index.d.ts",
+					"packages/nativescript-auth0/nativescript.config.ts",
 					"LICENSE",
 					{
 						"glob": "**/*",

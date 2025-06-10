@@ -1,14 +1,6 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-	id: 'ep.com.universalplantllc.foremantoolbox',
-	appResourcesPath: 'App_Resources',
-	android: {
-		v8Flags: '--expose_gc',
-		markingMode: 'none',
-		codeCache: true,
-		suppressCallJSMethodExceptions: false,
-	},
 	ios: {
 		discardUncaughtJsExceptions: false,
 		SPMPackages: [
@@ -20,18 +12,4 @@ export default {
 			},
 		],
 	},
-	appPath: 'src',
-	cli: {
-		packageManager: 'npm',
-	},
-	hooks: [
-		{
-			type: 'after-prepare',
-			script: '../../../node_modules/@nativescript/appsync/scripts/ios/appsync-ios.js',
-		},
-		{
-			type: 'after-prepare',
-			script: '../../../node_modules/@nativescript/appsync/scripts/android/appsync-android.js',
-		},
-	],
 } as NativeScriptConfig;

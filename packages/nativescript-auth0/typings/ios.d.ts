@@ -21,7 +21,7 @@ declare class NSCAuth0Authentication extends NSObject {
 
 	static new(): NSCAuth0Authentication; // inherited from NSObject
 
-	refreshToken(refreshToken: string, scope: string, headers: NSDictionary<string, string>, callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
+	refreshToken(refreshToken: string, scope: string, audience: string, headers: NSDictionary<string, string>, callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
 
 	revoke(refreshToken: string, headers: NSDictionary<string, string>, callback: (p1: NSError) => void): void;
 
@@ -157,7 +157,7 @@ declare class NSCAuth0WebAuth extends NSObject {
 
 	clearSessionWithFederated(federated: boolean, callback: (p1: NSError) => void): void;
 
-	start(callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
+	start(scope: string, audience: string, callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
 
 	useHTTPS(): NSCAuth0WebAuth;
 }

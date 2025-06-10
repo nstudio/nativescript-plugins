@@ -127,9 +127,9 @@ export class WebAuth {
 		return this;
 	}
 
-	start() {
+	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string }) {
 		return new Promise<Credentials>((resolve, reject) => {
-			this.webAuth.start((credentials, error) => {
+			this.webAuth.start(options?.scope, options?.audience, (credentials, error) => {
 				if (error) {
 					reject(error);
 				} else {
@@ -358,9 +358,9 @@ export class Authentication {
 		});
 	}
 
-	refreshToken(options: { refreshToken: string; scope?: string; headers?: Record<string, string> }) {
+	refreshToken(options: { refreshToken: string; audience?: string; scope?: string; headers?: Record<string, string> }) {
 		return new Promise<Credentials>((resolve, reject) => {
-			this.authentication.refreshToken(options.refreshToken, options.scope ?? null, Utils.dataSerialize(options.headers ?? {}), (credentials, error) => {
+			this.authentication.refreshToken(options.refreshToken, options.scope ?? null, options.audience ?? null, Utils.dataSerialize(options.headers ?? {}), (credentials, error) => {
 				if (error) {
 					reject(error);
 				} else {
