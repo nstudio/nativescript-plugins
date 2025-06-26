@@ -1,5 +1,7 @@
 import { ServerStatus } from './common';
 import { Observable } from '@nativescript/core';
+export * from './common';
+
 export class Server {
 	private server: NSCServer;
 	constructor(config: { logger: boolean; path: string; directory: string; index: string; hostName: string; port: number; workers: number; showFiles?: boolean }) {

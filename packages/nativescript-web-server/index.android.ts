@@ -1,5 +1,6 @@
 import { Observable } from '@nativescript/core';
 import { ServerStatus } from './common';
+export * from './common';
 
 export class Server {
 	private server;
