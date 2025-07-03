@@ -40,10 +40,6 @@ function getBranchEventType(event: EventType): io.branch.referral.util.BRANCH_ST
 				return io.branch.referral.util.BRANCH_STANDARD_EVENT.INVITE;
 			case 'Login':
 				return io.branch.referral.util.BRANCH_STANDARD_EVENT.LOGIN;
-			case 'OptIn':
-				return io.branch.referral.util.BRANCH_STANDARD_EVENT.OPT_IN;
-			case 'OptOut':
-				return io.branch.referral.util.BRANCH_STANDARD_EVENT.OPT_OUT;
 			case 'Purchase':
 				return io.branch.referral.util.BRANCH_STANDARD_EVENT.PURCHASE;
 			case 'Rate':
