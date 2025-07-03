@@ -29,7 +29,8 @@
 		"@nstudio/nativescript-qr": "file:../../dist/packages/nativescript-qr",
 		"@nstudio/nativescript-tracking-transparency": "file:../../dist/packages/nativescript-tracking-transparency",
 		"@nstudio/nativescript-walletconnect": "file:../../dist/packages/nativescript-walletconnect",
-		"@nstudio/nativescript-web-server": "file:../../dist/packages/nativescript-web-server"
+		"@nstudio/nativescript-web-server": "file:../../dist/packages/nativescript-web-server",
+		"@nstudio/nativescript-branch": "file:../../dist/packages/nativescript-branch"
 	},
 	"devDependencies": {
 		"@nativescript/android": "~8.9.0",

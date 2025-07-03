@@ -318,6 +318,13 @@ module.exports = {
 					description: '@nstudio/nativescript-vlc-player: Build',
 				},
 			},
+			// @nstudio/nativescript-branch
+			'nativescript-branch': {
+				build: {
+					script: 'nx run nativescript-branch:build.all',
+					description: '@nstudio/nativescript-branch: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -447,6 +454,10 @@ module.exports = {
 			'nativescript-vlc-player': {
 				script: 'nx run nativescript-vlc-player:focus',
 				description: 'Focus on @nstudio/nativescript-vlc-player',
+			},
+			'nativescript-branch': {
+				script: 'nx run nativescript-branch:focus',
+				description: 'Focus on @nstudio/nativescript-branch',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',
