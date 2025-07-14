@@ -1733,9 +1733,7 @@ export class BranchIO {
 		if (didInit) {
 			return;
 		}
-		Application.once(Application.launchEvent, (args) => {
-			io.branch.referral.Branch.getAutoInstance(Utils.ad.getApplicationContext());
-		});
+		io.branch.referral.Branch.getAutoInstance(Utils.android.getApplicationContext());
 		didInit = true;
 	}
 
@@ -1756,7 +1754,8 @@ export class BranchIO {
 		}
 		const instance = io.branch.referral.Branch.getInstance();
 		if (instance === null) {
-			throw new Error('Branch SDK is not initialized. Please call BranchIO.init() before using BranchIO.');
+			console.error('Branch SDK is not initialized. Please call BranchIO.init() before using BranchIO.');
+			return null;
 		}
 		const ret = BranchIO.fromNative(instance);
 		this.instance = ret;
