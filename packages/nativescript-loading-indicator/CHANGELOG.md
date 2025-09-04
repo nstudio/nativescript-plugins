@@ -1,3 +1,18 @@
+# 5.0.0 (2025-09-04)
+
+### 🚀 Features
+
+- **loading-indicator:** use swift package manager for ios ([e6d6958](https://github.com/nstudio/nativescript-plugins/commit/e6d6958))
+
+### 🩹 Fixes
+
+- **loading-indicator:** android setClippingEnabled false to look edge-to-edge on Android 15+ ([#158](https://github.com/nstudio/nativescript-plugins/pull/158))
+
+### ❤️ Thank You
+
+- felixkrautschuk
+- Nathan Walker
+
 ## 4.3.5 (2025-01-25)
 
 ### 🚀 Features
