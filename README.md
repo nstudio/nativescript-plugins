@@ -6,6 +6,7 @@
 - [@nstudio/nativescript-aptabase](packages/nativescript-aptabase/README.md)
 - [@nstudio/nativescript-barcodescanner](packages/nativescript-barcodescanner/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
+- [@nstudio/nativescript-branch](packages/nativescript-branch/README.md)
 - [@nstudio/nativescript-camera-plus](packages/nativescript-camera-plus/README.md)
 - [@nstudio/nativescript-cardview](packages/nativescript-cardview/README.md)
 - [@nstudio/nativescript-carousel](packages/nativescript-carousel/README.md)

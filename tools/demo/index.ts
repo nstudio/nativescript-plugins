@@ -7,6 +7,7 @@ export * from './nativescript-appcues';
 export * from './nativescript-aptabase';
 export * from './nativescript-barcodescanner';
 export * from './nativescript-blur';
+export * from './nativescript-branch';
 export * from './nativescript-camera-plus';
 export * from './nativescript-cardview';
 export * from './nativescript-carousel';
