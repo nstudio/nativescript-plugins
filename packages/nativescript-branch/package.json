@@ -1,7 +1,7 @@
 {
 	"name": "@nstudio/nativescript-branch",
-	"version": "1.0.0",
-	"description": "Add a plugin description",
+	"version": "0.0.3",
+	"description": "Branch.io for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
 	"nativescript": {

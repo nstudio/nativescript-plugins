@@ -14,6 +14,7 @@
 				"assets": [
 					"packages/nativescript-branch/*.md",
 					"packages/nativescript-branch/index.d.ts",
+					"packages/nativescript-branch/nativescript.config.ts",
 					"LICENSE",
 					{
 						"glob": "**/*",

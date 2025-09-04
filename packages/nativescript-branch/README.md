@@ -6,15 +6,12 @@ npm install @nstudio/nativescript-branch
 
 ## Usage
 
-
 From your app's main entry import `BranchIO` to call the init method before the app launches.
-
 
 ```ts
 import { BranchIO } from '@nstudio/nativescript-branch';
 
-BranchIO.init();
-
+BranchIO.initSession(...);
 ```
 
 ## Config
