@@ -149,6 +149,10 @@ export class LoadingIndicator {
 		// handle dimming background option
 		contentView.setBackgroundColor(options.dimBackground ? new Color(255 * 0.6, 0, 0, 0).android : android.graphics.Color.TRANSPARENT);
 
+    if(options.dimBackground) {
+      this._popOver.setClippingEnabled(false);
+    }
+
 		contentView.setGravity(android.view.Gravity.CENTER);
 		contentView.setLayoutParams(new android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT, android.view.ViewGroup.LayoutParams.FILL_PARENT));
 		const parentView = new android.widget.LinearLayout(context);
