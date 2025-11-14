@@ -14,6 +14,7 @@
 				"assets": [
 					"packages/nativescript-intercom/*.md",
 					"packages/nativescript-intercom/index.d.ts",
+					"packages/nativescript-intercom/nativescript.config.ts",
 					"LICENSE",
 					{
 						"glob": "**/*",
