@@ -1,6 +1,6 @@
 {
 	"name": "@nstudio/nativescript-auth0",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"description": "Auth0 for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
