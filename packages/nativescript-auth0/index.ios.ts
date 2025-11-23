@@ -139,9 +139,9 @@ export class WebAuth {
 		});
 	}
 
-	clear() {
+	clear(options?: { scheme?: string; federated?: boolean; returnToUrl?: string }) {
 		return new Promise<void>((resolve, reject) => {
-			this.webAuth.clearSessionWithFederated(false, (error) => {
+			this.webAuth.clearSessionWithFederated(options?.federated ?? false, (error) => {
 				if (error) {
 					reject(error);
 				} else {

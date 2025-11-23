@@ -8,7 +8,7 @@ export default {
 				name: 'Auth0',
 				libs: ['Auth0'],
 				repositoryURL: 'https://github.com/auth0/Auth0.swift',
-				version: '2.13',
+				version: '2.15.1',
 			},
 		],
 	},
