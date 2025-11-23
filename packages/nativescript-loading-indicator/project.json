@@ -14,6 +14,7 @@
 				"assets": [
 					"packages/nativescript-loading-indicator/*.md",
 					"packages/nativescript-loading-indicator/index.d.ts",
+					"packages/nativescript-loading-indicator/nativescript.config.ts",
 					"LICENSE",
 					{
 						"glob": "**/*",

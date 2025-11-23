@@ -1,6 +1,18 @@
+declare const enum ContentType {
+	article = 0,
+
+	survey = 1,
+
+	carousel = 2,
+
+	helpCenterCollections = 3,
+
+	conversation = 4,
+
+	ticket = 5,
+}
 
 declare class ICMCompany extends NSObject {
-
 	static alloc(): ICMCompany; // inherited from NSObject
 
 	static new(): ICMCompany; // inherited from NSObject
@@ -27,7 +39,6 @@ declare class ICMCompany extends NSObject {
 }
 
 declare class ICMHelpCenterArticle extends NSObject {
-
 	static alloc(): ICMHelpCenterArticle; // inherited from NSObject
 
 	static new(): ICMHelpCenterArticle; // inherited from NSObject
@@ -36,13 +47,28 @@ declare class ICMHelpCenterArticle extends NSObject {
 
 	title: string;
 
-	constructor(o: { articleId: string; title: string; });
+	constructor(o: { articleId: string; title: string });
 
 	initWithArticleIdTitle(articleId: string, title: string): this;
 }
 
-declare class ICMHelpCenterArticleSearchResult extends NSObject {
+declare class ICMHelpCenterArticleAuthor extends NSObject {
+	static alloc(): ICMHelpCenterArticleAuthor; // inherited from NSObject
 
+	static new(): ICMHelpCenterArticleAuthor; // inherited from NSObject
+
+	authorId: string;
+
+	avatarURL: NSURL;
+
+	displayName: string;
+
+	constructor(o: { authorId: string; displayName: string; avatarURL: NSURL });
+
+	initWithAuthorIdDisplayNameAvatarURL(authorId: string, displayName: string, avatarURL: NSURL): this;
+}
+
+declare class ICMHelpCenterArticleSearchResult extends NSObject {
 	static alloc(): ICMHelpCenterArticleSearchResult; // inherited from NSObject
 
 	static new(): ICMHelpCenterArticleSearchResult; // inherited from NSObject
@@ -55,51 +81,60 @@ declare class ICMHelpCenterArticleSearchResult extends NSObject {
 
 	title: string;
 
-	constructor(o: { articleId: string; title: string; summary: string; matchingSnippet: string; });
+	constructor(o: { articleId: string; title: string; summary: string; matchingSnippet: string });
 
 	initWithArticleIdTitleSummaryMatchingSnippet(articleId: string, title: string, summary: string, matchingSnippet: string): this;
 }
 
 declare class ICMHelpCenterCollection extends NSObject {
-
 	static alloc(): ICMHelpCenterCollection; // inherited from NSObject
 
 	static new(): ICMHelpCenterCollection; // inherited from NSObject
 
+	articleCount: number;
+
+	collectionCount: number;
+
 	collectionId: string;
 
 	summary: string;
 
 	title: string;
 
-	constructor(o: { collectionId: string; title: string; summary: string; });
+	constructor(o: { collectionId: string; title: string; summary: string; articleCount: number });
 
-	initWithCollectionIdTitleSummary(collectionId: string, title: string, summary: string): this;
+	constructor(o: { collectionId: string; title: string; summary: string; articleCount: number; collectionCount: number });
+
+	initWithCollectionIdTitleSummaryArticleCount(collectionId: string, title: string, summary: string, articleCount: number): this;
+
+	initWithCollectionIdTitleSummaryArticleCountCollectionCount(collectionId: string, title: string, summary: string, articleCount: number, collectionCount: number): this;
 }
 
 declare class ICMHelpCenterCollectionContent extends NSObject {
-
 	static alloc(): ICMHelpCenterCollectionContent; // inherited from NSObject
 
 	static new(): ICMHelpCenterCollectionContent; // inherited from NSObject
 
+	articleCount: number;
+
 	articles: NSArray<ICMHelpCenterArticle>;
+
+	authors: NSArray<ICMHelpCenterArticleAuthor>;
 
 	collectionId: string;
 
-	sections: NSArray<ICMHelpCenterSection>;
+	collections: NSArray<ICMHelpCenterCollection>;
 
 	summary: string;
 
 	title: string;
 
-	constructor(o: { collectionId: string; title: string; summary: string; articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[]; sections: NSArray<ICMHelpCenterSection> | ICMHelpCenterSection[]; });
+	constructor(o: { collectionId: string; title: string; summary: string; articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[]; articleCount: number; collections: NSArray<ICMHelpCenterCollection> | ICMHelpCenterCollection[]; authors: NSArray<ICMHelpCenterArticleAuthor> | ICMHelpCenterArticleAuthor[] });
 
-	initWithCollectionIdTitleSummaryArticlesSections(collectionId: string, title: string, summary: string, articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[], sections: NSArray<ICMHelpCenterSection> | ICMHelpCenterSection[]): this;
+	initWithCollectionIdTitleSummaryArticlesArticleCountCollectionsAuthors(collectionId: string, title: string, summary: string, articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[], articleCount: number, collections: NSArray<ICMHelpCenterCollection> | ICMHelpCenterCollection[], authors: NSArray<ICMHelpCenterArticleAuthor> | ICMHelpCenterArticleAuthor[]): this;
 }
 
 declare const enum ICMHelpCenterDataError {
-
 	contentNotAvailable = 1,
 
 	networkError = 2,
@@ -108,28 +143,22 @@ declare const enum ICMHelpCenterDataError {
 
 	noUserRegistered = 4,
 
-	noAppRegistered = 5
+	noAppRegistered = 5,
 }
 
 declare var ICMHelpCenterDataErrorDomain: string;
 
-declare class ICMHelpCenterSection extends NSObject {
+declare const enum ICMThemeOverride {
+	None = 0,
 
-	static alloc(): ICMHelpCenterSection; // inherited from NSObject
+	Light = 1,
 
-	static new(): ICMHelpCenterSection; // inherited from NSObject
+	Dark = 2,
 
-	articles: NSArray<ICMHelpCenterArticle>;
-
-	title: string;
-
-	constructor(o: { title: string; articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[]; });
-
-	initWithTitleArticles(title: string, articles: NSArray<ICMHelpCenterArticle> | ICMHelpCenterArticle[]): this;
+	System = 3,
 }
 
 declare class ICMUserAttributes extends NSObject {
-
 	static alloc(): ICMUserAttributes; // inherited from NSObject
 
 	static new(): ICMUserAttributes; // inherited from NSObject
@@ -159,10 +188,13 @@ declare class ICMUserAttributes extends NSObject {
 	userId: string;
 
 	attributes(): NSDictionary<string, any>;
+
+	hasNonIdentifyingAttributes(): boolean;
+
+	registrationAttributes(): NSDictionary<number, string>;
 }
 
 declare class Intercom extends NSObject {
-
 	static alloc(): Intercom; // inherited from NSObject
 
 	static enableLogging(): void;
@@ -171,53 +203,47 @@ declare class Intercom extends NSObject {
 
 	static fetchHelpCenterCollectionsWithCompletion(completion: (p1: NSArray<ICMHelpCenterCollection>, p2: NSError) => void): void;
 
+	static fetchLoggedInUserAttributes(): ICMUserAttributes;
+
 	static handleIntercomPushNotification(userInfo: NSDictionary<any, any>): void;
+
+	static handleIntercomRichPushNotificationContentWithContentHandler(notificationContent: UNNotificationContent, contentHandler: (p1: UNNotificationContent) => void): void;
 
 	static hideIntercom(): void;
 
 	static isIntercomPushNotification(userInfo: NSDictionary<any, any>): boolean;
 
+	static isUserLoggedIn(): boolean;
+
 	static logEventWithName(name: string): void;
 
 	static logEventWithNameMetaData(name: string, metaData: NSDictionary<any, any>): void;
+
+	static loginUnidentifiedUserWithSuccessFailure(success: () => void, failure: (p1: NSError) => void): void;
+
+	static loginUserWithUserAttributesSuccessFailure(userAttributes: ICMUserAttributes, success: () => void, failure: (p1: NSError) => void): void;
 
 	static logout(): void;
 
 	static new(): Intercom; // inherited from NSObject
 
-	static presentArticle(articleId: string): void;
+	static presentContent(content: IntercomContent): void;
 
-	static presentCarousel(carouselId: string): void;
-
-	static presentConversationList(): void;
-
-	static presentHelpCenter(): void;
-
-	static presentHelpCenterCollections(collectionIds: NSArray<string> | string[]): void;
+	static presentIntercom(space: Space): void;
 
 	static presentMessageComposer(initialMessage: string): void;
-
-	static presentMessageComposerWithInitialMessage(message: string): void;
-
-	static presentMessenger(): void;
-
-	static registerUnidentifiedUser(): void;
-
-	static registerUserWithEmail(email: string): void;
-
-	static registerUserWithUserId(userId: string): void;
-
-	static registerUserWithUserIdEmail(userId: string, email: string): void;
-
-	static reset(): void;
 
 	static searchHelpCenterWithCompletion(searchTerm: string, completion: (p1: NSArray<ICMHelpCenterArticleSearchResult>, p2: NSError) => void): void;
 
 	static setApiKeyForAppId(apiKey: string, appId: string): void;
 
+	static setAuthTokensSuccessFailure(authTokens: NSDictionary<string, string>, success: () => void, failure: (p1: NSError) => void): void;
+
 	static setBottomPadding(bottomPadding: number): void;
 
-	static setDeviceToken(deviceToken: NSData): void;
+	static setDeviceTokenFailure(deviceToken: NSData, failure: (p1: NSError) => void): void;
+
+	static setDeviceTokenSuccessFailure(deviceToken: NSData, success: () => void, failure: (p1: NSError) => void): void;
 
 	static setInAppMessagesVisible(visible: boolean): void;
 
@@ -225,24 +251,87 @@ declare class Intercom extends NSObject {
 
 	static setNeedsStatusBarAppearanceUpdate(): void;
 
+	static setThemeOverride(themeOverride: ICMThemeOverride): void;
+
 	static setUserHash(userHash: string): void;
+
+	static setUserJwt(jwt: string): void;
 
 	static unreadConversationCount(): number;
 
-	static updateUser(userAttributes: ICMUserAttributes): void;
+	static updateUserSuccessFailure(userAttributes: ICMUserAttributes, success: () => void, failure: (p1: NSError) => void): void;
 }
+
+declare class IntercomContent extends NSObject implements IntercomContentProtocol {
+	static alloc(): IntercomContent; // inherited from NSObject
+
+	static articleWithId(articleId: string): IntercomContent;
+
+	static carouselWithId(carouselId: string): IntercomContent;
+
+	static conversationWithId(conversationId: string): IntercomContent;
+
+	static helpCenterCollectionsWithIds(collectionIds: NSArray<string> | string[]): IntercomContent;
+
+	static new(): IntercomContent; // inherited from NSObject
+
+	static surveyWithId(surveyId: string): IntercomContent;
+
+	static ticketWithId(ticketId: string): IntercomContent;
+
+	contentId: any; // inherited from IntercomContentProtocol
+
+	readonly debugDescription: string; // inherited from NSObjectProtocol
+
+	readonly description: string; // inherited from NSObjectProtocol
+
+	readonly hash: number; // inherited from NSObjectProtocol
+
+	readonly isProxy: boolean; // inherited from NSObjectProtocol
+
+	readonly superclass: typeof NSObject; // inherited from NSObjectProtocol
+
+	type: ContentType; // inherited from IntercomContentProtocol
+
+	readonly; // inherited from NSObjectProtocol
+
+	class(): typeof NSObject;
+
+	conformsToProtocol(aProtocol: any /* Protocol */): boolean;
+
+	isEqual(object: any): boolean;
+
+	isKindOfClass(aClass: typeof NSObject): boolean;
+
+	isMemberOfClass(aClass: typeof NSObject): boolean;
+
+	performSelector(aSelector: string): any;
+
+	performSelectorWithObject(aSelector: string, object: any): any;
+
+	performSelectorWithObjectWithObject(aSelector: string, object1: any, object2: any): any;
+
+	respondsToSelector(aSelector: string): boolean;
+
+	retainCount(): number;
+
+	self(): this;
+}
+
+interface IntercomContentProtocol extends NSObjectProtocol {
+	contentId: any;
+
+	type: ContentType;
+}
+declare var IntercomContentProtocol: {
+	prototype: IntercomContentProtocol;
+};
 
 declare var IntercomDidStartNewConversationNotification: string;
 
-declare var IntercomHelpCenterDidHideNotification: string;
-
-declare var IntercomHelpCenterDidShowNotification: string;
-
-declare var IntercomHelpCenterWillHideNotification: string;
-
-declare var IntercomHelpCenterWillShowNotification: string;
-
 declare var IntercomUnreadConversationCountDidChangeNotification: string;
+
+declare var IntercomUnreadTicketCountDidChangeNotification: string;
 
 declare var IntercomWindowDidHideNotification: string;
 
@@ -251,3 +340,13 @@ declare var IntercomWindowDidShowNotification: string;
 declare var IntercomWindowWillHideNotification: string;
 
 declare var IntercomWindowWillShowNotification: string;
+
+declare const enum Space {
+	home = 0,
+
+	helpCenter = 1,
+
+	messages = 2,
+
+	tickets = 3,
+}
