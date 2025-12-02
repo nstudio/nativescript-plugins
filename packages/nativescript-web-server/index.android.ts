@@ -18,7 +18,7 @@ export class Server {
 				onChange(status: ServerStatus) {
 					value(status);
 				},
-			})
+			}),
 		);
 	}
 
@@ -32,7 +32,7 @@ export class Server {
 					onError(error: string) {
 						reject(error);
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -47,7 +47,7 @@ export class Server {
 					onError(error: string) {
 						reject(error);
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -78,7 +78,7 @@ export class WebSocketServer extends Observable {
 						owner.notify({ eventName: 'connection', client: ret });
 					}
 				},
-			})
+			}),
 		);
 
 		const onMessage = new io.nstudio.plugins.webserver.websocket.Server.MessageCallback({
@@ -194,7 +194,7 @@ export class WebSocketServer extends Observable {
 				onChange(status: ServerStatus) {
 					value(status as never);
 				},
-			})
+			}),
 		);
 	}
 
@@ -208,7 +208,7 @@ export class WebSocketServer extends Observable {
 					onError(error) {
 						reject(error);
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -223,7 +223,7 @@ export class WebSocketServer extends Observable {
 					onError(error) {
 						reject(error);
 					},
-				})
+				}),
 			);
 		});
 	}

@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.auth0.android:auth0:3.8.0'
+}
