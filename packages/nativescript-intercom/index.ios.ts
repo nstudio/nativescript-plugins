@@ -32,6 +32,9 @@ export class IntercomModule {
 			(error) => {},
 		);
 	}
+	static setUserJwt(jwt: string) {
+		Intercom.setUserJwt(jwt);
+	}
 	static displayMessenger() {
 		Intercom.presentIntercom(Space.helpCenter);
 	}
@@ -40,6 +43,25 @@ export class IntercomModule {
 	}
 	static hideMessenger() {
 		Intercom.hideIntercom();
+	}
+	static setThemeOverride(style: 'none' | 'light' | 'dark' | 'system') {
+		let themeOverride: ICMThemeOverride;
+		switch (style) {
+			case 'light':
+				themeOverride = ICMThemeOverride.Light;
+				break;
+			case 'dark':
+				themeOverride = ICMThemeOverride.Dark;
+				break;
+			case 'system':
+				themeOverride = ICMThemeOverride.System;
+				break;
+			case 'none':
+			default:
+				themeOverride = ICMThemeOverride.None;
+				break;
+		}
+		Intercom.setThemeOverride(themeOverride);
 	}
 	static reset() {
 		Intercom.logout();
