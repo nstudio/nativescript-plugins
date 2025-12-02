@@ -1,3 +1,13 @@
+## 1.1.1 (2025-12-02)
+
+### 🚀 Features
+
+- **intercom:** jwt handling and theme mode ([258d544](https://github.com/nstudio/nativescript-plugins/commit/258d544))
+
+### ❤️ Thank You
+
+- Nathan Walker
+
 ## 1.1.0 (2025-11-14)
 
 ### 🚀 Features
