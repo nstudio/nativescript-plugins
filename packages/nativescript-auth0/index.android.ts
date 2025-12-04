@@ -111,7 +111,7 @@ export class CredentialsManager {
 							resolve(Credentials.fromNative(credentials));
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -145,7 +145,7 @@ export class WebAuth {
 		return this;
 	}
 
-	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string }) {
+	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string; parameters?: Record<string, string> }) {
 		return new Promise<Credentials>((resolve, reject) => {
 			this.webAuth.start(
 				Utils.android.getCurrentActivity(),
@@ -153,6 +153,7 @@ export class WebAuth {
 				options.scope ?? null,
 				options?.audience ?? null,
 				options?.redirectUrl ?? null,
+				(options?.parameters ?? {}) as any,
 				new kotlin.jvm.functions.Function2({
 					invoke: (credentials: com.auth0.android.result.Credentials, error: java.lang.Throwable) => {
 						if (error) {
@@ -161,7 +162,7 @@ export class WebAuth {
 							resolve(Credentials.fromNative(credentials));
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -181,7 +182,7 @@ export class WebAuth {
 							resolve();
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -397,7 +398,7 @@ export class Authentication {
 							resolve(UserInfo.fromNative(userInfo));
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -417,7 +418,7 @@ export class Authentication {
 							resolve(Credentials.fromNative(credentials));
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
@@ -435,7 +436,7 @@ export class Authentication {
 							resolve();
 						}
 					},
-				})
+				}),
 			);
 		});
 	}
