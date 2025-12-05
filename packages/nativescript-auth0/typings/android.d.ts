@@ -158,8 +158,8 @@ declare module io {
 					public static class: java.lang.Class<io.nstudio.plugins.auth0.WebAuth>;
 					public getAuth0(): com.auth0.android.Auth0;
 					public constructor(auth0: com.auth0.android.Auth0);
-					public clearSession(it: globalAndroid.content.Context, value: string, it: boolean, logout: string, this_: any): void;
-					public start(it: globalAndroid.content.Context, value: string, it: string, value: string, it: string, value: any): void;
+					public clearSession(context: globalAndroid.content.Context, scheme: string, federated: boolean, returnToUrl: string, callback: any): void;
+					public start(context: globalAndroid.content.Context, scheme: string, scope: string, audience: string, redirectUrl: string, parameters: java.util.Map<string, string>, callback: any): void;
 				}
 			}
 		}
