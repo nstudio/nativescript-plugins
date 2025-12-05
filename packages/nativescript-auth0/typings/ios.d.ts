@@ -157,7 +157,7 @@ declare class NSCAuth0WebAuth extends NSObject {
 
 	clearSessionWithFederated(federated: boolean, callback: (p1: NSError) => void): void;
 
-	start(scope: string, audience: string, callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
+	start(scope: string, audience: string, parameters: NSDictionary<string, string>, callback: (p1: NSCAuth0Credentials, p2: NSError) => void): void;
 
 	useHTTPS(): NSCAuth0WebAuth;
 }
