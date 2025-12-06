@@ -153,7 +153,7 @@ export class WebAuth {
 				options.scope ?? null,
 				options?.audience ?? null,
 				options?.redirectUrl ?? null,
-				(options?.parameters ?? {}) as any,
+				Utils.dataSerialize(options?.parameters ?? {}) as any,
 				new kotlin.jvm.functions.Function2({
 					invoke: (credentials: com.auth0.android.result.Credentials, error: java.lang.Throwable) => {
 						if (error) {
