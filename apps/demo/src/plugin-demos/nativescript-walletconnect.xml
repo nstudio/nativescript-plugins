@@ -9,7 +9,7 @@
             <Label text="{{ state }}" />
             <Label text="{{ accounts }}" />
             <TextView text="{{ wcurl }}" hint="Enter WCURL"/>
-            <Button text="Create Session" tap="{{ createSession }}" class="btn btn-primary"/>
+            <Button text="Pair" tap="{{ pair }}" class="btn btn-primary"/>
             <Button text="Approve Session" tap="{{ approveSession }}" class="btn btn-primary"/>
             <Button text="Open WCUrl" tap="{{ openWCUrl }}" class="btn btn-primary"/>
             <Button text="Reject Session" tap="{{ rejectSession }}" class="btn btn-primary"/>
