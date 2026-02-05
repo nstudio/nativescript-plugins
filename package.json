@@ -31,13 +31,14 @@
 		"@nativescript/core": "~8.9.0",
 		"@nativescript/plugin-tools": "5.5.3",
 		"@nativescript/types": "~8.9.0",
-		"@nativescript/webpack": "~5.0.5",
+		"@nativescript/webpack": "5.0.24",
 		"@ngtools/webpack": "^19.0.0",
 		"husky": "~9.0.0",
 		"nativescript-dev-xcode": "^0.3.0",
 		"ng-packagr": "^19.0.0",
 		"patch-package": "~7.0.0",
 		"rxjs": "~7.8.0",
+		"sass": "1.72.0",
 		"typescript": "~5.6.0",
 		"zone.js": "~0.15.0"
 	},
@@ -45,5 +46,8 @@
 		"**/*.{js,ts,scss,json,html}": [
 			"npx prettier --write"
 		]
+	},
+	"overrides": {
+		"sass": "1.72.0"
 	}
 }

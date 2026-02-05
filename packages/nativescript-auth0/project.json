@@ -1,0 +1,66 @@
+{
+	"name": "nativescript-auth0",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-auth0",
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-auth0",
+				"tsConfig": "packages/nativescript-auth0/tsconfig.json",
+				"packageJson": "packages/nativescript-auth0/package.json",
+				"main": "packages/nativescript-auth0/index.d.ts",
+				"assets": [
+					"packages/nativescript-auth0/*.md",
+					"packages/nativescript-auth0/index.d.ts",
+					"packages/nativescript-auth0/nativescript.config.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-auth0/platforms/",
+						"output": "./platforms/"
+					}
+				],
+				"dependsOn": [
+					{
+						"target": "build.all",
+						"projects": "dependencies"
+					}
+				]
+			}
+		},
+		"build.all": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-auth0"],
+				"parallel": false
+			},
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-auth0"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-auth0"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-auth0/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
+}

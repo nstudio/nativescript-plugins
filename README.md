@@ -4,6 +4,7 @@
 - [@nstudio/nativescript-airship-hms](packages/nativescript-airship-hms/README.md)
 - [@nstudio/nativescript-appcues](packages/nativescript-appcues/README.md)
 - [@nstudio/nativescript-aptabase](packages/nativescript-aptabase/README.md)
+- [@nstudio/nativescript-auth0](packages/nativescript-auth0/README.md)
 - [@nstudio/nativescript-barcodescanner](packages/nativescript-barcodescanner/README.md)
 - [@nstudio/nativescript-blur](packages/nativescript-blur/README.md)
 - [@nstudio/nativescript-branch](packages/nativescript-branch/README.md)

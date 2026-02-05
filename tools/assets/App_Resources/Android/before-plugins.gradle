@@ -11,9 +11,9 @@ project.ext {
   // kotlinVersion = "1.6.0"
   // androidXCore = "1.9.0"
 
-  compileSdkVersion = 33
-  buildToolsVersion = "33"
-  minSdkVersion = 23
-  targetSdkVersion = 33
+  compileSdkVersion = 35
+  buildToolsVersion = "35"
+  minSdkVersion = 24
+  targetSdkVersion = 35
   gradlePluginVersion = "7.0.2"
 }

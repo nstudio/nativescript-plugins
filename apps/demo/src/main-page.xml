@@ -11,6 +11,7 @@
         <Button text="nativescript-airship-hms" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-appcues" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-aptabase" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+        <Button text="nativescript-auth0" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-barcodescanner" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-blur" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-camera-plus" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>

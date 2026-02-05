@@ -11,13 +11,14 @@ repositories {
 }
 
 android {
-  compileSdkVersion 34
-  buildToolsVersion "34"
+  compileSdkVersion 35
+  buildToolsVersion "35"
   defaultConfig {
-    minSdkVersion 23
-    targetSdkVersion 34
+    minSdkVersion 24
+    targetSdkVersion 35
     generatedDensities = []
     multiDexEnabled true
+    manifestPlaceholders = [auth0Domain: "nstudio.auth0.com", auth0Scheme: "io.nstudio.plugindemo.auth0"]
   }
   aaptOptions {
     additionalParameters "--no-version-vectors"

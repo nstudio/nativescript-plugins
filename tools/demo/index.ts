@@ -5,6 +5,7 @@ export * from './nativescript-airship-fcm';
 export * from './nativescript-airship-hms';
 export * from './nativescript-appcues';
 export * from './nativescript-aptabase';
+export * from './nativescript-auth0';
 export * from './nativescript-barcodescanner';
 export * from './nativescript-blur';
 export * from './nativescript-branch';

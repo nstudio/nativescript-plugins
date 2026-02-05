@@ -25,6 +25,9 @@ export class HomeComponent {
 			name: 'nativescript-aptabase',
 		},
 		{
+			name: 'nativescript-auth0',
+		},
+		{
 			name: 'nativescript-barcodescanner',
 		},
 		{
