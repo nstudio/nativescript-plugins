@@ -712,7 +712,7 @@ declare module com {
 							serialExecutor: java.util.concurrent.Executor,
 							fragmentActivity: java.lang.ref.WeakReference<androidx.fragment.app.FragmentActivity>,
 							localAuthenticationOptions: com.auth0.android.authentication.storage.LocalAuthenticationOptions,
-							localAuthenticationManagerFactory: com.auth0.android.authentication.storage.LocalAuthenticationManagerFactory
+							localAuthenticationManagerFactory: com.auth0.android.authentication.storage.LocalAuthenticationManagerFactory,
 						);
 						public getCredentials(param0: string, param1: number, param2: java.util.Map<string, string>, param3: java.util.Map<string, string>, param4: boolean, param5: com.auth0.android.callback.Callback<com.auth0.android.result.Credentials, com.auth0.android.authentication.storage.CredentialsManagerException>): void;
 						public hasValidCredentials(expiresAt: number): boolean;

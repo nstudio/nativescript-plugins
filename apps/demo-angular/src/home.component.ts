@@ -34,6 +34,9 @@ export class HomeComponent {
 			name: 'nativescript-blur',
 		},
 		{
+			name: 'nativescript-branch',
+		},
+		{
 			name: 'nativescript-camera-plus',
 		},
 		{

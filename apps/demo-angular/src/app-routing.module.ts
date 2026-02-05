@@ -15,6 +15,7 @@ const routes: Routes = [
 	{ path: 'nativescript-auth0', loadChildren: () => import('./plugin-demos/nativescript-auth0.module').then((m) => m.NativescriptAuth0Module) },
 	{ path: 'nativescript-barcodescanner', loadChildren: () => import('./plugin-demos/nativescript-barcodescanner.module').then((m) => m.NativescriptBarcodescannerModule) },
 	{ path: 'nativescript-blur', loadChildren: () => import('./plugin-demos/nativescript-blur.module').then((m) => m.NativescriptBlurModule) },
+	{ path: 'nativescript-branch', loadChildren: () => import('./plugin-demos/nativescript-branch.module').then((m) => m.NativescriptBranchModule) },
 	{ path: 'nativescript-camera-plus', loadChildren: () => import('./plugin-demos/nativescript-camera-plus.module').then((m) => m.NativescriptCameraPlusModule) },
 	{ path: 'nativescript-cardview', loadChildren: () => import('./plugin-demos/nativescript-cardview.module').then((m) => m.NativescriptCardviewModule) },
 	{ path: 'nativescript-carousel', loadChildren: () => import('./plugin-demos/nativescript-carousel.module').then((m) => m.NativescriptCarouselModule) },
