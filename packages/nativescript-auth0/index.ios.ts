@@ -127,9 +127,9 @@ export class WebAuth {
 		return this;
 	}
 
-	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string }) {
+	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string; ephemeral?: boolean; parameters?: Record<string, string> }) {
 		return new Promise<Credentials>((resolve, reject) => {
-			this.webAuth.start(options?.scope, options?.audience, (credentials, error) => {
+			this.webAuth.start(options?.scope, options?.audience, Utils.dataSerialize(options?.parameters ?? {}) as any, options?.ephemeral ?? false, (credentials, error) => {
 				if (error) {
 					reject(error);
 				} else {

@@ -37,7 +37,7 @@ export class WebAuth {
 
 	useHTTPS(): this;
 
-	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string }): Promise<Credentials>;
+	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string; ephemeral?: boolean; parameters?: Record<string, string> }): Promise<Credentials>;
 
 	clear(options?: { scheme?: string; federated?: boolean; returnToUrl?: string }): Promise<void>;
 }

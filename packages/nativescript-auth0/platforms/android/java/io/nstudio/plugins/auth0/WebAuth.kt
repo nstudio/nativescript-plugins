@@ -14,6 +14,7 @@ class WebAuth(val auth0: com.auth0.android.Auth0) {
     scope: String?,
     audience: String?,
     redirectUrl: String?,
+    parameters: Map<String, String>?,
     callback: (Credentials?, Exception?) -> Void
   ) {
     val login =
@@ -33,6 +34,10 @@ class WebAuth(val auth0: com.auth0.android.Auth0) {
 
     audience?.let {
       login.withAudience(audience)
+    }
+
+    parameters?.let {
+      login.withParameters(it)
     }
 
     login.start(context, object : Callback<Credentials, AuthenticationException> {

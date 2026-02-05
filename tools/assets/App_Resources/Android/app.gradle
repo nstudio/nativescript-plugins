@@ -18,6 +18,7 @@ android {
     targetSdkVersion 35
     generatedDensities = []
     multiDexEnabled true
+    manifestPlaceholders = [auth0Domain: "nstudio.auth0.com", auth0Scheme: "io.nstudio.plugindemo.auth0"]
   }
   aaptOptions {
     additionalParameters "--no-version-vectors"
