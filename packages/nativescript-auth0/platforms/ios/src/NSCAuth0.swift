@@ -63,7 +63,7 @@ public class NSCAuth0WebAuth: NSObject {
     return self
   }
   
-  public func start(_ scope: String? = nil, _ audience: String? = nil, _ parameters: [String: String]? = nil, _ callback: @escaping (NSCAuth0Credentials?, Error?)->Void){
+  public func start(_ scope: String? = nil, _ audience: String? = nil, _ parameters: [String: String]? = nil, _ ephemeral: Bool = false, _ callback: @escaping (NSCAuth0Credentials?, Error?)->Void){
     Task {
       do {
         if let scope = scope {
@@ -74,6 +74,9 @@ public class NSCAuth0WebAuth: NSObject {
         }
         if let parameters = parameters {
           webAuth = self.webAuth.parameters(parameters)
+        }
+        if ephemeral {
+          webAuth = self.webAuth.useEphemeralSession()
         }
         let result = try await webAuth.start()
         callback(NSCAuth0Credentials(credentials: result), nil)

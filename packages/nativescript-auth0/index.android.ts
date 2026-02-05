@@ -145,7 +145,7 @@ export class WebAuth {
 		return this;
 	}
 
-	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string; parameters?: Record<string, string> }) {
+	start(options?: { scheme?: string; scope?: string; audience?: string; redirectUrl?: string; ephemeral?: boolean; parameters?: Record<string, string> }) {
 		return new Promise<Credentials>((resolve, reject) => {
 			this.webAuth.start(
 				Utils.android.getCurrentActivity(),
