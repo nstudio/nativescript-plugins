@@ -7,7 +7,7 @@ export default {
 				name: 'BranchSDK',
 				libs: ['BranchSDK'],
 				repositoryURL: 'https://github.com/BranchMetrics/ios-branch-sdk-spm',
-				version: '3.12.1',
+				version: '3.13.3',
 			},
 		],
 	},
