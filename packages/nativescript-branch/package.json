@@ -1,6 +1,6 @@
 {
 	"name": "@nstudio/nativescript-branch",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Branch.io for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
