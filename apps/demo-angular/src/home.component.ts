@@ -88,6 +88,9 @@ export class HomeComponent {
 			name: 'nativescript-qr',
 		},
 		{
+			name: 'nativescript-tiktok',
+		},
+		{
 			name: 'nativescript-tracking-transparency',
 		},
 		{

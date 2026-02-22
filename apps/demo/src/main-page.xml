@@ -35,6 +35,7 @@
         <Button text="nativescript-walletconnect" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
         <Button text="nativescript-web-server" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
 <Button text="nativescript-branch" tap="{{ viewDemo }}" class="btn btn-primary view-demo"/>
+<Button text="nativescript-tiktok" tap="{{ viewDemo }}" class="btn btn-primary rounded view-demo"/>
       </StackLayout>
     </ScrollView>
   </StackLayout>

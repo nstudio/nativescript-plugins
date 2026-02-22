@@ -1,0 +1,66 @@
+{
+	"name": "nativescript-tiktok",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "packages/nativescript-tiktok",
+	"targets": {
+		"build": {
+			"executor": "@nx/js:tsc",
+			"options": {
+				"outputPath": "dist/packages/nativescript-tiktok",
+				"tsConfig": "packages/nativescript-tiktok/tsconfig.json",
+				"packageJson": "packages/nativescript-tiktok/package.json",
+				"main": "packages/nativescript-tiktok/index.d.ts",
+				"assets": [
+					"packages/nativescript-tiktok/*.md",
+					"packages/nativescript-tiktok/index.d.ts",
+					"packages/nativescript-tiktok/nativescript.config.ts",
+					"LICENSE",
+					{
+						"glob": "**/*",
+						"input": "packages/nativescript-tiktok/platforms/",
+						"output": "./platforms/"
+					}
+				],
+				"dependsOn": [
+					{
+						"target": "build.all",
+						"projects": "dependencies"
+					}
+				]
+			}
+		},
+		"build.all": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["node tools/scripts/build-finish.ts nativescript-tiktok"],
+				"parallel": false
+			},
+			"outputs": ["{workspaceRoot}/dist/packages/nativescript-tiktok"],
+			"dependsOn": [
+				{
+					"target": "build.all",
+					"projects": "dependencies"
+				},
+				{
+					"target": "build",
+					"projects": "self"
+				}
+			]
+		},
+		"focus": {
+			"executor": "nx:run-commands",
+			"options": {
+				"commands": ["nx g @nativescript/plugin-tools:focus-packages nativescript-tiktok"],
+				"parallel": false
+			}
+		},
+		"lint": {
+			"executor": "@nx/eslint:eslint",
+			"options": {
+				"lintFilePatterns": ["packages/nativescript-tiktok/**/*.ts"]
+			}
+		}
+	},
+	"tags": []
+}

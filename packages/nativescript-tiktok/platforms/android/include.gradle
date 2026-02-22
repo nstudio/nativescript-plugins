@@ -1,0 +1,8 @@
+repositories {
+        maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.tiktok:tiktok-business-android-sdk:1.6.0'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+}
