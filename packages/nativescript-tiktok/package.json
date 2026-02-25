@@ -1,7 +1,7 @@
 {
 	"name": "@nstudio/nativescript-tiktok",
 	"version": "1.0.0",
-	"description": "Add a plugin description",
+	"description": "TikTok Business SDK (App Events) for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
 	"nativescript": {
