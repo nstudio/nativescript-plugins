@@ -32,7 +32,8 @@
 		"@nstudio/nativescript-tracking-transparency": "file:../../packages/nativescript-tracking-transparency",
 		"@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect",
 		"@nstudio/nativescript-web-server": "file:../../packages/nativescript-web-server",
-		"@nstudio/nativescript-branch": "file:../../packages/nativescript-branch"
+		"@nstudio/nativescript-branch": "file:../../packages/nativescript-branch",
+		"@nstudio/nativescript-tiktok": "file:../../packages/nativescript-tiktok"
 	},
 	"devDependencies": {
 		"@nativescript/android": "~9.0.0",
