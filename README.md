@@ -12,6 +12,7 @@
 - [@nstudio/nativescript-cardview](packages/nativescript-cardview/README.md)
 - [@nstudio/nativescript-carousel](packages/nativescript-carousel/README.md)
 - [@nstudio/nativescript-checkbox](packages/nativescript-checkbox/README.md)
+- [@nstudio/nativescript-contentful](packages/nativescript-contentful/README.md)
 - [@nstudio/nativescript-dynatrace](packages/nativescript-dynatrace/README.md)
 - [@nstudio/nativescript-embrace](packages/nativescript-embrace/README.md)
 - [@nstudio/nativescript-exoplayer](packages/nativescript-exoplayer/README.md)
