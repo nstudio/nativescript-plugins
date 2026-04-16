@@ -1,5 +1,7 @@
 import { Utils } from '@nativescript/core';
-import { LogLevel, Events } from '.';
+import { LogLevel } from './common';
+import type { Events } from './common';
+export * from './common';
 const native_ = Symbol('[[native]]');
 export class Config {
 	[native_]: TikTokConfig;

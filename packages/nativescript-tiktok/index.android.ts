@@ -1,5 +1,6 @@
 import { Utils } from '@nativescript/core';
-import { Events, LogLevel, StandardEvent } from '.';
+import { LogLevel, StandardEvent, Events } from './common';
+export * from './common';
 const native_ = Symbol('[[native]]');
 
 function numberHasDecimals(value) {
