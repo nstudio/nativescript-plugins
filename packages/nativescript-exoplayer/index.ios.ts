@@ -1,5 +1,5 @@
 import { Application, Utils, ViewBase } from '@nativescript/core';
-import { Video as VideoBase, VideoFill, videoSourceProperty, fillProperty, subtitleSourceProperty, VideoEventData } from './common';
+import { Video as VideoBase, VideoFill, videoSourceProperty, fillProperty, subtitleSourceProperty, controlsProperty, VideoEventData } from './common';
 
 export * from './common';
 
@@ -127,6 +127,12 @@ export class Video extends VideoBase {
 
 	[subtitleSourceProperty.setNative](value: NSString) {
 		this._updateSubtitles(value ? (<any>value).ios : null);
+	}
+
+	[controlsProperty.setNative](value: boolean) {
+		if (this._playerController) {
+			this._playerController.showsPlaybackControls = !!value;
+		}
 	}
 
 	public _setNativeVideo(nativeVideoPlayer: any) {

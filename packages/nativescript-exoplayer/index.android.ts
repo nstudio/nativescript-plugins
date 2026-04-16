@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 
-import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty } from './common';
+import { Video as VideoBase, VideoFill, videoSourceProperty, subtitleSourceProperty, controlsProperty } from './common';
 import { Application, Utils } from '@nativescript/core';
 
 export * from './common';
@@ -78,6 +78,12 @@ export class Video extends VideoBase {
 
 	[subtitleSourceProperty.setNative](value) {
 		this._updateSubtitles(value ? value.android : null);
+	}
+
+	[controlsProperty.setNative](value: boolean) {
+		if (this.nativeView) {
+			this.nativeView.setUseController(!!value);
+		}
 	}
 
 	createNativeView() {
