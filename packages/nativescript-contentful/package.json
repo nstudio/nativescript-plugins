@@ -1,7 +1,7 @@
 {
 	"name": "@nstudio/nativescript-contentful",
-	"version": "1.0.0",
-	"description": "Add a plugin description",
+	"version": "0.1.1",
+	"description": "Contentful SDK for NativeScript",
 	"main": "index",
 	"types": "index.d.ts",
 	"nativescript": {
