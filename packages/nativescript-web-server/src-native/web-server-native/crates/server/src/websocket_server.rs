@@ -161,6 +161,13 @@ impl Client {
     pub fn headers(&self) -> &Arc<RwLock<HashMap<String, String>>> {
         &self.headers
     }
+
+    /// One header value by (lowercase) name, or `None`. The map is keyed
+    /// by the lowercase header name captured from the upgrade request
+    /// (e.g. `origin`), plus the synthetic `x-peer-addr` key.
+    pub fn header(&self, name: &str) -> Option<String> {
+        self.headers.read().get(name).cloned()
+    }
 }
 
 impl Debug for Client {
@@ -181,7 +188,7 @@ impl Server {
     async fn handle_ws(req: HttpRequest, stream: actix_web::web::Payload, data: Data<Server>) -> Result<HttpResponse, Error> {
         let (mut res, session, stream) = actix_ws::handle(&req, stream)?;
 
-        let (policy, _max_payload, auto_pong) = {
+        let (policy, max_payload, auto_pong) = {
             let lock = data.config.lock();
             (format!("connect-src https: ws://{}:{};", lock.host_name.as_deref().unwrap_or("localhost"), lock.port.unwrap_or(8081)), lock.max_payload.unwrap_or(100 * 1024 * 1024), lock.auto_pong)
         };
@@ -189,11 +196,20 @@ impl Server {
         res.headers_mut()
             .append(actix_web::http::header::CONTENT_SECURITY_POLICY, actix_web::http::header::HeaderValue::try_from(policy)?);
 
+        // Capture the upgrade REQUEST headers (notably `Origin`) so the JS
+        // layer can enforce an origin allowlist. Previously this copied the
+        // *response* headers — which only held the CSP we just appended — so
+        // the request's `Origin` was never surfaced. Keys are the lowercase
+        // header names actix exposes. Stash the remote peer under the
+        // synthetic `x-peer-addr` key for loopback/same-origin checks.
         let mut headers = HashMap::new();
-        for (k, v) in res.headers_mut().iter() {
+        for (k, v) in req.headers().iter() {
             if let Ok(v) = v.to_str() {
-                headers.insert(k.to_string(), v.to_string());
+                headers.insert(k.as_str().to_string(), v.to_string());
             }
+        }
+        if let Some(peer) = req.peer_addr() {
+            headers.insert("x-peer-addr".to_string(), peer.to_string());
         }
         let headers = Arc::new(RwLock::new(headers));
         let id = data.next_client_id.fetch_add(1, Ordering::SeqCst);
@@ -204,9 +220,19 @@ impl Server {
         let client = Client { id, session: session.clone(), headers };
 
 
+        // Honour the configured `max_payload`. Two separate caps had to be
+        // raised — the option used to be dead code:
+        //   - `max_frame_size` lifts the codec's per-frame limit, which
+        //     defaults to 64KB and silently dropped any single frame larger
+        //     than that (this is the limit our `LoopbackWebSocketServer`
+        //     Swift class was written to work around).
+        //   - `max_continuation_size` (was hardcoded 8MB) caps the size of a
+        //     message aggregated from continuation frames.
+        // Both fall back to 100MB via the `unwrap_or` above.
         let mut stream = stream
+            .max_frame_size(max_payload)
             .aggregate_continuations()
-            .max_continuation_size(1024 * 1024 * 8);
+            .max_continuation_size(max_payload);
 
         let connect_callback = Arc::clone(&data.connect_callback);
 

@@ -3,7 +3,7 @@ import { ServerStatus } from './common';
 export * from './common';
 export class Server {
 	private server: NSCServer;
-	constructor(config: { logger?: boolean; path: string; directory: string; index?: string; hostName?: string; port?: number; workers?: number; showFiles?: boolean });
+	constructor(config: { logger?: boolean; path: string; directory: string; index?: string; hostName?: string; port?: number; workers?: number; showFiles?: boolean; frameGuard?: boolean });
 
 	get status(): ServerStatus;
 
@@ -16,6 +16,14 @@ export class Server {
 
 export class Client {
 	readonly id: number;
+	/**
+	 * `Origin` header from the WebSocket upgrade request, or `null` when the
+	 * client sent none. Browsers always set it and cannot forge it, so it
+	 * can be used to allowlist connections from a known served origin.
+	 */
+	readonly origin: string | null;
+	/** One header value from the upgrade request (case-insensitive), or `null`. */
+	header(name: string): string | null;
 }
 
 export class WebSocketServer extends Observable {

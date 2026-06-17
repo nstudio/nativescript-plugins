@@ -86,6 +86,11 @@ export RUST_BUILD_TARGET="$RUST_BUILD_TARGET"
 
 cbindgen --config "$CWD/server-ios/cbindgen.toml"  "$CWD/server-ios/src/lib.rs" -l c >"$SRCROOT/WebServerNative/include/web_server_native.h"
 
-cargo +nightly build -Z build-std='std,panic_abort' -Z build-std-features=panic_immediate_abort  --manifest-path Cargo.toml --target $RUST_BUILD_TARGET $RUST_BUILD_TYPE -p server-ios
+# NOTE: dropped `-Z build-std-features=panic_immediate_abort` — recent
+# nightlies (>= 2026-06) turned `panic_immediate_abort` into a real panic
+# strategy and the build-std *feature* now hard-errors in `core`. Panic is
+# still abort via the release profile (`panic = "abort"`) + `-C panic=abort`
+# in RUSTFLAGS; we only lose the panic-message-stripping size micro-opt.
+cargo +nightly build -Z build-std='std,panic_abort' --manifest-path Cargo.toml --target $RUST_BUILD_TARGET $RUST_BUILD_TYPE -p server-ios
 
 popd

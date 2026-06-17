@@ -64,6 +64,7 @@ fn main() {
             port: None,
             workers: 3,
             show_files: false,
+            frame_guard: false,
         }
     );
 

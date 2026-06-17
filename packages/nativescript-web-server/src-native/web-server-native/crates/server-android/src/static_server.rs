@@ -18,6 +18,7 @@ pub extern "system" fn Java_io_nstudio_plugins_webserver_Server_init(
     port: jshort,
     workers: jint,
     show_files: jboolean,
+    frame_guard: jboolean,
 ) -> jlong {
     let path = env.get_string(&path).unwrap().to_string_lossy().to_string();
     let directory = env.get_string(&directory).unwrap().to_string_lossy().to_string();
@@ -48,6 +49,7 @@ pub extern "system" fn Java_io_nstudio_plugins_webserver_Server_init(
         port,
         workers,
         show_files: show_files == JNI_TRUE,
+        frame_guard: frame_guard == JNI_TRUE,
     };
 
     Box::into_raw(

@@ -1,7 +1,7 @@
 use crate::static_server::JavaCallback;
 use bytes::Bytes;
 use jni::objects::{JByteArray, JByteBuffer, JClass, JObject, JString, ReleaseMode};
-use jni::sys::{jboolean, jint, jlong, jshort, JNI_FALSE, JNI_TRUE};
+use jni::sys::{jboolean, jint, jlong, jshort, jstring, JNI_FALSE, JNI_TRUE};
 use jni::JNIEnv;
 use std::fmt::Debug;
 use std::slice;
@@ -768,6 +768,38 @@ pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server
     let server = &*(server as *mut Server);
 
     server.remove_on_error(id as u64)
+}
+
+/// Return one header value from a client's WebSocket upgrade request
+/// (e.g. `origin`), or `null` if the client/header is absent. `name` is
+/// matched case-insensitively. Mirrors the iOS
+/// `webserver_websocket_client_header` FFI.
+#[no_mangle]
+pub unsafe extern "system" fn Java_io_nstudio_plugins_webserver_websocket_Server_clientHeader(
+    mut env: JNIEnv,
+    _: JClass,
+    server: jlong,
+    client_id: jlong,
+    name: JString,
+) -> jstring {
+    if server == 0 {
+        return std::ptr::null_mut();
+    }
+
+    let server = &*(server as *mut Server);
+
+    let name = match env.get_string(&name) {
+        Ok(s) => s.to_string_lossy().to_ascii_lowercase(),
+        Err(_) => return std::ptr::null_mut(),
+    };
+
+    match server.client(client_id as u64).and_then(|c| c.header(&name)) {
+        Some(value) => env
+            .new_string(value)
+            .map(|s| s.into_raw())
+            .unwrap_or(std::ptr::null_mut()),
+        None => std::ptr::null_mut(),
+    }
 }
 
 #[no_mangle]

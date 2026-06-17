@@ -8,10 +8,11 @@ class Server(
   hostName: String?,
   port: Short,
   workers: Int,
-  showFiles: Boolean
+  showFiles: Boolean,
+  frameGuard: Boolean
 ) {
   private var server: Long = init(
-    logger, path, directory, index, hostName, port, workers, showFiles
+    logger, path, directory, index, hostName, port, workers, showFiles, frameGuard
   )
 
 
@@ -66,6 +67,7 @@ class Server(
       port: Short,
       workers: Int,
       showFiles: Boolean,
+      frameGuard: Boolean,
     ): Long
 
     @JvmStatic

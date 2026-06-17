@@ -50,6 +50,7 @@ typedef struct CStaticServiceOptions {
   int16_t port;
   uint32_t workers;
   bool show_files;
+  bool frame_guard;
 } CStaticServiceOptions;
 
 typedef struct CWebSocketServiceOptions {
@@ -83,6 +84,13 @@ void webserver_clear_status_callback(struct CServer *server);
 struct CClient *webserver_websocket_client(struct CWebsocketServer *server, uint64_t client_id);
 
 uint64_t webserver_websocket_client_id(struct CClient *client);
+
+/**
+ * One header value from the upgrade request (e.g. `origin`), or null if
+ * absent. `name` is matched case-insensitively. The returned C string is
+ * owned by the caller — free it with `webserver_error_release`.
+ */
+char *webserver_websocket_client_header(struct CClient *client, const char *name);
 
 void webserver_websocket_client_release(struct CClient *client);
 
@@ -195,4 +203,4 @@ uint64_t webserver_websocket_add_error_callback(struct CWebsocketServer *server,
 
 void webserver_websocket_remove_error_callback(struct CWebsocketServer *server, uint64_t id);
 
-#endif /* WEBSERVER_C_H */
+#endif  /* WEBSERVER_C_H */

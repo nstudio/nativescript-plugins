@@ -211,6 +211,21 @@ public class NSCClient: NSObject {
             return webserver_websocket_client_id(client)
         }
     }
+    /// The `Origin` header from the WebSocket upgrade request, or nil if
+    /// the client sent none (e.g. a non-browser client). Browsers always
+    /// set it and cannot forge it, so callers can use it to allowlist
+    /// connections originating from their own served page.
+    public var origin: String? {
+        return header("origin")
+    }
+    /// One header value from the upgrade request, matched case-insensitively.
+    public func header(_ name: String) -> String? {
+        guard let client = client else {return nil}
+        guard let value = webserver_websocket_client_header(client, name) else {return nil}
+        let result = String(cString: value)
+        webserver_error_release(value)
+        return result
+    }
     deinit {
         if(client != nil){
             webserver_websocket_client_release(client)

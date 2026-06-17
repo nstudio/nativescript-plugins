@@ -4,8 +4,8 @@ export * from './common';
 
 export class Server {
 	private server;
-	constructor(config: { logger?: boolean; path: string; directory: string; index?: string; hostName?: string; port: number; workers?: number; showFiles?: boolean }) {
-		this.server = new io.nstudio.plugins.webserver.Server(config.logger ?? false, config.path, config.directory, config.index ?? null, config.hostName ?? '127.0.0.1', config.port ?? 8080, config.workers ?? 2, config.showFiles ?? false);
+	constructor(config: { logger?: boolean; path: string; directory: string; index?: string; hostName?: string; port: number; workers?: number; showFiles?: boolean; frameGuard?: boolean }) {
+		this.server = new io.nstudio.plugins.webserver.Server(config.logger ?? false, config.path, config.directory, config.index ?? null, config.hostName ?? '127.0.0.1', config.port ?? 8080, config.workers ?? 2, config.showFiles ?? false, config.frameGuard ?? false);
 	}
 
 	get status(): ServerStatus {
@@ -55,8 +55,18 @@ export class Server {
 
 export class Client {
 	_id: number;
+	/** Native websocket server, set at accept-time so header lookups can reach it. */
+	_server: io.nstudio.plugins.webserver.websocket.Server;
 	get id(): number {
 		return this._id;
+	}
+	/** `Origin` header from the upgrade request, or `null` if none was sent. */
+	get origin(): string | null {
+		return this.header('origin');
+	}
+	/** One upgrade-request header by name (case-insensitive), or `null`. */
+	header(name: string): string | null {
+		return this._server?.clientHeader(this._id, name) ?? null;
 	}
 }
 
@@ -74,6 +84,7 @@ export class WebSocketServer extends Observable {
 					if (owner) {
 						const ret = new Client();
 						ret._id = id;
+						ret._server = owner.server;
 						owner.clients.set(id, ret);
 						owner.notify({ eventName: 'connection', client: ret });
 					}

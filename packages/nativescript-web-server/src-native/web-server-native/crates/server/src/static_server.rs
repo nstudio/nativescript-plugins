@@ -23,6 +23,10 @@ pub struct StaticServiceOptions {
     pub port: Option<u16>,
     pub workers: u32,
     pub show_files: bool,
+    /// When true, every served response carries anti-embedding headers
+    /// (`X-Frame-Options: DENY` + CSP `frame-ancestors 'self'`) so the
+    /// content can't be iframed by a third-party page.
+    pub frame_guard: bool,
 }
 
 #[repr(u8)]
@@ -120,8 +124,18 @@ impl Server {
                 let config = Arc::clone(&config);
 
                 let lock = config.lock();
+                // Anti-embedding headers when `frame_guard` is set. An empty
+                // `DefaultHeaders` is a harmless no-op otherwise, so it can be
+                // wrapped unconditionally (keeps the `App` type stable).
+                let mut default_headers = actix_web::middleware::DefaultHeaders::new();
+                if lock.frame_guard {
+                    default_headers = default_headers
+                        .add(("X-Frame-Options", "DENY"))
+                        .add(("Content-Security-Policy", "frame-ancestors 'self'"));
+                }
                 let app = App::new()
                     .app_data(Data::new(self_server.clone()))
+                    .wrap(default_headers)
                     .wrap(actix_web::middleware::Compress::default());
 
                 let mut directory = std::path::PathBuf::new();

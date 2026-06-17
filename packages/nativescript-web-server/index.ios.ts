@@ -4,8 +4,8 @@ export * from './common';
 
 export class Server {
 	private server: NSCServer;
-	constructor(config: { logger: boolean; path: string; directory: string; index: string; hostName: string; port: number; workers: number; showFiles?: boolean }) {
-		this.server = NSCServer.alloc().init(config.logger ?? false, config.path, config.directory, config.index ?? null, config.hostName ?? '127.0.0.1', config.port ?? 8080, config.workers ?? 2, config.showFiles ?? false);
+	constructor(config: { logger: boolean; path: string; directory: string; index: string; hostName: string; port: number; workers: number; showFiles?: boolean; frameGuard?: boolean }) {
+		this.server = NSCServer.alloc().init(config.logger ?? false, config.path, config.directory, config.index ?? null, config.hostName ?? '127.0.0.1', config.port ?? 8080, config.workers ?? 2, config.showFiles ?? false, config.frameGuard ?? false);
 	}
 
 	get status(): ServerStatus {
@@ -46,6 +46,14 @@ export class Client {
 	_native: NSCClient;
 	get id(): number {
 		return this._native.id;
+	}
+	/** `Origin` header from the upgrade request, or `null` if none was sent. */
+	get origin(): string | null {
+		return this._native.origin ?? null;
+	}
+	/** One upgrade-request header by name (case-insensitive), or `null`. */
+	header(name: string): string | null {
+		return this._native.header(name) ?? null;
 	}
 }
 

@@ -35,6 +35,7 @@ pub struct CStaticServiceOptions {
     port: i16,
     workers: u32,
     show_files: bool,
+    frame_guard: bool,
 }
 
 impl From<CStaticServiceOptions> for StaticServiceOptions {
@@ -64,6 +65,7 @@ impl From<CStaticServiceOptions> for StaticServiceOptions {
             port,
             workers: value.workers,
             show_files: value.show_files,
+            frame_guard: value.frame_guard,
         }
     }
 }
@@ -95,6 +97,7 @@ impl From<&CStaticServiceOptions> for StaticServiceOptions {
             port,
             workers: value.workers,
             show_files: value.show_files,
+            frame_guard: value.frame_guard,
         }
     }
 }
