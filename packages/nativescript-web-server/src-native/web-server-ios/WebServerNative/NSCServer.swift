@@ -71,13 +71,13 @@ class NSCStatusCallback: NSObject {
 public class NSCServer: NSObject {
     var server: OpaquePointer?
     var statusCallback: UnsafeRawPointer?
-    public init(_ logger: Bool, _ path: String, _ directory: String, _ index: String?, _ hostName: String?, _ port: Int16, _ workers: UInt32, _ showFiles: Bool) {
+    public init(_ logger: Bool, _ path: String, _ directory: String, _ index: String?, _ hostName: String?, _ port: Int16, _ workers: UInt32, _ showFiles: Bool, _ frameGuard: Bool) {
         super.init()
         let cPath = (path as NSString).utf8String!
         let cDirectory = (directory as NSString).utf8String!
-        
-        
-        var options = CStaticServiceOptions(logger: logger, path: cPath, directory: cDirectory, index: nil, host_name: nil, port: port, workers: workers, show_files: showFiles)
+
+
+        var options = CStaticServiceOptions(logger: logger, path: cPath, directory: cDirectory, index: nil, host_name: nil, port: port, workers: workers, show_files: showFiles, frame_guard: frameGuard)
         
         if(index != nil){
             let cIndex = (index! as NSString).utf8String!

@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/WebServerNative-Swift.h</key>
 		<data>
-		g7vRIozJ93vquJEBjUBhP9UEtJI=
+		OVJjs930OcFa+YHO/OvZhTDXrQU=
 		</data>
 		<key>Headers/WebServerNative.h</key>
 		<data>
@@ -14,59 +14,35 @@
 		</data>
 		<key>Headers/web_server_native.h</key>
 		<data>
-		gj6whju1T37sZKhz8wQmTzjc32M=
+		OOfOtoTPqH/5srWLpDAjvFco3lc=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0wOLifBOWOkGvWqTna7ut+r6YXs=
+		lQtN22B8mUyyX9ReEjmn3K791T4=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		xkmSEQwiU9sq6pww37cf4pe92yU=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
-		<data>
-		/qsAbPDxidnKqJ3jDY5Qm5bYmtM=
+		2RLEpyZBcOoXXDSS8vmG5BHiaQk=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		066FTuT3wRSLrccaoh22bdQ1bwg=
+		skrC1o2qL8W0A9voEMhyFNC1il0=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		PYLJV9xNuNGlXT/UL8zPDVQV9vY=
+		pMDVQ1cM59DQ1Xso2EgVUrirFvw=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		Ml8mbRN+X43Rf+/agQqp7L88cCg=
+		QZhW+4NHpi6wAxL8TYe+MvPYHa0=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		PYLJV9xNuNGlXT/UL8zPDVQV9vY=
+		pMDVQ1cM59DQ1Xso2EgVUrirFvw=
 		</data>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		uo1+waoSI1lHgxsS2XO+4pEK4nM=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
-		<data>
-		066FTuT3wRSLrccaoh22bdQ1bwg=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
-		<data>
-		s7tiuA6H8HN1kCoRV8E2QRa/pBw=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
-		<data>
-		RueXg6dUHPX6l6pLbH7fGQXJmNY=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
-		<data>
-		s7tiuA6H8HN1kCoRV8E2QRa/pBw=
-		</data>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
-		<data>
-		cThehs4Fng7kv9e0E02vZSTHAyg=
+		aNzBOnuQW9Gf5tSQ1JnlMUvGqBk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -79,7 +55,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ku2Pb5N8/fJBG+4zZb+YmfENu10UtA9Z4XrguP5TPPs=
+			gUQ+frSgyirOiv1sup6TUFPgMeNhTbXSKUFdMZFEMwk=
 			</data>
 		</dict>
 		<key>Headers/WebServerNative.h</key>
@@ -93,91 +69,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PcAlC4GLg5ql0TFAdQ726cUimLCx1fy6uTHb22aKayA=
+			tpwZfY3gl1ZXDAT/F4ZGsE8DbIUL2UaOHitG/RI+wW0=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mfawxSELNb8wrbHnHWz8iLTYM+Jd6VhMM6rI9ckdF/I=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			2FjXsd/dP+LPlqDPwVnuEye0ovxVxNZWe/6TFfJqmXc=
+			aS7KPiEZsWMyH2BPuKRyunwlKqEpq8cFAyM2D3Qqomk=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OwJ+VfZuunCy696AZ2ksD0YlH2eTS3ccAB8aIZO0zZg=
+			uHNDoXa97m8fsmrbs8kxij8v7Ua/yj3Cg3s/g5o6AJU=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FRiJ1ajOvAHOUWv/or1KpELMBgk7JlR56gTPYkpQxhs=
+			Xz+Un9JvNgvmurfwRK2MUDEqz3UUucZx80jABTczJGk=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			otLAag1A9Ds/xw7A4wrKJU46Yi4Sjsr94gFtORHcS3w=
+			IKIj7inzPbYAUEF5F5LuEhsaAZlM9n4LJpEBmAm2LIk=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FRiJ1ajOvAHOUWv/or1KpELMBgk7JlR56gTPYkpQxhs=
+			Xz+Un9JvNgvmurfwRK2MUDEqz3UUucZx80jABTczJGk=
 			</data>
 		</dict>
 		<key>Modules/WebServerNative.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lJJuXQMmo8kw5uAfaeasdo3PYITK0kS9K6YE1rGlE6A=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			OwJ+VfZuunCy696AZ2ksD0YlH2eTS3ccAB8aIZO0zZg=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Z0BAMzlzTlODm6emKLXluT3xTasEy/30+aXK4zJhiro=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			MG78ZbMbTX0zItCZVm+bpQj16DNCwIACz+n40rTI0Wc=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			Z0BAMzlzTlODm6emKLXluT3xTasEy/30+aXK4zJhiro=
-			</data>
-		</dict>
-		<key>Modules/WebServerNative.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			3tf/zSBbD5f9AzQO8kwcqnqr/2GXL3yDnTNBCgAnxoI=
+			4hPU2hi9EzqPaJmcpYSO1INUezpad7epklNXv98Pqzw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

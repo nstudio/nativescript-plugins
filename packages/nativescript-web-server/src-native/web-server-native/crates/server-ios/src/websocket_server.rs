@@ -165,6 +165,30 @@ pub unsafe extern "C" fn webserver_websocket_client_id(client: *mut CClient) -> 
     client.0.id()
 }
 
+/// One header value from the upgrade request (e.g. `origin`), or null if
+/// absent. `name` is matched case-insensitively. The returned C string is
+/// owned by the caller — free it with `webserver_error_release`.
+#[no_mangle]
+pub unsafe extern "C" fn webserver_websocket_client_header(
+    client: *mut CClient,
+    name: *const c_char,
+) -> *mut c_char {
+    if client.is_null() || name.is_null() {
+        return std::ptr::null_mut();
+    }
+    let client = &*client;
+    let name = match CStr::from_ptr(name).to_str() {
+        Ok(s) => s.to_ascii_lowercase(),
+        Err(_) => return std::ptr::null_mut(),
+    };
+    match client.0.header(&name) {
+        Some(value) => CString::new(value)
+            .map(|s| s.into_raw())
+            .unwrap_or(std::ptr::null_mut()),
+        None => std::ptr::null_mut(),
+    }
+}
+
 #[no_mangle]
 pub unsafe extern "C" fn webserver_websocket_client_release(client: *mut CClient) {
     if !client.is_null() {

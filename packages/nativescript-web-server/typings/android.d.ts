@@ -29,9 +29,7 @@ declare namespace io {
 						/**
 						 * Constructs a new instance of the io.nstudio.plugins.webserver.GC$Object interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
-						public constructor(implementation: {
-							dispose(): void;
-						});
+						public constructor(implementation: { dispose(): void });
 						public constructor();
 						public dispose(): void;
 					}
@@ -48,7 +46,7 @@ declare namespace io {
 				export class Server {
 					public static class: java.lang.Class<io.nstudio.plugins.webserver.Server>;
 					public start(callback: io.nstudio.plugins.webserver.Server.Callback): void;
-					public constructor(logger: boolean, path: string, directory: string, index: string, hostName: string, port: number, workers: number, showFiles: boolean);
+					public constructor(logger: boolean, path: string, directory: string, index: string, hostName: string, port: number, workers: number, showFiles: boolean, frameGuard: boolean);
 					public stop(wait: boolean, callback: io.nstudio.plugins.webserver.Server.Callback): void;
 					public setStatusCallback(callback: io.nstudio.plugins.webserver.Server.StatusCallback): void;
 					public finalize(): void;
@@ -60,10 +58,7 @@ declare namespace io {
 						/**
 						 * Constructs a new instance of the io.nstudio.plugins.webserver.Server$Callback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
-						public constructor(implementation: {
-							onError(param0: string): void;
-							onSuccess(): void;
-						});
+						public constructor(implementation: { onError(param0: string): void; onSuccess(): void });
 						public constructor();
 						public onSuccess(): void;
 						public onError(param0: string): void;
@@ -76,9 +71,7 @@ declare namespace io {
 						/**
 						 * Constructs a new instance of the io.nstudio.plugins.webserver.Server$StatusCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
-						public constructor(implementation: {
-							onChange(param0: number): void;
-						});
+						public constructor(implementation: { onChange(param0: number): void });
 						public constructor();
 						public onChange(param0: number): void;
 					}
@@ -120,6 +113,7 @@ declare namespace io {
 						public addOnMessage(callback: io.nstudio.plugins.webserver.websocket.Server.MessageCallback): number;
 						public addOnPing(callback: io.nstudio.plugins.webserver.websocket.Server.MessageCallback): number;
 						public removeOnPong(id: number): void;
+						public clientHeader(clientId: number, name: string): string;
 						public static nativeAddOnMessage(param0: number, param1: io.nstudio.plugins.webserver.websocket.Server.MessageCallback): number;
 						public getStatus(): number;
 					}
@@ -129,10 +123,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$Callback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onError(param0: string): void;
-								onSuccess(): void;
-							});
+							public constructor(implementation: { onError(param0: string): void; onSuccess(): void });
 							public constructor();
 							public onSuccess(): void;
 							public onError(param0: string): void;
@@ -150,9 +141,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$ConnectCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onConnect(param0: number): void;
-							});
+							public constructor(implementation: { onConnect(param0: number): void });
 							public constructor();
 							public onConnect(param0: number): void;
 						}
@@ -161,9 +150,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$DisconnectCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onDisconnect(param0: number, param1: number, param2: string): void;
-							});
+							public constructor(implementation: { onDisconnect(param0: number, param1: number, param2: string): void });
 							public constructor();
 							public onDisconnect(param0: number, param1: number, param2: string): void;
 						}
@@ -172,9 +159,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$ErrorCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onError(param0: number, param1: string): void;
-							});
+							public constructor(implementation: { onError(param0: number, param1: string): void });
 							public constructor();
 							public onError(param0: number, param1: string): void;
 						}
@@ -183,12 +168,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$MessageCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onMessage(param0: number, param1: string): void;
-								onMessage(param0: number, param1: java.nio.ByteBuffer): void;
-								onPing(param0: number, param1: java.nio.ByteBuffer): void;
-								onPong(param0: number, param1: java.nio.ByteBuffer): void;
-							});
+							public constructor(implementation: { onMessage(param0: number, param1: string): void; onMessage(param0: number, param1: java.nio.ByteBuffer): void; onPing(param0: number, param1: java.nio.ByteBuffer): void; onPong(param0: number, param1: java.nio.ByteBuffer): void });
 							public constructor();
 							public onPong(param0: number, param1: java.nio.ByteBuffer): void;
 							public onMessage(param0: number, param1: string): void;
@@ -200,9 +180,7 @@ declare namespace io {
 							/**
 							 * Constructs a new instance of the io.nstudio.plugins.webserver.websocket.Server$StatusCallback interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 							 */
-							public constructor(implementation: {
-								onChange(param0: number): void;
-							});
+							public constructor(implementation: { onChange(param0: number): void });
 							public constructor();
 							public onChange(param0: number): void;
 						}
@@ -214,4 +192,3 @@ declare namespace io {
 }
 
 //Generics information:
-

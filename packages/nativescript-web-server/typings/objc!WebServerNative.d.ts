@@ -1,6 +1,4 @@
-
 declare const enum CServerStatus {
-
 	Inactive = 0,
 
 	Active = 1,
@@ -9,7 +7,7 @@ declare const enum CServerStatus {
 
 	Starting = 3,
 
-	Stopping = 4
+	Stopping = 4,
 }
 
 interface CStaticServiceOptions {
@@ -36,7 +34,6 @@ interface CWebSocketServiceOptions {
 declare var CWebSocketServiceOptions: interop.StructType<CWebSocketServiceOptions>;
 
 declare const enum CWebsocketServerStatus {
-
 	Inactive = 0,
 
 	Active = 1,
@@ -45,20 +42,22 @@ declare const enum CWebsocketServerStatus {
 
 	Starting = 3,
 
-	Stopping = 4
+	Stopping = 4,
 }
 
 declare class NSCClient extends NSObject {
-
 	static alloc(): NSCClient; // inherited from NSObject
 
 	static new(): NSCClient; // inherited from NSObject
 
 	readonly id: number;
+
+	readonly origin: string; // null when the upgrade request sent no Origin
+
+	header(name: string): string; // upgrade-request header value, or null
 }
 
 declare class NSCMessage extends NSObject {
-
 	static alloc(): NSCMessage; // inherited from NSObject
 
 	static new(): NSCMessage; // inherited from NSObject
@@ -71,18 +70,16 @@ declare class NSCMessage extends NSObject {
 }
 
 declare const enum NSCMessageType {
-
 	Text = 0,
 
 	Binary = 1,
 
 	Ping = 2,
 
-	Pong = 3
+	Pong = 3,
 }
 
 declare class NSCServer extends NSObject {
-
 	static alloc(): NSCServer; // inherited from NSObject
 
 	static new(): NSCServer; // inherited from NSObject
@@ -91,7 +88,7 @@ declare class NSCServer extends NSObject {
 
 	constructor();
 
-	init(logger: boolean, path: string, directory: string, index: string, hostName: string, port: number, workers: number, showFiles: boolean): this;
+	init(logger: boolean, path: string, directory: string, index: string, hostName: string, port: number, workers: number, showFiles: boolean, frameGuard: boolean): this;
 
 	setStatusChangeCallback(callback: (p1: NSCServerStatus) => void): void;
 
@@ -101,7 +98,6 @@ declare class NSCServer extends NSObject {
 }
 
 declare const enum NSCServerStatus {
-
 	Inactive = 0,
 
 	Active = 1,
@@ -110,11 +106,10 @@ declare const enum NSCServerStatus {
 
 	Starting = 3,
 
-	Stopping = 4
+	Stopping = 4,
 }
 
 declare class NSCWebSocketServer extends NSObject {
-
 	static alloc(): NSCWebSocketServer; // inherited from NSObject
 
 	static new(): NSCWebSocketServer; // inherited from NSObject
@@ -185,14 +180,13 @@ declare var WebServerNativeVersionNumber: number;
 declare var WebServerNativeVersionString: interop.Reference<number>;
 
 declare const enum WebsocketMessageType {
-
 	Text = 0,
 
 	Binary = 1,
 
 	Ping = 2,
 
-	Pong = 3
+	Pong = 3,
 }
 
 declare function webserver_clear_status_callback(server: interop.Pointer | interop.Reference<any>): void;

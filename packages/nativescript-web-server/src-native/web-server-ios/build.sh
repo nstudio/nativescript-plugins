@@ -14,6 +14,8 @@ xcodebuild \
     -configuration Release \
     clean build \
     BUILD_DIR=$(PWD)/dist \
+    ARCHS=arm64 \
+    ONLY_ACTIVE_ARCH=NO \
     SKIP_INSTALL=NO \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
     -quiet

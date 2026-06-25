@@ -67,6 +67,15 @@ class Server(
       return status(server)
     }
 
+  /**
+   * One header value from a client's WebSocket upgrade request (e.g.
+   * `origin`), or null if the client/header is absent. `name` is matched
+   * case-insensitively. Mirrors iOS `NSCClient.header(_:)`.
+   */
+  fun clientHeader(clientId: Long, name: String): String? {
+    return clientHeader(server, clientId, name)
+  }
+
   fun start(callback: Callback) {
     start(server, callback)
   }
@@ -271,6 +280,11 @@ class Server(
     private external fun hasClient(
       server: Long, clientId: Long
     ): Boolean
+
+    @JvmStatic
+    private external fun clientHeader(
+      server: Long, clientId: Long, name: String
+    ): String?
 
     @JvmStatic
     private external fun sendPingEmpty(
