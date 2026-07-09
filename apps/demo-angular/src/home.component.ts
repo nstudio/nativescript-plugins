@@ -49,6 +49,9 @@ export class HomeComponent {
 			name: 'nativescript-checkbox',
 		},
 		{
+			name: 'nativescript-contentful',
+		},
+		{
 			name: 'nativescript-dynatrace',
 		},
 		{

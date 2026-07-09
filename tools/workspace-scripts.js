@@ -339,6 +339,13 @@ module.exports = {
 					description: '@nstudio/nativescript-tiktok: Build',
 				},
 			},
+			// @nstudio/nativescript-contentful
+			'nativescript-contentful': {
+				build: {
+					script: 'nx run nativescript-contentful:build.all',
+					description: '@nstudio/nativescript-contentful: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run-many --target=build.all --all',
 				description: 'Build all packages',
@@ -480,6 +487,10 @@ module.exports = {
 			'nativescript-tiktok': {
 				script: 'nx run nativescript-tiktok:focus',
 				description: 'Focus on @nstudio/nativescript-tiktok',
+			},
+			'nativescript-contentful': {
+				script: 'nx run nativescript-contentful:focus',
+				description: 'Focus on @nstudio/nativescript-contentful',
 			},
 			reset: {
 				script: 'nx g @nativescript/plugin-tools:focus-packages',

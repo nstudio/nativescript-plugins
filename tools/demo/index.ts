@@ -13,6 +13,7 @@ export * from './nativescript-camera-plus';
 export * from './nativescript-cardview';
 export * from './nativescript-carousel';
 export * from './nativescript-checkbox';
+export * from './nativescript-contentful';
 export * from './nativescript-dynatrace';
 export * from './nativescript-embrace';
 export * from './nativescript-exoplayer';

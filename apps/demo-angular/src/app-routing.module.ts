@@ -20,6 +20,7 @@ const routes: Routes = [
 	{ path: 'nativescript-cardview', loadChildren: () => import('./plugin-demos/nativescript-cardview.module').then((m) => m.NativescriptCardviewModule) },
 	{ path: 'nativescript-carousel', loadChildren: () => import('./plugin-demos/nativescript-carousel.module').then((m) => m.NativescriptCarouselModule) },
 	{ path: 'nativescript-checkbox', loadChildren: () => import('./plugin-demos/nativescript-checkbox.module').then((m) => m.NativescriptCheckboxModule) },
+	{ path: 'nativescript-contentful', loadChildren: () => import('./plugin-demos/nativescript-contentful.module').then((m) => m.NativescriptContentfulModule) },
 	{ path: 'nativescript-dynatrace', loadChildren: () => import('./plugin-demos/nativescript-dynatrace.module').then((m) => m.NativescriptDynatraceModule) },
 	{ path: 'nativescript-embrace', loadChildren: () => import('./plugin-demos/nativescript-embrace.module').then((m) => m.NativescriptEmbraceModule) },
 	{ path: 'nativescript-exoplayer', loadChildren: () => import('./plugin-demos/nativescript-exoplayer.module').then((m) => m.NativescriptExoplayerModule) },

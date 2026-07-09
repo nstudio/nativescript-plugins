@@ -55,7 +55,8 @@
 			"@nstudio/nativescript-web-server": ["packages/nativescript-web-server/index.d.ts"],
 			"@nstudio/nativescript-branch": ["packages/nativescript-branch/index.d.ts"],
 			"@nstudio/nativescript-auth0": ["packages/nativescript-auth0/index.d.ts"],
-			"@nstudio/nativescript-tiktok": ["packages/nativescript-tiktok/index.d.ts"]
+			"@nstudio/nativescript-tiktok": ["packages/nativescript-tiktok/index.d.ts"],
+			"@nstudio/nativescript-contentful": ["packages/nativescript-contentful/index.d.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]

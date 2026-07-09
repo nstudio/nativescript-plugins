@@ -33,7 +33,8 @@
 		"@nstudio/nativescript-walletconnect": "file:../../packages/nativescript-walletconnect",
 		"@nstudio/nativescript-web-server": "file:../../packages/nativescript-web-server",
 		"@nstudio/nativescript-branch": "file:../../packages/nativescript-branch",
-		"@nstudio/nativescript-tiktok": "file:../../packages/nativescript-tiktok"
+		"@nstudio/nativescript-tiktok": "file:../../packages/nativescript-tiktok",
+		"@nstudio/nativescript-contentful": "file:../../packages/nativescript-contentful"
 	},
 	"devDependencies": {
 		"@nativescript/android": "~9.0.0",

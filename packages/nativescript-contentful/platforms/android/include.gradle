@@ -1,0 +1,7 @@
+repositories {
+   mavenCentral()
+}
+
+dependencies {
+   implementation 'com.contentful.java:java-sdk:10.6.0'
+}
