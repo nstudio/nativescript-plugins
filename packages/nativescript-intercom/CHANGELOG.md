@@ -1,3 +1,13 @@
+## 1.1.2 (2026-08-26)
+
+### 🩹 Fixes
+
+- **intercom:** displayMessenger presents Messenger Home on iOS ([#171](https://github.com/nstudio/nativescript-plugins/pull/171))
+
+### ❤️ Thank You
+
+- Jeff Brink @jeffbrink
+
 ## 1.1.1 (2025-12-02)
 
 ### 🚀 Features
