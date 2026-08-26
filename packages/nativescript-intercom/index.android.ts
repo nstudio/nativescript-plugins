@@ -45,6 +45,9 @@ export class IntercomModule {
 	static displayMessenger() {
 		io.intercom.android.sdk.Intercom.client().displayMessenger();
 	}
+	static displayHelpCenter() {
+		io.intercom.android.sdk.Intercom.client().displayHelpCenter();
+	}
 	static displayMessageComposer() {
 		io.intercom.android.sdk.Intercom.client().displayMessageComposer();
 	}

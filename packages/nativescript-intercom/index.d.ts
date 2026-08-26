@@ -7,6 +7,7 @@ export declare class IntercomModule {
 	static registerUnidentifiedUser(): void;
 	static setUserJwt(jwt: string): void;
 	static displayMessenger(): void;
+	static displayHelpCenter(): void;
 	static displayMessageComposer(initialMessage?: string): void;
 	static hideMessenger(): void;
 	static setThemeOverride(style: 'none' | 'light' | 'dark' | 'system'): void;
