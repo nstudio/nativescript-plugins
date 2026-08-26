@@ -36,6 +36,9 @@ export class IntercomModule {
 		Intercom.setUserJwt(jwt);
 	}
 	static displayMessenger() {
+		Intercom.presentIntercom(Space.home);
+	}
+	static displayHelpCenter() {
 		Intercom.presentIntercom(Space.helpCenter);
 	}
 	static displayMessageComposer(initialMessage?: string) {
