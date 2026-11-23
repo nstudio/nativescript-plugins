@@ -177,20 +177,18 @@ export class Video extends VideoBase {
 					}
 				}
 			},
-			onPlayWhenReadyChanged: function (playWhenReady: boolean, _reason: number): void {
-				const owner = that.get();
-				if (!owner) {
-					return;
-				}
-				if (playWhenReady && !owner.eventPlaybackStart) {
-					owner.eventPlaybackStart = true;
-				}
+			onPlayWhenReadyChanged: function (_playWhenReady: boolean, _reason: number): void {
+				/* required in listener implementation */
 			},
 			onPlaybackSuppressionReasonChanged: function (_playbackSuppressionReason: number): void {
 				/* required in listener implementation */
 			},
-			onIsPlayingChanged: function (_isPlaying: boolean): void {
-				/* required in listener implementation */
+			onIsPlayingChanged: function (isPlaying: boolean): void {
+				const owner = that.get();
+				if (owner && isPlaying && !owner.eventPlaybackStart) {
+					owner.eventPlaybackStart = true;
+					owner._emit(Video.playbackStartEvent);
+				}
 			},
 			onRepeatModeChanged: function (_repeatMode: number): void {
 				/* required in listener implementation */
