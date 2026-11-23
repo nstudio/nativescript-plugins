@@ -41,6 +41,8 @@ export class Video extends VideoBase {
 	private _didPlayToEndTimeActive: boolean;
 	private _observer: NSObject;
 	private _observerActive: boolean;
+	private _playbackStateObserverActive = false;
+	private eventPlaybackStart = false;
 	private _videoLoaded: boolean;
 	private _playbackTimeObserver: any;
 	private _playbackTimeObserverActive: boolean;
@@ -146,20 +148,24 @@ export class Video extends VideoBase {
 		if (nativeVideoPlayer != null) {
 			let currentItem = this._player.currentItem;
 			this._addStatusObserver(nativeVideoPlayer);
-			this._autoplayCheck();
 			this._backgroundAudioCheck();
 			this._videoFinished = false;
 			if (currentItem !== null) {
 				this._videoLoaded = false;
 				this._videoPlaying = false;
 				this._removeStatusObserver(currentItem);
-				// Need to set to null so the previous video is not shown while its loading
+				if (!this.autoplay) {
+					this._player.pause();
+				}
+				// Clear the old item so it is hidden while the replacement loads.
 				this._player.replaceCurrentItemWithPlayerItem(null);
-				this._player.replaceCurrentItemWithPlayerItem(nativeVideoPlayer);
-			} else {
-				this._player.replaceCurrentItemWithPlayerItem(nativeVideoPlayer);
+			}
+			this.eventPlaybackStart = false;
+			this._player.replaceCurrentItemWithPlayerItem(nativeVideoPlayer);
+			if (currentItem === null) {
 				this._init();
 			}
+			this._autoplayCheck();
 		}
 	}
 
@@ -170,6 +176,8 @@ export class Video extends VideoBase {
 
 	public _setNativePlayerSource(nativePlayerSrc: string) {
 		this._src = nativePlayerSrc;
+		this._removePlaybackStateObserver();
+		this.eventPlaybackStart = false;
 		let url: NSURL = NSURL.URLWithString(this._src);
 		this._player = new AVPlayer(<any>url);
 		this._playerController.player = null;
@@ -192,6 +200,8 @@ export class Video extends VideoBase {
 		if (this.muted === true) {
 			this._player.muted = true;
 		}
+
+		this._addPlaybackStateObserver();
 
 		if (!this._didPlayToEndTimeActive) {
 			this._didPlayToEndTimeObserver = Application.ios.addNotificationObserver(AVPlayerItemDidPlayToEndTimeNotification, this.AVPlayerItemDidPlayToEndTimeNotification.bind(this));
@@ -264,6 +274,8 @@ export class Video extends VideoBase {
 				// Go in 5ms for more seamless looping
 				this._player.seekToTime(CMTimeMake(5, 100));
 				this._player.play();
+			} else {
+				this.eventPlaybackStart = false;
 			}
 		}
 	}
@@ -353,6 +365,7 @@ export class Video extends VideoBase {
 	public destroy() {
 		if (this._player) {
 			this._removeStatusObserver(this._player.currentItem);
+			this._removePlaybackStateObserver();
 		}
 
 		if (this._didPlayToEndTimeActive) {
@@ -371,6 +384,22 @@ export class Video extends VideoBase {
 		}
 		this._playerController = null;
 		this._player = null;
+	}
+
+	private _addPlaybackStateObserver() {
+		if (this._playbackStateObserverActive || !this._player) {
+			return;
+		}
+		this._player.addObserverForKeyPathOptionsContext(this._observer, 'timeControlStatus', 0, null);
+		this._playbackStateObserverActive = true;
+	}
+
+	private _removePlaybackStateObserver() {
+		if (!this._playbackStateObserverActive) {
+			return;
+		}
+		this._playbackStateObserverActive = false;
+		this._player.removeObserverForKeyPath(this._observer, 'timeControlStatus');
 	}
 
 	private _addStatusObserver(currentItem) {
@@ -462,7 +491,10 @@ export class Video extends VideoBase {
 
 	playbackStart() {
 		this._videoPlaying = true;
-		this._emit(VideoBase.playbackStartEvent);
+		if (!this.eventPlaybackStart) {
+			this.eventPlaybackStart = true;
+			this._emit(VideoBase.playbackStartEvent);
+		}
 	}
 }
 
@@ -472,6 +504,11 @@ class PlayerObserverClass extends NSObject {
 		if (path === 'status') {
 			if (this['_owner']._player && this['_owner']._player.currentItem.status === AVPlayerItemStatus.ReadyToPlay && !this['_owner']._videoLoaded) {
 				this['_owner'].playbackReady();
+			}
+		} else if (path === 'timeControlStatus') {
+			const owner = this['_owner'];
+			if (owner._player === obj && owner._player.timeControlStatus === AVPlayerTimeControlStatus.Playing) {
+				owner.playbackStart();
 			}
 		}
 	}
